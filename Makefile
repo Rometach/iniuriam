@@ -20,9 +20,6 @@ terrain.o: src/terrain.c src/terrain.h src/aleatoire.h  src/personnage.h src/obj
 discuter.o: src/discuter.c src/discuter.h src/aleatoire.h  src/personnage.h
 	gcc -c $(OPT) -o bin/aleatoire.o src/aleatoire.c
 
-aleatoire.o: src/aleatoire.c src/aleatoire.h src/personnage.h src/objet.h
-	gcc -c $(OPT) -o bin/aleatoire.o src/aleatoire.c
-
 personnage.o: src/personnage.c src/personnage.h src/objet.h
 	gcc -c $(OPT) -o bin/personnage.o src/personnage.c
 
