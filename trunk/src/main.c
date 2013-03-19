@@ -5,7 +5,7 @@
 #include "personnage.h"
 
 /**
-* \author RODARIE Dimitri, VERSAEVEL Romain, Isabelle
+* \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
 
 int main (int argc, char *argv[])

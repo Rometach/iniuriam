@@ -3,10 +3,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "carriere.h"
+#include "competence.h"
 
 /**
-* \author RODARIE Dimitri, VERSAEVEL Romain, Isabelle
+* \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
 
 typedef struct

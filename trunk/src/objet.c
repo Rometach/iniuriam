@@ -5,7 +5,7 @@
 #include "objet.h"
 
 /**
-* \author RODARIE Dimitri, VERSAEVEL Romain, Isabelle
+* \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
 
 void objInit (Objet *obj, char nom[], char type, char portee, char degats, char protection, char description [], int valeur)

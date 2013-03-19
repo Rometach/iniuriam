@@ -3,14 +3,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include "competence.h"
 
 typedef struct
 {
     char nom [30];
     char race;
     char sexe;
-    Carriere* job;
+    char carriere;
     int argent;
     int experience;
     Competence *liste;
@@ -22,7 +22,7 @@ typedef struct
     char charisme;
     char ptDeVie;
 
-    Stock *inventaire;
+    Stock *inventaire; //structure supplémentaire ?
     int nbObjet;
     int capacite;
 } Personnage;
