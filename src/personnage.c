@@ -6,7 +6,7 @@
 #include "personnage.h"
 
 /**
-* \author RODARIE Dimitri, VERSAEVEL Romain, Isabelle
+* \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
 
 void persoInit (Personnage *perso, char nom[], char race, char sexe, char carriere, int experience)

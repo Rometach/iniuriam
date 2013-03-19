@@ -31,10 +31,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="src/carriere.c">
+		<Unit filename="src/competence.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src/carriere.h" />
+		<Unit filename="src/competence.h" />
 		<Unit filename="src/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
