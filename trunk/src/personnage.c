@@ -9,22 +9,18 @@
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
 
-void persoInit (Personnage *perso, char nom[], char race, char sexe, char carriere, int experience)
+void persoInit (Personnage *perso, char nom[], char race, char sexe, char carriere, int experience,int argent)
 {
-    int i;
 
     assert (strlen(nom)<30);
-    for (i=0; i<strlen (nom); i++)
-    {
-        perso->nom[i]=nom[i];
-    }
+    strcpy(perso->nom,nom);
     perso->race= race;
     perso->sexe= sexe;
     perso->carriere=carriere;
     perso->liste= (Competence*) malloc (sizeof(Competence));
 
     perso->experience= experience;
-
+    perso->argent=argent;
     stockInit(perso->inventaire);
     perso->nbObjet=0;
     perso->capacite=1;
