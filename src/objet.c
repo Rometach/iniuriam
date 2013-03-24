@@ -8,22 +8,42 @@
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
 
-void objInit (Objet *obj, char nom[], char type, char portee, char degats, char protection, char description [], int valeur)
-{
-    int i;
 
-    assert ((strlen (nom)<30)&&(strlen (description)<100));
-    for (i=0;i<strlen (nom);i++)
-        obj->nom [i]= nom [i];
-    obj->type = type;
-    obj->portee = portee;
-    obj->degats = degats;
-    obj->protection = protection;
-    for (i=0; i<strlen (description); i++)
+#define TAILLE_MAX 500
+
+void objInit (Objet *obj, char type)
+{
+    int i=0,j;
+    FILE* fObjet= fopen("../data/Objets.txt", "r");
+    assert ((type>0)&&(type<30));
+    char *ligne = (char*) malloc (TAILLE_MAX*sizeof(char));
+
+    if (fObjet!=NULL)
     {
-        obj->description [i]=description[i];
+        while (i<type+3)
+        {
+            fgets(ligne,TAILLE_MAX,fObjet);
+            i++;
+        }
+        i= strchr (ligne, '/')-ligne;
+        strncpy(obj->nom,ligne,i);
+        obj->nom[i]='\0';
+        obj->type = type;
+        obj->portee=ligne[i+2];
+        obj->degats=ligne[i+4];
+        obj->protection=ligne[i+6];
+        i+=8;
+        j=strchr(ligne+i,'/')-(ligne+i);
+        strncpy(obj->description,ligne+i,j);
+        obj->description[j]='\0';
+        obj->valeur=atoi(ligne+i+j+2);
     }
-    obj->valeur=valeur;
+    else
+    {
+        printf("Impossible d'ouvrir le fichier Objets.txt");
+    }
+    fclose (fObjet);
+    free (ligne);
 }
 
 void stockInit (Stock *obj)
@@ -36,4 +56,12 @@ void stockLibere (Stock *obj)
 {
     free (obj->objet);
     obj->quantite=0;
+}
+
+int mainobjet ()
+{
+    Objet obj;
+    objInit(&obj, 1);
+    printf ("No problem \n");
+    return 0;
 }

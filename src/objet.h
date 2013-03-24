@@ -28,9 +28,9 @@ typedef struct
 
 /**
 * \brief Preconditions : obj n'a pas déjà été initialisé
-* <br /> Postconditions : obj est initialisé avec pour paramètres nom, type portee, degats, protection, description et valeur
+* <br /> Postconditions : obj est initialisé avec les paramètres de son type : nom, portee, degats, protection, description et valeur
 */
-void objInit (Objet *obj, char nom[], char type, char portee, char degats, char protection, char description [], int valeur);
+void objInit (Objet *obj, char type);
 
 /**
 * \brief Preconditions : obj n'a pas déjà été initialisé
