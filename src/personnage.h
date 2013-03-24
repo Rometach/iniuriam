@@ -5,6 +5,10 @@
 #include <stdlib.h>
 #include "competence.h"
 
+/**
+* \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
+*/
+
 typedef struct
 {
     char nom [30];
@@ -33,7 +37,7 @@ typedef struct
 * \brief Preconditions : perso n'a pas déjà été initialisé
 * <br /> Postconditions : perso est initialisé avec pour paramètres nom, race, sexe, carriere, et expérience
 */
-void persoInit (Personnage *perso, char nom[], char race, char sexe, char carriere,int experience);
+void persoInit (Personnage *perso, char nom[], char race, char sexe, char carriere,int experience, int argent);
 
 /**
 * \brief Preconditions : operso est initialisé
