@@ -14,26 +14,29 @@
 
 void ajouterCompetence (Personnage* perso, Competence* comp)
 {
-    int i;
-    while ((i<perso->capacite.nbCompetence)||(perso->capacite.comp[i].action!=comp->action))
+    int i=0;
+    while ((i<perso->capacite.nbCompetence)||(getAction(&perso->capacite.comp[i])!=getAction(&comp)))
     {
         i++;
     }
-    if (perso->capacite.quantite==0);
+    if (i==perso->capacite.nbCompetence)
     {
-        Competence *tampon= perso->capacite.comp;
-
-        perso->capacite.comp= (Competence*) malloc (2*(perso->capacite.nbCompetence)*sizeof(Competence));
-        for (i=0; i<perso->capacite.nbCompetence; i++)
+        if (perso->capacite.quantite==0);
         {
-            perso->capacite.comp [i]=tampon[i];
+            Competence *tampon= perso->capacite.comp;
+
+            perso->capacite.comp= (Competence*) malloc (2*(perso->capacite.nbCompetence)*sizeof(Competence));
+            for (i=0; i<perso->capacite.nbCompetence; i++)
+            {
+                perso->capacite.comp [i]=tampon[i];
+            }
+            free (tampon);
+            perso->capacite.quantite=perso->capacite.nbCompetence;
         }
-        free (tampon);
-        perso->capacite.quantite=perso->capacite.nbCompetence;
+        perso->capacite.quantite--;
+        perso->capacite.comp[perso->capacite.nbCompetence]=*comp;
+        perso->capacite.nbCompetence++;
     }
-    perso->capacite.quantite--;
-    perso->capacite.comp[perso->capacite.nbCompetence]=*comp;
-    perso->capacite.nbCompetence++;
 }
 
 void persoInit (Personnage *perso, char nom[], char race, char sexe, char carriere, int experience,int argent)
@@ -48,7 +51,7 @@ void persoInit (Personnage *perso, char nom[], char race, char sexe, char carrie
     perso->capacite.comp= (Competence*) malloc (sizeof(Competence));
     FILE* fCarr= fopen("../data/Carrieres.txt", "r");
     perso->experience= experience;
-    char *ligne = (char*) malloc (TAILLE_MAX*sizeof(char));
+    char ligne [TAILLE_MAX];
     Competence* tampon=NULL;
     if (fCarr!=NULL)
     {
@@ -65,7 +68,6 @@ void persoInit (Personnage *perso, char nom[], char race, char sexe, char carrie
             ajouterCompetence (perso, tampon);
         }
         free(tampon);
-        free(ligne);
         fclose(fCarr);
     }
     else
@@ -78,14 +80,128 @@ void persoInit (Personnage *perso, char nom[], char race, char sexe, char carrie
     perso->inventaire.capacite=1;
 }
 
+void inventaireLibere (Inventaire* inventaire)
+{
+    free (inventaire->obj);
+    inventaire->nbObjet=0;
+    inventaire->capacite=0;
+}
+
+void CapaciteLibere (Capacite* capacite)
+{
+    free(capacite->comp);
+    capacite->nbCompetence=0;
+    capacite->quantite=0;
+}
+
 void persoLibere (Personnage *perso)
 {
-    free (perso->inventaire.obj);
+    inventaireLibere(&perso->inventaire);
     perso->inventaire.nbObjet=0;
     perso->inventaire.capacite=0;
     free (perso->capacite.comp);
     perso->capacite.nbCompetence=0;
     perso->capacite.quantite=0;
+}
+
+char* getPersoNom(Personnage *perso)
+{
+    return perso->nom;
+}
+
+char getPersoRace(Personnage *perso)
+{
+    return perso->race;
+}
+
+char getPersoSexe(Personnage *perso)
+{
+    return perso->sexe;
+}
+
+char getPersoCarriere(Personnage *perso)
+{
+    return perso->carriere;
+}
+
+void getCarriereNom(char carriere, char* s)
+{
+    int i;
+    FILE* fCarr= fopen("../data/Carrieres.txt", "r");
+    char ligne [TAILLE_MAX];
+    for (i=0;i<carriere+3;i++)
+    {
+        fgets(ligne,TAILLE_MAX,fCarr);
+    }
+    i= strchr (ligne, '/')-ligne;
+    strncpy(s,ligne,i);
+    fclose(fCarr);
+}
+
+int getPersoArgent(Personnage *perso)
+{
+    return perso->argent;
+}
+
+int getPersoExperience(Personnage *perso)
+{
+    return perso->experience;
+}
+
+char getPersoAttaque(Personnage *perso)
+{
+    return perso->attaque;
+}
+
+char getPersoDefense(Personnage *perso)
+{
+    return perso->defense;
+}
+
+char getPersoIntelligence(Personnage *perso)
+{
+    return perso->intelligence;
+}
+
+char getPersoAgilite(Personnage *perso)
+{
+    return perso->agilite;
+}
+
+char getPersoCharisme(Personnage *perso)
+{
+    return perso->charisme;
+}
+
+char getPersoPtDeVie(Personnage *perso)
+{
+    return perso->charisme;
+}
+
+void getPersoInventaire(Personnage *perso, Inventaire* s)
+{
+    int i;
+    free (s->obj);
+    s->nbObjet=perso->inventaire.nbObjet;
+    s->capacite=perso->inventaire.capacite;
+    s->obj=(Stock*)malloc ((s->nbObjet) *sizeof(Stock));
+    for (i=0; i<s->nbObjet;i++)
+    {
+        s->obj[i]=perso->inventaire.obj [i];
+    }
+}
+
+void getPersoCapacite(Personnage *perso, Capacite* s)
+{
+    int i;
+    free (s->comp);
+    s->nbCompetence= perso->capacite.nbCompetence;
+    s->quantite= perso->capacite.quantite;
+    s->comp=(Competence*)malloc (sizeof(Competence));
+    for (i=0;i<s->nbCompetence;i++)
+    {
+        s->comp[i]=perso->capacite.comp[i];
+    }
 }
 
 void ajouterInventaire (Personnage *perso, Objet *obj)
@@ -126,4 +242,10 @@ void utiliser (Personnage *perso, Objet *obj)
     }
     perso->inventaire.obj[i].quantite--;
     //effet en fonction du type ...
+}
+
+int mainPerso ()
+{
+    //A tester...
+    return 0;
 }
