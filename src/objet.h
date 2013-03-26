@@ -91,12 +91,12 @@ int getObjetValeur(Objet *obj);
 * \brief Preconditions : obj est initialisé, s est une chaîne d'au moins 30 caractères
 * <br /> Postconditions : copie le nom d'obj dans s
 */
-void getObjetNom(char **s, Objet *obj);
+char* getObjetNom(Objet *obj);
 
 /**
 * \brief Preconditions : obj est initialisé, s est une chaîne d'au moins 100 caractères
 * <br /> Postconditions : copie la description d'obj dans s
 */
-void getObjetDescription(char **s, Objet *obj);
+char* getObjetDescription(Objet *obj);
 
 #endif

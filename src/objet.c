@@ -119,31 +119,19 @@ int getObjetValeur(Objet *obj)
 }
 
 
-void getObjetNom(char **s, Objet *obj)
+char* getObjetNom(Objet *obj)
 {
-	int i;
-
-	assert(strlen(*s)>=30);
-	for(i=0;i<30;i++)
-	{
-		*s[i]=obj->nom[i];
-	}
+	return obj->nom;
 }
 
 
-void getObjetDescription(char **s, Objet *obj)
+char* getObjetDescription(Objet *obj)
 {
-	int i;
-
-	assert(strlen(*s)>=100);
-	for(i=0;i<100;i++)
-	{
-		*s[i]=obj->description[i];
-	}
+	return obj->description;
 }
 
 
-int main ()
+int mainObjet ()
 {
     Objet obj;
     objInit(&obj, 1);
