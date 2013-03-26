@@ -13,40 +13,45 @@
 
 void objInit (Objet *obj, char type)
 {
-    int i=0,j;
+    int i,j;
     FILE* fObjet= fopen("../data/Objets.txt", "r");
     assert ((type>0)&&(type<30));
-    char *ligne = (char*) malloc (TAILLE_MAX*sizeof(char));
+    char ligne[TAILLE_MAX];
     char tampon [2];
 
     if (fObjet!=NULL)
     {
-        while (i<type+3)
+        for(i=0;i<type+3;i++)
         {
             fgets(ligne,TAILLE_MAX,fObjet);
-            i++;
         }
         i= strchr (ligne, '/')-ligne;
+
         strncpy(obj->nom,ligne,i);
         obj->nom[i]='\0';
         printf ("%s\n",obj->nom);
+
         obj->type = type;
         printf ("%d\n", type);
 
         strncpy(tampon,ligne+i+2,2);
         obj->portee=(char)atoi(tampon);
         printf("%d\n",obj->portee);
+
         strncpy(tampon,ligne+i+6,2);
         obj->degats=(char)atoi(tampon);
         printf("%d\n",obj->degats);
+
         strncpy(tampon,ligne+i+9,2);
         obj->protection=(char)atoi(tampon);
         printf ("%d\n",obj->protection);
         i+=12;
+
         j=strchr(ligne+i,'/')-(ligne+i);
         strncpy(obj->description,ligne+i,j);
         obj->description[j]='\0';
         printf ("%s\n", obj->description);
+
         obj->valeur=atoi(ligne+i+j+2);
         printf ("%d\n",obj->valeur);
     }
@@ -55,20 +60,88 @@ void objInit (Objet *obj, char type)
         printf("Impossible d'ouvrir le fichier Objets.txt");
     }
     fclose (fObjet);
-    free (ligne);
 }
 
-void stockInit (Stock *obj)
+
+void stockInit (Stock *st)
 {
-    obj->objet= (Objet*) malloc (sizeof (Objet));
-    obj->quantite=0;
+    st->objet= (Objet*) malloc (sizeof (Objet));
+    st->quantite=0;
 }
 
-void stockLibere (Stock *obj)
+
+void stockLibere (Stock *st)
 {
-    free (obj->objet);
-    obj->quantite=0;
+    free (st->objet);
+    st->quantite=0;
 }
+
+
+void incrementerStock(Stock *st)
+{
+	st->quantite++;
+}
+
+
+void decrementerStock(Stock *st)
+{
+	st->quantite--;
+}
+
+
+char getObjetType(Objet *obj)
+{
+	return obj->type;
+}
+
+
+char getObjetPortee(Objet *obj)
+{
+	return obj->portee;
+}
+
+
+char getObjetDegats(Objet *obj)
+{
+	return obj->degats;
+}
+
+
+char getObjetProtection(Objet *obj)
+{
+	return obj->protection;
+}
+
+
+int getObjetValeur(Objet *obj)
+{
+	return obj->valeur;
+}
+
+
+void getObjetNom(char **s, Objet *obj)
+{
+	int i;
+
+	assert(strlen(*s)>=30);
+	for(i=0;i<30;i++)
+	{
+		*s[i]=obj->nom[i];
+	}
+}
+
+
+void getObjetDescription(char **s, Objet *obj)
+{
+	int i;
+
+	assert(strlen(*s)>=100);
+	for(i=0;i<100;i++)
+	{
+		*s[i]=obj->description[i];
+	}
+}
+
 
 int main ()
 {

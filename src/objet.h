@@ -33,17 +33,70 @@ typedef struct
 void objInit (Objet *obj, char type);
 
 /**
-* \brief Preconditions : obj n'a pas déjà été initialisé
-* <br /> Postconditions : obj est initialisé avec une quantite nulle
+* \brief Preconditions : st n'a pas déjà été initialisé
+* <br /> Postconditions : st est initialisé avec une quantite nulle
 */
-void stockInit (Stock *obj);
+void stockInit (Stock *st);
+
+/**
+* \brief Preconditions : st est initialisé
+* <br /> Postconditions : st est libéré
+*/
+void stockLibere (Stock *st);
+
+/**
+* \brief Preconditions : st est initialisé
+* <br /> Postconditions : la quantité d'objets dans st est augmentée de 1
+*/
+void incrementerStock(Stock *st);
+
+/**
+* \brief Preconditions : st est initialisé
+* <br /> Postconditions : la quantité d'objets dans st est diminuée de 1
+*/
+void decrementerStock(Stock *st);
+
 
 /**
 * \brief Preconditions : obj est initialisé
-* <br /> Postconditions : obj est libéré
+* <br /> Postconditions : retourne le type d'obj
 */
-void stockLibere (Stock *obj);
+char getObjetType(Objet *obj);
 
+/**
+* \brief Preconditions : obj est initialisé
+* <br /> Postconditions : retourne la portée d'obj
+*/
+char getObjetPortee(Objet *obj);
 
+/**
+* \brief Preconditions : obj est initialisé
+* <br /> Postconditions : retourne la valeur de dégâts d'obj
+*/
+char getObjetDegats(Objet *obj);
+
+/**
+* \brief Preconditions : obj est initialisé
+* <br /> Postconditions : retourne la valeur de protection d'obj
+*/
+char getObjetProtection(Objet *obj);
+
+/**
+* \brief Preconditions : obj est initialisé
+* <br /> Postconditions : retourne la valeur (prix) d'obj
+*/
+int getObjetValeur(Objet *obj);
+
+/**
+* \brief Preconditions : obj est initialisé, s est une chaîne d'au moins 30 caractères
+* <br /> Postconditions : copie le nom d'obj dans s
+*/
+void getObjetNom(char **s, Objet *obj);
+
+/**
+* \brief Preconditions : obj est initialisé, s est une chaîne d'au moins 100 caractères
+* <br /> Postconditions : copie la description d'obj dans s
+*/
+void getObjetDescription(char **s, Objet *obj);
 
 #endif
