@@ -1,4 +1,41 @@
 Ce fichier contient l'ensemble des objets utilisables dans Iniuriam
 
-Nom            	portee 	degats 	protection description							valeur
-Sabre laser/	01	05	01	Qui a dit que seuls les maîtres Jedi maniaient le sabre ?/	100
+				Nom				P 	A 	D 	description													valeur
+				Fleuret laser/	01	05	01	Qui a dit que seuls les maîtres Jedi maniaient le sabre ?/	100	
+Patte de lapin transgénique/	01	05	01	Au XXIIème siècle, était utilisée comme porte-bonheur./	100
+						Bâton/	01	05	01	Malgré des siècles de civilisation, ça fait toujours mal./	100
+			Taser Hortefeux/	01	05	01	Conçu pour les délinquants, fonctionne aussi bien sur les aliens./	100
+				Tronçonneuse/	01	05	01	Anecdote : c'est l'outil qui fut utilisé pour le tournage de Massacre à la tronçonneuse, de Tobe Hooper./	100
+	Couteau-suisse à plasma/	01	05	01	Même le tire-bouchon est dangereux./	100
+				Robot Mixer/	01	05	01	Arme symbolique de la révolution féminine de 3151./	100	
+			Fouet polyuréthane/	01	05	01	Usages multiples./	100	
+		Shuriken à induction/	01	05	01	Permet de toaster son petit-déjeuner à distance./	100
+			Blaster de poche/	01	05	01	Objet au design presque aussi culte que l'Opinel en son temps./	100
+		Blaster de compétition/	01	05	01	Plus gros que le blaster de poche, il pique aussi plus./	100
+				Arbalète laser/	01	05	01	La parenté avec l'arme qui tua 6.000 français à Azincourt est assez lointaine./	100
+			Arquebuse laser/	01	05	01	Attention : ne pas mettre les mains devant l'ouverture./	100
+				Bazooka laser/	01	05	01	Attention : déconseillé aux enfants de moins de trois ans./	100
+	Bouclier en bois d'arbre/	01	05	01	Arbre : "Végétal dont la tige, appelée fût ou tronc, ne se garnit de branches et de feuilles qu’à une certaine hauteur."/	100
+	Bouclier électromagnétique/	01	05	01	Dévie les coups ennemis grâce aux lois de Maxwell. /	100
+			Cuirasse anti-WIFI/	01	05	01	U*i**s.z *a *u*r..se p*ur av*.r *o*ns m*l q*a.. o* v.*s frap*e./	100
+			Bâton de dynamite/	01	05	01	1) Allumez. 2) Boum./	100
+			C0ckt41l M0l0t0v/	01	05	01	Du nom d'un hacker russe célèbre./	100
+Ration standard lyophilisée/	01	05	01	Qui a dit que seuls les maîtres Jedi maniaient le sabre ?/	100
+		Ration standard cuite/	01	05	01	Qui a dit que seuls les maîtres Jedi maniaient le sabre ?/	100
+	Thermos de café équitable/	01	05	01	Qui a dit que seuls les maîtres Jedi maniaient le sabre ?/	100
+					Briquet/	01	05	01	Qui a dit que seuls les maîtres Jedi maniaient le sabre ?/	100
+				Clef à molette/	01	05	01	Qui a dit que seuls les maîtres Jedi maniaient le sabre ?/	100
+		Décapsuleur spatial/	01	05	01	Qui a dit que seuls les maîtres Jedi maniaient le sabre ?/	100
+		Gants de protection/	01	05	01	Qui a dit que seuls les maîtres Jedi maniaient le sabre ?/	100
+						Savon/	01	05	01	Qui a dit que seuls les maîtres Jedi maniaient le sabre ?/	100
+						Corde/	01	05	01	Qui a dit que seuls les maîtres Jedi maniaient le sabre ?/	100
+					Extincteur/	01	05	01	Qui a dit que seuls les maîtres Jedi maniaient le sabre ?/	100
+				Ruban adhésif/	01	05	01	Qui a dit que seuls les maîtres Jedi maniaient le sabre ?/	100
+					Médikit/	01	05	01	Qui a dit que seuls les maîtres Jedi maniaient le sabre ?/	100
+						Clef/	01	05	01	Qui a dit que seuls les maîtres Jedi maniaient le sabre ?/	100
+				Pied de biche/	01	05	01	Qui a dit que seuls les maîtres Jedi maniaient le sabre ?/	100
+
+
+
+
+
