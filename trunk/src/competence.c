@@ -13,7 +13,7 @@
 void compInit (Competence *comp, char type, int experience)
 {
     int i=0;
-    FILE *fComp = fopen ("../data/Compétences.txt", "r");
+    FILE *fComp = fopen ("../data/Competences.txt", "r");
     assert ((type>0)&&(type<30));
     char *ligne = (char*) malloc (TAILLE_MAX*sizeof(char));
 
@@ -34,6 +34,10 @@ void compInit (Competence *comp, char type, int experience)
         comp->bonusint=(char)((experience/10)*(int)ligne[i+6]);
         comp->bonusagi=(char)((experience/10)*(int)ligne[i+8]);
         comp->bonuschar=(char)((experience/10)*(int)ligne[i+10]);
+    }
+    else
+    {
+        printf ("Impossible d'ouvrir le fichier Competences.txt");
     }
     fclose (fComp);
     free (ligne);

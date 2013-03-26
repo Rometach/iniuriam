@@ -1,5 +1,4 @@
 Ce fichier contient l'ensemble des objets utilisables dans Iniuriam
 
 Nom            	portee 	degats 	protection description							valeur
-Sabre laser/	1	5	1	Qui a dit que seuls les maîtres Jedi maniaient le sabre ?/	100
-
+Sabre laser/	01	05	01	Qui a dit que seuls les maîtres Jedi maniaient le sabre ?/	100
