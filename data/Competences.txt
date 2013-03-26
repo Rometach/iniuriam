@@ -1,0 +1,4 @@
+Ce fichier contient l'ensemble des compétences accessibles dans Iniuriam
+
+Nom		Att	Def	Int	Agi	Char
+Marchander/	0	0	1	0	1

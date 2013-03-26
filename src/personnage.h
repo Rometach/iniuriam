@@ -11,13 +11,28 @@
 
 typedef struct
 {
+    Stock* obj;
+    int nbObjet;
+    int capacite;
+} Inventaire;
+
+typedef struct
+{
+    Competence *comp;
+    int nbCompetence;
+    int quantite;
+} Capacite;
+
+typedef struct
+{
     char nom [30];
     char race;
     char sexe;
     char carriere;
     int argent;
     int experience;
-    Competence *liste;
+
+    Capacite capacite;
 
     char attaque;
     char defense;
@@ -26,11 +41,10 @@ typedef struct
     char charisme;
     char ptDeVie;
 
-    Stock *inventaire; //structure supplémentaire ?
-    int nbObjet;
-    int capacite;
+    Inventaire inventaire;
 } Personnage;
 
+void ajouterCompetence (Personnage* perso, Competence* comp);
 
 
 /**
