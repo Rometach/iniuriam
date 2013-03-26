@@ -8,7 +8,7 @@
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
 
-int main (int argc, char *argv[])
+int mainmain (int argc, char *argv[])
 {
     return 0;
 }
