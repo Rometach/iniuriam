@@ -27,6 +27,53 @@ typedef struct
 */
 void compInit (Competence *comp, char type, int experience);
 
+/**
+* \brief Preconditions : comp est initialisé
+* <br /> Postconditions : retourne l'action correspondant à la compétence comp
+*/
+char *getAction (Competence *comp);
+
+/**
+* \brief Preconditions : comp est initialisé
+* <br /> Postconditions : retourne le type de la compétence comp
+*/
+char getType(const Competence *comp);
+
+/**
+* \brief Preconditions : comp est initialisé
+* <br /> Postconditions : retourne l'experience liée à la compétence comp
+*/
+int getExperience(const Competence *comp);
+
+/**
+* \brief Preconditions : comp est initialisé
+* <br /> Postconditions : retourne le bonus d'attaque de la compétence comp
+*/
+char getBonusatt(const Competence *comp);
+
+/**
+* \brief Preconditions : comp est initialisé
+* <br /> Postconditions : retourne le bonus de defense de la compétence comp
+*/
+char getBonusdef(const Competence *comp);
+
+/**
+* \brief Preconditions : comp est initialisé
+* <br /> Postconditions : retourne le bonus d'intelligence de la compétence comp
+*/
+char getBonusint(const Competence *comp);
+
+/**
+* \brief Preconditions : comp est initialisé
+* <br /> Postconditions : retourne le bonus d'agilité de la compétence comp
+*/
+char getBonusagi(const Competence *comp);
+
+/**
+* \brief Preconditions : comp est initialisé
+* <br /> Postconditions : retourne le bonus de charisme de la compétence comp
+*/
+char getBonuschar(const Competence *comp);
 
 /**
 * \brief Preconditions : comp est initialisé

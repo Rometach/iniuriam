@@ -14,8 +14,9 @@
 
 void ajouterCompetence (Personnage* perso, Competence* comp)
 {
-    int i=0;
-    while ((i<perso->capacite.nbCompetence)||(getAction(&perso->capacite.comp[i])!=getAction(&comp)))
+    int i;
+    i=0;
+    while ((i<perso->capacite.nbCompetence)||(getAction(perso->capacite.comp+i)!=getAction(comp)))
     {
         i++;
     }
@@ -41,7 +42,7 @@ void ajouterCompetence (Personnage* perso, Competence* comp)
 
 void persoInit (Personnage *perso, char nom[], char race, char sexe, char carriere, int experience,int argent)
 {
-    int i=0;
+    int i=0, j;
     assert (strlen(nom)<30);
     strcpy(perso->nom,nom);
     perso->race= race;
@@ -49,7 +50,8 @@ void persoInit (Personnage *perso, char nom[], char race, char sexe, char carrie
 
     perso->carriere=carriere;
     perso->capacite.comp= (Competence*) malloc (sizeof(Competence));
-    FILE* fCarr= fopen("../data/Carrieres.txt", "r");
+    FILE* fCarr;
+    assert(fCarr= fopen("data/Carrieres.txt", "r"));
     perso->experience= experience;
     char ligne [TAILLE_MAX];
     Competence* tampon=NULL;
@@ -60,11 +62,12 @@ void persoInit (Personnage *perso, char nom[], char race, char sexe, char carrie
             fgets(ligne,TAILLE_MAX,fCarr);
             i++;
         }
-        i= strchr (ligne, '/')-ligne;
-        while (ligne[i+1]!='/')
+        i= (int)(strchr (ligne, '/')-ligne);
+        j= (int)(strchr (ligne,'!')-ligne);
+        while (i+1<j)
         {
             i+=2;
-            compInit (tampon,ligne[i], experience/10);
+            compInit (tampon,ligne[i]-'0', experience/10);
             ajouterCompetence (perso, tampon);
         }
         free(tampon);
@@ -127,7 +130,7 @@ char getPersoCarriere(Personnage *perso)
 void getCarriereNom(char carriere, char* s)
 {
     int i;
-    FILE* fCarr= fopen("../data/Carrieres.txt", "r");
+    FILE* fCarr= fopen("/data/Carrieres.txt", "r");
     char ligne [TAILLE_MAX];
     for (i=0;i<carriere+3;i++)
     {
@@ -241,11 +244,13 @@ void utiliser (Personnage *perso, Objet *obj)
         i++;
     }
     perso->inventaire.obj[i].quantite--;
-    //effet en fonction du type ...
+    /*effet en fonction du type ...*/
 }
 
-int mainPerso ()
+int main()
 {
-    //A tester...
+    Personnage perso;
+    persoInit (&perso, "Toromis", 1, 1, 1, 0, 100);
+    persoLibere(&perso);
     return 0;
 }

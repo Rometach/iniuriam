@@ -16,7 +16,6 @@ void compInit (Competence * comp, char type, int experience)
     int i;
     FILE *fComp;
     assert(fComp = fopen ("data/Competences.txt", "r"));
-
     assert ((type>0)&&(type<30));
     char ligne[TAILLE_MAX];
     if (fComp!=NULL)
@@ -35,6 +34,7 @@ void compInit (Competence * comp, char type, int experience)
         comp->bonusint=(char)((experience/10)*(ligne[i+6]-'0'));
         comp->bonusagi=(char)((experience/10)*(ligne[i+8]-'0'));
         comp->bonuschar=(char)((experience/10)*(ligne[i+10]-'0'));
+        printf("OK");
 
     }
     else
@@ -90,7 +90,7 @@ void compExp (Competence *comp, int experience)
     comp->experience+=experience;
 }
 
-int main()
+int mainComp()
 {
     Competence comp1;
     compInit(&comp1, 1, 20);
