@@ -40,22 +40,27 @@ void stockInit (Stock *st);
 
 /**
 * \brief Preconditions : st est initialisé
-* <br /> Postconditions : st est libéré
+* <br /> Postconditions : la quantité d'objets dans st est augmentée de n
 */
-void stockLibere (Stock *st);
+void incrementerStock(Stock *st, int n);
 
 /**
 * \brief Preconditions : st est initialisé
-* <br /> Postconditions : la quantité d'objets dans st est augmentée de 1
+* <br /> Postconditions : la quantité d'objets dans st est diminuée de n
 */
-void incrementerStock(Stock *st);
+void decrementerStock(Stock *st, int n);
 
 /**
 * \brief Preconditions : st est initialisé
-* <br /> Postconditions : la quantité d'objets dans st est diminuée de 1
+* <br /> Postconditions : retourne l'adresse de l'objet enregistré dans st
 */
-void decrementerStock(Stock *st);
+Objet* getStockObjet(Stock *st);
 
+/**
+* \brief Preconditions : stock1 et stock2 sont initialisés et font référence au même objet
+* <br /> Postconditions : les deux Stocks sont fusionnés dans stock1 ; stock2 est libéré
+*/
+void fusionStocks(Stock* stock1, Stock* stock2);
 
 /**
 * \brief Preconditions : obj est initialisé
@@ -97,6 +102,6 @@ char* getObjetNom(Objet *obj);
 * \brief Preconditions : obj est initialisé, s est une chaîne d'au moins 100 caractères
 * <br /> Postconditions : copie la description d'obj dans s
 */
-char* getObjetDescription(Objet *obj);
+void getObjetDescription(char* s, Objet *obj);
 
 #endif
