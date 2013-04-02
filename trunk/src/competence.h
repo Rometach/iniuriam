@@ -81,4 +81,54 @@ char getBonuschar(const Competence *comp);
 */
 void compExp (Competence *comp, int experience);
 
+
+/**
+* \brief Preconditions : comp est initialisé
+* <br /> Postconditions : Donne le nom de la compétence en valeur de retour
+*/
+char *getAction (Competence *comp);
+
+/**
+* \brief Preconditions : comp est initialisé
+* <br /> Postconditions : Donne le nom de la compétence en valeur de retour
+*/
+char getType(const Competence *comp);
+
+/**
+* \brief Preconditions : comp est initialisé
+* <br /> Postconditions : Donne l'expérience de la compétence en valeur de retour
+*/
+int getExperience(const Competence *comp);
+
+/**
+* \brief Preconditions : comp est initialisé
+* <br /> Postconditions : Donne le bonus d'attaque de la compétence en valeur de retour
+*/
+char getBonusatt(const Competence *comp);
+
+/**
+* \brief Preconditions : comp est initialisé
+* <br /> Postconditions : Donne le bonus de défense de la compétence en valeur de retour
+*/
+char getBonusdef(const Competence *comp);
+
+/**
+* \brief Preconditions : comp est initialisé
+* <br /> Postconditions : Donne le bonus d'intelligence de la compétence en valeur de retour
+*/
+char getBonusint(const Competence *comp);
+
+/**
+* \brief Preconditions : comp est initialisé
+* <br /> Postconditions : Donne le bonus d'agilité de la compétence en valeur de retour
+*/
+char getBonusagi(const Competence *comp);
+
+/**
+* \brief Preconditions : comp est initialisé
+* <br /> Postconditions : Donne le bonus de charisme de la compétence en valeur de retour
+*/
+char getBonuschar(const Competence *comp);
+
+
 #endif
