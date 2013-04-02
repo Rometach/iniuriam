@@ -57,7 +57,7 @@ void objInit (Objet *obj, char type)
     }
     else
     {
-        printf("Impossible d'ouvrir le fichier Objets.txt");
+        printf("Impossible d'ouvrir le fichier Objets.txt\n");
     }
     fclose (fObjet);
 }

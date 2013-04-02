@@ -3,25 +3,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "competence.h"
+#include "inventaire.h"
+#include "capacite.h"
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
-
-typedef struct
-{
-    Stock* obj;
-    int nbObjet;
-    int capacite;
-} Inventaire;
-
-typedef struct
-{
-    Competence *comp;
-    int nbCompetence;
-    int quantite;
-} Capacite;
 
 typedef struct
 {
@@ -44,7 +31,7 @@ typedef struct
     Inventaire inventaire;
 } Personnage;
 
-void ajouterCompetence (Personnage* perso, Competence* comp);
+void ajouterCompetencePersonnage (Personnage* perso, Competence* comp);
 
 
 /**
@@ -52,18 +39,6 @@ void ajouterCompetence (Personnage* perso, Competence* comp);
 * <br /> Postconditions : perso est initialisé avec pour paramètres nom, race, sexe, carriere, et expérience
 */
 void persoInit (Personnage *perso, char nom[], char race, char sexe, char carriere,int experience, int argent);
-
-/**
-* \brief Preconditions : inventaire est initialisé
-* <br /> Postconditions : inventaire est libéré
-*/
-void inventaireLibere (Inventaire* inventaire);
-
-/**
-* \brief Preconditions : capacite est initialisé
-* <br /> Postconditions : capacite est libéré
-*/
-void CapaciteLibere (Capacite* capacite);
 
 /**
 * \brief Preconditions : perso est initialisé
@@ -75,7 +50,7 @@ void persoLibere (Personnage *perso);
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : retourne le nom de perso
 */
-char* getPersoNom(Personnage *perso);
+void getPersoNom(char* maChaine, Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé
