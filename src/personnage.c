@@ -11,8 +11,6 @@
 */
 
 #define TAILLE_MAX 500
-#define TAILLE_INVENTAIRE 5
-
 
 
 
@@ -21,7 +19,7 @@ void ajouterCompetencePersonnage (Personnage* perso, Competence* comp)
     ajouterCompetenceCapacite(&(perso->capacite), comp);
 }
 
-void persoInit (Personnage *perso, char nom[], char race, char sexe, char carriere, int experience,int argent)
+void persoInit (Personnage *perso, char nom[], char race, char sexe, char faction, char carriere, int experience,int argent)
 {
     int i=0, j;
     FILE* fCarr;
@@ -32,6 +30,7 @@ void persoInit (Personnage *perso, char nom[], char race, char sexe, char carrie
     strcpy(perso->nom,nom);
     perso->race= race;
     perso->sexe= sexe;
+    perso->faction= faction;
     perso->carriere=carriere;
     perso->argent=argent;
     perso->experience= experience;
@@ -61,7 +60,7 @@ void persoInit (Personnage *perso, char nom[], char race, char sexe, char carrie
         printf ("Impossible d'ouvrir le fichier Carrieres.txt");
     }
 
-    inventaireInit(&(perso->inventaire),TAILLE_INVENTAIRE);
+    inventaireInit(&(perso->inventaire));
 }
 
 
@@ -88,6 +87,26 @@ char getPersoRace(Personnage *perso)
 char getPersoSexe(Personnage *perso)
 {
     return perso->sexe;
+}
+
+char getPersoFaction(Personnage *perso)
+{
+    return perso->faction;
+}
+
+void getPersoFactionNom(char* chaine, Personnage *perso)
+{
+    switch(perso->faction)
+    {
+        case 0 :
+            strcpy(chaine,"Sistéen");
+        case 1 :
+            strcpy(chaine,"Heredian");
+        case 2 :
+            strcpy(chaine,"Marchand");
+        default :
+            strcpy(chaine,"Non défini");
+    }
 }
 
 char getPersoCarriere(Personnage *perso)
@@ -158,15 +177,7 @@ char getPersoPtDeVie(Personnage *perso)
 
 void getPersoInventaire(Personnage *perso, Inventaire* inv)
 {
-    int i;
-    free (inv->st);
-    inv->nbObjet=perso->inventaire.nbObjet;
-    inv->capacite=perso->inventaire.capacite;
-    inv->st=(Stock*)malloc ((inv->nbObjet) *sizeof(Stock));
-    for (i=0; i<inv->nbObjet;i++)
-    {
-        inv->st[i]=perso->inventaire.st [i];
-    }
+    copieInventaire(inv,&perso->inventaire);
 }
 
 void getPersoCapacite(Personnage *perso, Capacite* s)
@@ -181,6 +192,13 @@ void getPersoCapacite(Personnage *perso, Capacite* s)
         s->comp[i]=perso->capacite.comp[i];
     }
 }
+
+
+void setPersoArgent(Personnage *perso, int somme)
+{
+    perso->argent=somme;
+}
+
 
 void ajouterInventaire (Personnage *perso, Objet *obj)
 {
@@ -211,6 +229,7 @@ void ajouterInventaire (Personnage *perso, Objet *obj)
     perso->inventaire.nbObjet++;
 }
 
+
 void utiliser (Personnage *perso, Objet *obj)
 {
     int i;
@@ -222,12 +241,15 @@ void utiliser (Personnage *perso, Objet *obj)
     /*effet en fonction du type ...*/
 }
 
+
+
+
 int main()
 {
     char tab[100];
     char tab2[100];
     Personnage perso;
-    persoInit (&perso, "Toromis", 1, 1, 1, 0, 100);
+    persoInit (&perso, "Toromis", 1, 1, 1, 1, 0, 100);
     getPersoNom(tab, &perso);
     printf("\n%s\n",tab);
     printf("\n%d\n",getPersoRace(&perso));

@@ -17,16 +17,28 @@ typedef struct
 } Inventaire;
 
 /**
-* \brief Preconditions : inventaire n'est pas initialisé avec la capacité capa
+* \brief Preconditions : inventaire n'est pas initialisé
 * <br /> Postconditions : inventaire est initialisé
 */
-void inventaireInit (Inventaire* inventaire, int capa);
+void inventaireInit (Inventaire* inventaire);
 
 /**
 * \brief Preconditions : inventaire est initialisé
 * <br /> Postconditions : inventaire est libéré
 */
 void inventaireLibere (Inventaire* inventaire);
+
+/**
+* \brief Preconditions : inventaire est initialisé
+* <br /> Postconditions : st est ajouté dans inventaire
+*/
+void ajouterObjetInventaire (Inventaire* inventaire, Stock* st);
+
+/**
+* \brief Preconditions : inventaire2 est initialisé mais pas inventaire1
+* <br /> Postconditions : inventaire1 est initialisé ; inventaire2 est recopié dans inventaire1
+*/
+void copieInventaire (Inventaire* inventaire1, Inventaire* inventaire2);
 
 
 #endif

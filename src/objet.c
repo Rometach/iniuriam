@@ -65,27 +65,33 @@ void objInit (Objet *obj, char type)
 
 void stockInit (Stock *st)
 {
-    st->objet= (Objet*) malloc (sizeof (Objet));
+    st->objet= NULL;
     st->quantite=0;
 }
 
 
-void stockLibere (Stock *st)
+void incrementerStock(Stock *st, int n)
 {
-    free (st->objet);
-    st->quantite=0;
+	st->quantite+=n;
 }
 
 
-void incrementerStock(Stock *st)
+void decrementerStock(Stock *st, int n)
 {
-	st->quantite++;
+	st->quantite-=n;
 }
 
 
-void decrementerStock(Stock *st)
+Objet* getStockObjet(Stock *st)
 {
-	st->quantite--;
+    return st->objet;
+}
+
+
+void fusionStocks(Stock* stock1, Stock* stock2)
+{
+    assert((stock1->objet)==(stock2->objet));
+    stock1->quantite+=stock2->quantite;
 }
 
 
@@ -125,9 +131,9 @@ char* getObjetNom(Objet *obj)
 }
 
 
-char* getObjetDescription(Objet *obj)
+void getObjetDescription(char* s, Objet *obj)
 {
-	return obj->description;
+	strcpy(s,obj->description);
 }
 
 

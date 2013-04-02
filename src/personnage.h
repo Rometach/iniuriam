@@ -15,6 +15,7 @@ typedef struct
     char nom [30];
     char race;
     char sexe;
+    char faction;
     char carriere;
     int argent;
     int experience;
@@ -38,7 +39,7 @@ void ajouterCompetencePersonnage (Personnage* perso, Competence* comp);
 * \brief Preconditions : perso n'a pas déjà été initialisé
 * <br /> Postconditions : perso est initialisé avec pour paramètres nom, race, sexe, carriere, et expérience
 */
-void persoInit (Personnage *perso, char nom[], char race, char sexe, char carriere,int experience, int argent);
+void persoInit (Personnage *perso, char nom[], char race, char sexe, char faction, char carriere,int experience, int argent);
 
 /**
 * \brief Preconditions : perso est initialisé
@@ -57,6 +58,18 @@ void getPersoNom(char* maChaine, Personnage *perso);
 * <br /> Postconditions : retourne la race du perso
 */
 char getPersoRace(Personnage *perso);
+
+/**
+* \brief Preconditions : perso est initialisé
+* <br /> Postconditions : retourne la faction du perso
+*/
+char getPersoFaction(Personnage *perso);
+
+/**
+* \brief Preconditions : perso est initialisé
+* <br /> Postconditions : copie le nom de la faction de perso dans chaine
+*/
+void getPersoFactionNom(char* chaine, Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé
@@ -125,16 +138,22 @@ char getPersoCharisme(Personnage *perso);
 char getPersoPtDeVie(Personnage *perso);
 
 /**
-* \brief Preconditions : perso et s sont initialisés
+* \brief Preconditions : perso est initialisé mais pas inv
 * <br /> Postconditions : retourne l'inventaire du perso dans s
 */
-void getPersoInventaire(Personnage *perso, Inventaire* s);
+void getPersoInventaire(Personnage *perso, Inventaire* inv);
 
 /**
 * \brief Preconditions : perso et s sont initialisés
 * <br /> Postconditions : retourne l'ensemble des capacite du perso dans s
 */
 void getPersoCapacite(Personnage *perso, Capacite* s);
+
+/**
+* \brief Preconditions : perso est initialisé
+* <br /> Postconditions : fixe à somme l'argent de perso
+*/
+void setPersoArgent(Personnage *perso, int somme);
 
 /**
 * \brief Preconditions : perso est initialisé
