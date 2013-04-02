@@ -2,59 +2,43 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
-#include "objet.h"
-#include "competence.h"
 #include "personnage.h"
+#include "inventaire.h"
+#include "capacite.h"
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
 
 #define TAILLE_MAX 500
+#define TAILLE_INVENTAIRE 5
 
-void ajouterCompetence (Personnage* perso, Competence* comp)
+
+
+
+void ajouterCompetencePersonnage (Personnage* perso, Competence* comp)
 {
-    int i;
-    i=0;
-    while ((i<perso->capacite.nbCompetence)||(getAction(perso->capacite.comp+i)!=getAction(comp)))
-    {
-        i++;
-    }
-    if (i==perso->capacite.nbCompetence)
-    {
-        if (perso->capacite.quantite==0);
-        {
-            Competence *tampon= perso->capacite.comp;
-
-            perso->capacite.comp= (Competence*) malloc (2*(perso->capacite.nbCompetence)*sizeof(Competence));
-            for (i=0; i<perso->capacite.nbCompetence; i++)
-            {
-                perso->capacite.comp [i]=tampon[i];
-            }
-            free (tampon);
-            perso->capacite.quantite=perso->capacite.nbCompetence;
-        }
-        perso->capacite.quantite--;
-        perso->capacite.comp[perso->capacite.nbCompetence]=*comp;
-        perso->capacite.nbCompetence++;
-    }
+    ajouterCompetenceCapacite(&(perso->capacite), comp);
 }
 
 void persoInit (Personnage *perso, char nom[], char race, char sexe, char carriere, int experience,int argent)
 {
     int i=0, j;
+    FILE* fCarr;
+    Competence compTampon;
+    char ligne [TAILLE_MAX];
+
     assert (strlen(nom)<30);
     strcpy(perso->nom,nom);
     perso->race= race;
     perso->sexe= sexe;
-
     perso->carriere=carriere;
-    perso->capacite.comp= (Competence*) malloc (sizeof(Competence));
-    FILE* fCarr;
-    assert(fCarr= fopen("data/Carrieres.txt", "r"));
+    perso->argent=argent;
     perso->experience= experience;
-    char ligne [TAILLE_MAX];
-    Competence* tampon=NULL;
+
+    CapaciteInit(&(perso->capacite));
+
+    assert(fCarr= fopen("data/Carrieres.txt", "r"));
     if (fCarr!=NULL)
     {
         while (i<carriere+3)
@@ -67,35 +51,19 @@ void persoInit (Personnage *perso, char nom[], char race, char sexe, char carrie
         while (i+1<j)
         {
             i+=2;
-            compInit (tampon,ligne[i]-'0', experience/10);
-            ajouterCompetence (perso, tampon);
+            compInit (&compTampon,ligne[i]-'0', experience/10);
+            ajouterCompetencePersonnage (perso, &compTampon);
         }
-        free(tampon);
         fclose(fCarr);
     }
     else
     {
         printf ("Impossible d'ouvrir le fichier Carrieres.txt");
     }
-    perso->argent=argent;
-    stockInit(perso->inventaire.obj);
-    perso->inventaire.nbObjet=0;
-    perso->inventaire.capacite=1;
+
+    inventaireInit(&(perso->inventaire),TAILLE_INVENTAIRE);
 }
 
-void inventaireLibere (Inventaire* inventaire)
-{
-    free (inventaire->obj);
-    inventaire->nbObjet=0;
-    inventaire->capacite=0;
-}
-
-void CapaciteLibere (Capacite* capacite)
-{
-    free(capacite->comp);
-    capacite->nbCompetence=0;
-    capacite->quantite=0;
-}
 
 void persoLibere (Personnage *perso)
 {
@@ -107,9 +75,9 @@ void persoLibere (Personnage *perso)
     perso->capacite.quantite=0;
 }
 
-char* getPersoNom(Personnage *perso)
+void getPersoNom(char* maChaine, Personnage *perso)
 {
-    return perso->nom;
+    strcpy(maChaine,perso->nom);  /* Courageux, rajoutez un assert */
 }
 
 char getPersoRace(Personnage *perso)
@@ -130,15 +98,22 @@ char getPersoCarriere(Personnage *perso)
 void getCarriereNom(char carriere, char* s)
 {
     int i;
-    FILE* fCarr= fopen("/data/Carrieres.txt", "r");
-    char ligne [TAILLE_MAX];
-    for (i=0;i<carriere+3;i++)
+    FILE* fCarr= fopen("data/Carrieres.txt", "r");
+    if(fCarr!=NULL)
     {
-        fgets(ligne,TAILLE_MAX,fCarr);
-    }
+        char ligne [TAILLE_MAX];
+        for (i=0;i<carriere+3;i++)
+        {
+            fgets(ligne,TAILLE_MAX,fCarr);
+        }
     i= strchr (ligne, '/')-ligne;
     strncpy(s,ligne,i);
     fclose(fCarr);
+    }
+    else
+    {
+        printf("Impossible d'ouvrir Carrieres.txt\n");
+    }
 }
 
 int getPersoArgent(Personnage *perso)
@@ -181,16 +156,16 @@ char getPersoPtDeVie(Personnage *perso)
     return perso->charisme;
 }
 
-void getPersoInventaire(Personnage *perso, Inventaire* s)
+void getPersoInventaire(Personnage *perso, Inventaire* inv)
 {
     int i;
-    free (s->obj);
-    s->nbObjet=perso->inventaire.nbObjet;
-    s->capacite=perso->inventaire.capacite;
-    s->obj=(Stock*)malloc ((s->nbObjet) *sizeof(Stock));
-    for (i=0; i<s->nbObjet;i++)
+    free (inv->st);
+    inv->nbObjet=perso->inventaire.nbObjet;
+    inv->capacite=perso->inventaire.capacite;
+    inv->st=(Stock*)malloc ((inv->nbObjet) *sizeof(Stock));
+    for (i=0; i<inv->nbObjet;i++)
     {
-        s->obj[i]=perso->inventaire.obj [i];
+        inv->st[i]=perso->inventaire.st [i];
     }
 }
 
@@ -211,46 +186,67 @@ void ajouterInventaire (Personnage *perso, Objet *obj)
 {
     int i=0;
 
-    while ((i<perso->inventaire.nbObjet)||(perso->inventaire.obj[i].objet->nom!=obj->nom))
+    while ((i<perso->inventaire.nbObjet)||(perso->inventaire.st[i].objet->nom!=obj->nom))
     {
         i++;
     }
     if (i<perso->inventaire.nbObjet)
     {
-        perso->inventaire.obj[i].quantite++;
+        perso->inventaire.st[i].quantite++;
     }
     else if (perso->inventaire.capacite==0);
     {
-        Stock *tampon= perso->inventaire.obj;
+        Stock *tampon= perso->inventaire.st;
 
-        perso->inventaire.obj= (Stock*) malloc (2*(perso->inventaire.nbObjet)*sizeof(Stock));
+        perso->inventaire.st= (Stock*) malloc (2*(perso->inventaire.nbObjet)*sizeof(Stock));
         for (i=0; i<perso->inventaire.nbObjet; i++)
         {
-            perso->inventaire.obj [i]=tampon[i];
+            perso->inventaire.st [i]=tampon[i];
         }
         free (tampon);
         perso->inventaire.capacite=perso->inventaire.nbObjet;
     }
     perso->inventaire.capacite--;
-    perso->inventaire.obj[perso->inventaire.nbObjet].objet=obj;
+    perso->inventaire.st[perso->inventaire.nbObjet].objet=obj;
     perso->inventaire.nbObjet++;
 }
 
 void utiliser (Personnage *perso, Objet *obj)
 {
     int i;
-    while ((i<perso->inventaire.nbObjet)&&(perso->inventaire.obj[i].objet->nom!=obj->nom))
+    while ((i<perso->inventaire.nbObjet)&&(perso->inventaire.st[i].objet->nom!=obj->nom))
     {
         i++;
     }
-    perso->inventaire.obj[i].quantite--;
+    perso->inventaire.st[i].quantite--;
     /*effet en fonction du type ...*/
 }
 
 int main()
 {
+    char tab[100];
+    char tab2[100];
     Personnage perso;
     persoInit (&perso, "Toromis", 1, 1, 1, 0, 100);
+    getPersoNom(tab, &perso);
+    printf("\n%s\n",tab);
+    printf("\n%d\n",getPersoRace(&perso));
+    printf("\n%d\n",getPersoSexe(&perso));
+
+    printf("\n%d\n",getPersoCarriere(&perso));
+
+    getCarriereNom(getPersoCarriere(&perso), tab2);
+    printf("\n%s\n",tab2);
+
+    printf("\n%d\n",getPersoArgent(&perso));
+    printf("\n%d\n",getPersoExperience(&perso));
+    printf("\n%d\n",getPersoAttaque(&perso));
+    printf("\n%d\n",getPersoDefense(&perso));
+    printf("\n%d\n",getPersoIntelligence(&perso));
+    printf("\n%d\n",getPersoAgilite(&perso));
+    printf("\n%d\n",getPersoCharisme(&perso));
+    printf("\n%d\n",getPersoPtDeVie(&perso));
+
     persoLibere(&perso);
     return 0;
 }

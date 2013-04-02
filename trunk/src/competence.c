@@ -39,7 +39,7 @@ void compInit (Competence * comp, char type, int experience)
     }
     else
     {
-        printf ("Impossible d'ouvrir le fichier Competences.txt");
+        printf ("Impossible d'ouvrir le fichier Competences.txt\n");
     }
   fclose (fComp);
 }
