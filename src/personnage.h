@@ -29,6 +29,8 @@ typedef struct
     char charisme;
     char ptDeVie;
 
+    char posX;
+    char posY;
     Inventaire inventaire;
 } Personnage;
 

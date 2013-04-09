@@ -24,6 +24,7 @@ void compInit (Competence * comp, char type, int experience)
         {
             fgets(ligne,TAILLE_MAX,fComp);
         }
+        fclose (fComp);
         i= strchr (ligne, '/')-ligne;
         strncpy(comp->action,ligne,i);
         comp->action[i]='\0';
@@ -34,14 +35,11 @@ void compInit (Competence * comp, char type, int experience)
         comp->bonusint=(char)((experience/10)*(ligne[i+6]-'0'));
         comp->bonusagi=(char)((experience/10)*(ligne[i+8]-'0'));
         comp->bonuschar=(char)((experience/10)*(ligne[i+10]-'0'));
-        printf("OK");
-
     }
     else
     {
         printf ("Impossible d'ouvrir le fichier Competences.txt\n");
     }
-  fclose (fComp);
 }
 
 char *getAction (Competence *comp)
