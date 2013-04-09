@@ -13,7 +13,7 @@ void initCase(char typeCase , Case* C)
 	switch (typeCase) {
 case 0 : /** sol */
 	C->type = 0;
-	C->praticable = 0;
+	C->praticable = 1;
 	C->personnage = 0;
 	C->piege = 0;
 	C->objet = 0;
@@ -21,7 +21,7 @@ case 0 : /** sol */
 
 case 1 :	/** chemin */
 	C->type = 1;
-	C->praticable = 0;
+	C->praticable = 1;
 	C->personnage = 0;
 	C->piege = 0;
 	C->objet = 0;
@@ -29,7 +29,7 @@ case 1 :	/** chemin */
 
 case 2 :	/** marais */
 	C->type = 2;
-	C->praticable = 0;
+	C->praticable = 1;
 	C->personnage = 0;
 	C->piege = 0;
 	C->objet = 0;
@@ -37,7 +37,7 @@ case 2 :	/** marais */
 
 case 3 :	/** mur */
 	C->type = 3;
-	C->praticable = 1;
+	C->praticable = 0;
 	C->personnage = 0;
 	C->piege = 0;
 	C->objet = 0;
@@ -45,7 +45,7 @@ case 3 :	/** mur */
 	
 case 4 :	/** arbre */
 	C->type = 4;
-	C->praticable = 1;
+	C->praticable = 0;
 	C->personnage = 0;
 	C->piege = 0;
 	C->objet = 0;
@@ -53,7 +53,7 @@ case 4 :	/** arbre */
 	
 case 5 :	/** eau */
 	C->type = 5;
-	C->praticable = 1;
+	C->praticable = 0;
 	C->personnage = 0;
 	C->piege = 0;
 	C->objet = 0;
@@ -61,7 +61,7 @@ case 5 :	/** eau */
 
 case 6 :	/** montagne */
 	C->type = 6;
-	C->praticable = 1;
+	C->praticable = 0;
 	C->personnage = 0;
 	C->piege = 0;
 	C->objet = 0;
@@ -69,7 +69,7 @@ case 6 :	/** montagne */
 	
 case 7 :	/** gouffre */
 	C->type = 7;
-	C->praticable = 1;
+	C->praticable = 0;
 	C->personnage = 0;
 	C->piege = 0;
 	C->objet = 0;
