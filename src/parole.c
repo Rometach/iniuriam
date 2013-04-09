@@ -239,7 +239,7 @@ char vendre(Dialogue* dialogue, Objet* objet, char* rep)
 
 
 
-int main(int argc, char** argv)
+int mainParole(int argc, char** argv)
 {
     int k;
     Dialogue dial;
