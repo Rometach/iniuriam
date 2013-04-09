@@ -35,10 +35,17 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/capacite.h" />
+		<Unit filename="src/case.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/case.h" />
 		<Unit filename="src/competence.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/competence.h" />
+		<Unit filename="src/deplacement.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="src/inventaire.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -58,6 +65,14 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/personnage.h" />
+		<Unit filename="src/stock.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/stock.h" />
+		<Unit filename="src/terrain.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/terrain.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

@@ -3,7 +3,6 @@
 #include <assert.h>
 #include <string.h>
 #include "ncurses.h"
-#include "affichageNcurses.h"
 #include "case.h"
 #include "terrain.h"
 
@@ -14,7 +13,7 @@
 
 #define TAILLE_MAX 22
 
-void initTerrain(Terrain* T){
+/*void initTerrain(Terrain* T){
 	int i,j;
 	T->terrain = (Case*)malloc(TAILLE_MAX*TAILLE_MAX*sizeof(Case));
 	FILE* fTerr= fopen("data/Terrains.txt", "r");
@@ -24,7 +23,7 @@ void initTerrain(Terrain* T){
 			fgets(ligne, TAILLE_MAX+2, fTerr);
 		}
 		for (i=0; i<TAILLE_MAX; i++){
-			fgets(ligne,TAILLE_MAX+2,fTerr);		
+			fgets(ligne,TAILLE_MAX+2,fTerr);
 			for(j=0; j<TAILLE_MAX; j++){
 				initCase(ligne[j]-'0', &(T->terrain[(i*21)+j]));
 			}
@@ -56,14 +55,14 @@ int main (int argc, char *argv[])
 {
 	Terrain terrain;
 	WINDOW win;
-	
+
 	initTerrain(&terrain);
-	
+
 	initFenetre(&win);
-	
+
 	afficheTerrainN(&terrain, &win );
-	
+
 	libereTerrain(&terrain);
-	
+
     return 0;
-}
+}*/

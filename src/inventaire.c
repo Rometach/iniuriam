@@ -57,6 +57,18 @@ void ajouterObjetInventaire (Inventaire* inventaire, Stock* st)
     }
 }
 
+/**Cette fonction doit être codée proprement*/
+/*void eneleverObjetInventaire (Inventaire* inventaire, Stock* st)
+{
+    int i;
+    while ((i<inventaire->nbObjet)&&(inventaire->st[i].objet->nom!=obj->nom))
+    {
+        i++;
+    }
+    inventaire.st[i].quantite--;
+}*/
+
+
 
 void copieInventaire (Inventaire* inventaire1, Inventaire* inventaire2)
 {

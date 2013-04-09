@@ -11,13 +11,13 @@
 
 int mainTerrain2 (int argc, char *argv[])
 {
-	Terrain* terrain;
+	/*Terrain* terrain;
 
 	initTerrain(terrain);
 
 	afficheTerrain(terrain);
 
-	libereTerrain(terrain);
+	libereTerrain(terrain);*/
 
     return 0;
 }

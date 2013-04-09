@@ -161,10 +161,12 @@ void setPersoArgent(Personnage *perso, int somme);
 */
 void ajouterInventaire (Personnage *perso, Objet *obj);
 
+/** Je suggère de créer une deuxième fonction (celle-ci enlève juste l'objet de l'inventaire ;
+                                              et on en fait une autre et une qui l'utilise vraiment, avec actions diverses)*/
 /**
 * \brief Preconditions : perso est initialisé, obj est dans l'inventaire de perso
 * <br /> Postconditions : 1 obj est retiré de l'inventaire de perso
 */
-void utiliser (Personnage *perso,Objet *obj);
+void soustraireInventaire (Personnage *perso,Objet *obj);
 
 #endif

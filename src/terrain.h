@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "case.h"
 #include "personnage.h"
-#include "affichageNcurses.h"
+
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
@@ -13,11 +13,11 @@
 
 
 typedef struct
-{	
+{
 	char id;
 	Case* terrain;
 	Personnage * liste;
-	
+
 } Terrain;
 
 /**

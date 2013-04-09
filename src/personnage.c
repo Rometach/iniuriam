@@ -230,7 +230,8 @@ void ajouterInventaire (Personnage *perso, Objet *obj)
 }
 
 
-void utiliser (Personnage *perso, Objet *obj)
+/**Cette fonction doit être recodée en utilisant eneleverObjetInventaire SVP*/
+void soustraireInventaire (Personnage *perso, Objet *obj)
 {
     int i;
     while ((i<perso->inventaire.nbObjet)&&(perso->inventaire.st[i].objet->nom!=obj->nom))
