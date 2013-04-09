@@ -34,6 +34,13 @@ void inventaireLibere (Inventaire* inventaire);
 */
 void ajouterObjetInventaire (Inventaire* inventaire, Stock* st);
 
+
+/**
+* \brief Preconditions : inventaire est initialisé, st fait partie de inventaire
+* <br /> Postconditions : 1 stock est ôté de inventaire
+*/
+void enleverObjetInventaire (Inventaire* inventaire, Stock* st);
+
 /**
 * \brief Preconditions : inventaire2 est initialisé mais pas inventaire1
 * <br /> Postconditions : inventaire1 est initialisé ; inventaire2 est recopié dans inventaire1
