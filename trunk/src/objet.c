@@ -63,37 +63,6 @@ void objInit (Objet *obj, char type)
 }
 
 
-void stockInit (Stock *st)
-{
-    st->objet= NULL;
-    st->quantite=0;
-}
-
-
-void incrementerStock(Stock *st, int n)
-{
-	st->quantite+=n;
-}
-
-
-void decrementerStock(Stock *st, int n)
-{
-	st->quantite-=n;
-}
-
-
-Objet* getStockObjet(Stock *st)
-{
-    return st->objet;
-}
-
-
-void fusionStocks(Stock* stock1, Stock* stock2)
-{
-    assert((stock1->objet)==(stock2->objet));
-    stock1->quantite+=stock2->quantite;
-}
-
 
 char getObjetType(Objet *obj)
 {

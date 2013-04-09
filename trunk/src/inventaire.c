@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
-#include "objet.h"
+#include "stock.h"
 #include "inventaire.h"
 
 /**

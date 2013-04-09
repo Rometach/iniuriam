@@ -20,47 +20,11 @@ typedef struct
     int valeur;
 } Objet;
 
-typedef struct
-{
-    int quantite;
-    Objet *objet;
-} Stock;
-
 /**
 * \brief Preconditions : obj n'a pas déjà été initialisé
 * <br /> Postconditions : obj est initialisé avec les paramètres de son type : nom, portee, degats, protection, description et valeur
 */
 void objInit (Objet *obj, char type);
-
-/**
-* \brief Preconditions : st n'a pas déjà été initialisé
-* <br /> Postconditions : st est initialisé avec une quantite nulle
-*/
-void stockInit (Stock *st);
-
-/**
-* \brief Preconditions : st est initialisé
-* <br /> Postconditions : la quantité d'objets dans st est augmentée de n
-*/
-void incrementerStock(Stock *st, int n);
-
-/**
-* \brief Preconditions : st est initialisé
-* <br /> Postconditions : la quantité d'objets dans st est diminuée de n
-*/
-void decrementerStock(Stock *st, int n);
-
-/**
-* \brief Preconditions : st est initialisé
-* <br /> Postconditions : retourne l'adresse de l'objet enregistré dans st
-*/
-Objet* getStockObjet(Stock *st);
-
-/**
-* \brief Preconditions : stock1 et stock2 sont initialisés et font référence au même objet
-* <br /> Postconditions : les deux Stocks sont fusionnés dans stock1 ; stock2 est libéré
-*/
-void fusionStocks(Stock* stock1, Stock* stock2);
 
 /**
 * \brief Preconditions : obj est initialisé

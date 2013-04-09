@@ -4,7 +4,7 @@ Nom		P 	A 	D	Description							valeur
 Fleuret laser/	01	05	01	Qui a dit que seuls les maîtres Jedi maniaient le sabre ?/	100	
 Patte de lapin transgénique/	01	05	01	Au XXIIème siècle, était utilisée comme porte-bonheur, maintenant on tape avec au petit bonheur la chance.../	100
 Bâton/	01	05	01	Malgré des siècles de civilisation, ça fait toujours mal./	100
-Taser Hortefeux/	01	05	01	Conçu pour les délinquants, fonctionne aussi bien sur les aliens./	100
+Taser/	01	05	01	Conçu pour les délinquants, fonctionne aussi bien sur les aliens./	100
 Tronçonneuse/	01	05	01	Anecdote : c'est l'outil qui fut utilisé pour le tournage de Massacre à la tronçonneuse, de Tobe Hooper (1986)./
 Couteau-suisse à plasma/	01	05	01	Même le tire-bouchon est dangereux./	100
 Robot Mixer/	01	05	01	Arme symbolique de la révolution féminine de 3151./	100	
