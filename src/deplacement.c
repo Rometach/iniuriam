@@ -15,9 +15,9 @@ char deplacerCase (int y, char tab [TAILLE_MAX])
     else return 1;
 }
 
-char testBords (int x, char tab [TAILLE_MAX])
+char testRetour (int x, char tab [TAILLE_MAX])
 {
-    if ((tab[x-1]>=8&&tab[x-2]==8)||(tab[x+1]>=8&&tab[x+2]==8)) return 0;
+    if ((tab[x-1]>=7&&tab[x-2]==8)||(tab[x+1]>=8&&tab[x+2]==8)) return 0;
     else return 1;
 }
 
@@ -115,6 +115,7 @@ void reinitTunnel (int x, int y, char tab [TAILLE_MAX][TAILLE_MAX])
 char quatresChemins (char droite, char haut, char bas, char gauche)
 {
     char i=0,j=0;
+
     if ((gauche==0)&&(droite==0)&&(haut==0)&&(bas==0)) return 0;
     else if ((gauche==0)&&(bas==0)&&(haut==0)) return 1;
     else if ((gauche==0)&&(droite==0)&&(bas==0)) return 2;
@@ -205,7 +206,7 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
 {
     afficherTab2D(tab);
     getchar();
-    char tamp [TAILLE_MAX], droite, gauche, haut, bas;
+    char tamp [TAILLE_MAX], droite=0, gauche=0, haut=0, bas=0;
     getColonne(y,tab,tamp);
     int i=1,j=1;
     if (y>t) j=-1;
@@ -219,7 +220,7 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
         tab[x][y]=3;
         return 1;
     }
-    else if ((j!=0)&&(deplacerCase(y+j,tab[x])!=0)&&(testBords(x,tamp)!=0))
+    else if ((j!=0)&&(deplacerCase(y+j,tab[x])!=0))
     {
         tunnel (x,y,tab,(j+4)%4);
         droite=deplacementIA (x,y+j,z,t,tab);
@@ -230,21 +231,21 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
             return 2;
         }
 
-        if ((deplacerCase(x+i,tamp)!=0)&&(testBords(y,tab[x])!=0))
+        if (deplacerCase(x+i,tamp)!=0)
         {
             tunnel (x,y,tab,(i+3)%4);
             bas=deplacementIA(x+i,y,z,t,tab);
             reinitTunnel(x,y,tab);
         }
 
-        if ((deplacerCase(x-i,tamp)!=0)&&(testBords(y,tab[x])!=0))
+        if (deplacerCase(x-i,tamp)!=0)
         {
             tunnel (x,y,tab,(-i+3)%4);
             haut=deplacementIA(x-i,y,z,t,tab);
             reinitTunnel(x,y,tab);
         }
 
-        if ((deplacerCase(y-j,tab[x])!=0)&&(testBords(x,tamp)!=0))
+        if ((deplacerCase(y-j,tab[x])!=0)&&(testRetour(x,tamp)!=0))
         {
             tunnel (x,y,tab,(-j+4)%4);
             gauche=deplacementIA(x,y-j,z,t,tab);
@@ -272,7 +273,7 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
     }
     else if (j==0)
     {
-        if ((deplacerCase(x+i,tamp)!=0)&&(testBords(y,tab[x])!=0))
+        if (deplacerCase(x+i,tamp)!=0)
         {
             tunnel (x,y,tab,(i+3)%4);
             bas=deplacementIA(x+i,y,z,t,tab);
@@ -284,21 +285,21 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
             }
         }
 
-        if ((deplacerCase(y+1,tab[x])!=0)&&(testBords(x,tamp)!=0))
+        if (deplacerCase(y+1,tab[x])!=0)
         {
             tunnel (x,y,tab,1);
             droite=deplacementIA (x,y+1,z,t,tab);
             reinitTunnel(x,y,tab);
         }
 
-        if ((deplacerCase(x-i,tamp)!=0)&&(testBords(y,tab[x])!=0))
+        if (deplacerCase(x-i,tamp)!=0)
         {
             tunnel (x,y,tab,(-i+3)%4);
             haut=deplacementIA(x-i,y,z,t,tab);
             reinitTunnel(x,y,tab);
         }
 
-        if ((deplacerCase(y-1,tab[x])!=0)&&(testBords(x,tamp)!=0))
+        if ((deplacerCase(y-1,tab[x])!=0)&&(testRetour(x,tamp)!=0))
         {
             tunnel (x,y,tab,3);
             gauche=deplacementIA(x,y-1,z,t,tab);
@@ -326,26 +327,25 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
     }
     else
     {
-        if ((deplacerCase(x+i,tamp)!=0)&&(testBords(y,tab[x])!=0))
+        if (deplacerCase(x+i,tamp)!=0)
         {
             tunnel (x,y,tab,(i+3)%4);
             bas=deplacementIA(x+i,y,z,t,tab);
             reinitTunnel(x,y,tab);
         }
 
-        if ((deplacerCase(y-j,tab[x])!=0)&&(testBords(x,tamp)!=0))
+        if (deplacerCase(y-j,tab[x])!=0)
         {
             tunnel (x,y,tab,(-j+4)%4);
             gauche=deplacementIA(x,y-j,z,t,tab);
             reinitTunnel(x,y,tab);
         }
 
-        if ((deplacerCase(x-i,tamp)!=0)&&(testBords(y,tab[x])!=0))
+        if ((deplacerCase(x-i,tamp)!=0)&&(testRetour(y,tab[x])!=0))
         {
             tunnel (x,y,tab,(-i+3)%4);
             haut=deplacementIA(x-i,y,z,t,tab);
             reinitTunnel(x,y,tab);
-            tunnel (x,y,tab,(i+3)%4);
         }
 
         switch (quatresChemins(bas,gauche,haut,0))
