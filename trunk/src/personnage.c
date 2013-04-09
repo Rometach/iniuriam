@@ -55,10 +55,7 @@ void persoInit (Personnage *perso, char nom[], char race, char sexe, char factio
         }
         fclose(fCarr);
     }
-    else
-    {
-        printf ("Impossible d'ouvrir le fichier Carrieres.txt");
-    }
+    else printf ("Impossible d'ouvrir le fichier Carrieres.txt\n");
 
     inventaireInit(&(perso->inventaire));
 }
