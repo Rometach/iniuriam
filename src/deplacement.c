@@ -556,7 +556,7 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
     return 0;
 }
 
-int main()
+int mainDeplacement()
 {
     char tab [TAILLE_MAX][TAILLE_MAX], ligne [TAILLE_MAX+2];
     FILE* fTerr=fopen("data/Terrains.txt", "r");

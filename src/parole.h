@@ -14,7 +14,7 @@ typedef struct
 {
     Personnage* perso1;     /*Le joueur*/
     Personnage* perso2;     /*Le PNJ*/
-    char humeur;
+    char humeur;            /*entre 0 et 100*/
 } Dialogue;
 
 /**
@@ -25,6 +25,12 @@ void dialogueInit (Dialogue* dialogue, Personnage* perso1, Personnage* perso2);
 
 /**
 * \brief Preconditions : dialogue est initialisé
+* <br /> Postconditions : l'humeur de dialogue est modifiée pour correspondre à hum
+*/
+void setDialogueHumeur (Dialogue* dialogue, int hum);
+
+/**
+* \brief Preconditions : dialogue est initialisé, info a une longueur d'au moins TAILLE_MAX_DIAL
 * <br /> Postconditions : copie dans info l'information (éventuellement la réponse négative) retournée
 */
 void obtenirInfo(Dialogue* dialogue, char* info);

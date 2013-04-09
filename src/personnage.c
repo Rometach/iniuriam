@@ -244,7 +244,7 @@ void utiliser (Personnage *perso, Objet *obj)
 
 
 
-int main()
+int mainPerso()
 {
     char tab[100];
     char tab2[100];

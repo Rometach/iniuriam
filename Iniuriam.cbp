@@ -7,8 +7,8 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin\Debug\Iniuriam" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\Debug\" />
+				<Option output="bin/Debug/Iniuriam" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -16,8 +16,8 @@
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin\Release\Iniuriam" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\Release\" />
+				<Option output="bin/Release/Iniuriam" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -31,29 +31,33 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="src\capacite.c">
+		<Unit filename="src/capacite.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\capacite.h" />
-		<Unit filename="src\competence.c">
+		<Unit filename="src/capacite.h" />
+		<Unit filename="src/competence.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\competence.h" />
-		<Unit filename="src\inventaire.c">
+		<Unit filename="src/competence.h" />
+		<Unit filename="src/inventaire.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\inventaire.h" />
-		<Unit filename="src\main.c">
+		<Unit filename="src/inventaire.h" />
+		<Unit filename="src/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\objet.c">
+		<Unit filename="src/objet.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\objet.h" />
-		<Unit filename="src\personnage.c">
+		<Unit filename="src/objet.h" />
+		<Unit filename="src/parole.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src\personnage.h" />
+		<Unit filename="src/parole.h" />
+		<Unit filename="src/personnage.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/personnage.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
