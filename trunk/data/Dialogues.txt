@@ -1,0 +1,17 @@
+Ce Fichier contient les possibles paroles des différents personnages
+Il y a d'abord les réponses aux actions standards, puis les infos spécifiques à chaque personnage
+/
+Soudoyer (résultat positif)
+/
+/
+/
+/
+Refus info
+I do not speak English, Sir.
+Désolé, je ne suis pas du quartier.
+Heiiin ?
+/
+Babar
+Ce que vous cherchez se trouve chez Dumbo.
+Il n'y a plus de glace à la pistache.
+Vous feriez mieux de fuir.

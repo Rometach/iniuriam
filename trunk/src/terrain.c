@@ -37,7 +37,7 @@ void initTerrain( Terrain* T){
 
 void afficheTerrain(Terrain* terr)
 {	int i, j;
-	
+
 	for(i = 0; i<TAILLE_MAX; i++){
 		for(j = 0; j<TAILLE_MAX; j++){
 			printf("%d", terr->terrain[i+j].type);
@@ -49,15 +49,15 @@ void libereTerrain( Terrain* T){
 	free(T);
 }
 
-int main (int argc, char *argv[])
+int mainTerrain (int argc, char *argv[])
 {
 	Terrain* terrain=NULL;
-	
+
 	initTerrain(terrain);
-	
+
 	afficheTerrain(terrain);
-	
+
 	libereTerrain(terrain);
-	
+
     return 0;
 }
