@@ -15,7 +15,7 @@ typedef struct
 	char praticable;
 	char personnage;
 	char piege;
-	Objet* objet;
+	char objet;
 } Case;
 
 /**

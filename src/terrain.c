@@ -2,32 +2,35 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
+#include "ncurses.h"
+#include "affichageNcurses.h"
 #include "case.h"
 #include "terrain.h"
+
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
 
-#define TAILLE_MAX 23
+#define TAILLE_MAX 22
 
-void initTerrain( Terrain* T){
+void initTerrain(Terrain* T){
 	int i,j;
-	T = (Case*)malloc(TAILLE_MAX*TAILLE_MAX*sizeof(Case));
+	T->terrain = (Case*)malloc(TAILLE_MAX*TAILLE_MAX*sizeof(Case));
 	FILE* fTerr= fopen("data/Terrains.txt", "r");
 	char ligne[TAILLE_MAX];
-	printf("OOOOOOO\n");
 	if (fTerr!=NULL){
-		for (i=4; i<TAILLE_MAX; i++){
-			printf("11111111\n");
+		for (i=0; i<T->id*4; i++){
+			fgets(ligne, TAILLE_MAX+2, fTerr);
+		}
+		for (i=0; i<TAILLE_MAX; i++){
+			fgets(ligne,TAILLE_MAX+2,fTerr);		
 			for(j=0; j<TAILLE_MAX; j++){
-				printf("2222222222\n");
-				fgets(ligne,TAILLE_MAX,fTerr);
-				initCase(ligne[j]-'0', &(T->terrain[(i*23)+j]));
-				printf("%d %d", ligne[j], ligne[j]-'0');
+				initCase(ligne[j]-'0', &(T->terrain[(i*21)+j]));
 			}
 		}
         fclose(fTerr);
+        printf("Le terrain a bien ete initialise\n");
     }
     else
     {
@@ -35,29 +38,32 @@ void initTerrain( Terrain* T){
     }
 }
 
-void afficheTerrain(Terrain* terr)
+void afficheTerrain(Terrain* T)
 {	int i, j;
-
 	for(i = 0; i<TAILLE_MAX; i++){
 		for(j = 0; j<TAILLE_MAX; j++){
-			printf("%d", terr->terrain[i+j].type);
+			printf("%d", T->terrain[(i*21)+j].type);
 		}
+		printf("\n");
 	}
 }
 
 void libereTerrain( Terrain* T){
-	free(T);
+	free(T->terrain);
 }
 
-int mainTerrain (int argc, char *argv[])
+int main (int argc, char *argv[])
 {
-	Terrain* terrain=NULL;
-
-	initTerrain(terrain);
-
-	afficheTerrain(terrain);
-
-	libereTerrain(terrain);
-
+	Terrain terrain;
+	WINDOW win;
+	
+	initTerrain(&terrain);
+	
+	initFenetre(&win);
+	
+	afficheTerrainN(&terrain, &win );
+	
+	libereTerrain(&terrain);
+	
     return 0;
 }
