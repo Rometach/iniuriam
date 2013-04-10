@@ -49,13 +49,44 @@ void afficherTab2D (char tab[TAILLE_MAX][TAILLE_MAX])
     }
 }
 
-char chercher2 (char tab[TAILLE_MAX][TAILLE_MAX],int x, int y)
+char chercher2 (char tab[TAILLE_MAX][TAILLE_MAX],int x, int y,char i)
 {
-    if (tab[x][y-1]==2) return 1; /* 2 à gauche*/
-    else if (tab[x-1][y]==2) return 2; /*2 en haut*/
-    else if (tab[x+1][y]==2) return 3;/*2 à droite*/
-    else if (tab[x][y+1]==2) return 4;/*2 en bas*/
-    else return 0;
+    if (tab[x][y-1]==3) return 1; /* 2 à gauche*/
+    else if (tab[x-1][y]==3) return 2; /*2 en haut*/
+    else if (tab[x+1][y]==3) return 3;/*2 en bas*/
+    else if (tab[x][y+1]==3) return 4;/*2 à droite*/
+    else
+    {
+        switch (i)
+        {
+            case 1:
+                if (tab[x][y-1]==2) return 1;
+                else if (tab[x-1][y]==2) return 2;
+                else if(tab[x+1][y]==2) return 3;
+                break;
+            case 2:
+                 if (tab[x-1][y]==2) return 2;
+                 else if (tab[x][y+1]==2) return 4;
+                 else if (tab[x][y-1]==2) return 1;
+                 break;
+            case 3:
+                if (tab[x+1][y]==2) return 3;
+                else if (tab[x][y+1]==2) return 4;
+                else if (tab[x][y-1]==2) return 1;
+                break;
+            case 4:
+                if (tab[x][y+1]==2) return 4;
+                    else if (tab[x-1][y]==2) return 2;
+                    else if (tab[x+1][y]==2) return 3;
+            default:
+                if (tab[x][y-1]==2) return 1;
+                else if (tab[x-1][y]==2) return 2;
+                else if(tab[x+1][y]==2) return 3;
+                else if (tab[x][y+1]==2) return 4;
+                break;
+        }
+    }
+    return 0;
 }
 
 void tunnel (int x, int y, char tab [TAILLE_MAX][TAILLE_MAX], int i)
@@ -66,32 +97,45 @@ void tunnel (int x, int y, char tab [TAILLE_MAX][TAILLE_MAX], int i)
     {
         case 0:/*Déplacement en bas*/
             if (deplacerCase(y-1,tab[x])!=0&&tab [x][y-1]!=3) tab [x][y-1]=7;
+            else if (tab [x][y-1]==7) tab[x][y-1]=9;
 
             if (deplacerCase(y+1,tab[x])!=0&&tab[x][y+1]!=3) tab[x][y+1]=7;
+            else if (tab[x][y+1]==7) tab[x][y+1]=9;
 
             if (deplacerCase(x-1,tamp)!=0&&tab[x-1][y]!=3) tab[x-1][y]=7;
+            else if (tab[x-1][y]==7) tab[x-1][y]=9;
+
             break;
         case 1:/*Déplacement à droite*/
             if (deplacerCase(y-1,tab[x])!=0&&tab [x][y-1]!=3) tab [x][y-1]=7;
+            else if (tab [x][y-1]==7) tab[x][y-1]=9;
 
             if (deplacerCase(x-1,tamp)!=0&&tab[x-1][y]!=3) tab[x-1][y]=7;
+            else if (tab[x-1][y]==7) tab[x-1][y]=9;
 
-            if (deplacerCase(x+1,tamp)!=0&&(tab[x+1][y]!=3)) tab[x+1][y]=7;
+            if (deplacerCase(x+1,tamp)!=0&&tab[x+1][y]!=3) tab[x+1][y]=7;
+            else if (tab[x+1][y]==7) tab[x+1][y]=9;
 
             break;
         case 2:/*Déplacement en haut*/
-            if (deplacerCase(y+1,tab[x])!=0&&tab [x][y+1]!=3) tab [x][y+1]=7;
+            if (deplacerCase(y-1,tab[x])!=0&&tab [x][y-1]!=3) tab [x][y-1]=7;
+            else if (tab [x][y-1]==7) tab[x][y-1]=9;
 
             if (deplacerCase(y+1,tab[x])!=0&&tab[x][y+1]!=3) tab[x][y+1]=7;
+            else if (tab[x][y+1]==7) tab[x][y+1]=9;
 
             if (deplacerCase(x+1,tamp)!=0&&tab[x+1][y]!=3) tab[x+1][y]=7;
+            else if (tab[x+1][y]==7) tab[x+1][y]=9;
             break;
         case 3:/*Déplacement à gauche*/
-            if ((deplacerCase(y+1,tab[x])!=0)&&(tab [x][y+1]!=3)) tab [x][y+1]=7;
+            if (deplacerCase(y+1,tab[x])!=0&&tab[x][y+1]!=3) tab[x][y+1]=7;
+            else if (tab[x][y+1]==7) tab[x][y+1]=9;
 
-            if ((deplacerCase(x-1,tamp)!=0)&&tab[x-1][y]!=3) tab[x-1][y]=7;
+            if (deplacerCase(x-1,tamp)!=0&&tab[x-1][y]!=3) tab[x-1][y]=7;
+            else if (tab[x-1][y]==7) tab[x-1][y]=9;
 
             if (deplacerCase(x+1,tamp)!=0&&tab[x+1][y]!=3) tab[x+1][y]=7;
+            else if (tab[x+1][y]==7) tab[x+1][y]=9;
             break;
         default: break;
     }
@@ -100,16 +144,16 @@ void tunnel (int x, int y, char tab [TAILLE_MAX][TAILLE_MAX], int i)
 void reinitTunnel (int x, int y, char tab [TAILLE_MAX][TAILLE_MAX])
 {
     if (tab[x-1][y]==7)tab[x-1][y]=1;
-    else if (tab[x-1][y]==9)tab[x-1][y]=0;
+    else if (tab[x-1][y]==9)tab[x-1][y]=7;
 
     if (tab[x+1][y]==7)tab[x+1][y]=1;
-    else if (tab[x+1][y]==7)tab[x+1][y]=0;
+    else if (tab[x+1][y]==7)tab[x+1][y]=7;
 
     if (tab[x][y-1]==7)tab[x][y-1]=1;
-    else if (tab[x][y-1]==7)tab[x][y-1]=0;
+    else if (tab[x][y-1]==7)tab[x][y-1]=7;
 
     if (tab[x][y+1]==7)tab[x][y+1]=1;
-    else if (tab[x][y+1]==7)tab[x][y+1]=0;
+    else if (tab[x][y+1]==7)tab[x][y+1]=7;
 }
 
 char quatresChemins (char droite, char haut, char bas, char gauche)
@@ -204,16 +248,17 @@ char quatresChemins (char droite, char haut, char bas, char gauche)
 
 char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX])
 {
-    afficherTab2D(tab);
-    getchar();
     char tamp [TAILLE_MAX], droite=0, gauche=0, haut=0, bas=0;
     getColonne(y,tab,tamp);
     int i=1,j=1;
     if (y>t) j=-1;
     else if (y==t) j=0;
     if (x>z)i=-1;
-    else if (x==t) i=0;
+    else if (x==z) i=0;
     tab[x][y]=8;
+
+    afficherTab2D(tab);
+    getchar();
 
     if((j==0)&&(i==0))
     {
@@ -367,9 +412,48 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
     return 0;
 }
 
+void chemin (int x,int y, int z, int t, char tab[TAILLE_MAX][TAILLE_MAX])
+{
+    char tab2 [TAILLE_MAX][TAILLE_MAX];
+    int i,j;
+
+        tab[x][y]=3;
+        tab[z][t]=3;
+        for (i=0;i<TAILLE_MAX;i++)
+        {
+            for (j=0;j<TAILLE_MAX;j++)
+            {
+                tab2[i][j]=tab[i][j];
+            }
+        }
+        i=deplacementIA(x,y,z,t,tab2);
+        j=0;
+        while (i>1)
+        {
+            j=chercher2(tab2,x,y,j);
+            switch (j)
+            {
+                case (1):tab[x][y-1]=2;
+                y--;
+                break;
+                case (2):tab[x-1][y]=2;
+                x--;
+                break;
+                case (3):tab[x+1][y]=2;
+                x++;
+                break;
+                case (4):tab[x][y+1]=2;
+                y++;
+                break;
+                default: break;
+            }
+            i--;
+        }
+}
+
 int main()
 {
-    char tab [TAILLE_MAX][TAILLE_MAX], ligne [TAILLE_MAX+2];
+    char tab [TAILLE_MAX][TAILLE_MAX], ligne [TAILLE_MAX+2], c;
     FILE* fTerr=fopen("data/Terrains.txt", "r");
     int i,j;
     if (fTerr!=NULL)
@@ -387,12 +471,15 @@ int main()
             }
         }
         fclose (fTerr);
-        tab[3][3]=3;
-        tab[17][17]=3;
         afficherTab2D(tab);
-        printf("\n%d\n", deplacementIA(3,3,17,17,tab));
+        printf("\n\n");
+        chemin (17,17,2,19,tab);
         afficherTab2D(tab);
-
+        printf("\nAppuyez sur s \n");
+        while (c!='s')
+        {
+            c=getchar();
+        }
     }
     else printf ("\nImpossible d'ouvrir le fichier Terrains.txt\n");
 
