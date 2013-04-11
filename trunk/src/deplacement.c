@@ -2,12 +2,11 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
+#include "deplacement.h"
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
-
-#define TAILLE_MAX 22
 
 char deplacerCase (int y, char tab [TAILLE_MAX])
 {
@@ -147,13 +146,13 @@ void reinitTunnel (int x, int y, char tab [TAILLE_MAX][TAILLE_MAX])
     else if (tab[x-1][y]==9)tab[x-1][y]=7;
 
     if (tab[x+1][y]==7)tab[x+1][y]=1;
-    else if (tab[x+1][y]==7)tab[x+1][y]=7;
+    else if (tab[x+1][y]==9)tab[x+1][y]=7;
 
     if (tab[x][y-1]==7)tab[x][y-1]=1;
-    else if (tab[x][y-1]==7)tab[x][y-1]=7;
+    else if (tab[x][y-1]==9)tab[x][y-1]=7;
 
     if (tab[x][y+1]==7)tab[x][y+1]=1;
-    else if (tab[x][y+1]==7)tab[x][y+1]=7;
+    else if (tab[x][y+1]==9)tab[x][y+1]=7;
 }
 
 char quatresChemins (char droite, char haut, char bas, char gauche)
@@ -257,7 +256,7 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
     else if (x==z) i=0;
     tab[x][y]=8;
 
-    afficherTab2D(tab);
+    afficherTab2D(tab);/*Ces 2 lignes correspondent à une fonction pas à pas*/
     getchar();
 
     if((j==0)&&(i==0))
@@ -372,6 +371,7 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
     }
     else
     {
+        if (i==0) i=1;
         if (deplacerCase(x+i,tamp)!=0)
         {
             tunnel (x,y,tab,(i+3)%4);
@@ -473,7 +473,7 @@ int main()
         fclose (fTerr);
         afficherTab2D(tab);
         printf("\n\n");
-        chemin (17,17,2,19,tab);
+        chemin (4,7,5,18,tab);
         afficherTab2D(tab);
         printf("\nAppuyez sur s \n");
         while (c!='s')
