@@ -257,8 +257,8 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
     tab[x][y]=8;
 
     /*Ces 2 lignes correspondent à la fonction pas à pas*/
-    afficherTab2D(tab);
-    getchar();
+    /*afficherTab2D(tab);
+    getchar();*/
 
     if((j==0)&&(i==0))
     {
@@ -297,7 +297,6 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
             gauche=deplacementIA(x,y-j,z,t,tab);
             reinitTunnel(x,y,tab);
         }
-        printf("%d  %d  %d  %d\n",droite, gauche, haut, bas);
         switch (quatresChemins(droite,bas,haut,gauche))
         {
             case 1: tab[x][y]=2;
@@ -352,7 +351,6 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
             gauche=deplacementIA(x,y-1,z,t,tab);
             reinitTunnel(x,y,tab);
         }
-        printf("%d  %d  %d  %d\n",droite, gauche, haut, bas);
         switch (quatresChemins(bas,droite,haut,gauche))
         {
             case 1: tab[x][y]=2;
@@ -396,7 +394,6 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
             gauche=deplacementIA(x,y-j,z,t,tab);
             reinitTunnel(x,y,tab);
         }
-        printf("%d  %d  %d\n", gauche, haut, bas);
         switch (quatresChemins(bas,haut, gauche,0))
         {
             case 1: tab[x][y]=2;
@@ -431,7 +428,10 @@ void chemin (int x,int y, int z, int t, char tab[TAILLE_MAX][TAILLE_MAX])
             }
         }
         i=deplacementIA(x,y,z,t,tab2);
-        printf("%d\n",i);
+
+        /*Distance parcourue*/
+        /*printf("%d\n",i);*/
+
         j=0;
         while (i>1)
         {
@@ -458,7 +458,7 @@ void chemin (int x,int y, int z, int t, char tab[TAILLE_MAX][TAILLE_MAX])
 
 int main()
 {
-    char tab [TAILLE_MAX][TAILLE_MAX], ligne [TAILLE_MAX+2], c;
+    char tab [TAILLE_MAX][TAILLE_MAX], ligne [TAILLE_MAX+2];
     FILE* fTerr=fopen("data/Terrains.txt", "r");
     int i,j;
     int type=2;
@@ -485,11 +485,6 @@ int main()
         printf("\n\n");
         chemin (1,1,15,17,tab);
         afficherTab2D(tab);
-        printf("\nAppuyez sur s \n");
-        while (c!='s')
-        {
-            c=getchar();
-        }
     }
     else printf ("\nImpossible d'ouvrir le fichier Terrains.txt\n");
 

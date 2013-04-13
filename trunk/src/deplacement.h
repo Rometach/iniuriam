@@ -68,7 +68,7 @@ char quatresChemins (char droite, char haut, char bas, char gauche);
 
 /**
 * \brief Preconditions : 0<=x<TAILLE_MAX, 0<=y<TAILLE_MAX, 0<=z<TAILLE_MAX, 0<=t<TAILLE_MAX
-* <br /> Postconditions : rempli tab en faisant apparaitre un chemin pour aller de la case (x,y) à la case (z,t).
+* <br /> Postconditions : rempli tab en faisant apparaitre un chemin pour aller de la case (x,y) à la case (z,t) et renvoie la distance parcourue.
 */
 char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX]);
 
