@@ -16,7 +16,7 @@ char deplacerCase (int y, char tab [TAILLE_MAX])
 
 char testRetour (int x, char tab [TAILLE_MAX])
 {
-    if ((tab[x-1]>=7&&tab[x-2]==8)||(tab[x+1]>=8&&tab[x+2]==8)) return 0;
+    if ((tab[x-1]>=7&&tab[x-2]>=7)||(tab[x+1]>=7&&tab[x+2]>=7)) return 0;
     else return 1;
 }
 
@@ -256,7 +256,8 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
     else if (x==z) i=0;
     tab[x][y]=8;
 
-    afficherTab2D(tab);/*Ces 2 lignes correspondent à une fonction pas à pas*/
+    /*Ces 2 lignes correspondent à la fonction pas à pas*/
+    afficherTab2D(tab);
     getchar();
 
     if((j==0)&&(i==0))
@@ -282,20 +283,21 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
             reinitTunnel(x,y,tab);
         }
 
-        if (deplacerCase(x-i,tamp)!=0)
+        if (deplacerCase(x-i,tamp)!=0&&(testRetour(y,tab[x-i])!=0))
         {
             tunnel (x,y,tab,(-i+3)%4);
             haut=deplacementIA(x-i,y,z,t,tab);
             reinitTunnel(x,y,tab);
         }
 
+        getColonne(y-j,tab,tamp);
         if ((deplacerCase(y-j,tab[x])!=0)&&(testRetour(x,tamp)!=0))
         {
             tunnel (x,y,tab,(-j+4)%4);
             gauche=deplacementIA(x,y-j,z,t,tab);
             reinitTunnel(x,y,tab);
         }
-
+        printf("%d  %d  %d  %d\n",droite, gauche, haut, bas);
         switch (quatresChemins(droite,bas,haut,gauche))
         {
             case 1: tab[x][y]=2;
@@ -336,20 +338,21 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
             reinitTunnel(x,y,tab);
         }
 
-        if (deplacerCase(x-i,tamp)!=0)
+        if (deplacerCase(x-i,tamp)!=0&&(testRetour(y,tab[x-i])!=0))
         {
             tunnel (x,y,tab,(-i+3)%4);
             haut=deplacementIA(x-i,y,z,t,tab);
             reinitTunnel(x,y,tab);
         }
 
+        getColonne(y-1,tab,tamp);
         if ((deplacerCase(y-1,tab[x])!=0)&&(testRetour(x,tamp)!=0))
         {
             tunnel (x,y,tab,3);
             gauche=deplacementIA(x,y-1,z,t,tab);
             reinitTunnel(x,y,tab);
         }
-
+        printf("%d  %d  %d  %d\n",droite, gauche, haut, bas);
         switch (quatresChemins(bas,droite,haut,gauche))
         {
             case 1: tab[x][y]=2;
@@ -372,37 +375,38 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
     else
     {
         if (i==0) i=1;
-        if (deplacerCase(x+i,tamp)!=0)
+        if (deplacerCase(x+i,tamp)!=0&&(testRetour(y,tab[x+i])!=0))
         {
             tunnel (x,y,tab,(i+3)%4);
             bas=deplacementIA(x+i,y,z,t,tab);
             reinitTunnel(x,y,tab);
         }
 
-        if (deplacerCase(y-j,tab[x])!=0)
-        {
-            tunnel (x,y,tab,(-j+4)%4);
-            gauche=deplacementIA(x,y-j,z,t,tab);
-            reinitTunnel(x,y,tab);
-        }
-
-        if ((deplacerCase(x-i,tamp)!=0)&&(testRetour(y,tab[x])!=0))
+        if ((deplacerCase(x-i,tamp)!=0)&&(testRetour(y,tab[x-i])!=0))
         {
             tunnel (x,y,tab,(-i+3)%4);
             haut=deplacementIA(x-i,y,z,t,tab);
             reinitTunnel(x,y,tab);
         }
 
-        switch (quatresChemins(bas,gauche,haut,0))
+        getColonne(y-j,tab,tamp);
+        if (deplacerCase(y-j,tab[x])!=0&&(testRetour(x,tamp)!=0))
+        {
+            tunnel (x,y,tab,(-j+4)%4);
+            gauche=deplacementIA(x,y-j,z,t,tab);
+            reinitTunnel(x,y,tab);
+        }
+        printf("%d  %d  %d\n", gauche, haut, bas);
+        switch (quatresChemins(bas,haut, gauche,0))
         {
             case 1: tab[x][y]=2;
                     return 1+bas;
                     break;
             case 2: tab[x][y]=2;
-                    return 1+gauche;
+                    return 1+haut;
                     break;
             case 3: tab[x][y]=2;
-                    return 1+haut;
+                    return 1+gauche;
                     break;
             default: tab[x][y]=0;
                     return 0;
@@ -427,6 +431,7 @@ void chemin (int x,int y, int z, int t, char tab[TAILLE_MAX][TAILLE_MAX])
             }
         }
         i=deplacementIA(x,y,z,t,tab2);
+        printf("%d\n",i);
         j=0;
         while (i>1)
         {
@@ -456,9 +461,14 @@ int main()
     char tab [TAILLE_MAX][TAILLE_MAX], ligne [TAILLE_MAX+2], c;
     FILE* fTerr=fopen("data/Terrains.txt", "r");
     int i,j;
+    int type=2;
     if (fTerr!=NULL)
     {
         for (i=0; i<4;i++)
+        {
+            fgets(ligne,TAILLE_MAX+2,fTerr);
+        }
+        for (i=0;i<TAILLE_MAX*(type-1)+2;i++)
         {
             fgets(ligne,TAILLE_MAX+2,fTerr);
         }
@@ -473,7 +483,7 @@ int main()
         fclose (fTerr);
         afficherTab2D(tab);
         printf("\n\n");
-        chemin (4,7,5,18,tab);
+        chemin (1,1,15,17,tab);
         afficherTab2D(tab);
         printf("\nAppuyez sur s \n");
         while (c!='s')

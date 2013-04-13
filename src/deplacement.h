@@ -1,3 +1,6 @@
+#ifndef __deplacement_h__
+#define __deplacement_h__
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
@@ -74,3 +77,5 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
 * <br /> Postconditions : trace un chemin dans tab pour aller de la case (x,y) à la case (z,t).
 */
 void chemin (int x,int y, int z, int t, char tab[TAILLE_MAX][TAILLE_MAX]);
+
+#endif

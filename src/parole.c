@@ -5,7 +5,7 @@
 #include <string.h>
 #include <math.h>
 #include "parole.h"
-#include "personnage.h"
+
 
 #define TAILLE_MAX_DIAL 200
 
@@ -239,7 +239,7 @@ char vendre(Dialogue* dialogue, Objet* objet, char* rep)
 
 
 
-int mainParole(int argc, char** argv)
+int mainParole (int argc, char** argv)
 {
     int k;
     Dialogue dial;

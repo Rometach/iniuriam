@@ -46,6 +46,7 @@
 		<Unit filename="src/deplacement.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="src/deplacement.h" />
 		<Unit filename="src/inventaire.c">
 			<Option compilerVar="CC" />
 		</Unit>
