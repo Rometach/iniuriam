@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <string.h>
 #include "stock.h"
+#include "objet.h"
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
