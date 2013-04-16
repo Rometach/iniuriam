@@ -10,7 +10,7 @@
 
 char deplacerCase (int y, char tab [TAILLE_MAX])
 {
-    if (tab [y]==0||tab [y]==2||tab[y]>=7) return 0;
+    if (tab [y]==0||tab [y]==2||tab[y]>=7||tab[y]==4) return 0;
     else return 1;
 }
 
@@ -456,7 +456,7 @@ void chemin (int x,int y, int z, int t, char tab[TAILLE_MAX][TAILLE_MAX])
         }
 }
 
-int main()
+int maind()
 {
     char tab [TAILLE_MAX][TAILLE_MAX], ligne [TAILLE_MAX+2];
     FILE* fTerr=fopen("data/Terrains.txt", "r");

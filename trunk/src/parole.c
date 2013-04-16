@@ -162,15 +162,21 @@ char menacer(Dialogue* dialogue, char* rep)
 
 char seduire(Dialogue* dialogue, char* rep)
 {
-    int test;
+    int test, charisme, intelligence;
+    charisme=getPersoCharisme(dialogue->perso1);
+    intelligence=getPersoIntelligence(dialogue->perso2);
 
     if (getPersoSexe(dialogue->perso1)!=getPersoSexe(dialogue->perso1))     /*Mieux vaut séduire des individus du sexe opposé...*/
     {
-        test=(rand()%getPersoCharisme(dialogue->perso1))+(dialogue->humeur)-50;
+        if (charisme==0) test=-1;
+        else test=(rand()%charisme)+(dialogue->humeur)-50;
     }
     else
     {
-        test=(rand()%getPersoCharisme(dialogue->perso1))-(rand()%getPersoIntelligence(dialogue->perso2))+(dialogue->humeur);
+        if (charisme==0&&intelligence==0) test=dialogue->humeur;
+        else if (charisme==0) test=-(rand()%intelligence)+(dialogue->humeur);
+        else if (intelligence==0) test=(rand()%charisme)+(dialogue->humeur);
+        else test=(rand()%charisme)-(rand()%intelligence)+(dialogue->humeur);
     }
 
     if(test>0)
@@ -239,7 +245,7 @@ char vendre(Dialogue* dialogue, Objet* objet, char* rep)
 
 
 
-int mainParole (int argc, char** argv)
+int main (int argc, char** argv)
 {
     int k;
     Dialogue dial;
@@ -261,6 +267,7 @@ int mainParole (int argc, char** argv)
         seduire(&dial, information);
         menacer(&dial, information);
     }
-
+    persoLibere (&perso);
+    persoLibere (&pnj);
     return 0;
 }
