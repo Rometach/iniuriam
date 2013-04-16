@@ -2,3 +2,5 @@ Ce fichier contient l'ensemble des carrières accessibles dans Iniuriam
 
 Nom	Liste de compétences
 Voleur/	1	2	3!
+
+

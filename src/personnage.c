@@ -5,6 +5,7 @@
 #include "personnage.h"
 #include "inventaire.h"
 #include "capacite.h"
+#include "objet.h"
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
@@ -21,10 +22,11 @@ void ajouterCompetencePersonnage (Personnage* perso, Competence* comp)
 
 void persoInit (Personnage *perso, char nom[], char race, char sexe, char faction, char carriere, int experience,int argent)
 {
-    int i=0, j;
-    FILE* fCarr;
+    int i=0, j,k;
+    FILE* fCarr,*fRace;
     Competence compTampon;
-    char ligne [TAILLE_MAX];
+    char ligne [TAILLE_MAX],tampon[2];
+    Objet obj;
 
     assert (strlen(nom)<30);
     strcpy(perso->nom,nom);
@@ -35,8 +37,39 @@ void persoInit (Personnage *perso, char nom[], char race, char sexe, char factio
     perso->argent=argent;
     perso->experience= experience;
 
-    CapaciteInit(&(perso->capacite));
+    inventaireInit(&(perso->inventaire));
+    assert (fRace= fopen("data/Races.txt", "r"));
+    if (fRace!=NULL)
+    {
+        while (i<race+3)
+        {
+            fgets(ligne,TAILLE_MAX,fRace);
+            i++;
+        }
+        i= (int)(strchr (ligne, '/')-ligne);
+        strncpy(tampon,ligne+i+2,2);
+        perso->attaque =(char)atoi(tampon);
+        strncpy(tampon,ligne+i+5,2);
+        perso->defense =(char)atoi(tampon);
+        strncpy(tampon,ligne+i+8,2);
+        perso->intelligence =(char)atoi(tampon);
+        strncpy(tampon,ligne+i+11,2);
+        perso->agilite =(char)atoi(tampon);
+        strncpy(tampon,ligne+i+14,2);
+        perso->charisme =(char)atoi(tampon);
+        perso->ptDeVie= 100-(20-perso->defense)*3;
 
+        j=(int)(strchr (ligne, '!')-ligne);
+        for (k=i+17;k<j;k+=3)
+        {
+            strncpy(tampon,ligne+k,2);
+            objInit(&obj,(char)atoi(tampon));
+            ajouterInventaire(perso, &obj);
+        }
+    }
+
+    i=0;
+    CapaciteInit(&(perso->capacite));
     assert(fCarr= fopen("data/Carrieres.txt", "r"));
     if (fCarr!=NULL)
     {
@@ -56,8 +89,6 @@ void persoInit (Personnage *perso, char nom[], char race, char sexe, char factio
         fclose(fCarr);
     }
     else printf ("Impossible d'ouvrir le fichier Carrieres.txt\n");
-
-    inventaireInit(&(perso->inventaire));
 }
 
 

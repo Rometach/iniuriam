@@ -32,9 +32,9 @@ void ajouterCompetenceCapacite (Capacite* capacite, Competence* comp)
     int compAcquise=0;
     Competence* compTampon;
 
-    for(i=0;i<=capacite->nbCompetence;i++)
+    for(i=0;i<capacite->nbCompetence;i++)
     {
-        if(getType(&(capacite->comp)[i])!=getType(comp))    {compAcquise=1;}
+        if(getType(&(capacite->comp)[i])!=getType(comp)) {compAcquise=1;}
     }
 
     if ((i==capacite->nbCompetence)||(!compAcquise))
@@ -46,7 +46,7 @@ void ajouterCompetenceCapacite (Capacite* capacite, Competence* comp)
         else
         {
             compTampon=(Competence*)malloc(2*(capacite->quantite)*sizeof(Competence));
-            for(j=0;j<=capacite->quantite;j++)
+            for(j=0;j<capacite->quantite;j++)
             {
                 compTampon[j]=capacite->comp[j];
             }

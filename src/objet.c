@@ -29,31 +29,24 @@ void objInit (Objet *obj, char type)
 
         strncpy(obj->nom,ligne,i);
         obj->nom[i]='\0';
-        printf ("%s\n",obj->nom);
 
         obj->type = type;
-        printf ("%d\n", type);
 
         strncpy(tampon,ligne+i+2,2);
         obj->portee=(char)atoi(tampon);
-        printf("%d\n",obj->portee);
 
         strncpy(tampon,ligne+i+6,2);
         obj->degats=(char)atoi(tampon);
-        printf("%d\n",obj->degats);
 
         strncpy(tampon,ligne+i+9,2);
         obj->protection=(char)atoi(tampon);
-        printf ("%d\n",obj->protection);
         i+=12;
 
         j=strchr(ligne+i,'/')-(ligne+i);
         strncpy(obj->description,ligne+i,j);
         obj->description[j]='\0';
-        printf ("%s\n", obj->description);
 
         obj->valeur=atoi(ligne+i+j+2);
-        printf ("%d\n",obj->valeur);
     }
     else
     {
