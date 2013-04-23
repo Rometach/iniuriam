@@ -64,7 +64,7 @@ void persoInit (Personnage *perso, char nom[], char race, char sexe, char factio
         {
             strncpy(tampon,ligne+k,2);
             objInit(&obj,(char)atoi(tampon));
-            ajouterInventaire(perso, &obj);
+            ajouterObjetInventaire(&(perso->inventaire), &obj);
         }
     }
 
@@ -151,7 +151,7 @@ void getCarriereNom(char carriere, char* s)
         char ligne [TAILLE_MAX];
         for (i=0;i<carriere+3;i++)
         {
-            fgets(ligne,TAILLE_MAX,fCarr);
+           fgets(ligne,TAILLE_MAX,fCarr);
         }
     i= strchr (ligne, '/')-ligne;
     strncpy(s,ligne,i);
@@ -228,40 +228,10 @@ void setPersoArgent(Personnage *perso, int somme)
 }
 
 
-void ajouterInventaire (Personnage *perso, Objet *obj)
-{
-    int i=0;
-
-    while ((i<perso->inventaire.nbObjet)||(perso->inventaire.st[i].objet->nom!=obj->nom))
-    {
-        i++;
-    }
-    if (i<perso->inventaire.nbObjet)
-    {
-        perso->inventaire.st[i].quantite++;
-    }
-    else if (perso->inventaire.capacite==0);
-    {
-        Stock *tampon= perso->inventaire.st;
-
-        perso->inventaire.st= (Stock*) malloc (2*(perso->inventaire.nbObjet)*sizeof(Stock));
-        for (i=0; i<perso->inventaire.nbObjet; i++)
-        {
-            perso->inventaire.st [i]=tampon[i];
-        }
-        free (tampon);
-        perso->inventaire.capacite=perso->inventaire.nbObjet;
-    }
-    perso->inventaire.capacite--;
-    perso->inventaire.st[perso->inventaire.nbObjet].objet=obj;
-    perso->inventaire.nbObjet++;
-}
-
-
 /**Cette fonction doit être recodée en utilisant eneleverObjetInventaire SVP*/
 void soustraireInventaire (Personnage *perso, Objet *obj)
 {
-    int i;
+    int i=0;
     while ((i<perso->inventaire.nbObjet)&&(perso->inventaire.st[i].objet->nom!=obj->nom))
     {
         i++;

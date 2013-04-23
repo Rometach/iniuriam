@@ -17,9 +17,15 @@ typedef struct
 
 /**
 * \brief Preconditions : st n'a pas déjà été initialisé
-* <br /> Postconditions : st est initialisé avec une quantite nulle
+* <br /> Postconditions : st est initialisé avec l'objet obj
 */
 void stockInit (Stock *st);
+
+/**
+* \brief Preconditions : st est initialisé
+* <br /> Postconditions : st est libéré avec une quantite nulle
+*/
+void stockLibere (Stock *st);
 
 /**
 * \brief Preconditions : st est initialisé
@@ -40,10 +46,15 @@ void decrementerStock(Stock *st, int n);
 Objet* getStockObjet(Stock *st);
 
 /**
-* \brief Preconditions : stock1 et stock2 sont initialisés et font référence au même objet
-* <br /> Postconditions : les deux Stocks sont fusionnés dans stock1 ; stock2 est libéré
+* \brief Preconditions : st et obj sont initialisés
+* <br /> Postconditions : initialise l'objet de st
 */
-void fusionStocks(Stock* stock1, Stock* stock2);
+void setObjetStock (Stock *st, Objet* obj);
 
+/**
+* \brief Preconditions : st est initialisé
+* <br /> Postconditions : retourne la quantite d'objet de st
+*/
+int getQuantiteStock(Stock* stock);
 
 #endif

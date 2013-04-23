@@ -198,10 +198,12 @@ char seduire(Dialogue* dialogue, char* rep)
 
 char acheter(Dialogue* dialogue, Objet* objet, char* rep)
 {
+    Inventaire* inv=NULL;
+    getPersoInventaire(dialogue->perso1,inv);
     if ((getPersoArgent(dialogue->perso1))>=(getObjetValeur(objet)))
         {
             soustraireInventaire(dialogue->perso2,objet);
-            ajouterInventaire(dialogue->perso1,objet);
+            ajouterObjetInventaire(inv,objet);
 
             setPersoArgent(dialogue->perso2,getPersoArgent(dialogue->perso2)-getObjetValeur(objet));
             setPersoArgent(dialogue->perso1,getPersoArgent(dialogue->perso1)+getObjetValeur(objet));
@@ -213,7 +215,7 @@ char acheter(Dialogue* dialogue, Objet* objet, char* rep)
         {
             strcpy(rep,"Je suis au regret de vous annoncer que vous n'avez pas les moyens d'effectuer cette transaction...");
         }
-
+    inventaireLibere(inv);
     printf("%s",rep);
     return(dialogue->humeur);
 }
@@ -223,10 +225,12 @@ char acheter(Dialogue* dialogue, Objet* objet, char* rep)
 
 char vendre(Dialogue* dialogue, Objet* objet, char* rep)
 {
+    Inventaire* inv=NULL;
+    getPersoInventaire (dialogue->perso2,inv);
     if ((getPersoArgent(dialogue->perso2))>=(getObjetValeur(objet)))
         {
             soustraireInventaire(dialogue->perso1,objet);
-            ajouterInventaire(dialogue->perso2,objet);
+            ajouterObjetInventaire(inv,objet);
 
             setPersoArgent(dialogue->perso1,getPersoArgent(dialogue->perso1)-getObjetValeur(objet));
             setPersoArgent(dialogue->perso2,getPersoArgent(dialogue->perso2)+getObjetValeur(objet));

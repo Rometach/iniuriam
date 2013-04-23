@@ -11,10 +11,15 @@
 
 void stockInit (Stock *st)
 {
-    st->objet= NULL;
-    st->quantite=0;
+    st->objet=(Objet*)malloc(sizeof(Objet));
+    st->quantite=1;
 }
 
+void stockLibere (Stock *st)
+{
+    free(st->objet);
+    st->quantite=0;
+}
 
 void incrementerStock(Stock *st, int n)
 {
@@ -33,14 +38,15 @@ Objet* getStockObjet(Stock *st)
     return st->objet;
 }
 
-
-void fusionStocks(Stock* stock1, Stock* stock2)
+void setObjetStock (Stock *st, Objet* obj)
 {
-    assert((stock1->objet)==(stock2->objet));
-    stock1->quantite+=stock2->quantite;
+    st->objet=obj;
 }
 
-
+int getQuantiteStock(Stock* stock)
+{
+    return stock->quantite;
+}
 
 int mainStock ()
 {
