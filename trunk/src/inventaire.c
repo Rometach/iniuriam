@@ -19,23 +19,25 @@ void inventaireInit (Inventaire* inventaire)
 
 void inventaireLibere (Inventaire* inventaire)
 {
-    free (inventaire->st);
+    int i;
+    for (i=0;i<inventaire->nbObjet;i++)
+    {
+        stockLibere (&(inventaire->st[i]));
+    }
     inventaire->nbObjet=0;
     inventaire->capacite=0;
 }
 
 
-void ajouterObjetInventaire (Inventaire* inventaire, Stock* st)
+void ajouterObjetInventaire (Inventaire* inventaire, Objet* obj)
 {
     int i;
     char ajoute=0;
-    /*Stock* stockTampon;*/
-
-    for(i=0;i<=inventaire->nbObjet;i++)
+    for(i=0;i<inventaire->nbObjet;i++)
     {
-        if(getStockObjet(&inventaire->st[i])==getStockObjet(st))
+        if(strcmp(inventaire->st[i].objet->nom,getObjetNom(obj))==0)
         {
-            fusionStocks(&inventaire->st[i], st);
+            incrementerStock(&inventaire->st[i],1);
             ajoute=1;
         }
     }
@@ -43,17 +45,20 @@ void ajouterObjetInventaire (Inventaire* inventaire, Stock* st)
     {
         if((inventaire->nbObjet)==(inventaire->capacite))
         {
-            /*stockTampon=malloc(2*(inventaire->capacite)*sizeof(Stock));
-            for(i=0;i<=inventaire->nbObjet;i++)
+            Inventaire tampon;
+            inventaireInit(&tampon);
+            copieInventaire(&tampon,inventaire);
+            inventaire->st=(Stock*) malloc((2*inventaire->capacite)*sizeof(Stock));
+            for (i=0;i<inventaire->capacite;i++)
             {
-               STILL TO BE CODE
-            }*/
+                inventaire->st[i]=(&tampon)->st[i];
+            }
+            inventaire->capacite*=2;
+            inventaireLibere(&tampon);
         }
-        else
-        {
-            inventaire->st[inventaire->nbObjet].objet=getStockObjet(st);     /*Améliorable*/
-            inventaire->nbObjet++;
-        }
+        stockInit(&(inventaire->st[inventaire->nbObjet]));
+        setObjetStock(&(inventaire->st[inventaire->nbObjet]),obj);
+        inventaire->nbObjet++;
     }
 }
 

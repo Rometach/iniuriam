@@ -14,7 +14,7 @@
 void objInit (Objet *obj, char type)
 {
     int i,j;
-    FILE* fObjet= fopen("../data/Objets.txt", "r");
+    FILE* fObjet= fopen("data/Objets.txt", "r");
     assert ((type>0)&&(type<30));
     char ligne[TAILLE_MAX];
     char tampon [2];

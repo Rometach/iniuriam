@@ -32,7 +32,7 @@ void inventaireLibere (Inventaire* inventaire);
 * \brief Preconditions : inventaire est initialisé
 * <br /> Postconditions : st est ajouté dans inventaire
 */
-void ajouterObjetInventaire (Inventaire* inventaire, Stock* st);
+void ajouterObjetInventaire (Inventaire* inventaire, Objet* obj);
 
 
 /**
