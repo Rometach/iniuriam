@@ -26,8 +26,7 @@ void persoInit (Personnage *perso, char nom[], char race, char sexe, char factio
     FILE* fCarr,*fRace;
     Competence compTampon;
     char ligne [TAILLE_MAX],tampon[2];
-    Objet obj;
-
+    Objet* tab;
     assert (strlen(nom)<30);
     strcpy(perso->nom,nom);
     perso->race= race;
@@ -60,11 +59,12 @@ void persoInit (Personnage *perso, char nom[], char race, char sexe, char factio
         perso->ptDeVie= 100-(20-perso->defense)*3;
 
         j=(int)(strchr (ligne, '!')-ligne);
+        tab=(Objet*) malloc((j-i+17)*sizeof(Objet));
         for (k=i+17;k<j;k+=3)
         {
             strncpy(tampon,ligne+k,2);
-            objInit(&obj,(char)atoi(tampon));
-            ajouterObjetInventaire(&(perso->inventaire), &obj);
+            objInit(tab+k-i-17,(char)atoi(tampon));
+            ajouterObjetInventaire(&(perso->inventaire), tab+k-i-17);
         }
     }
 

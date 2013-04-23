@@ -259,11 +259,12 @@ int main (int argc, char** argv)
 
     srand(time(NULL));
     persoInit (&perso, "Toromis", 1, 1, 1, 1, 0, 100);
-    persoInit (&pnj, "Babar", 1, 1, 1, 1, 0, 100);
+    persoInit (&pnj, "Babar", 2, 1, 1, 1, 0, 100);
     setPersoArgent(&perso,1000);
     dialogueInit(&dial,&perso,&pnj);
-
-    for(k=0;k<20;k++)
+    printf("%s\n", pnj.inventaire.st[0].objet->nom);
+    printf("%s\n\n",perso.inventaire.st[0].objet->nom);
+    for(k=0;k<10;k++)
     {
         printf("\n\n");
         obtenirInfo(&dial, information);
@@ -271,6 +272,7 @@ int main (int argc, char** argv)
         seduire(&dial, information);
         menacer(&dial, information);
     }
+
     persoLibere (&perso);
     persoLibere (&pnj);
     return 0;

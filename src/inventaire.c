@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
+#include "objet.h"
 #include "stock.h"
 #include "inventaire.h"
 
@@ -35,7 +36,7 @@ void ajouterObjetInventaire (Inventaire* inventaire, Objet* obj)
     char ajoute=0;
     for(i=0;i<inventaire->nbObjet;i++)
     {
-        if(strcmp(inventaire->st[i].objet->nom,getObjetNom(obj))==0)
+        if(inventaire->st[i].objet->type==obj->type)
         {
             incrementerStock(&inventaire->st[i],1);
             ajoute=1;
