@@ -26,16 +26,19 @@ void incrementerStock(Stock *st, int n)
 	st->quantite+=n;
 }
 
-
 void decrementerStock(Stock *st, int n)
 {
 	st->quantite-=n;
 }
 
-
 Objet* getStockObjet(Stock *st)
 {
     return st->objet;
+}
+
+int getQuantiteStock(Stock* stock)
+{
+    return stock->quantite;
 }
 
 void setObjetStock (Stock *st, Objet* obj)
@@ -43,9 +46,10 @@ void setObjetStock (Stock *st, Objet* obj)
     st->objet=obj;
 }
 
-int getQuantiteStock(Stock* stock)
+void copieStock (Stock *st1, Stock *st2)
 {
-    return stock->quantite;
+    setObjetStock(st1,st2->objet);
+    st1->quantite=st2->quantite;
 }
 
 int mainStock ()

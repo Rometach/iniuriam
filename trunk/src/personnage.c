@@ -59,12 +59,12 @@ void persoInit (Personnage *perso, char nom[], char race, char sexe, char factio
         perso->ptDeVie= 100-(20-perso->defense)*3;
 
         j=(int)(strchr (ligne, '!')-ligne);
-        tab=(Objet*) malloc((j-i+17)*sizeof(Objet));
+        tab=(Objet*) malloc((j-i-16)/3*sizeof(Objet));
         for (k=i+17;k<j;k+=3)
         {
             strncpy(tampon,ligne+k,2);
-            objInit(tab+k-i-17,(char)atoi(tampon));
-            ajouterObjetInventaire(&(perso->inventaire), tab+k-i-17);
+            objInit(tab+(k-i-17)/3,(char)atoi(tampon));
+            ajouterObjetInventaire(&(perso->inventaire), tab+(k-i-17)/3);
         }
     }
 
