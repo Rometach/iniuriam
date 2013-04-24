@@ -46,15 +46,21 @@ void decrementerStock(Stock *st, int n);
 Objet* getStockObjet(Stock *st);
 
 /**
+* \brief Preconditions : st est initialisé
+* <br /> Postconditions : retourne la quantite d'objet de st
+*/
+int getQuantiteStock(Stock* stock);
+
+/**
 * \brief Preconditions : st et obj sont initialisés
 * <br /> Postconditions : initialise l'objet de st
 */
 void setObjetStock (Stock *st, Objet* obj);
 
 /**
-* \brief Preconditions : st est initialisé
-* <br /> Postconditions : retourne la quantite d'objet de st
+* \brief Preconditions : st1 et st2 sont initialisés
+* <br /> Postconditions : copie st2 dans st1
 */
-int getQuantiteStock(Stock* stock);
+void copieStock (Stock *st1, Stock *st2);
 
 #endif
