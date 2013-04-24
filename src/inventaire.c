@@ -57,7 +57,7 @@ void ajouterObjetInventaire (Inventaire* inventaire, Objet* obj)
                 copieStock(&(inventaire->st[i]),&(tampon->st[i]));
             }
             inventaire->capacite*=2;
-            inventaireLibere(tampon);
+            free(tampon);
         }
         stockInit(&(inventaire->st[inventaire->nbObjet]));
         setObjetStock(&(inventaire->st[inventaire->nbObjet]),obj);
