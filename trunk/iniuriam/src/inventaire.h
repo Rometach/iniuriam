@@ -1,0 +1,51 @@
+#ifndef __inventaire_h__
+#define __inventaire_h__
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "stock.h"
+
+/**
+* \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
+*/
+
+typedef struct
+{
+    Stock* st;
+    int nbObjet;
+    int capacite;
+} Inventaire;
+
+/**
+* \brief Preconditions : inventaire n'est pas initialisé
+* <br /> Postconditions : inventaire est initialisé
+*/
+void inventaireInit (Inventaire* inventaire);
+
+/**
+* \brief Preconditions : inventaire est initialisé
+* <br /> Postconditions : inventaire est libéré
+*/
+void inventaireLibere (Inventaire* inventaire);
+
+/**
+* \brief Preconditions : inventaire est initialisé
+* <br /> Postconditions : st est ajouté dans inventaire
+*/
+void ajouterObjetInventaire (Inventaire* inventaire, Objet* obj);
+
+
+/**
+* \brief Preconditions : inventaire est initialisé, st fait partie de inventaire
+* <br /> Postconditions : 1 stock est ôté de inventaire
+*/
+void enleverObjetInventaire (Inventaire* inventaire, Objet* obj);
+
+/**
+* \brief Preconditions : inventaire2 est initialisé mais pas inventaire1
+* <br /> Postconditions : inventaire1 est initialisé ; inventaire2 est recopié dans inventaire1
+*/
+void copieInventaire (Inventaire* inventaire1, Inventaire* inventaire2);
+
+
+#endif

@@ -1,0 +1,8 @@
+Ce fichier contient l'ensemble des caractéristiques liées aux races d'Iniuriam
+
+Nom		Compétences Combat Basiques		Objets de base		Description
+Humains/	20	20	20	20	20	01	02	03!	"Descendants d'Adam et Eve ... du moins il parait..."
+Cyborgs/	30	30	10	10	10	04	05	06!	"Protocole @BOURRIN activated->request cible(s), arme(s)"
+Sicaris/	40	10	20	30	10	07	08	09!	"A manipuler avec précautions, méfiez vous tout de même, ça mord"
+Medarsins/	10	20	30	20	30	10	11	12!	"Doués pour manipuler les esprits... c'est tout !"
+	
