@@ -1,0 +1,41 @@
+Situation initiale du groupe
+	0 Sur la planète mère
+	1 Sur la planète ennemie (infiltrés)
+	2 Sur la planète ennemie (en prison)
+	3 Chez les "marchands"
+	
+Situation initiale de la guerre
+	0 Juste grosse tension
+	1 Bataille spatiale active
+	2 Escarmouches spatiales
+	3 Avantage pour Siste
+	4 Avantage pour Heredia
+	5 (?) Siste a envahi Heredia
+	6 (?) Heredia a envahi Siste
+
+Situation initiale des marchands
+	0 Neutres
+	1 Plutôt favorables à Siste
+	2 Plutôt favorables à Heredia
+	3 Blocus contre Siste
+	4 Blocus contre Heredia
+
+Objectifs possibles
+	0 Attentat sur un bâtiment
+	1 Attentat sur un vaisseau (à terre !)
+	2 Attentat contre un personnage important
+	3 Prendre le contrôle d'un bastion ennemi
+	4 Faire signer la reddition au président ennemi
+	5 Voler des plans (de vaisseau...)
+	6 Récupérer les codes secrets ennemis
+	7 Corrompre un haut-gradé ennemi
+	8 Convaincre les "marchands" d'imposer un blocus
+	
+Evénements pouvant se produire
+	0 Changement de situation (voir "Situation initiale de la guerre" et "Situation initiale des marchands")
+	1 Attentat (bâtiment/vaisseau/personnage important)
+	2 Découverte des joueurs (infiltrés/évadés)
+
+Emplacement des PNJ
+	Généraux
+	Dirigeants
