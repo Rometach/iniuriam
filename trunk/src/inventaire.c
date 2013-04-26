@@ -21,7 +21,7 @@ void inventaireInit (Inventaire* inventaire)
 void inventaireLibere (Inventaire* inventaire)
 {
     int i;
-    for (i=0;i<inventaire->nbObjet;i++)
+    for (i=inventaire->nbObjet-1;i>=0;i++)
     {
         stockLibere (&(inventaire->st[i]));
     }
@@ -66,7 +66,7 @@ void ajouterObjetInventaire (Inventaire* inventaire, Objet* obj)
 }
 
 
-void eneleverObjetInventaire (Inventaire* inventaire, Objet* obj)
+void enleverObjetInventaire (Inventaire* inventaire, Objet* obj)
 {
     int i, j;
     while ((i<inventaire->nbObjet)&&(inventaire->st[i].objet->nom!=obj->nom))
