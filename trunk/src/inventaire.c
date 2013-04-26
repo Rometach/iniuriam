@@ -21,10 +21,11 @@ void inventaireInit (Inventaire* inventaire)
 void inventaireLibere (Inventaire* inventaire)
 {
     int i;
-    for (i=inventaire->nbObjet-1;i>=0;i++)
+    for (i=inventaire->nbObjet-1;i>=0;i--)
     {
         stockLibere (&(inventaire->st[i]));
     }
+    free (inventaire->st);
     inventaire->nbObjet=0;
     inventaire->capacite=0;
 }
