@@ -31,6 +31,53 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="src/capacite.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/capacite.h" />
+		<Unit filename="src/case.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/case.h" />
+		<Unit filename="src/competence.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/competence.h" />
+		<Unit filename="src/deplacement.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/deplacement.h" />
+		<Unit filename="src/inventaire.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/inventaire.h" />
+		<Unit filename="src/main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/mission.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/mission.h" />
+		<Unit filename="src/objet.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/objet.h" />
+		<Unit filename="src/parole.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/parole.h" />
+		<Unit filename="src/personnage.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/personnage.h" />
+		<Unit filename="src/stock.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/stock.h" />
+		<Unit filename="src/terrain.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/terrain.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
