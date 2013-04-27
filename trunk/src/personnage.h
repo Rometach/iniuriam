@@ -34,8 +34,6 @@ typedef struct
     Inventaire inventaire;
 } Personnage;
 
-void ajouterCompetencePersonnage (Personnage* perso, Competence* comp);
-
 
 /**
 * \brief Preconditions : perso n'a pas déjà été initialisé

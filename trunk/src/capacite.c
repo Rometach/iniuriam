@@ -28,34 +28,33 @@ void CapaciteLibere (Capacite* capacite)
 /* En mode tableau dynamique*/
 void ajouterCompetenceCapacite (Capacite* capacite, Competence* comp)
 {
-    int i, j;
+    int i;
     int compAcquise=0;
-    Competence* compTampon;
 
     for(i=0;i<capacite->nbCompetence;i++)
     {
-        if(getType(&(capacite->comp)[i])!=getType(comp)) {compAcquise=1;}
+        if(getType(&(capacite->comp)[i])==getType(comp)) {compAcquise=1;}
     }
 
-    if ((i==capacite->nbCompetence)||(!compAcquise))
+    if (compAcquise==0)
     {
-        if (capacite->nbCompetence!=capacite->quantite)
+        if ((capacite->quantite)==(capacite->nbCompetence))
         {
-            (capacite->comp)[i]=*comp;
-        }
-        else
-        {
-            compTampon=(Competence*)malloc(2*(capacite->quantite)*sizeof(Competence));
-            for(j=0;j<capacite->quantite;j++)
+            Competence* compTampon;
+            compTampon=(Competence*)malloc((capacite->quantite)*sizeof(Competence));
+            for(i=0;i<capacite->quantite;i++)
             {
-                compTampon[j]=capacite->comp[j];
+                compTampon[i]=capacite->comp[i];
             }
-            compTampon[j]=*comp;
-
+            capacite->comp=(Competence*)malloc(2*(capacite->quantite)*sizeof(Competence));
+            for(i=0;i<capacite->quantite;i++)
+            {
+                capacite->comp[i]=compTampon[i];
+            }
             capacite->quantite*=2;
-            capacite->nbCompetence++;
-            free(capacite->comp);
-            capacite->comp=compTampon;
+            free (compTampon);
         }
+        capacite->comp[capacite->nbCompetence]=*comp;
+        capacite->nbCompetence++;
     }
 }
