@@ -15,16 +15,11 @@
 
 
 
-void ajouterCompetencePersonnage (Personnage* perso, Competence* comp)
-{
-    ajouterCompetenceCapacite(&(perso->capacite), comp);
-}
-
 void persoInit (Personnage *perso, char nom[], char race, char sexe, char faction, char carriere, int experience,int argent)
 {
     int i=0, j,k;
     FILE* fCarr,*fRace;
-    Competence compTampon;
+    Competence* compTampon;
     char ligne [TAILLE_MAX],tampon[2];
     Objet* tab;
 
@@ -83,11 +78,11 @@ void persoInit (Personnage *perso, char nom[], char race, char sexe, char factio
         }
         i= (int)(strchr (ligne, '/')-ligne);
         j= (int)(strchr (ligne,'!')-ligne);
-        while (i+1<j)
+        compTampon=(Competence*)malloc(((j-i-1)/2)*sizeof(Competence));
+        for (k=i; k+1<j;k+=2)
         {
-            i+=2;
-            compInit (&compTampon,ligne[i]-'0', experience/10);
-            ajouterCompetencePersonnage (perso, &compTampon);
+            compInit (compTampon+(k-i)/2,ligne[k+2]-'0', experience/10);
+            ajouterCompetenceCapacite (&(perso->capacite), compTampon+(k-i)/2);
         }
         fclose(fCarr);
     }

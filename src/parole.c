@@ -262,8 +262,6 @@ int mainParole (int argc, char** argv)
     persoInit (&pnj, "Babar", 2, 1, 1, 1, 0, 100);
     setPersoArgent(&perso,1000);
     dialogueInit(&dial,&perso,&pnj);
-    printf("%s\n", pnj.inventaire.st[0].objet->nom);
-    printf("%s\n\n",perso.inventaire.st[0].objet->nom);
     for(k=0;k<10;k++)
     {
         printf("\n\n");
