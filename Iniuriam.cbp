@@ -39,6 +39,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/case.h" />
+		<Unit filename="src/combat.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/combat.h" />
 		<Unit filename="src/competence.c">
 			<Option compilerVar="CC" />
 		</Unit>

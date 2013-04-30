@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include "stock.h"
-#include "personnage.h"
+#include "combat.h"
+#include "parole.h"
 #include "terrain.h"
 
 /**
@@ -11,6 +11,7 @@
 
 int main (int argc, char **argv)
 {
+    mainCombat();
 	/*Terrain* terrain;
 
 	initTerrain(terrain);
