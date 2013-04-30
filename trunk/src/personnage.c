@@ -93,11 +93,7 @@ void persoInit (Personnage *perso, char nom[], char race, char sexe, char factio
 void persoLibere (Personnage *perso)
 {
     inventaireLibere(&perso->inventaire);
-    perso->inventaire.nbObjet=0;
-    perso->inventaire.capacite=0;
-    free (perso->capacite.comp);
-    perso->capacite.nbCompetence=0;
-    perso->capacite.quantite=0;
+    CapaciteLibere(&perso->capacite);
 }
 
 void getPersoNom(char* maChaine, Personnage *perso)
