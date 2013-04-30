@@ -11,7 +11,6 @@
 
 int main (int argc, char **argv)
 {
-    mainCombat();
 	/*Terrain* terrain;
 
 	initTerrain(terrain);
