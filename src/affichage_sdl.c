@@ -146,13 +146,13 @@ void eventSDL(Terrain* ter, SDL_Surface* ecran )
                     }*/
                     else if(event.key.keysym.sym==SDLK_s) /* SAVE */
                     {
-                        sauvTerrain(ter, "save.map", "HOTEL02.bmp");
+                        sauvTerrain(ter, "../data/Cartes/save.map", "../data/Chipsets/HOTEL02.bmp");
                     }
                     else if(event.key.keysym.sym==SDLK_l) /* LOAD */
                     {
                             detruitTerrain(ter);
                             initTerrain(ter);
-                            chargeTerrain(ter, "save.map");
+                            chargeTerrain(ter, "../data/Cartes/save.map");
                     }
                 }
             }
