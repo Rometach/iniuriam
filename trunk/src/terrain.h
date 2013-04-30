@@ -1,43 +1,60 @@
-#ifndef __terrain_h__
-#define __terrain_h__
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "case.h"
-#include "personnage.h"
+#ifndef TERRAIN_H
+# define TERRAIN_H
 
-
-/**
-* \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
-*/
-
+#include "SDL/SDL.h"
+#include "tile.h"
+#include "stdlib.h"
+#include "stdio.h"
 
 typedef struct
 {
-	char id;
-	Case* terrain;
-	Personnage * liste;
+    int nbrTile;
+    int defilY;
+    int decalageX;
+    int tile_sel;
+    unsigned int largeur;
+    unsigned int hauteur;
+
+    Tile* tabChipset;
+    SDL_Surface* chipset;
+
+    unsigned int *carte;        /* pointeur vers la carte (allocation dynamique) */
+
 
 } Terrain;
 
-/**
-* \brief Preconditions : terr n'a pas déjà été initialisé
-* <br /> Postconditions : terr est initialisé
-*/
-void initTerrain(Terrain* terr, char id);
+void initTerrain(Terrain* ter);
 
-/**
-* \brief Preconditions : terr est initialisé
-* <br /> Postconditions : terr est remplis
-*/
-void remplirTerrain(Terrain* terr);
+void remplirTerrain(Terrain* ter);
 
-/**
-* \brief Preconditions : terr est initialisé et remplis
-* <br /> Postconditions : affiche terr
-*/
-void afficheTerrain(Terrain* terr);
+int getNbrTile(Terrain* ter);
 
-void libereTerrain( Terrain* T);
+Tile* getTabChipset(Terrain* ter);
+
+int getTileCarte(Terrain* ter, int i);
+
+SDL_Surface* getChipset(Terrain* ter);
+
+void setNbrTile(Terrain* ter, int nbrTile);
+
+void setTabChipset(Terrain* ter);
+
+void setChipset(Terrain* ter);
+
+void setTileCarte(Terrain* ter, int i, int tile_sel);
+
+void sauvegardeTerrain(Terrain* ter);
+
+void chargeTerrain(Terrain* ter);
+
+void affChipset(Terrain* ter, SDL_Surface* ecran);
+
+void affCarte(Terrain* ter, SDL_Surface* ecran);
+
+void event(Terrain* ter, SDL_Surface* ecran);
+
+void detruitTerrain(Terrain* ter);
 
 #endif
+
