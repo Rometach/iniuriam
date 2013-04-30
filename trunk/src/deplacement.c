@@ -468,7 +468,7 @@ int mainDeplacement()
         {
             fgets(ligne,TAILLE_MAX+2,fTerr);
         }
-        for (i=0;i<TAILLE_MAX*(type-1)+2;i++)
+        for (i=0;i<(TAILLE_MAX+2)*(type-1);i++)
         {
             fgets(ligne,TAILLE_MAX+2,fTerr);
         }
