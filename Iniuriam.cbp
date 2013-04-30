@@ -35,14 +35,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/capacite.h" />
-		<Unit filename="src/case.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src/case.h" />
-		<Unit filename="src/combat.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src/combat.h" />
 		<Unit filename="src/competence.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -82,6 +74,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/terrain.h" />
+		<Unit filename="src/tile.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/tile.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
