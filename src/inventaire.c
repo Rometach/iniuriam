@@ -12,7 +12,6 @@
 void inventaireInit (Inventaire* inventaire)
 {
     inventaire->st=(Stock*)malloc(sizeof(Stock));
-    stockInit(inventaire->st);
     inventaire->nbObjet=0;
     inventaire->capacite=1;
 }
@@ -54,14 +53,12 @@ void ajouterObjetInventaire (Inventaire* inventaire, Objet* obj)
             inventaire->st=(Stock*) malloc((2*inventaire->capacite)*sizeof(Stock));
             for (i=0;i<inventaire->capacite;i++)
             {
-                stockInit(&(inventaire->st[i]));
                 copieStock(&(inventaire->st[i]),&(tampon->st[i]));
             }
             inventaire->capacite*=2;
             free(tampon);
         }
-        stockInit(&(inventaire->st[inventaire->nbObjet]));
-        setObjetStock(&(inventaire->st[inventaire->nbObjet]),obj);
+        stockInit(&(inventaire->st[inventaire->nbObjet]),obj);
         inventaire->nbObjet++;
     }
 }
@@ -97,7 +94,6 @@ void copieInventaire (Inventaire* inventaire1, Inventaire* inventaire2)
 
     for (i=0;i<inventaire2->nbObjet;i++)
     {
-        stockInit(&(inventaire1->st[i]));
         copieStock(&(inventaire1->st[i]),&(inventaire2->st[i]));
     }
     inventaire1->nbObjet=inventaire2->nbObjet;

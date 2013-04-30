@@ -19,7 +19,7 @@ typedef struct
 * \brief Preconditions : st n'a pas déjà été initialisé
 * <br /> Postconditions : st est initialisé avec l'objet obj
 */
-void stockInit (Stock *st);
+void stockInit (Stock *st, Objet* obj);
 
 /**
 * \brief Preconditions : st est initialisé

@@ -9,15 +9,15 @@
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
 
-void stockInit (Stock *st)
+void stockInit (Stock *st, Objet* obj)
 {
-    st->objet=(Objet*)malloc(sizeof(Objet));
+    st->objet=obj;
     st->quantite=1;
 }
 
 void stockLibere (Stock *st)
 {
-    free(st->objet);
+    st->objet=NULL;
     st->quantite=0;
 }
 
