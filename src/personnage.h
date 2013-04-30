@@ -39,7 +39,7 @@ typedef struct
 * \brief Preconditions : perso n'a pas déjà été initialisé
 * <br /> Postconditions : perso est initialisé avec pour paramètres nom, race, sexe, carriere, et expérience
 */
-void persoInit (Personnage *perso, char nom[], char race, char sexe, char faction, char carriere,int experience, int argent);
+void persoInit (Personnage *perso, char nom[], char race, char sexe, char faction, char carriere,int experience, int argent, Objet* tab);
 
 /**
 * \brief Preconditions : perso est initialisé
@@ -155,6 +155,11 @@ void getPersoCapacite(Personnage *perso, Capacite* s);
 */
 void setPersoArgent(Personnage *perso, int somme);
 
+/**
+* \brief Preconditions : perso est initialisé
+* <br /> Postconditions : 1 obj est ajouté à l'inventaire de perso
+*/
+void ajouterInventaire (Personnage *perso, Objet *obj);
 
 /**
 * \brief Preconditions : perso est initialisé, obj est dans l'inventaire de perso

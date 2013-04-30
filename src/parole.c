@@ -198,24 +198,33 @@ char seduire(Dialogue* dialogue, char* rep)
 
 char acheter(Dialogue* dialogue, Objet* objet, char* rep)
 {
-    Inventaire* inv=NULL;
-    getPersoInventaire(dialogue->perso1,inv);
-    if ((getPersoArgent(dialogue->perso1))>=(getObjetValeur(objet)))
-        {
-            soustraireInventaire(dialogue->perso2,objet);
-            ajouterObjetInventaire(inv,objet);
+    Inventaire inv;
+    getPersoInventaire(dialogue->perso2,&inv);
 
-            setPersoArgent(dialogue->perso2,getPersoArgent(dialogue->perso2)-getObjetValeur(objet));
-            setPersoArgent(dialogue->perso1,getPersoArgent(dialogue->perso1)+getObjetValeur(objet));
+    if(estObjDansInv(&inv,objet))
+    {
+        if ((getPersoArgent(dialogue->perso1))>=(getObjetValeur(objet)))
+            {
+                soustraireInventaire(dialogue->perso2,objet);
+                ajouterInventaire(dialogue->perso1,objet);
 
-            strcpy(rep,"Vendu !");
+                setPersoArgent(dialogue->perso2,getPersoArgent(dialogue->perso2)+getObjetValeur(objet));
+                setPersoArgent(dialogue->perso1,getPersoArgent(dialogue->perso1)-getObjetValeur(objet));
+
+                strcpy(rep,"Vendu !\n");
+            }
+
+        else
+            {
+                strcpy(rep,"Je suis au regret de vous annoncer que vous n'avez pas les moyens d'effectuer cette transaction...\n");
+            }
         }
-
     else
-        {
-            strcpy(rep,"Je suis au regret de vous annoncer que vous n'avez pas les moyens d'effectuer cette transaction...");
-        }
-    inventaireLibere(inv);
+    {
+        strcpy(rep,"Malheureusement cet objet n'est pas en ma possession.\n");
+    }
+
+    inventaireLibere(&inv);
     printf("%s",rep);
     return(dialogue->humeur);
 }
@@ -225,43 +234,70 @@ char acheter(Dialogue* dialogue, Objet* objet, char* rep)
 
 char vendre(Dialogue* dialogue, Objet* objet, char* rep)
 {
-    Inventaire* inv=NULL;
-    getPersoInventaire (dialogue->perso2,inv);
-    if ((getPersoArgent(dialogue->perso2))>=(getObjetValeur(objet)))
-        {
-            soustraireInventaire(dialogue->perso1,objet);
-            ajouterObjetInventaire(inv,objet);
+    Inventaire inv;
+    getPersoInventaire(dialogue->perso2,&inv);
 
-            setPersoArgent(dialogue->perso1,getPersoArgent(dialogue->perso1)-getObjetValeur(objet));
-            setPersoArgent(dialogue->perso2,getPersoArgent(dialogue->perso2)+getObjetValeur(objet));
+    if(estObjDansInv(&inv,objet))
+    {
+        if ((getPersoArgent(dialogue->perso2))>=(getObjetValeur(objet)))
+            {
+                soustraireInventaire(dialogue->perso1,objet);
+                ajouterInventaire(dialogue->perso2,objet);
 
-            strcpy(rep,"Merci ! Je suis très content de cette aquisition !");
-        }
+                setPersoArgent(dialogue->perso1,getPersoArgent(dialogue->perso1)+getObjetValeur(objet));
+                setPersoArgent(dialogue->perso2,getPersoArgent(dialogue->perso2)-getObjetValeur(objet));
 
+                strcpy(rep,"Merci ! Je suis très content de cette aquisition !\n");
+            }
+
+            else
+            {
+                strcpy(rep,"Hélas, je n'ai pas les moyens pour une telle transaction...\n");
+            }
+    }
     else
-        {
-            strcpy(rep,"Hélas, je n'ai pas les moyens pour une telle transaction...");
-        }
+    {
+        strcpy(rep,"Malheureusement cet objet n'est pas en ma possession.\n");
+    }
 
+    inventaireLibere(&inv);
     printf("%s",rep);
     return(dialogue->humeur);
 }
 
 
 
-int mainParole (int argc, char** argv)
+int main ()
 {
     int k;
     Dialogue dial;
     Personnage perso;
     Personnage pnj;
     char information[TAILLE_MAX_DIAL];
+    Objet *tab;
+
+    tab=(Objet*)malloc(40*sizeof(Objet));
+    initialiserTousLesObjets(tab);
 
     srand(time(NULL));
-    persoInit (&perso, "Toromis", 1, 1, 1, 1, 0, 100);
-    persoInit (&pnj, "Babar", 2, 1, 1, 1, 0, 100);
+    persoInit (&perso, "Toromis", 1, 1, 1, 1, 0, 100,tab);
+    persoInit (&pnj, "Babar", 2, 1, 1, 1, 0, 100,tab);
     setPersoArgent(&perso,1000);
     dialogueInit(&dial,&perso,&pnj);
+
+    afficherInventaire(&perso.inventaire);
+    afficherInventaire(&pnj.inventaire);
+
+    acheter(&dial, &tab[1], information);
+
+    afficherInventaire(&perso.inventaire);
+    afficherInventaire(&pnj.inventaire);
+
+    vendre(&dial, &tab[1], information);
+
+    afficherInventaire(&perso.inventaire);
+    afficherInventaire(&pnj.inventaire);
+
     for(k=0;k<10;k++)
     {
         printf("\n\n");
@@ -273,5 +309,6 @@ int mainParole (int argc, char** argv)
 
     persoLibere (&perso);
     persoLibere (&pnj);
+    free(tab);
     return 0;
 }

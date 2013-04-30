@@ -34,6 +34,8 @@ void ajouterObjetInventaire (Inventaire* inventaire, Objet* obj)
 {
     int i;
     char ajoute=0;
+    Stock *tampon;
+
     for(i=0;i<inventaire->nbObjet;i++)
     {
         if(inventaire->st[i].objet->type==obj->type)
@@ -42,21 +44,19 @@ void ajouterObjetInventaire (Inventaire* inventaire, Objet* obj)
             ajoute=1;
         }
     }
+
     if (ajoute==0)
     {
         if((inventaire->nbObjet)==(inventaire->capacite))
         {
-            Inventaire *tampon;
-            tampon=(Inventaire*)malloc(sizeof(Inventaire));
-            inventaireInit(tampon);
-            copieInventaire(tampon,inventaire);
-            inventaire->st=(Stock*) malloc((2*inventaire->capacite)*sizeof(Stock));
+            tampon=(Stock*) malloc((2*inventaire->capacite)*sizeof(Stock));
             for (i=0;i<inventaire->capacite;i++)
             {
-                copieStock(&(inventaire->st[i]),&(tampon->st[i]));
+                copieStock(&tampon[i],&(inventaire->st[i]));
             }
+            free(inventaire->st);
+            inventaire->st=tampon;
             inventaire->capacite*=2;
-            free(tampon);
         }
         stockInit(&(inventaire->st[inventaire->nbObjet]),obj);
         inventaire->nbObjet++;
@@ -67,10 +67,14 @@ void ajouterObjetInventaire (Inventaire* inventaire, Objet* obj)
 void enleverObjetInventaire (Inventaire* inventaire, Objet* obj)
 {
     int i, j;
-    while ((i<inventaire->nbObjet)&&(inventaire->st[i].objet->nom!=obj->nom))
+    i=0;
+
+    while ((i<inventaire->nbObjet)&&(inventaire->st[i].objet->type!=obj->type))
     {
+        printf("i=%d   %d %d\n", i,inventaire->st[i].objet->type, obj->type);
         i++;
     }
+    assert(i!=inventaire->nbObjet);
     if (getQuantiteStock((inventaire->st)+i)>0)
     {
         decrementerStock((inventaire->st)+i,1);
@@ -99,3 +103,36 @@ void copieInventaire (Inventaire* inventaire1, Inventaire* inventaire2)
     inventaire1->nbObjet=inventaire2->nbObjet;
     inventaire1->capacite=inventaire2->capacite;
 }
+
+
+
+void afficherInventaire (Inventaire* inventaire)
+{
+    int i;
+    printf("\nInventaire :\n");
+    for(i=0;i<inventaire->nbObjet;i++)
+    {
+        printf("i=%d \t %s (%d) \t %s\n", i, inventaire->st[i].objet->nom, inventaire->st[i].quantite, inventaire->st[i].objet->description);
+    }
+    printf("NbObjet=%d \n Capacite=%d\n\n", inventaire->nbObjet, inventaire->capacite);
+}
+
+
+
+char estObjDansInv (Inventaire* inventaire, Objet* obj)
+{
+    int i;
+
+    for(i=0;i<inventaire->nbObjet;i++)
+    {
+        if((getObjetType(getStockObjet(&inventaire->st[i])))==(getObjetType(obj))) return 1;
+    }
+
+    return 0;
+}
+
+
+
+
+
+

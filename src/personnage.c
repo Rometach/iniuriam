@@ -15,13 +15,12 @@
 
 
 
-void persoInit (Personnage *perso, char nom[], char race, char sexe, char faction, char carriere, int experience,int argent)
+void persoInit (Personnage *perso, char nom[], char race, char sexe, char faction, char carriere, int experience,int argent, Objet* tab)
 {
     int i=0, j,k;
     FILE* fCarr,*fRace;
     Competence* compTampon;
     char ligne [TAILLE_MAX],tampon[2];
-    Objet* tab;
 
     assert (strlen(nom)<30);
     strcpy(perso->nom,nom);
@@ -57,13 +56,12 @@ void persoInit (Personnage *perso, char nom[], char race, char sexe, char factio
         perso->ptDeVie= 100-(20-perso->defense)*3;
 
         j=(int)(strchr (ligne, '!')-ligne);
-        tab=(Objet*) malloc((j-i-16)/3*sizeof(Objet));
         for (k=i+17;k<j;k+=3)
         {
             strncpy(tampon,ligne+k,2);
-            objInit(tab+(k-i-17)/3,(char)atoi(tampon));
-            ajouterObjetInventaire(&(perso->inventaire), tab+(k-i-17)/3);
+            ajouterObjetInventaire(&(perso->inventaire), tab+((char)atoi(tampon)));
         }
+        fclose(fRace);
     }
 
     i=0;
@@ -85,6 +83,7 @@ void persoInit (Personnage *perso, char nom[], char race, char sexe, char factio
             ajouterCompetenceCapacite (&(perso->capacite), compTampon+(k-i)/2);
         }
         fclose(fCarr);
+        free(compTampon);
     }
     else printf ("Impossible d'ouvrir le fichier Carrieres.txt\n");
 }
@@ -222,11 +221,16 @@ void setPersoArgent(Personnage *perso, int somme)
 }
 
 
+void ajouterInventaire (Personnage *perso, Objet *obj)
+{
+    ajouterObjetInventaire(&perso->inventaire, obj);
+}
+
+
 void soustraireInventaire (Personnage *perso, Objet *obj)
 {
     enleverObjetInventaire(&(perso->inventaire),obj);
 }
-
 
 
 void persoUtiliseObjet (Personnage *perso,Objet *obj)
@@ -241,8 +245,12 @@ int mainPerso()
 {
     char tab[100];
     char tab2[100];
+    Objet *liste;
+    liste=(Objet*)malloc(40*sizeof(Objet));
+    initialiserTousLesObjets(liste);
+
     Personnage perso;
-    persoInit (&perso, "Toromis", 1, 1, 1, 1, 0, 100);
+    persoInit (&perso, "Toromis", 1, 1, 1, 1, 0, 100,liste);
     getPersoNom(tab, &perso);
     printf("\n%s\n",tab);
     printf("\n%d\n",getPersoRace(&perso));
@@ -263,5 +271,6 @@ int mainPerso()
     printf("\n%d\n",getPersoPtDeVie(&perso));
 
     persoLibere(&perso);
+    free(liste);
     return 0;
 }

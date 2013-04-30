@@ -11,8 +11,9 @@
 
 typedef struct
 {
-    int quantite;
     Objet *objet;
+    int quantite;
+
 } Stock;
 
 /**

@@ -48,4 +48,18 @@ void enleverObjetInventaire (Inventaire* inventaire, Objet* obj);
 void copieInventaire (Inventaire* inventaire1, Inventaire* inventaire2);
 
 
+/**
+* \brief Preconditions : inventaire est initialisé
+* <br /> Postconditions : affiche inventaire
+*/
+void afficherInventaire (Inventaire* inventaire);
+
+
+/**
+* \brief Preconditions : inventaire est initialisé
+* <br /> Postconditions : retourne 0 si obj n'est pas dans inv, et 1 sinon
+*/
+char estObjDansInv (Inventaire* inventaire, Objet* obj);
+
+
 #endif
