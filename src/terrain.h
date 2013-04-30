@@ -1,3 +1,4 @@
+
 #ifndef TERRAIN_H
 # define TERRAIN_H
 
@@ -9,49 +10,59 @@
 typedef struct
 {
     int nbrTile;
-    int defilY;
     int decalageX;
-    int tile_sel;
-    unsigned int largeur;
+    int defilY;
+    int tileSel;
+
     unsigned int hauteur;
+    unsigned int largeur;
 
     Tile* tabChipset;
     SDL_Surface* chipset;
 
     unsigned int *carte;        /* pointeur vers la carte (allocation dynamique) */
 
-
 } Terrain;
 
 void initTerrain(Terrain* ter);
 
-void remplirTerrain(Terrain* ter);
-
-int getNbrTile(Terrain* ter);
-
-Tile* getTabChipset(Terrain* ter);
-
-int getTileCarte(Terrain* ter, int i);
-
-SDL_Surface* getChipset(Terrain* ter);
+void remplirStructTerrain(Terrain* ter);
 
 void setNbrTile(Terrain* ter, int nbrTile);
 
-void setTabChipset(Terrain* ter);
+void setDecalageX(Terrain* ter, int x);
 
-void setChipset(Terrain* ter);
+void setDefilY(Terrain* ter, int y);
 
-void setTileCarte(Terrain* ter, int i, int tile_sel);
+void setTileSel(Terrain* ter, int selec);
 
-void sauvegardeTerrain(Terrain* ter);
+void setHauteur(Terrain* ter, unsigned int hauteur);
 
-void chargeTerrain(Terrain* ter);
+void setLargeur(Terrain* ter, unsigned int largeur);
 
-void affChipset(Terrain* ter, SDL_Surface* ecran);
+void setTabChipset(Terrain* ter, int i, Tile* tile);
 
-void affCarte(Terrain* ter, SDL_Surface* ecran);
+void setCarte(Terrain *ter, int i, int numTile);
 
-void event(Terrain* ter, SDL_Surface* ecran);
+int getNbrTile(Terrain* ter);
+
+int getDecalageX(Terrain* ter);
+
+int getDefilY(Terrain* ter);
+
+int getTileSel(Terrain* ter);
+
+unsigned int getHauteur(Terrain* ter);
+
+unsigned int getLargeur(Terrain* ter);
+
+Tile* getTabChipset(Terrain* ter, int i);
+
+int getCarte(Terrain *ter, int i);
+
+void sauvTerrain(Terrain* ter, char* nomFichier, char* nomChipset);
+
+void chargeTerrain(Terrain* ter, char* nomFichier);
 
 void detruitTerrain(Terrain* ter);
 
