@@ -68,4 +68,10 @@ char* getObjetNom(Objet *obj);
 */
 void getObjetDescription(char* s, Objet *obj);
 
+/**
+* \brief Preconditions : tabObjet est un tableau de longueur >= au nombre d'obejts dans objets.txt  ||| a changer si on implémente avec malloc
+* <br /> Postconditions : initialise tous les objets dans tabObjet
+*/
+void initialiserTousLesObjets(Objet* tabObj);
+
 #endif

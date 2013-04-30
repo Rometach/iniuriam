@@ -24,7 +24,7 @@ void compInit (Competence * comp, char type, int experience)
         {
             fgets(ligne,TAILLE_MAX,fComp);
         }
-        fclose (fComp);
+
         i= strchr (ligne, '/')-ligne;
         strncpy(comp->action,ligne,i);
         comp->action[i]='\0';
@@ -35,6 +35,8 @@ void compInit (Competence * comp, char type, int experience)
         comp->bonusint=(char)((experience/10)*(ligne[i+6]-'0'));
         comp->bonusagi=(char)((experience/10)*(ligne[i+8]-'0'));
         comp->bonuschar=(char)((experience/10)*(ligne[i+10]-'0'));
+
+        fclose (fComp);
     }
     else
     {
@@ -87,6 +89,21 @@ void compExp (Competence *comp, int experience)
 {
     comp->experience+=experience;
 }
+
+void copieCompetence(Competence *comp1, Competence *comp2)
+{
+    strcpy(comp1->action,comp2->action);
+    comp1->type=comp2->type;
+    comp1->experience=comp2->experience;
+    comp1->bonusatt=comp2->bonusatt;
+    comp1->bonusdef=comp2->bonusdef;
+    comp1->bonusint=comp2->bonusint;
+    comp1->bonusagi=comp2->bonusagi;
+    comp1->bonuschar=comp2->bonuschar;
+}
+
+
+
 
 int mainComp()
 {

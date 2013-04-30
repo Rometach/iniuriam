@@ -87,4 +87,5 @@ char vendre(Dialogue* dialogue, Objet* objet, char* rep);
 */
 /*char marchander(Dialogue* dialogue);*/
 
+int mainParole ();
 #endif

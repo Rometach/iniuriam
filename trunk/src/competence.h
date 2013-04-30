@@ -130,5 +130,11 @@ char getBonusagi(const Competence *comp);
 */
 char getBonuschar(const Competence *comp);
 
+/**
+* \brief Preconditions : comp2 est initialisée, pas comp1
+* <br /> Postconditions : comp2 est copiée dans comp1
+*/
+void copieCompetence(Competence *comp1, Competence *comp2);
+
 
 #endif

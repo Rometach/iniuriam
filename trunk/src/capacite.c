@@ -30,6 +30,7 @@ void ajouterCompetenceCapacite (Capacite* capacite, Competence* comp)
 {
     int i;
     int compAcquise=0;
+    Competence* compTampon;
 
     for(i=0;i<capacite->nbCompetence;i++)
     {
@@ -40,19 +41,15 @@ void ajouterCompetenceCapacite (Capacite* capacite, Competence* comp)
     {
         if ((capacite->quantite)==(capacite->nbCompetence))
         {
-            Competence* compTampon;
-            compTampon=(Competence*)malloc((capacite->quantite)*sizeof(Competence));
+
+            compTampon=(Competence*)malloc(2*(capacite->quantite)*sizeof(Competence));
             for(i=0;i<capacite->quantite;i++)
             {
-                compTampon[i]=capacite->comp[i];
+                copieCompetence(&compTampon[i],&capacite->comp[i]);
             }
-            capacite->comp=(Competence*)malloc(2*(capacite->quantite)*sizeof(Competence));
-            for(i=0;i<capacite->quantite;i++)
-            {
-                capacite->comp[i]=compTampon[i];
-            }
+            free(capacite->comp);
+            capacite->comp=compTampon;
             capacite->quantite*=2;
-            free (compTampon);
         }
         capacite->comp[capacite->nbCompetence]=*comp;
         capacite->nbCompetence++;

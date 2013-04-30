@@ -15,7 +15,7 @@ void objInit (Objet *obj, char type)
 {
     int i,j;
     FILE* fObjet= fopen("data/Objets.txt", "r");
-    assert ((type>0)&&(type<30));
+    /*assert ((type>0)&&(type<30));*/
     char ligne[TAILLE_MAX];
     char tampon [2];
 
@@ -40,7 +40,7 @@ void objInit (Objet *obj, char type)
 
         strncpy(tampon,ligne+i+9,2);
         obj->protection=(char)atoi(tampon);
-        i+=12;
+        i+=11;
 
         j=strchr(ligne+i,'/')-(ligne+i);
         strncpy(obj->description,ligne+i,j);
@@ -96,6 +96,16 @@ char* getObjetNom(Objet *obj)
 void getObjetDescription(char* s, Objet *obj)
 {
 	strcpy(s,obj->description);
+}
+
+
+void initialiserTousLesObjets(Objet* tabObj)
+{
+    int i;
+    for(i=1;i<35;i++)
+    {
+        objInit(&tabObj[i],i);
+    }
 }
 
 
