@@ -29,7 +29,7 @@ void remplirStructTerrain(Terrain* ter)
     unsigned int i;
     int x = 0;
     int y = 0;
-    ter->chipset=SDL_LoadBMP("../data/Chipsets/HOTEL02.bmp");
+    ter->chipset=SDL_LoadBMP("data/Chipsets/HOTEL02.bmp");
     setHauteur(ter, ter->chipset->h/TILE_HAUTEUR);
     setLargeur(ter, ter->chipset->w/TILE_LARGEUR);
     setNbrTile(ter, ter->hauteur*ter->largeur);
