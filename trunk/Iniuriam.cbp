@@ -31,6 +31,14 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="src/Editeur_Carte.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/Editeur_Carte.h" />
+		<Unit filename="src/affichage_sdl.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/affichage_sdl.h" />
 		<Unit filename="src/capacite.c">
 			<Option compilerVar="CC" />
 		</Unit>

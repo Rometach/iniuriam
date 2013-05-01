@@ -1,12 +1,12 @@
-all: deplacement.out parole.out
+all: Iniuriam.out
 
 OPT = -Wall -ansi -pedantic -ggdb
 
-deplacement.out: deplacement.o
-	gcc bin/deplacement.o -o bin/deplacement.out
+Iniuriam.out: main.o deplacement.o parole.o personnage.o inventaire.o capacite.o stock.o competence.o objet.o
+	gcc bin/main.o bin/deplacement.o bin/parole.o bin/personnage.o bin/inventaire.o bin/capacite.o bin/stock.o bin/competence.o bin/objet.o -o bin/Iniuriam.out
 
-parole.out: parole.o personnage.o inventaire.o capacite.o stock.o competence.o objet.o
-	gcc bin/parole.o bin/personnage.o bin/inventaire.o bin/capacite.o bin/stock.o bin/competence.o bin/objet.o -o bin/parole.out
+main.o: src/parole.h src/deplacement.h src/main.c
+	gcc -c $(OPT) -o bin/main.o src/main.c
 
 deplacement.o: src/deplacement.h src/deplacement.c
 	gcc -c $(OPT) -o bin/deplacement.o src/deplacement.c

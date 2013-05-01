@@ -128,8 +128,8 @@ void eventSDL(Terrain* ter, SDL_Surface* ecran )
                     {
                         if (map->offsetY!=0) map->offsetY--;
                     }
-            /* CHIPSET */
-                  /*  else */if(event.key.keysym.sym==SDLK_PAGEUP)
+            CHIPSET
+                   else */if(event.key.keysym.sym==SDLK_PAGEUP)
                     {
                         ter->defilY-=ter->decalageX/TILE_LARGEUR;
                     }
@@ -138,7 +138,7 @@ void eventSDL(Terrain* ter, SDL_Surface* ecran )
                         ter->defilY+=ter->decalageX/TILE_LARGEUR;
                     }
             /* FONCTION SPECIALES */
-                    /*else if(event->key.keysym.sym==SDLK_f) /* FILL */
+                    /*else if(event->key.keysym.sym==SDLK_f) FILL */
                 /* {
                         for(i=0;i<map->width;i++)
                         for(j=0;j<map->height;j++)

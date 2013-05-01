@@ -267,7 +267,7 @@ char vendre(Dialogue* dialogue, Objet* objet, char* rep)
 
 
 
-int main ()
+int mainParole ()
 {
     int k;
     Dialogue dial;
