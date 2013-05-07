@@ -79,9 +79,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/stock.h" />
-		<Unit filename="src/terrain.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="src/terrain.h" />
 		<Unit filename="src/tile.c">
 			<Option compilerVar="CC" />

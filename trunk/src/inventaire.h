@@ -62,4 +62,24 @@ void afficherInventaire (Inventaire* inventaire);
 char estObjDansInv (Inventaire* inventaire, Objet* obj);
 
 
+/**
+* \brief Preconditions : inventaire est initialisé
+* <br /> Postconditions : retourne le tableau de Stocks de inventaire
+*/
+Stock* getInventaireStock (Inventaire* inventaire);
+
+
+/**
+* \brief Preconditions : inventaire est initialisé
+* <br /> Postconditions : retourne le nombre d'objets de inventaire
+*/
+int getInventaireNbObjets (Inventaire* inventaire);
+
+
+/**
+* \brief Preconditions : inventaire est initialisé
+* <br /> Postconditions : retourne la capacité de inventaire
+*/
+int getInventaireCapacite (Inventaire* inventaire);
+
 #endif

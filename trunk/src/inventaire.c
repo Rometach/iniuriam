@@ -132,7 +132,22 @@ char estObjDansInv (Inventaire* inventaire, Objet* obj)
 }
 
 
+Stock* getInventaireStock (Inventaire* inventaire)
+{
+    return inventaire->st;
+}
 
+
+int getInventaireNbObjets (Inventaire* inventaire)
+{
+    return inventaire->nbObjet;
+}
+
+
+int getInventaireCapacite (Inventaire* inventaire)
+{
+    return inventaire->capacite;
+}
 
 
 
