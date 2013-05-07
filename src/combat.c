@@ -28,17 +28,15 @@ void areneInit (Terrain* terrain, char tab[TAILLE_MAX][TAILLE_MAX])
 char tri (char* tab, char e, int l)
 {
     int i,j;
-    char tamp;
     for (i=0;i<l;i++)
     {
-       if (e<=tab[i])
+       if (e>tab[i])
        {
-           for (j=i;j<=l;j++)
+           for (j=l;j>i;j--)
            {
-               tamp=tab[j];
-               tab[j]=e;
-               e=tamp;
+               tab[j]=tab[j-1];
            }
+           tab[i]=e;
            return i;
        }
     }
@@ -288,7 +286,7 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MA
         {
             /*CHAAAAAAARGEEEEEZ*/
         }
-        else ()
+        else {}
     }
 }
 void tourJoueur (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MAX])
