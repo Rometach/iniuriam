@@ -7,6 +7,7 @@
 #include "inventaire.h"
 #include "capacite.h"
 #include "objet.h"
+#include "SDL/SDL.h"
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
@@ -24,8 +25,6 @@ void initPerso (Personnage* perso)
     perso->argent=0;
     perso->experience=0;
 
-    CapaciteInit(&(perso->capacite));
-
     perso->attaque=0;
     perso->defense=0;
     perso->intelligence=0;
@@ -35,7 +34,7 @@ void initPerso (Personnage* perso)
 
     perso->posX=0;
     perso->posY=0;
-    inventaireInit(&(perso->inventaire));
+
 }
 
 void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char faction, char carriere, int experience,int argent, Objet* tab)
@@ -55,7 +54,7 @@ void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char fac
     perso->argent=argent;
     perso->experience= experience;
 
-
+    inventaireInit(&(perso->inventaire));
 
     assert (fRace= fopen("data/Races.txt", "r"));
     if (fRace!=NULL)
@@ -88,6 +87,8 @@ void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char fac
     }
 
     i=0;
+
+    CapaciteInit(&(perso->capacite));
 
     assert(fCarr= fopen("data/Carrieres.txt", "r"));
     if (fCarr!=NULL)
@@ -224,6 +225,11 @@ void getPersoInventaire(Personnage *perso, Inventaire* inv)
     copieInventaire(inv,&perso->inventaire);
 }
 
+Inventaire* getPersoInventaire2(Personnage *perso)
+{
+    return &(perso->inventaire);
+}
+
 void getPersoCapacite(Personnage *perso, Capacite* s)
 {
     int i;
@@ -241,6 +247,12 @@ void getPersoCapacite(Personnage *perso, Capacite* s)
 void setPersoArgent(Personnage *perso, int somme)
 {
     perso->argent=somme;
+}
+
+
+void addPersoPtDeVie(Personnage *perso, int pdv)
+{
+    perso->ptDeVie+=pdv;
 }
 
 
