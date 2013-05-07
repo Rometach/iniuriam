@@ -1,7 +1,6 @@
-
 #ifndef AFFICHAGE_SDL_H
 # define AFFICHAGE_SDL_H
-
+#include "terrain.h"
 #include "SDL/SDL.h"
 #include "tile.h"
 #include "stdlib.h"
@@ -48,5 +47,10 @@ void eventEditeurSDL(Terrain* ter, SDL_Surface* ecran);
 */
 void eventJeuSDL(Personnage* hero, Terrain* ter, SDL_Surface* surfPerso, SDL_Surface* ecran);
 
+/**
+* \brief Preconditions : /
+* <br /> Postconditions : permet d'éditer un terrain et de le sauvegarder
+*/
+void editerCarte();
 
 #endif

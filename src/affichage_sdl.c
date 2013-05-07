@@ -138,12 +138,12 @@ void eventEditeurSDL(Terrain* ter, SDL_Surface* ecran )
                     }
                     else if(event.key.keysym.sym==SDLK_s) /* SAVE */
                     {
-                        sauvTerrain(ter, "save.map", "HOTEL02.bmp");
+                        sauvTerrain(ter, "data/Cartes/save.map", "data/Chipsets/HOTEL02.bmp");
                     }
                     else if(event.key.keysym.sym==SDLK_l) /* LOAD */
                     {   detruitTerrain(ter);
                         initTerrain(ter);
-                        chargeTerrain(ter, "save.map");
+                        chargeTerrain(ter, "data/Cartes/save.map");
                     }
                 }
             }
@@ -223,4 +223,23 @@ void eventJeuSDL(Personnage* hero, Terrain* ter, SDL_Surface* surfPerso, SDL_Sur
             }
         }
     }
+}
+
+void editerCarte ()
+{
+    Terrain terrain;
+    SDL_Surface* ecran = NULL;
+    initTerrain(&terrain);
+    SDL_Init(SDL_INIT_VIDEO);
+    ecran = SDL_SetVideoMode(TAILLE, TAILLE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
+    SDL_WM_SetCaption("Iniuriam", NULL);
+    remplirStructTerrain(&terrain);
+
+    affChipset(&terrain, ecran);
+    affCarte(&terrain, ecran);
+
+    eventEditeurSDL(&terrain, ecran);
+
+    detruitTerrain(&terrain);
+    SDL_Quit();
 }

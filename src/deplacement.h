@@ -38,6 +38,12 @@ char min (char a, char b);
 
 /**
 * \brief Preconditions : /
+* <br /> Postconditions : retourne le maximum de a et b.
+*/
+char max (char a, char b);
+
+/**
+* \brief Preconditions : /
 * <br /> Postconditions : affiche un tableau à 2 dimensions, ici tab.
 */
 void afficherTab2D (char tab[TAILLE_MAX][TAILLE_MAX]);
@@ -76,6 +82,6 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
 * \brief Preconditions : 0<=x<TAILLE_MAX, 0<=y<TAILLE_MAX, 0<=z<TAILLE_MAX, 0<=t<TAILLE_MAX
 * <br /> Postconditions : trace un chemin dans tab pour aller de la case (x,y) à la case (z,t).
 */
-void chemin (int x,int y, int z, int t, char tab[TAILLE_MAX][TAILLE_MAX]);
+char chemin (int x,int y, int z, int t, char tab[TAILLE_MAX][TAILLE_MAX]);
 
 #endif

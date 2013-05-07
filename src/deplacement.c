@@ -35,6 +35,12 @@ char min (char a, char b)
     else return a;
 }
 
+char max (char a, char b)
+{
+    if (a-b<0) return b;
+    else return a;
+}
+
 void afficherTab2D (char tab[TAILLE_MAX][TAILLE_MAX])
 {
     int i,j;
@@ -413,10 +419,10 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
     return 0;
 }
 
-void chemin (int x,int y, int z, int t, char tab[TAILLE_MAX][TAILLE_MAX])
+char chemin (int x,int y, int z, int t, char tab[TAILLE_MAX][TAILLE_MAX])
 {
     char tab2 [TAILLE_MAX][TAILLE_MAX];
-    int i,j;
+    int i,j,n;
 
         tab[x][y]=3;
         tab[z][t]=3;
@@ -428,7 +434,7 @@ void chemin (int x,int y, int z, int t, char tab[TAILLE_MAX][TAILLE_MAX])
             }
         }
         i=deplacementIA(x,y,z,t,tab2);
-
+        n=i;
         /*Distance parcourue*/
         /*printf("%d\n",i);*/
 
@@ -454,6 +460,7 @@ void chemin (int x,int y, int z, int t, char tab[TAILLE_MAX][TAILLE_MAX])
             }
             i--;
         }
+    return n;
 }
 
 int mainDeplacement ()
