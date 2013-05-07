@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include <assert.h>
 #include "parole.h"
-#include "terrain.h"
+#include "affichage_sdl.h"
 #include "deplacement.h"
+#include "combat.h"
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
@@ -11,15 +12,6 @@
 
 int main (int argc, char **argv)
 {
-    mainParole ();
-
-	/*Terrain* terrain;
-
-	initTerrain(terrain);
-
-	afficheTerrain(terrain);
-
-	libereTerrain(terrain);*/
-
+    mainCombat();
     return 0;
 }

@@ -9,7 +9,7 @@
 */
 
 
-#define TAILLE_MAX 500
+#define TAILLE_MAX 800
 
 void objInit (Objet *obj, char type)
 {
@@ -101,11 +101,23 @@ void getObjetDescription(char* s, Objet *obj)
 
 void initialiserTousLesObjets(Objet* tabObj)
 {
-    int i;
-    for(i=1;i<35;i++)
+    int i, max=0;
+    FILE* fobj;
+    char ligne[TAILLE_MAX];
+    assert(fobj=fopen("data/Objets.txt","r"));
+    if (fobj!=NULL)
     {
-        objInit(&tabObj[i],i);
+        do
+        {
+            fgets(ligne,TAILLE_MAX,fobj);
+            max++;
+        }while (ligne[0]!='/'&&ligne[1]!='/');
+        for(i=1;i<max-4;i++)
+        {
+            objInit(&tabObj[i],i);
+        }
     }
+    fclose(fobj);
 }
 
 

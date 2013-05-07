@@ -5,3 +5,4 @@
 #define TILE_LARGEUR  16
 #define TILE_HAUTEUR 16
 #define TAILLE_CARTE 480
+#define TAILLE 700

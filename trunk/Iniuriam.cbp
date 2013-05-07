@@ -31,10 +31,6 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="src/Editeur_Carte.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src/Editeur_Carte.h" />
 		<Unit filename="src/affichage_sdl.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -43,10 +39,15 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/capacite.h" />
+		<Unit filename="src/combat.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/combat.h" />
 		<Unit filename="src/competence.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/competence.h" />
+		<Unit filename="src/constante.h" />
 		<Unit filename="src/deplacement.c">
 			<Option compilerVar="CC" />
 		</Unit>
