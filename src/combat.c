@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <time.h>
 #include "personnage.h"
 #include "terrain.h"
 #include "deplacement.h"
 #include "combat.h"
+#include "inventaire.h"
+
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
@@ -24,6 +27,7 @@ void areneInit (Terrain* terrain, char tab[TAILLE_MAX][TAILLE_MAX])
         }
     }
 }
+
 
 char tri (char* tab, char e, int l)
 {
@@ -47,10 +51,10 @@ char tri (char* tab, char e, int l)
 void initCombattant (Personnage* liste, int l, Combattant* groupe)
 {
     int i,j;
-    char tab [l];
+    char *tab = (char*) malloc(l*sizeof(char));
     for (i=0;i<l;i++)
     {
-        groupe[i].perso=(&liste[i]);
+        groupe[i].perso=(&liste[i]);        /*Faire un copier machin svp*/
         groupe[i].camp=getPersoFaction(&liste[i]);
         for (j=0;j<=i;j++)
         {
@@ -143,13 +147,13 @@ void ordreGroupe (Combattant* liste, int l)
     }
 }
 
-void combatInit (Personnage* liste, Terrain* terrain, int l, Combattant* groupe, char arene [TAILLE_MAX][TAILLE_MAX])
+void initCombat (Personnage* liste, int l, Combattant* groupe, char arene[TAILLE_MAX][TAILLE_MAX])
 {
-    areneInit (terrain, arene);
-    initCombattant (liste, l, groupe);
-    initPosCombattant (groupe, l, arene);
-    ordreGroupe (groupe, l);
+    initCombattant(liste,l,groupe);
+    initPosCombattant(groupe,l,arene);
+    ordreGroupe(groupe,l);
 }
+
 
 char estDansChampDeVision (char arene[TAILLE_MAX][TAILLE_MAX], int x, int y, int z, int t,char orientation)
 {
@@ -248,10 +252,58 @@ int testNbCombattant (Combattant* groupe, int l)
     return n;
 }
 
+int attaquer (Personnage* attaquant, Personnage* defenseur, int degats, int bonusA, int bonusD)
+{
+    int testA, testD;
+    int deg=0;
+
+    testA=getPersoAttaque(attaquant)+bonusA-rand()%100;
+
+    if (testA>=0)
+    {
+        testD=getPersoDefense(defenseur)+bonusD-rand()%100;
+        testA=testA-max(testD,0);
+
+        if(testA>=30)
+        {
+            printf("Coup critique\n");
+            deg=4*degats;
+        }
+        else if(testA>=20)
+        {
+            printf("Coup qui fait mal\n");
+            deg=3*degats;
+        }
+        else if(testA>=10)
+        {
+            printf("Beigne\n");
+            deg=2*degats;
+        }
+        else if(testA>=0)
+        {
+            printf("Touche, mais de justesse\n");
+            deg=degats;
+        }
+        else
+        {
+            printf("Epic parade.\n");
+        }
+    }
+    else
+    {
+        printf("Rate.\n");
+    }
+
+
+    return deg;
+}
+
+
+
 void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MAX])
 {
-    int i, cible=j,arme=0;
-    char distance=255, degats=0,tampon, arene2[TAILLE_MAX][TAILLE_MAX];
+    int i, cible=j, arme=0;
+    char distance=100, degats=0,tampon, arene2[TAILLE_MAX][TAILLE_MAX];
     CopieTab2D(arene,arene2);
     for (i=0;i<l;i++)
     {
@@ -270,7 +322,7 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MA
     }
     if (cible!=j)
     {
-        for (i=0;i<groupe[j].perso->inventaire.nbObjet;i++)
+        for (i=0;i< getInventaireNbObjets(getPersoInventaire2(groupe[j].perso));i++)
         {
             if (getObjetPortee(getStockObjet(groupe[j].perso->inventaire.st))>=distance)
             {
@@ -291,10 +343,13 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MA
         }
     }
 }
+
+
 void tourJoueur (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MAX])
 {
 
 }
+
 
 void combat (Combattant* groupe, int l, char arene [TAILLE_MAX][TAILLE_MAX])
 {
@@ -317,21 +372,39 @@ void combat (Combattant* groupe, int l, char arene [TAILLE_MAX][TAILLE_MAX])
     }
 }
 
+
 int mainCombat ()
 {
     Personnage *liste;
     Combattant* groupe;
+    Objet *tab;
     int i,j,type=2;
     char arene [TAILLE_MAX][TAILLE_MAX],ligne [TAILLE_MAX+2];
-    liste=(Personnage*)malloc(2*sizeof(Personnage));
-    groupe=(Combattant*)malloc(2*sizeof(Combattant));
-    Objet *tab;
+
+    srand(time(NULL));
+
+    liste=(Personnage*)malloc(4*sizeof(Personnage));
+    groupe=(Combattant*)malloc(4*sizeof(Combattant));
     tab=(Objet*)malloc(40*sizeof(Objet));
+
     initialiserTousLesObjets(tab);
 
     nouveauPerso (&liste[0], "Toromis", 1, 1, 1, 1, 0, 100,tab);
-    nouveauPerso (&liste[1], "Babar", 2, 1, 2, 1, 0, 100,tab);
+    nouveauPerso (&liste[1], "Rometach", 1, 1, 1, 1, 0, 100,tab);
+    nouveauPerso (&liste[2], "Babar", 2, 1, 2, 1, 0, 100,tab);
+    nouveauPerso (&liste[3], "BabarII", 2, 1, 2, 1, 0, 100,tab);
+
+
+    int sum=0;
+    for(i=0;i<200;i++)
+    {if(attaquer(&liste[0],&liste[1],1,0,0)==0) {sum++;}}
+    printf("\n\n%d\n\n",sum);
+
+
+
+
     FILE* fTerr=fopen("data/Terrains.txt", "r");
+
     if (fTerr!=NULL)
     {
         for (i=0; i<4;i++)
@@ -351,15 +424,24 @@ int mainCombat ()
             }
         }
         fclose (fTerr);
-        initCombattant(liste,2,groupe);
-        initPosCombattant(groupe,2,arene);
-        ordreGroupe(groupe,2);
+
+
+
+
+        initCombat(liste,4,groupe,arene);
+
+
+
+
         afficherTab2D (arene);
-        combat (groupe,2,arene);
+        combat (groupe,4,arene);
 
     }
     persoLibere(&liste[0]);
     persoLibere(&liste[1]);
+    persoLibere(&liste[2]);
+    persoLibere(&liste[3]);
     free (liste);
+    free (groupe);
     return 0;
 }

@@ -1,5 +1,5 @@
 #ifndef TERRAIN_H
-# define TERRAIN_H
+#define TERRAIN_H
 
 #include "SDL/SDL.h"
 #include "tile.h"

@@ -1,11 +1,12 @@
 
 #ifndef AFFICHAGE_SDL_H
-# define AFFICHAGE_SDL_H
+#define AFFICHAGE_SDL_H
 
 #include "SDL/SDL.h"
 #include "tile.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "constante.h"
 #include "terrain.h"
 #include "personnage.h"
 

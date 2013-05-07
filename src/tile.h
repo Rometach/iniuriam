@@ -1,5 +1,5 @@
 #ifndef TILE_H
-# define TILE_H
+#define TILE_H
 
 # define TILE_LARGEUR  16
 # define TILE_HAUTEUR 16

@@ -40,13 +40,13 @@ typedef struct
 
 /**
 * \brief Preconditions : perso n'a pas déjà été initialisé
-* <br /> Postconditions : perso est initialisé
+* <br /> Postconditions : perso est initialisé vide
 */
 void initPerso (Personnage* perso);
 
 /**
-* \brief Preconditions : perso initialisé
-* <br /> Postconditions : les paramètres nom, race, sexe, carriere, et expérience sont fournies
+* \brief Preconditions : perso n'est pas initialisé ou initialisé à vide
+* <br /> Postconditions : les paramètres nom, race, sexe, carriere, et expérience sont fournis
 */
 void nouveauPerso(Personnage *perso, char nom[], char race, char sexe, char faction, char carriere,int experience, int argent, Objet* tab);
 
@@ -148,9 +148,15 @@ char getPersoPtDeVie(Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé mais pas inv
-* <br /> Postconditions : retourne l'inventaire du perso dans s
+* <br /> Postconditions : copie l'inventaire du perso dans inv
 */
 void getPersoInventaire(Personnage *perso, Inventaire* inv);
+
+/**
+* \brief Preconditions : perso est initialisé
+* <br /> Postconditions : retourne l'inventaire du perso
+*/
+Inventaire* getPersoInventaire2(Personnage *perso);
 
 /**
 * \brief Preconditions : perso et s sont initialisés
@@ -163,6 +169,12 @@ void getPersoCapacite(Personnage *perso, Capacite* s);
 * <br /> Postconditions : fixe à somme l'argent de perso
 */
 void setPersoArgent(Personnage *perso, int somme);
+
+/**
+* \brief Preconditions : perso est initialisé
+* <br /> Postconditions : ajoute pdv aux points de vie de perso
+*/
+void addPersoPtDeVie(Personnage *perso, int pdv);
 
 /**
 * \brief Preconditions : perso est initialisé
