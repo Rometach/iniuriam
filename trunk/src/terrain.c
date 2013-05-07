@@ -36,20 +36,9 @@ void remplirStructTerrain(Terrain* ter)
     setNbrTile(ter, ter->hauteur*ter->largeur);
     setDecalageX(ter,6);
 
-/* On remplit tabChipset avec les différentes tiles du chipset*/
+/** On remplit tabChipset avec les différentes tiles du chipset*/
     ter->tabChipset=(Tile*)malloc(ter->nbrTile*sizeof(Tile));
     for(i=0/TILE_LARGEUR;i<getNbrTile(ter); i++ )
-   /* {
-        setPosX(&(ter->tabChipset[i]),x);
-        setPosY(&(ter->tabChipset[i]),y);
-
-        x +=TILE_LARGEUR;
-        if(x>=ter->chipset->w)
-        {
-            y += TILE_HAUTEUR;
-            x= 0;
-        }
-    }*/
 
     {
             setPosX(&ter->tabChipset[i],x);
@@ -68,7 +57,7 @@ void remplirStructTerrain(Terrain* ter)
                     x=j;
                 }
     }
-    /* On crée la carte*/
+    /** On crée la carte*/
     ter->carte=(unsigned int*)malloc(TAILLE_CARTE*sizeof(int));
     for(i=0;i<TAILLE_CARTE; i++ )
     {

@@ -66,7 +66,7 @@ void affEditeur(Terrain* ter, SDL_Surface* ecran)
             SDL_BlitSurface(ter->chipset, &tile, ecran, &position);
 
             position.x+= TILE_LARGEUR;
-            if(position.x>TAILLE_CARTE+ter->decalageX)
+            if(position.x>TAILLE_CARTE+ter->decalageX*TILE_LARGEUR)
             {
                 position.y+= TILE_HAUTEUR;
                 position.x=(ter->decalageX+1)*TILE_LARGEUR;
@@ -103,13 +103,13 @@ void affCarte(Terrain* ter, SDL_Surface* ecran)
     SDL_Flip(ecran);
 }
 
-void affPerso(Personnage* hero, SDL_Surface* surfPerso, SDL_Surface* ecran)
+void affPerso(Personnage* hero, SDL_Surface* ecran)
 {
     SDL_Rect position;
 
     position.x = hero->posX;
     position.y = hero->posY;
-    SDL_BlitSurface(surfPerso, NULL, ecran, &position);
+    SDL_BlitSurface(hero->avatar, NULL, ecran, &position);
 
     SDL_Flip(ecran);
 }
@@ -158,7 +158,7 @@ void eventEditeurSDL(Terrain* ter, SDL_Surface* ecran )
                 }
                 else if(event.button.x>ter->decalageX*TILE_LARGEUR)
                 {
-                    i=((event.button.y/TILE_HAUTEUR)*(TAILLE_CARTE/TILE_LARGEUR-ter->decalageX)+event.button.x/TILE_LARGEUR-ter->decalageX-1);
+                   i=((event.button.y/TILE_HAUTEUR)*(TAILLE_CARTE/TILE_LARGEUR)+event.button.x/TILE_LARGEUR-ter->decalageX-1);
 
                     if(i>=TAILLE_CARTE) i=TAILLE_CARTE-1;
                     setCarte(ter, i, ter->tileSel);
@@ -183,7 +183,7 @@ void eventEditeurSDL(Terrain* ter, SDL_Surface* ecran )
     }
 }
 
-void eventJeuSDL(Personnage* hero, Terrain* ter, SDL_Surface* surfPerso, SDL_Surface* ecran)
+void eventJeuSDL(Personnage* hero, Terrain* ter, SDL_Surface* ecran)
 {
     int continuer = 1;
     SDL_Event event;
@@ -213,7 +213,7 @@ void eventJeuSDL(Personnage* hero, Terrain* ter, SDL_Surface* surfPerso, SDL_Sur
                         {hero->posY-=TILE_HAUTEUR;}
                     }
                     affCarte(ter, ecran);
-                    affPerso(hero, surfPerso, ecran);
+                    affPerso(hero, ecran);
                 }
             break;
 
@@ -229,15 +229,16 @@ void editerCarte ()
 {
     Terrain terrain;
     SDL_Surface* ecran = NULL;
-    initTerrain(&terrain);
     SDL_Init(SDL_INIT_VIDEO);
+
     ecran = SDL_SetVideoMode(TAILLE_FENETRE, TAILLE_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
     SDL_WM_SetCaption("Iniuriam", NULL);
+
+    initTerrain(&terrain);
     remplirStructTerrain(&terrain);
 
     affChipset(&terrain, ecran);
-    affCarte(&terrain, ecran);
-
+    affEditeur(&terrain, ecran);
     eventEditeurSDL(&terrain, ecran);
 
     detruitTerrain(&terrain);
