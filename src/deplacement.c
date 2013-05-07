@@ -8,6 +8,18 @@
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
 
+void CopieTab2D (char tab[TAILLE_MAX][TAILLE_MAX], char tab2 [TAILLE_MAX][TAILLE_MAX])
+{
+    int i,j;
+    for (i=0;i<TAILLE_MAX;i++)
+    {
+        for (j=0;j<TAILLE_MAX;j++)
+        {
+            tab2[i][j]=tab[i][j];
+        }
+    }
+}
+
 char deplacerCase (int y, char tab [TAILLE_MAX])
 {
     if (tab [y]==0||tab [y]==2||tab[y]>=7||tab[y]==4) return 0;

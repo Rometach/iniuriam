@@ -280,8 +280,8 @@ int mainParole ()
     initialiserTousLesObjets(tab);
 
     srand(time(NULL));
-    persoInit (&perso, "Toromis", 1, 1, 1, 1, 0, 100,tab);
-    persoInit (&pnj, "Babar", 2, 1, 1, 1, 0, 100,tab);
+    nouveauPerso (&perso, "Toromis", 1, 1, 1, 1, 0, 100,tab);
+    nouveauPerso (&pnj, "Babar", 2, 1, 1, 1, 0, 100,tab);
     setPersoArgent(&perso,1000);
     dialogueInit(&dial,&perso,&pnj);
 
