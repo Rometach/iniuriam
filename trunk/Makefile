@@ -1,7 +1,7 @@
 all: Iniuriam Editeur
 
 OPT = -Wall -ansi -pedantic -ggdb
-SDL=`sdl-config --cflags --libs`
+SDL=`sdl-config --cflags --libs` -lSDL_ttf -lSDL_image
 
 Iniuriam: main.o combat.o terrain.o tile.o deplacement.o parole.o personnage.o capacite.o competence.o inventaire.o stock.o objet.o
 	gcc bin/main.o bin/combat.o bin/terrain.o bin/tile.o bin/deplacement.o bin/parole.o bin/personnage.o bin/capacite.o bin/competence.o bin/inventaire.o bin/stock.o bin/objet.o $(SDL) -o bin/Iniuriam
