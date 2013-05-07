@@ -1,4 +1,6 @@
 #include "SDL/SDL.h"
+#include "SDL/SDL_ttf.h"
+#include "SDL/SDL_image.h"
 #include "terrain.h"
 #include "tile.h"
 #include "affichage_sdl.h"
@@ -91,7 +93,6 @@ void affCarte(Terrain* ter, SDL_Surface* ecran)
             tile.x=getPosX(ter->tabChipset[ter->carte[i]]);
             tile.y=getPosY(ter->tabChipset[ter->carte[i]]);
             SDL_BlitSurface(ter->chipset, &tile, ecran, &position);
-            printf("%d ", ter->tabChipset[ter->carte[i]].collision);
 
             position.x+= TILE_LARGEUR;
             if(position.x>=TAILLE_CARTE)
@@ -113,6 +114,30 @@ void affPerso(Personnage* hero, SDL_Surface* ecran)
 
     SDL_Flip(ecran);
 }
+
+void affTexte(SDL_Surface* ecran)
+{
+    TTF_Init();
+    TTF_Font *police = NULL;    SDL_Surface* texte = NULL;
+    SDL_Color colorNoir = { 0 ,0,255};
+    SDL_Rect position;
+    position.x = 0;
+    position.y = 0;
+    police = TTF_OpenFont("data/fonts-japanese-gothic.ttf", 50);
+
+    texte = TTF_RenderText_Solid(police, "Salut!", colorNoir);
+    SDL_BlitSurface(texte, NULL, ecran, &position);
+
+    position.x = 32;
+    position.y = 32;
+    police = TTF_OpenFont("data/fonts-japanese-gothic.ttf", 50);
+    texte = TTF_RenderText_Solid(police, "Plop!", colorNoir);
+      SDL_BlitSurface(texte, NULL, ecran, &position);
+
+    TTF_CloseFont(police);
+    TTF_Quit();
+}
+
 
 void eventEditeurSDL(Terrain* ter, SDL_Surface* ecran )
 {

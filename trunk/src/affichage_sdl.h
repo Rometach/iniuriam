@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include "constante.h"
 #include "terrain.h"
+#include "SDL/SDL_ttf.h"
 #include "personnage.h"
 
 /**
@@ -33,10 +34,16 @@ void affEditeur(Terrain* ter, SDL_Surface* ecran);
 void affCarte(Terrain* ter, SDL_Surface* ecran);
 
 /**
-* \brief Preconditions : hero, surfPerso et ecran initalisé et remplis
+* \brief Preconditions : hero, et ecran initalisé et remplis
 * <br /> Postconditions : affiche le hero
 */
 void affPerso(Personnage* hero, SDL_Surface* ecran);
+
+/**
+* \brief Preconditions : Texte, ter initalisé et remplis
+* <br /> Postconditions : affiche du texte
+*/
+void affTexte(SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : ter et ecran initalisé et remplis
@@ -45,7 +52,7 @@ void affPerso(Personnage* hero, SDL_Surface* ecran);
 void eventEditeurSDL(Terrain* ter, SDL_Surface* ecran);
 
 /**
-* \brief Preconditions : hero, ter, surfPerso et ecran initalisé et remplis
+* \brief Preconditions : hero, ter et ecran initalisé et remplis
 * <br /> Postconditions : gère les évenements en jeu
 */
 void eventJeuSDL(Personnage* hero, Terrain* ter, SDL_Surface* ecran);
