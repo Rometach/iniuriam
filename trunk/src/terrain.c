@@ -30,13 +30,13 @@ void remplirStructTerrain(Terrain* ter)
     unsigned int x = 0;
     unsigned int y = 0;
     unsigned int j=0;
-    ter->chipset=SDL_LoadBMP("data/Chipsets/HOTEL02.bmp");
+    ter->chipset=SDL_LoadBMP("HOTEL02.bmp");
     setHauteur(ter, ter->chipset->h/TILE_HAUTEUR);
     setLargeur(ter, ter->chipset->w/TILE_LARGEUR);
     setNbrTile(ter, ter->hauteur*ter->largeur);
     setDecalageX(ter,6);
 
-/* On remplit tabChipset avec les différentes tiles du chipset*/
+// On remplit tabChipset avec les différentes tiles du chipset
     ter->tabChipset=(Tile*)malloc(ter->nbrTile*sizeof(Tile));
     for(i=0/TILE_LARGEUR;i<getNbrTile(ter); i++ )
    /* {
@@ -68,7 +68,7 @@ void remplirStructTerrain(Terrain* ter)
                     x=j;
                 }
     }
-    /* On crée la carte*/
+    // On crée la carte
     ter->carte=(unsigned int*)malloc(TAILLE_CARTE*sizeof(int));
     for(i=0;i<TAILLE_CARTE; i++ )
     {
@@ -202,7 +202,7 @@ void chargeTerrain(Terrain* ter, char* nomFichier)
     memset(&buffer,0,sizeof(buffer));
     fread(&buffer,255,sizeof(char),fichier);
     ter->chipset=SDL_LoadBMP(buffer);
-/*    SDL_SetColorKey(ter->chipset, SDL_SRCCOLORKEY, SDL_MapRGB(ter->chipset->format,2,117,118));*/
+//    SDL_SetColorKey(ter->chipset, SDL_SRCCOLORKEY, SDL_MapRGB(ter->chipset->format,2,117,118));
 
 
      fread(&ter->nbrTile,1,sizeof(unsigned int),fichier);
@@ -245,3 +245,4 @@ void detruitTerrain(Terrain* ter)
     free(ter->tabChipset);
     free(ter->carte);
 }
+
