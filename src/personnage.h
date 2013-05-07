@@ -30,8 +30,8 @@ typedef struct
     char charisme;
     char ptDeVie;
 
-    char posX;
-    char posY;
+    int posX;
+    int posY;
     Inventaire inventaire;
 
 	SDL_Surface* avatar;

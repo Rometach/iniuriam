@@ -14,7 +14,7 @@ typedef struct
 {
     unsigned int nbrTile;        /** le nombre de tiles différente du chipset*/
     int decalageX;      /** Uniquement pour l'éditeur: décalage de la carte par rapport a l'affichage du chipset en case (0 en jeu)*/
-    int defilY;         /** Uniquement pour l'éditeur: le défilement du chipset en cas*/
+    int defilY;         /** Uniquement pour l'éditeur: le défilement du chipset en case*/
     unsigned int tileSel;        /** Uniquement pour l'éditeur: la tile du chipset selectionner pour mettre sur la carte */
 
     unsigned int hauteur;   /** hauteur en case */
