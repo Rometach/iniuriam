@@ -13,9 +13,31 @@
 
 #define TAILLE_MAX 500
 
+void initPerso (Personnage* perso)
+{
+    perso->nom=NULL;
+    perso->race=0;
+    perso->sexe=0;
+    perso->faction=0;
+    perso->carriere=0;
+    perso->argent=0;
+    perso->experience=0;
 
+    perso->capacite=NULL;
 
-void persoInit (Personnage *perso, char nom[], char race, char sexe, char faction, char carriere, int experience,int argent, Objet* tab)
+    perso->attaque=0;
+    perso->defense=0;
+    perso->intelligence=0;
+    perso->agilite=0;
+    perso->charisme=0;
+    perso->ptDeVie=0;
+
+    perso->posX=0;
+    perso->posY=0;
+    perso->inventaire=NULL;
+}
+
+void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char faction, char carriere, int experience,int argent, Objet* tab)
 {
     int i=0, j,k;
     FILE* fCarr,*fRace;

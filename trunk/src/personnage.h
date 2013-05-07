@@ -32,14 +32,22 @@ typedef struct
     char posX;
     char posY;
     Inventaire inventaire;
+
+	SDL_Surface* avatar;
 } Personnage;
 
 
 /**
 * \brief Preconditions : perso n'a pas déjà été initialisé
-* <br /> Postconditions : perso est initialisé avec pour paramètres nom, race, sexe, carriere, et expérience
+* <br /> Postconditions : perso est initialisé
 */
-void persoInit (Personnage *perso, char nom[], char race, char sexe, char faction, char carriere,int experience, int argent, Objet* tab);
+void initPerso (Personnage* perso);
+
+/**
+* \brief Preconditions : perso initialisé
+* <br /> Postconditions : les paramètres nom, race, sexe, carriere, et expérience sont fournies
+*/
+void nouveauPerso(Personnage *perso, char nom[], char race, char sexe, char faction, char carriere,int experience, int argent, Objet* tab);
 
 /**
 * \brief Preconditions : perso est initialisé
