@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <string.h>
 #include "personnage.h"
+#include "SDL/SDL.h"
 #include "inventaire.h"
 #include "capacite.h"
 #include "objet.h"
@@ -15,7 +16,7 @@
 
 void initPerso (Personnage* perso)
 {
-    perso->nom=NULL;
+    strcpy(perso->nom,"");
     perso->race=0;
     perso->sexe=0;
     perso->faction=0;
@@ -23,7 +24,7 @@ void initPerso (Personnage* perso)
     perso->argent=0;
     perso->experience=0;
 
-    perso->capacite=NULL;
+    CapaciteInit(&(perso->capacite));
 
     perso->attaque=0;
     perso->defense=0;
@@ -34,7 +35,7 @@ void initPerso (Personnage* perso)
 
     perso->posX=0;
     perso->posY=0;
-    perso->inventaire=NULL;
+    inventaireInit(&(perso->inventaire));
 }
 
 void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char faction, char carriere, int experience,int argent, Objet* tab)
@@ -54,7 +55,7 @@ void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char fac
     perso->argent=argent;
     perso->experience= experience;
 
-    inventaireInit(&(perso->inventaire));
+
 
     assert (fRace= fopen("data/Races.txt", "r"));
     if (fRace!=NULL)
@@ -87,7 +88,7 @@ void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char fac
     }
 
     i=0;
-    CapaciteInit(&(perso->capacite));
+
     assert(fCarr= fopen("data/Carrieres.txt", "r"));
     if (fCarr!=NULL)
     {
@@ -272,7 +273,7 @@ int mainPerso()
     initialiserTousLesObjets(liste);
 
     Personnage perso;
-    persoInit (&perso, "Toromis", 1, 1, 1, 1, 0, 100,liste);
+    nouveauPerso (&perso, "Toromis", 1, 1, 1, 1, 0, 100,liste);
     getPersoNom(tab, &perso);
     printf("\n%s\n",tab);
     printf("\n%d\n",getPersoRace(&perso));

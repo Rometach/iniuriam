@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "SDL/SDL.h"
 #include "inventaire.h"
 #include "capacite.h"
 

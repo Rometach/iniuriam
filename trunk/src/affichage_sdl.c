@@ -1,12 +1,11 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <assert.h>
-#include "constante.h"
 #include "SDL/SDL.h"
 #include "terrain.h"
 #include "tile.h"
 #include "affichage_sdl.h"
-
+#include "stdlib.h"
+#include "stdio.h"
+#include "assert.h"
+#include "constante.h"
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
@@ -67,7 +66,7 @@ void affEditeur(Terrain* ter, SDL_Surface* ecran)
             SDL_BlitSurface(ter->chipset, &tile, ecran, &position);
 
             position.x+= TILE_LARGEUR;
-            if(position.x>=TAILLE_CARTE+(ter->decalageX+1)*TILE_LARGEUR)
+            if(position.x>TAILLE_CARTE+ter->decalageX)
             {
                 position.y+= TILE_HAUTEUR;
                 position.x=(ter->decalageX+1)*TILE_LARGEUR;
@@ -87,11 +86,12 @@ void affCarte(Terrain* ter, SDL_Surface* ecran)
     tile.w=TILE_LARGEUR;
     tile.h=TILE_HAUTEUR;
 
-     for(i=0; i<TAILLE_CARTE; i++)
+     for(i= 0; i<TAILLE_CARTE; i++)
      {
             tile.x=getPosX(ter->tabChipset[ter->carte[i]]);
             tile.y=getPosY(ter->tabChipset[ter->carte[i]]);
             SDL_BlitSurface(ter->chipset, &tile, ecran, &position);
+            printf("%d ", ter->tabChipset[ter->carte[i]].collision);
 
             position.x+= TILE_LARGEUR;
             if(position.x>=TAILLE_CARTE)
@@ -101,7 +101,6 @@ void affCarte(Terrain* ter, SDL_Surface* ecran)
             }
     }
     SDL_Flip(ecran);
-
 }
 
 void affPerso(Personnage* hero, SDL_Surface* surfPerso, SDL_Surface* ecran)
@@ -139,12 +138,12 @@ void eventEditeurSDL(Terrain* ter, SDL_Surface* ecran )
                     }
                     else if(event.key.keysym.sym==SDLK_s) /* SAVE */
                     {
-                        sauvTerrain(ter, "save.map", "HOTEL02.bmp");
+                        sauvTerrain(ter, "data/Cartes/save.map", "data/Chipsets/HOTEL02.bmp");
                     }
                     else if(event.key.keysym.sym==SDLK_l) /* LOAD */
                     {   detruitTerrain(ter);
                         initTerrain(ter);
-                        chargeTerrain(ter, "save.map");
+                        chargeTerrain(ter, "data/Cartes/save.map");
                     }
                 }
             }
@@ -159,7 +158,7 @@ void eventEditeurSDL(Terrain* ter, SDL_Surface* ecran )
                 }
                 else if(event.button.x>ter->decalageX*TILE_LARGEUR)
                 {
-                    i=((event.button.y/TILE_HAUTEUR)*(TAILLE_CARTE/TILE_LARGEUR)+event.button.x/TILE_LARGEUR-ter->decalageX-1);
+                    i=((event.button.y/TILE_HAUTEUR)*(TAILLE_CARTE/TILE_LARGEUR-ter->decalageX)+event.button.x/TILE_LARGEUR-ter->decalageX-1);
 
                     if(i>=TAILLE_CARTE) i=TAILLE_CARTE-1;
                     setCarte(ter, i, ter->tileSel);
@@ -224,4 +223,23 @@ void eventJeuSDL(Personnage* hero, Terrain* ter, SDL_Surface* surfPerso, SDL_Sur
             }
         }
     }
+}
+
+void editerCarte ()
+{
+    Terrain terrain;
+    SDL_Surface* ecran = NULL;
+    initTerrain(&terrain);
+    SDL_Init(SDL_INIT_VIDEO);
+    ecran = SDL_SetVideoMode(TAILLE_FENETRE, TAILLE_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
+    SDL_WM_SetCaption("Iniuriam", NULL);
+    remplirStructTerrain(&terrain);
+
+    affChipset(&terrain, ecran);
+    affCarte(&terrain, ecran);
+
+    eventEditeurSDL(&terrain, ecran);
+
+    detruitTerrain(&terrain);
+    SDL_Quit();
 }

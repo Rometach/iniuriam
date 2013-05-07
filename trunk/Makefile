@@ -34,7 +34,7 @@ parole.o: src/personnage.h src/parole.h src/parole.c
 	gcc -c $(OPT) -o bin/parole.o src/parole.c
 
 personnage.o: src/personnage.h src/inventaire.h src/capacite.h src/personnage.c
-	gcc -c $(OPT) -o bin/personnage.o src/personnage.c
+	gcc -c $(OPT) $(SDL) -o bin/personnage.o src/personnage.c
 
 capacite.o: src/capacite.h src/competence.h src/capacite.c
 	gcc -c $(OPT) -o bin/capacite.o src/capacite.c

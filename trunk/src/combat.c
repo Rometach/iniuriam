@@ -252,15 +252,15 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MA
 {
     int i, cible=j,arme=0;
     char distance=255, degats=0,tampon, arene2[TAILLE_MAX][TAILLE_MAX];
-
+    CopieTab2D(arene,arene2);
     for (i=0;i<l;i++)
     {
         if ((i!=j)&&(groupe[j].camp!=groupe[i].camp)&&(estDansChampDeVision(arene,groupe[j].posX,groupe[j].posY,groupe[i].posX,groupe[i].posY,groupe[j].orientation)))
         {
-            tampon=deplacementIA(groupe[j].posX,groupe[j].posY,groupe[i].posX,groupe[i].posY,arene);
+            tampon=deplacementIA(groupe[j].posX,groupe[j].posY,groupe[i].posX,groupe[i].posY,arene2);
             if (tampon!=0)
             {
-                if (tampon==min(distance,tampon))
+                if (tampon<=distance)
                 {
                     distance=tampon;
                     cible=i;
@@ -275,7 +275,7 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MA
             if (getObjetPortee(getStockObjet(groupe[j].perso->inventaire.st))>=distance)
             {
                 tampon=getObjetDegats(getStockObjet(groupe[j].perso->inventaire.st));
-                if (tampon==max(tampon,degats))
+                if (tampon>=degats)
                 {
                     arme=i;
                     degats=tampon;
@@ -286,7 +286,9 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MA
         {
             /*CHAAAAAAARGEEEEEZ*/
         }
-        else {}
+        else
+        {
+        }
     }
 }
 void tourJoueur (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MAX])
@@ -297,7 +299,7 @@ void tourJoueur (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILL
 void combat (Combattant* groupe, int l, char arene [TAILLE_MAX][TAILLE_MAX])
 {
     int i,nb=l;
-    while (estLaFin(groupe, nb)!=0)
+    while (estLaFin(groupe, nb)==0)
     {
         for (i=0;i<nb;i++)
         {
@@ -327,8 +329,8 @@ int mainCombat ()
     tab=(Objet*)malloc(40*sizeof(Objet));
     initialiserTousLesObjets(tab);
 
-    persoInit (&liste[0], "Toromis", 1, 1, 1, 1, 0, 100,tab);
-    persoInit (&liste[1], "Babar", 2, 1, 2, 1, 0, 100,tab);
+    nouveauPerso (&liste[0], "Toromis", 1, 1, 1, 1, 0, 100,tab);
+    nouveauPerso (&liste[1], "Babar", 2, 1, 2, 1, 0, 100,tab);
     FILE* fTerr=fopen("data/Terrains.txt", "r");
     if (fTerr!=NULL)
     {
