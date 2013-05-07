@@ -49,5 +49,10 @@ void eventEditeurSDL(Terrain* ter, SDL_Surface* ecran);
 */
 void eventJeuSDL(Personnage* hero, Terrain* ter, SDL_Surface* surfPerso, SDL_Surface* ecran);
 
+/**
+* \brief Preconditions :
+* <br /> Postconditions : permet d'éditer, de sauver et de charger des cartes
+*/
+void editerCarte ();
 
 #endif
