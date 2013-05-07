@@ -91,7 +91,6 @@ void affCarte(Terrain* ter, SDL_Surface* ecran)
             tile.x=getPosX(ter->tabChipset[ter->carte[i]]);
             tile.y=getPosY(ter->tabChipset[ter->carte[i]]);
             SDL_BlitSurface(ter->chipset, &tile, ecran, &position);
-            printf("%d ", ter->tabChipset[ter->carte[i]].collision);
 
             position.x+= TILE_LARGEUR;
             if(position.x>=TAILLE_CARTE)
@@ -202,15 +201,15 @@ void eventJeuSDL(Personnage* hero, Terrain* ter, SDL_Surface* surfPerso, SDL_Sur
                         {hero->posX+=TILE_LARGEUR;}
                     }
                     else if(event.key.keysym.sym==SDLK_LEFT)
-                    {  // if(getCollision(ter->tabChipset[ter->carte[(hero->posX-TILE_LARGEUR)/TILE_LARGEUR+ter->largeur*(hero->posY/TILE_HAUTEUR)]])==1)
+                    {   if(getCollision(ter->tabChipset[ter->carte[(hero->posX-TILE_LARGEUR)/TILE_LARGEUR+ter->largeur*(hero->posY/TILE_HAUTEUR)]])==1)
                         {hero->posX-=TILE_LARGEUR;}
                     }
                     else if(event.key.keysym.sym==SDLK_DOWN)
-                    { //  if(getCollision(ter->tabChipset[ter->carte[hero->posX/TILE_LARGEUR+ter->largeur*((hero->posY+TILE_HAUTEUR)/TILE_HAUTEUR)]])==1)
+                    {   if(getCollision(ter->tabChipset[ter->carte[hero->posX/TILE_LARGEUR+ter->largeur*((hero->posY+TILE_HAUTEUR)/TILE_HAUTEUR)]])==1)
                         {hero->posY+=TILE_HAUTEUR;}
                     }
                     else if(event.key.keysym.sym==SDLK_UP)
-                    {   //if(getCollision(ter->tabChipset[ter->carte[hero->posX/TILE_LARGEUR+ter->largeur*((hero->posY-TILE_HAUTEUR)/TILE_HAUTEUR)]])==1)
+                    {   if(getCollision(ter->tabChipset[ter->carte[hero->posX/TILE_LARGEUR+ter->largeur*((hero->posY-TILE_HAUTEUR)/TILE_HAUTEUR)]])==1)
                         {hero->posY-=TILE_HAUTEUR;}
                     }
                     affCarte(ter, ecran);
