@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <time.h>
+#include <math.h>
 #include "personnage.h"
 #include "terrain.h"
 #include "deplacement.h"
@@ -56,11 +57,13 @@ void initCombattant (Personnage* liste, int l, Combattant* groupe)
     {
         groupe[i].perso=(&liste[i]);        /*Faire un copier machin svp*/
         groupe[i].camp=getPersoFaction(&liste[i]);
+        groupe[i].derniereAction=0;
         for (j=0;j<=i;j++)
         {
             groupe[i].ordre=tri(tab, getPersoAgilite(&liste[i]),i);
         }
     }
+    free (tab);
 }
 
 void initPosGauche (Combattant* combattant, char arene[TAILLE_MAX][TAILLE_MAX])
@@ -77,7 +80,7 @@ void initPosGauche (Combattant* combattant, char arene[TAILLE_MAX][TAILLE_MAX])
                 arene[i][j]=4;
                 combattant->posX=i;
                 combattant->posY=j;
-                combattant->orientation=3;
+                combattant->orientation=4;
                 place=1;
             }
             j+=2;
@@ -157,9 +160,9 @@ void initCombat (Personnage* liste, int l, Combattant* groupe, char arene[TAILLE
 
 char estDansChampDeVision (char arene[TAILLE_MAX][TAILLE_MAX], int x, int y, int z, int t,char orientation)
 {
-    int i,j,a,b,c,d,rayon=10;
+    int i,j,a,b,c,d,rayon=30;
     char vu=0;
-    if (rayon*rayon>=(z-x)*(z-x)+(t-y)*(t-y))
+    if (rayon>=(int)sqrt(pow((z-x),2)+pow((t-y),2)))
     {
         switch (orientation)
         {
@@ -173,12 +176,12 @@ char estDansChampDeVision (char arene[TAILLE_MAX][TAILLE_MAX], int x, int y, int
                     c=max(y-rayon,1);
                     d=min(y+rayon,TAILLE_MAX-1);
                     break;
-            case 3: a=max(x-rayon,1);
+            case 4: a=max(x-rayon,1);
                     b=min(rayon+x,TAILLE_MAX-1);
                     c=y;
                     d=min(y+rayon,TAILLE_MAX-1);
                     break;
-            case 4: a=x;
+            case 3: a=x;
                     b=min(rayon+x,TAILLE_MAX-1);
                     c=max(y-rayon,1);
                     d=min(y+rayon,TAILLE_MAX-1);
@@ -189,17 +192,21 @@ char estDansChampDeVision (char arene[TAILLE_MAX][TAILLE_MAX], int x, int y, int
         {
             for (j=c;j<d;j++)
             {
-                if (((j-y)*(j-y)+(i-x)*(i-x)<=rayon*rayon))
+                if ((int)sqrt(pow((j-y),2)+pow((i-x),2))<=rayon)
                 {
                     if (i==z&&j==t) vu=1;
                     else if (i==x&&j==y){}
-                    else if (i==x)
-                    {
-                        if (deplacerCase(j,arene[i])==0) return 0;
-                    }
                     else if (deplacerCase(j,arene[i])==0)
                     {
-                        if ((int)((j-y)/(i-x)*z)==t)
+                        if (i==x)
+                        {
+                            if((x==z)&&(fabs(x-i)<fabs(x-z))) return 0;
+                        }
+                        else if (j==y)
+                        {
+                            if ((y==t)&&(fabs(i-x)<fabs(i-z))) return 0;
+                        }
+                        else if ((int)((j-y)/(i-x)*z)==t)
                         {
                             return 0;
                         }
@@ -234,19 +241,19 @@ int testNbCombattant (Combattant* groupe, int l)
 {
     Combattant* tampon;
     int i,j,n=l;
-    for (i=0;i<l;i++)
+    for (i=0;i<n;i++)
     {
-        if (groupe[i].perso->ptDeVie==0)
+        if (groupe[i].perso->ptDeVie<=0)
         {
             n--;
             tampon=(Combattant*)malloc((n)*sizeof(Combattant));
-            for (j=0;j<l-1;j++)
+            for (j=l-2;j>=0;j--)
             {
-                if (i!=j) tampon[j]=groupe[j];
+                if (j>i) tampon[j]=groupe[j+1];
+                else if (j<i) tampon[j]=groupe[j];
             }
             free (groupe);
             groupe=tampon;
-
         }
     }
     return n;
@@ -293,7 +300,7 @@ int attaquer (Personnage* attaquant, Personnage* defenseur, int degats, int bonu
     {
         printf("Rate.\n");
     }
-
+    addPersoPtDeVie(defenseur, -deg);
 
     return deg;
 }
@@ -302,45 +309,92 @@ int attaquer (Personnage* attaquant, Personnage* defenseur, int degats, int bonu
 
 void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MAX])
 {
-    int i, cible=j, arme=0;
-    char distance=100, degats=0,tampon, arene2[TAILLE_MAX][TAILLE_MAX];
-    CopieTab2D(arene,arene2);
+    int i, cible=j, arme=0,coord,rayon;
+    char distance=100, degats=0,tampon, arene2[TAILLE_MAX][TAILLE_MAX],deplacementsRestants=NB_DEPLACEMENTS, portee;
     for (i=0;i<l;i++)
     {
-        if ((i!=j)&&(groupe[j].camp!=groupe[i].camp)&&(estDansChampDeVision(arene,groupe[j].posX,groupe[j].posY,groupe[i].posX,groupe[i].posY,groupe[j].orientation)))
+        if ((i!=j)&&(groupe[j].camp!=groupe[i].camp)&&(estDansChampDeVision(arene,groupe[j].posX,groupe[j].posY,groupe[i].posX,groupe[i].posY,groupe[j].orientation)!=0))
         {
-            tampon=deplacementIA(groupe[j].posX,groupe[j].posY,groupe[i].posX,groupe[i].posY,arene2);
+            copieTab2D(arene,arene2);
+            tampon=chemin(groupe[j].posX,groupe[j].posY,groupe[i].posX,groupe[i].posY,arene2);
             if (tampon!=0)
             {
                 if (tampon<=distance)
                 {
+                    copieTab2D (arene2,groupe[j].arene);
                     distance=tampon;
                     cible=i;
+                    rayon=(int)(sqrt(pow(groupe[j].posX-groupe[i].posX,2)+pow(groupe[j].posY-groupe[i].posY,2)));
                 }
             }
         }
     }
     if (cible!=j)
     {
-        for (i=0;i< getInventaireNbObjets(getPersoInventaire2(groupe[j].perso));i++)
+        for (i=0;i<getInventaireNbObjets(getPersoInventaire2(groupe[j].perso));i++)
         {
-            if (getObjetPortee(getStockObjet(groupe[j].perso->inventaire.st))>=distance)
+            portee=getObjetPortee(getStockObjet(getInventaireStock(getPersoInventaire2(groupe[j].perso),i)));
+            if ((rayon>=portee-NB_DEPLACEMENTS-5)&&(rayon<=portee+NB_DEPLACEMENTS))
             {
                 tampon=getObjetDegats(getStockObjet(groupe[j].perso->inventaire.st));
-                if (tampon>=degats)
+                if (tampon>degats)
                 {
-                    arme=i;
+                    arme=i+1;
                     degats=tampon;
                 }
             }
         }
         if (arme!=0)
         {
-            /*CHAAAAAAARGEEEEEZ*/
+            portee=getObjetPortee(getStockObjet(getInventaireStock(getPersoInventaire2(groupe[j].perso),arme-1)));
+            while (portee<rayon)
+            {
+                arene[groupe[j].posX][groupe[j].posY]=1;
+                coord=seRapprocher(groupe[j].arene,groupe[j].posX,groupe[j].posY,1,&(groupe[j].orientation));
+                if (coord)
+                {
+                    groupe[j].posY=coord%TAILLE_MAX;
+                    groupe[j].posX=(coord-coord%TAILLE_MAX)/TAILLE_MAX;
+                    arene[groupe[j].posX][groupe[j].posY]=4;
+                    deplacementsRestants--;
+                    rayon=(int)(sqrt(pow(groupe[j].posX-groupe[cible].posX,2)+pow(groupe[j].posY-groupe[cible].posY,2)));
+                }
+                else printf("Impossible de se rapprocher\n");
+            }
+            while (portee-5>rayon)
+            {
+                arene[groupe[j].posX][groupe[j].posY]=1;
+                coord=sEloigner(groupe[j].arene,groupe[j].posX,groupe[j].posY,1,&(groupe[j].orientation));
+                if (coord)
+                {
+                    groupe[j].posY=coord%TAILLE_MAX;
+                    groupe[j].posX=(coord-coord%TAILLE_MAX)/TAILLE_MAX;
+                    arene[groupe[j].posX][groupe[j].posY]=4;
+                    deplacementsRestants--;
+                }
+                else printf("Impossible de s'écarter\n");
+            }
+            attaquer(groupe[j].perso,groupe[cible].perso,degats,0,0);
+            printf("%d\n",getPersoPtDeVie(groupe[cible].perso));
         }
         else
         {
+            arene[groupe[j].posX][groupe[j].posY]=1;
+            coord=seRapprocher(groupe[j].arene,groupe[j].posX,groupe[j].posY,NB_DEPLACEMENTS,&(groupe[j].orientation));
+            i=coord%TAILLE_MAX;
+            if (groupe[j].posY<i)
+            {
+
+            }
+            groupe[j].posY=coord%TAILLE_MAX;
+            groupe[j].posX=(coord-coord%TAILLE_MAX)/TAILLE_MAX;
+            arene[groupe[j].posX][groupe[j].posY]=4;
+            if (coord==0) printf("Impossible de se rapprocher\n");
         }
+    }
+    else
+    {
+        printf("Aucune cible repérée\n");
     }
 }
 
@@ -367,6 +421,8 @@ void combat (Combattant* groupe, int l, char arene [TAILLE_MAX][TAILLE_MAX])
             {
                 tourIA(groupe,i,l,arene);
                 nb=testNbCombattant(groupe,nb);
+                afficherTab2D(arene);
+                //getchar();
             }
         }
     }
@@ -378,7 +434,7 @@ int mainCombat ()
     Personnage *liste;
     Combattant* groupe;
     Objet *tab;
-    int i,j,type=2;
+    int i,j,type=1;
     char arene [TAILLE_MAX][TAILLE_MAX],ligne [TAILLE_MAX+2];
 
     srand(time(NULL));
@@ -393,15 +449,6 @@ int mainCombat ()
     nouveauPerso (&liste[1], "Rometach", 1, 1, 1, 1, 0, 100,tab);
     nouveauPerso (&liste[2], "Babar", 2, 1, 2, 1, 0, 100,tab);
     nouveauPerso (&liste[3], "BabarII", 2, 1, 2, 1, 0, 100,tab);
-
-
-    int sum=0;
-    for(i=0;i<200;i++)
-    {if(attaquer(&liste[0],&liste[1],1,0,0)==0) {sum++;}}
-    printf("\n\n%d\n\n",sum);
-
-
-
 
     FILE* fTerr=fopen("data/Terrains.txt", "r");
 
@@ -425,14 +472,7 @@ int mainCombat ()
         }
         fclose (fTerr);
 
-
-
-
         initCombat(liste,4,groupe,arene);
-
-
-
-
         afficherTab2D (arene);
         combat (groupe,4,arene);
 

@@ -64,9 +64,9 @@ char estObjDansInv (Inventaire* inventaire, Objet* obj);
 
 /**
 * \brief Preconditions : inventaire est initialisé
-* <br /> Postconditions : retourne le tableau de Stocks de inventaire
+* <br /> Postconditions : retourne le ième tableau de Stocks de inventaire
 */
-Stock* getInventaireStock (Inventaire* inventaire);
+Stock* getInventaireStock (Inventaire* inventaire, int i);
 
 
 /**

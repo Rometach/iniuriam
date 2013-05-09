@@ -215,9 +215,9 @@ char getPersoCharisme(Personnage *perso)
     return perso->charisme;
 }
 
-char getPersoPtDeVie(Personnage *perso)
+int getPersoPtDeVie(Personnage *perso)
 {
-    return perso->charisme;
+    return perso->ptDeVie;
 }
 
 void getPersoInventaire(Personnage *perso, Inventaire* inv)

@@ -28,7 +28,7 @@ typedef struct
     char intelligence;
     char agilite;
     char charisme;
-    char ptDeVie;
+    int ptDeVie;
 
     int posX;
     int posY;
@@ -144,7 +144,7 @@ char getPersoCharisme(Personnage *perso);
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : retourne les points de vie du perso
 */
-char getPersoPtDeVie(Personnage *perso);
+int getPersoPtDeVie(Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé mais pas inv

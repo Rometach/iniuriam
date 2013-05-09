@@ -8,7 +8,7 @@
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
 
-void CopieTab2D (char tab[TAILLE_MAX][TAILLE_MAX], char tab2 [TAILLE_MAX][TAILLE_MAX])
+void copieTab2D (char tab[TAILLE_MAX][TAILLE_MAX], char tab2 [TAILLE_MAX][TAILLE_MAX])
 {
     int i,j;
     for (i=0;i<TAILLE_MAX;i++)
@@ -76,22 +76,22 @@ char chercher2 (char tab[TAILLE_MAX][TAILLE_MAX],int x, int y,char i)
     {
         switch (i)
         {
-            case 1:
+            case 1: /*Perso venant de la droite*/
                 if (tab[x][y-1]==2) return 1;
                 else if (tab[x-1][y]==2) return 2;
                 else if(tab[x+1][y]==2) return 3;
                 break;
-            case 2:
+            case 2: /*Perso venant du bas*/
                  if (tab[x-1][y]==2) return 2;
                  else if (tab[x][y+1]==2) return 4;
                  else if (tab[x][y-1]==2) return 1;
                  break;
-            case 3:
+            case 3:/*Perso venant du haut*/
                 if (tab[x+1][y]==2) return 3;
                 else if (tab[x][y+1]==2) return 4;
                 else if (tab[x][y-1]==2) return 1;
                 break;
-            case 4:
+            case 4:/*Perso venant de la gauche*/
                 if (tab[x][y+1]==2) return 4;
                     else if (tab[x-1][y]==2) return 2;
                     else if (tab[x+1][y]==2) return 3;
@@ -473,6 +473,70 @@ char chemin (int x,int y, int z, int t, char tab[TAILLE_MAX][TAILLE_MAX])
             i--;
         }
     return n;
+}
+int seRapprocher(char tab[TAILLE_MAX][TAILLE_MAX], int a, int b, int nb,char* orientation)
+{
+    int i=nb,j=0,x=a,y=b;
+    while (i>0)
+    {
+        tab[x][y]=1;
+        j=chercher2(tab,x,y,j);
+        switch (j)
+        {
+            case 1:
+                y--;
+            break;
+            case 2:
+                x--;
+            break;
+            case 3:
+                x++;
+            break;
+            case 4:
+                y++;
+            break;
+            default:
+                return 0;
+            break;
+        }
+        i--;
+    }
+    tab[x][y]=4;
+    *orientation=chercher2(tab,x,y,j);
+    return x*TAILLE_MAX+y;
+}
+
+int sEloigner(char tab[TAILLE_MAX][TAILLE_MAX], int a, int b, int nb, char* orientation)
+{
+    int i=nb,j=0,x=a,y=b;
+    while (i>0)
+    {
+        switch (chercher2(tab,x,y,j))
+        {
+            case 1:
+                j=4;
+                y++;
+            break;
+            case 2:
+                j=3;
+                x++;
+            break;
+            case 3:
+                j=2;
+                x--;
+            break;
+            case 4:
+                j=1;
+                y--;
+            break;
+            default:
+                return 0;
+            break;
+        }
+        tab[x][y]=2;
+        i--;
+    }
+    return x*TAILLE_MAX+y;
 }
 
 int mainDeplacement ()
