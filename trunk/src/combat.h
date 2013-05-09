@@ -20,8 +20,8 @@ typedef struct
     char orientation; /*Correspond à l'orientation du regard du combattant sur le terrain :
                         1 vers la gauche
                         2 vers le haut
-                        3 vers la droite
-                        4 vers le bas*/
+                        3 vers la bas
+                        4 vers le droite*/
     char derniereAction;    /*Correspond à la dernière action effectuée :
                             0 inconnu
                             1 attaque standard
@@ -30,6 +30,7 @@ typedef struct
                             4 feinte
                             3 visée
                             3 préparation de parade*/
+    char arene [TAILLE_MAX][TAILLE_MAX];
 } Combattant;
 
 

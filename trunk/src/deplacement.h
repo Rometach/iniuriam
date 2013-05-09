@@ -16,7 +16,7 @@
 * \brief Preconditions : /
 * <br /> Postconditions : copie tab dans tab2
 */
-void CopieTab2D (char tab[TAILLE_MAX][TAILLE_MAX], char tab2 [TAILLE_MAX][TAILLE_MAX]);
+void copieTab2D (char tab[TAILLE_MAX][TAILLE_MAX], char tab2 [TAILLE_MAX][TAILLE_MAX]);
 
 /**
 * \brief Preconditions : 0<=y<TAILLE_MAX
@@ -89,5 +89,17 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
 * <br /> Postconditions : trace un chemin dans tab pour aller de la case (x,y) à la case (z,t).
 */
 char chemin (int x,int y, int z, int t, char tab[TAILLE_MAX][TAILLE_MAX]);
+
+/**
+* \brief Preconditions : 0<=a<TAILLE_MAX, 0<=b<TAILLE_MAX
+* <br /> Postconditions : Rapproche un perso de sa destination de nb case(s) et retourne les coordonnées d'arrivée ainsi que l'orientation du perso.
+*/
+int seRapprocher(char tab[TAILLE_MAX][TAILLE_MAX], int a, int b, int nb, char* orientation);
+
+/**
+* \brief Preconditions : 0<=a<TAILLE_MAX, 0<=b<TAILLE_MAX
+* <br /> Postconditions : Eloigne un perso de sa destination de nb case(s) et retourne les coordonnées d'arrivée ainsi que l'orientation du perso.
+*/
+int sEloigner(char tab[TAILLE_MAX][TAILLE_MAX], int a, int b, int nb, char* orientation);
 
 #endif

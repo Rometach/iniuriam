@@ -132,9 +132,9 @@ char estObjDansInv (Inventaire* inventaire, Objet* obj)
 }
 
 
-Stock* getInventaireStock (Inventaire* inventaire)
+Stock* getInventaireStock (Inventaire* inventaire,int i)
 {
-    return inventaire->st;
+    return &(inventaire->st[i]);
 }
 
 
