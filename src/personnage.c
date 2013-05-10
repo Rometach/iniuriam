@@ -110,6 +110,8 @@ void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char fac
         free(compTampon);
     }
     else printf ("Impossible d'ouvrir le fichier Carrieres.txt\n");
+
+    /*Initialiser SDL_Surface*/
 }
 
 
@@ -273,8 +275,31 @@ void persoUtiliseObjet (Personnage *perso,Objet *obj)
     /* Effet en fonction du type ; appel à soustraireInventaire si besoin ! */
 }
 
+void copiePerso (Personnage* perso1, Personnage* perso2)
+{
+    strcpy(perso2->nom,perso1->nom);
+    perso2->race=perso1->race;
+    perso2->sexe=perso1->sexe;
+    perso2->faction=perso1->faction;
+    perso2->carriere=perso1->carriere;
+    perso2->argent=perso1->argent;
+    perso2->experience=perso1->experience;
 
+    copieCapacite(&perso1->capacite,&perso2->capacite);
 
+    perso2->attaque=perso1->attaque;
+    perso2->defense=perso1->defense;
+    perso2->intelligence=perso1->intelligence;
+    perso2->agilite=perso1->agilite;
+    perso2->charisme=perso1->charisme;
+    perso2->ptDeVie=perso1->ptDeVie;
+
+    perso2->posX=perso1->posX;
+    perso2->posY=perso1->posY;
+    copieInventaire(&perso2->inventaire,&perso1->inventaire);
+
+    /*Initialiser SDL_Surface*/
+}
 
 int mainPerso()
 {

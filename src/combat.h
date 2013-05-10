@@ -110,7 +110,7 @@ char estLaFin (Combattant* groupe,int l);
 * \brief Preconditions : ???
 * <br /> Postconditions : ???
 */
-int testNbCombattant (Combattant* groupe, int l);
+int testNbCombattant (Combattant* groupe, int l, char arene [TAILLE_MAX][TAILLE_MAX]);
 
 
 
