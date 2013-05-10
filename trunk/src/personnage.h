@@ -195,6 +195,11 @@ void soustraireInventaire (Personnage *perso,Objet *obj);
 */
 void persoUtiliseObjet (Personnage *perso,Objet *obj);
 
+/**
+* \brief Preconditions : perso1 est initialisé mais pas perso2
+* <br /> Postconditions : le contenu de perso1 est copié dans perso2
+*/
+void copiePerso (Personnage* perso1, Personnage* perso2);
 
 
 #endif

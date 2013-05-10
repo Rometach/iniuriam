@@ -237,7 +237,19 @@ char estLaFin (Combattant* groupe,int l)
     return 1;
 }
 
-int testNbCombattant (Combattant* groupe, int l)
+void copieCombattant (Combattant* comb1, Combattant* comb2)
+{
+    comb2->perso=(Personnage*)malloc(sizeof(Personnage));
+    copiePerso (comb1->perso, comb2->perso);
+    comb2->camp=comb1->camp;
+    comb2->posX=comb1->posX;
+    comb2->posY=comb1->posY;
+    comb2->orientation=comb1->orientation;
+    comb2->derniereAction=comb1->derniereAction;
+    copieTab2D(comb1->arene,comb2->arene);
+}
+
+int testNbCombattant (Combattant* groupe, int l, char arene [TAILLE_MAX][TAILLE_MAX])
 {
     Combattant* tampon;
     int i,j,n=l;
@@ -246,14 +258,18 @@ int testNbCombattant (Combattant* groupe, int l)
         if (groupe[i].perso->ptDeVie<=0)
         {
             n--;
-            tampon=(Combattant*)malloc((n)*sizeof(Combattant));
-            for (j=l-2;j>=0;j--)
+            tampon=(Combattant*)malloc(sizeof(Combattant));
+            copieCombattant(&groupe[i],tampon);
+            for (j=i;j<n;j++)
             {
-                if (j>i) tampon[j]=groupe[j+1];
-                else if (j<i) tampon[j]=groupe[j];
+                groupe[j]=groupe[j+1];
             }
-            free (groupe);
-            groupe=tampon;
+            groupe[n]=*tampon;
+            free (tampon);
+            arene[groupe[n].posX][groupe[n].posY]=1;
+            if (n==1) printf("And the winner is %s !\nT'es fier(e) de toi ?\n\n",groupe[0].perso->nom);
+            else if ((groupe[n].camp==groupe[0].camp)&&(n!=1)) printf("C'était un(e) de vos potes ?\nEn tout cas c'est la fin pour %s\n\n",groupe[n].perso->nom);
+            else printf ("Il avait peut-être une femme et des gosses !!\n... mais ça évidemment tu t'en soucies pas !\n\n");
         }
     }
     return n;
@@ -381,11 +397,6 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MA
         {
             arene[groupe[j].posX][groupe[j].posY]=1;
             coord=seRapprocher(groupe[j].arene,groupe[j].posX,groupe[j].posY,NB_DEPLACEMENTS,&(groupe[j].orientation));
-            i=coord%TAILLE_MAX;
-            if (groupe[j].posY<i)
-            {
-
-            }
             groupe[j].posY=coord%TAILLE_MAX;
             groupe[j].posX=(coord-coord%TAILLE_MAX)/TAILLE_MAX;
             arene[groupe[j].posX][groupe[j].posY]=4;
@@ -415,12 +426,12 @@ void combat (Combattant* groupe, int l, char arene [TAILLE_MAX][TAILLE_MAX])
             if(groupe[i].camp==groupe[0].camp)
             {
                 tourJoueur(groupe,i,l,arene);
-                nb=testNbCombattant(groupe,nb);
+                nb=testNbCombattant(groupe,nb,arene);
             }
             else
             {
                 tourIA(groupe,i,l,arene);
-                nb=testNbCombattant(groupe,nb);
+                nb=testNbCombattant(groupe,nb,arene);
                 afficherTab2D(arene);
                 //getchar();
             }

@@ -55,3 +55,15 @@ void ajouterCompetenceCapacite (Capacite* capacite, Competence* comp)
         capacite->nbCompetence++;
     }
 }
+
+void copieCapacite(Capacite* capacite1,Capacite* capacite2)
+{
+    int i;
+    capacite2=(Capacite*)malloc(capacite1->quantite*sizeof(Capacite));
+    for (i=0;i<capacite1->nbCompetence;i++)
+    {
+        copieCompetence(&(capacite2->comp[i]), &(capacite1->comp[i]));
+    }
+    capacite2->nbCompetence=capacite1->nbCompetence;
+    capacite2->quantite=capacite1->quantite;
+}
