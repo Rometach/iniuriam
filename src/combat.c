@@ -275,36 +275,40 @@ int testNbCombattant (Combattant* groupe, int l, char arene [TAILLE_MAX][TAILLE_
     return n;
 }
 
-int attaquer (Personnage* attaquant, Personnage* defenseur, int degats, int bonusA, int bonusD)
+int attaquer (Personnage* attaquant, Personnage* defenseur, int degats, int bonusA, int bonusD, int bonusAg, int bonusEsc, int type, char distance)
 {
     int testA, testD;
     int deg=0;
 
-    testA=getPersoAttaque(attaquant)+bonusA-rand()%100;
+    if (distance) testA=getPersoAttaque(attaquant)+bonusAg-rand()%100;
+    else testA=getPersoAgilite(attaquant)+bonusAg-rand()%100;
 
     if (testA>=0)
     {
-        testD=getPersoDefense(defenseur)+bonusD-rand()%100;
-        testA=testA-max(testD,0);
-
+        testD=getPersoDefense(defenseur)+bonusD+bonusEsc-rand()%100;
+        testA=testA-max(testD,0)+bonusA;
         if(testA>=30)
         {
             printf("Coup critique\n");
+            ajouterCompetencePerso (attaquant,type,4);
             deg=4*degats;
         }
         else if(testA>=20)
         {
             printf("Coup qui fait mal\n");
+            ajouterCompetencePerso (attaquant,type,3);
             deg=3*degats;
         }
         else if(testA>=10)
         {
             printf("Beigne\n");
+            ajouterCompetencePerso (attaquant,type,2);
             deg=2*degats;
         }
         else if(testA>=0)
         {
             printf("Touche, mais de justesse\n");
+            ajouterCompetencePerso (attaquant,type,1);
             deg=degats;
         }
         else
@@ -317,11 +321,243 @@ int attaquer (Personnage* attaquant, Personnage* defenseur, int degats, int bonu
         printf("Rate.\n");
     }
     addPersoPtDeVie(defenseur, -deg);
-
+    printf("%d\n",getPersoPtDeVie(defenseur));
     return deg;
 }
 
+void attaqueBrutale(Combattant* attaquant, Combattant* defenseur, int degat,char type)
+{
+    int deg, i,bonusDef=0,bonusEsc=0;
 
+    if (defenseur->derniereAction==3)
+    {
+        bonusDef+=5;
+        i=chercherCompetence(getPersoCapacite2(defenseur->perso),17);
+        if (i>0)bonusDef+=i;
+        ajouterCompetencePerso (defenseur->perso,17,2);
+    }
+    else if(defenseur->derniereAction==6)
+    {
+        bonusDef+=5;
+        bonusEsc+=5;
+        i=chercherCompetence(getPersoCapacite2(defenseur->perso),13);
+        if (i>0)bonusDef+=i;
+        ajouterCompetencePerso (defenseur->perso,13,2);
+    }
+
+    i=chercherCompetence(getPersoCapacite2(attaquant->perso),16);
+    if (i<0) deg=attaquer (attaquant->perso,defenseur->perso,degat,0,bonusDef,0,bonusEsc,16,type);
+    else deg=attaquer (attaquant->perso,defenseur->perso,degat,getBonusatt(getCompetence(getPersoCapacite2(attaquant->perso),i)),bonusDef,0,bonusEsc,16,type);
+
+    if (type) i=15;
+    else i=14;
+    switch (deg/degat)
+    {
+        case 0:
+            if (defenseur->derniereAction==6)
+            {
+                ajouterCompetencePerso (attaquant->perso,13,2);
+            }
+            ajouterCompetencePerso (attaquant->perso,12,1);
+        break;
+
+        case 1:
+            ajouterCompetencePerso (attaquant->perso,i,1);
+        break;
+
+        case 2:
+            ajouterCompetencePerso (attaquant->perso,i,2);
+        break;
+
+        case 3:
+            ajouterCompetencePerso (attaquant->perso,i,3);
+        break;
+
+        case 4:
+            ajouterCompetencePerso (attaquant->perso,i,4);
+        break;
+
+        default:
+        break;
+    }
+    attaquant->derniereAction=2;
+}
+
+void attaquePrudente (Combattant* attaquant, Combattant* defenseur, int degat,char type)
+{
+    int deg, i,bonusDef=0, bonusEsc=0;
+
+    if (defenseur->derniereAction==3)
+    {
+        bonusDef+=5;
+        i=chercherCompetence(getPersoCapacite2(defenseur->perso),17);
+        if (i>0)bonusDef+=i;
+        ajouterCompetencePerso (defenseur->perso,17,2);
+    }
+    else if(defenseur->derniereAction==6)
+    {
+        bonusEsc+=5;
+        bonusDef+=5;
+        i=chercherCompetence(getPersoCapacite2(attaquant->perso),13);
+        if (i>0)bonusDef+=i;
+        ajouterCompetencePerso (defenseur->perso,13,2);
+    }
+
+    deg=attaquer (attaquant->perso,defenseur->perso,degat,0,bonusDef,0,bonusEsc,17,type);
+    if (type) i=15;
+    else i=14;
+    switch (deg/degat)
+    {
+        case 0:
+            if (defenseur->derniereAction==6)
+            {
+                ajouterCompetencePerso (attaquant->perso,13,2);
+            }
+            ajouterCompetencePerso (attaquant->perso,12,1);
+        break;
+
+        case 1:
+            ajouterCompetencePerso (attaquant->perso,i,1);
+        break;
+
+        case 2:
+            ajouterCompetencePerso (attaquant->perso,i,2);
+        break;
+
+        case 3:
+            ajouterCompetencePerso (attaquant->perso,i,3);
+        break;
+
+        case 4:
+            ajouterCompetencePerso (attaquant->perso,i,4);
+        break;
+
+        default:
+        break;
+    }
+    attaquant->derniereAction=3;
+}
+
+void feinte (Combattant* attaquant, Combattant* defenseur, int degat,char type)
+{
+    int deg, i,bonusDef=0,bonusEsc=0;
+
+    if (defenseur->derniereAction==3)
+    {
+        bonusDef+=5;
+        i=chercherCompetence(getPersoCapacite2(defenseur->perso),17);
+        if (i>0)bonusDef+=i;
+        ajouterCompetencePerso (defenseur->perso,17,2);
+    }
+    else if(defenseur->derniereAction==6)
+    {
+        bonusEsc+=5;
+        bonusDef+=5;
+        i=chercherCompetence(getPersoCapacite2(defenseur->perso),13);
+        if (i>0)bonusDef+=i;
+        ajouterCompetencePerso (defenseur->perso,13,2);
+    }
+
+    i=chercherCompetence(getPersoCapacite2(attaquant->perso),18);
+    if (i<0) deg=attaquer (attaquant->perso,defenseur->perso,degat,0,bonusDef,0,bonusEsc,18,type);
+    else deg=attaquer (attaquant->perso,defenseur->perso,degat,getBonusint(getCompetence(getPersoCapacite2(attaquant->perso),i)),bonusDef,0,bonusEsc,18,type);
+
+    if (type) i=15;
+    else i=14;
+    switch (deg/degat)
+    {
+        case 0:
+            if (defenseur->derniereAction==6)
+            {
+                ajouterCompetencePerso (attaquant->perso,13,2);
+            }
+            ajouterCompetencePerso (attaquant->perso,12,1);
+        break;
+
+        case 1:
+            ajouterCompetencePerso (attaquant->perso,i,1);
+        break;
+
+        case 2:
+            ajouterCompetencePerso (attaquant->perso,i,2);
+        break;
+
+        case 3:
+            ajouterCompetencePerso (attaquant->perso,i,3);
+        break;
+
+        case 4:
+            ajouterCompetencePerso (attaquant->perso,i,4);
+        break;
+
+        default:
+        break;
+    }
+    attaquant->derniereAction=4;
+}
+
+void viserPourAttaque (Combattant* attaquant, Combattant* defenseur, int degat,char type)
+{
+    int deg, i,bonusDef=0,bonusEsc=0;
+
+    if (defenseur->derniereAction==3)
+    {
+        bonusDef+=5;
+        i=chercherCompetence(getPersoCapacite2(defenseur->perso),17);
+        if (i>0)bonusDef+=i;
+        ajouterCompetencePerso (defenseur->perso,17,2);
+    }
+    else if(defenseur->derniereAction==6)
+    {
+        bonusEsc+=5;
+        bonusDef+=5;
+        i=chercherCompetence(getPersoCapacite2(defenseur->perso),13);
+        if (i>0)bonusDef+=i;
+        ajouterCompetencePerso (defenseur->perso,13,2);
+    }
+
+    i=chercherCompetence(getPersoCapacite2(attaquant->perso),19);
+    if (i<0) deg=attaquer (attaquant->perso,defenseur->perso,degat,0,bonusDef,0,bonusEsc,19,type);
+    else deg=attaquer (attaquant->perso,defenseur->perso,degat,0,bonusDef,getBonusagi(getCompetence(getPersoCapacite2(attaquant->perso),i)),bonusEsc,19,type);
+
+    if (type) i=15;
+    else i=14;
+    switch (deg/degat)
+    {
+        case 0:
+            if (defenseur->derniereAction==6)
+            {
+                ajouterCompetencePerso (attaquant->perso,13,2);
+            }
+            ajouterCompetencePerso (attaquant->perso,12,1);
+        break;
+
+        case 1:
+            ajouterCompetencePerso (attaquant->perso,i,1);
+        break;
+
+        case 2:
+            ajouterCompetencePerso (attaquant->perso,i,2);
+        break;
+
+        case 3:
+            ajouterCompetencePerso (attaquant->perso,i,3);
+        break;
+
+        case 4:
+            ajouterCompetencePerso (attaquant->perso,i,4);
+        break;
+
+        default:
+        break;
+    }
+    attaquant->derniereAction=5;
+}
+
+void preparerParade (Combattant* attaquant)
+{
+    attaquant->derniereAction=6;
+}
 
 void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MAX])
 {
@@ -390,8 +626,9 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MA
                 }
                 else printf("Impossible de s'écarter\n");
             }
-            attaquer(groupe[j].perso,groupe[cible].perso,degats,0,0);
-            printf("%d\n",getPersoPtDeVie(groupe[cible].perso));
+            if (rayon<3) attaquer(groupe[j].perso,groupe[cible].perso,degats,0,0,0,0,15,1);
+            else attaquer(groupe[j].perso,groupe[cible].perso,degats,0,0,0,0,14,0);
+            if (getPersoPtDeVie(groupe[cible].perso)<=0) copieTab2D(arene,groupe[j].arene);
         }
         else
         {
@@ -405,7 +642,28 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MA
     }
     else
     {
-        printf("Aucune cible repérée\n");
+        if (estDifferentTab2D(groupe[j].arene,arene))
+        {
+            while (deplacementsRestants-1)
+            {
+                coord=seRapprocher(groupe[j].arene,groupe[j].posX,groupe[j].posY,1,&(groupe[j].orientation));
+                i=coord%TAILLE_MAX;
+                if (deplacerCase(i,arene[(coord-i)/TAILLE_MAX]))
+                {
+                    arene[groupe[j].posX][groupe[j].posY]=1;
+                    groupe[j].posY=i;
+                    groupe[j].posX=(coord-coord%TAILLE_MAX)/TAILLE_MAX;
+                    arene[groupe[j].posX][groupe[j].posY]=4;
+                    deplacementsRestants--;
+                }
+                else
+                {
+                    groupe[j].arene[(coord-i)/TAILLE_MAX][i]=2;
+                    deplacementsRestants=0;
+                }
+            }
+        }
+        else printf("Aucune cible repérée\n");
     }
 }
 
@@ -425,15 +683,15 @@ void combat (Combattant* groupe, int l, char arene [TAILLE_MAX][TAILLE_MAX])
         {
             if(groupe[i].camp==groupe[0].camp)
             {
-                tourJoueur(groupe,i,l,arene);
+                tourJoueur(groupe,i,nb,arene);
                 nb=testNbCombattant(groupe,nb,arene);
             }
             else
             {
-                tourIA(groupe,i,l,arene);
+                tourIA(groupe,i,nb,arene);
                 nb=testNbCombattant(groupe,nb,arene);
                 afficherTab2D(arene);
-                //getchar();
+                /*getchar();*/
             }
         }
     }

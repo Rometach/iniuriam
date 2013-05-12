@@ -20,6 +20,19 @@ void copieTab2D (char tab[TAILLE_MAX][TAILLE_MAX], char tab2 [TAILLE_MAX][TAILLE
     }
 }
 
+char estDifferentTab2D (char tab1 [TAILLE_MAX][TAILLE_MAX],char tab2 [TAILLE_MAX][TAILLE_MAX])
+{
+    int i,j;
+    for (i=0;i<TAILLE_MAX;i++)
+    {
+        for(j=0;j<TAILLE_MAX;j++)
+        {
+            if (tab1[i][j]!=tab2[i][j]) return 1;
+        }
+    }
+    return 0;
+}
+
 char deplacerCase (int y, char tab [TAILLE_MAX])
 {
     if (tab [y]==0||tab [y]==2||tab[y]>=7||tab[y]==4) return 0;
@@ -514,20 +527,36 @@ int sEloigner(char tab[TAILLE_MAX][TAILLE_MAX], int a, int b, int nb, char* orie
         switch (chercher2(tab,x,y,j))
         {
             case 1:
-                j=4;
-                y++;
+                if (deplacerCase(y+1,tab[x]))
+                {
+                    j=4;
+                    y++;
+                }
+                else return 0;
             break;
             case 2:
-                j=3;
-                x++;
+                if (deplacerCase(y,tab[x+1]))
+                {
+                    j=3;
+                    x++;
+                }
+                else return 0;
             break;
             case 3:
-                j=2;
-                x--;
+                if (deplacerCase(y,tab[x-1]))
+                {
+                    j=2;
+                    x--;
+                }
+                else return 0;
             break;
             case 4:
-                j=1;
-                y--;
+                if (deplacerCase(y-1,tab[x]))
+                {
+                    j=1;
+                    y--;
+                }
+                else return 0;
             break;
             default:
                 return 0;

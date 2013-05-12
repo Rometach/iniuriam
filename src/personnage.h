@@ -166,6 +166,12 @@ void getPersoCapacite(Personnage *perso, Capacite* s);
 
 /**
 * \brief Preconditions : perso est initialisé
+* <br /> Postconditions : retourne la capacite du perso
+*/
+Capacite* getPersoCapacite2(Personnage *perso);
+
+/**
+* \brief Preconditions : perso est initialisé
 * <br /> Postconditions : fixe à somme l'argent de perso
 */
 void setPersoArgent(Personnage *perso, int somme);
@@ -175,6 +181,18 @@ void setPersoArgent(Personnage *perso, int somme);
 * <br /> Postconditions : ajoute pdv aux points de vie de perso
 */
 void addPersoPtDeVie(Personnage *perso, int pdv);
+
+/**
+* \brief Preconditions : perso est initialisé
+* <br /> Postconditions : ajoute exp aux points d'experience de perso
+*/
+void addPersoExperience(Personnage *perso, int exp);
+
+/**
+* \brief Preconditions : perso est initialisé
+* <br /> Postconditions : retourne le niveau général de perso
+*/
+int getPersoNiveau (Personnage* perso);
 
 /**
 * \brief Preconditions : perso est initialisé
@@ -188,6 +206,11 @@ void ajouterInventaire (Personnage *perso, Objet *obj);
 */
 void soustraireInventaire (Personnage *perso,Objet *obj);
 
+/**
+* \brief Preconditions : perso est initialisé
+* <br /> Postconditions : ajoute la compétence associée à type avec l'expérience à perso
+*/
+void ajouterCompetencePerso (Personnage *perso, int type,int exp);
 
 /**
 * \brief Preconditions : perso est initialisé, obj est dans l'inventaire de perso
