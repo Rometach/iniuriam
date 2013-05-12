@@ -11,14 +11,13 @@ Menacer/	1	0	0	0	0
 Voler à la tire/	0	0	1	1	0
 Fouiller/	0	0	1	0	0
 Crocheter/	0	0	0	1	0
-Esquiver/	0	0	0	1	0
 Soigner/	0	0	1	1	0
+Esquiver/	0	0	0	1	0
+Parade/	0	1	1	0	0
 Tir à distance/	1	0	0	1	0
 Attaque au CAC/	1	0	1	0	0
-Parade/	0	1	1	0	0
-Viser/	0	0	1	1	0
 Attaque Brutale/	1	0	0	0	0
 Attaque prudente/	0	1	0	0	0
 Feinte/	0	0	1	0	0
-
+Viser/	0	0	0	1	0
 

@@ -93,6 +93,7 @@ char obtenirInfo(Dialogue* dialogue, char* info)
     {
         strcat(nomPNJ,"\n");
         setReponse(nomPNJ, info);
+        ajouterCompetencePerso (dialogue->perso1,2,2);
     }
     else
     {
@@ -124,6 +125,7 @@ char soudoyer(Dialogue* dialogue, int argent, char* rep)
     if (test>0)
     {
         setReponse("Soudoyer réussi\n",rep);
+        ajouterCompetencePerso (dialogue->perso1,6,5);
     }
     else
     {
@@ -145,6 +147,7 @@ char menacer(Dialogue* dialogue, char* rep)
     if(test>0)
     {
         setReponse("Menacer réussi\n", rep);
+        ajouterCompetencePerso (dialogue->perso1,7,5);
     }
     else
     {
@@ -182,6 +185,7 @@ char seduire(Dialogue* dialogue, char* rep)
     if(test>0)
     {
         setReponse("Séduire réussi\n", rep);
+        ajouterCompetencePerso (dialogue->perso1,5,10);
     }
     else
     {
@@ -212,6 +216,8 @@ char acheter(Dialogue* dialogue, Objet* objet, char* rep)
                 setPersoArgent(dialogue->perso1,getPersoArgent(dialogue->perso1)-getObjetValeur(objet));
 
                 strcpy(rep,"Vendu !\n");
+
+                ajouterCompetencePerso (dialogue->perso1,3,5);
             }
 
         else
@@ -248,6 +254,8 @@ char vendre(Dialogue* dialogue, Objet* objet, char* rep)
                 setPersoArgent(dialogue->perso2,getPersoArgent(dialogue->perso2)-getObjetValeur(objet));
 
                 strcpy(rep,"Merci ! Je suis très content de cette aquisition !\n");
+
+                ajouterCompetencePerso (dialogue->perso1,4,5);
             }
 
             else

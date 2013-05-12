@@ -28,8 +28,8 @@ typedef struct
                             2 attaque brutale
                             3 attaque prudente
                             4 feinte
-                            3 visée
-                            3 préparation de parade*/
+                            5 visée
+                            6 préparation de parade*/
     char arene [TAILLE_MAX][TAILLE_MAX];
 } Combattant;
 
@@ -113,47 +113,41 @@ char estLaFin (Combattant* groupe,int l);
 int testNbCombattant (Combattant* groupe, int l, char arene [TAILLE_MAX][TAILLE_MAX]);
 
 
-
-
+/**
+* \brief Preconditions : ???
+* <br /> Postconditions : ???
+*/
+int attaquer (Personnage* attaquant, Personnage* defenseur, int degats, int bonusA, int bonusD, int bonusAg, int bonusEsc, int type,char distance);
 
 /**
 * \brief Preconditions : ???
 * <br /> Postconditions : ???
 */
-int attaquer (Personnage* attaquant, Personnage* defenseur, int degat, int bonusA, int bonusD);
+void attaqueBrutale (Combattant* attaquant, Combattant* defenseur, int degat, char type);
 
 /**
 * \brief Preconditions : ???
 * <br /> Postconditions : ???
 */
-int attaqueBrutale (Personnage* attaquant, Personnage* defenseur, int degat, int bonusA, int bonusD);
+void attaquePrudente (Combattant* attaquant, Combattant* defenseur, int degat,char type);
 
 /**
 * \brief Preconditions : ???
 * <br /> Postconditions : ???
 */
-int attaquePrudente (Personnage* attaquant, Personnage* defenseur, int degat, int bonusA, int bonusD);
+void feinte (Combattant* attaquant, Combattant* defenseur, int degat,char type);
 
 /**
 * \brief Preconditions : ???
 * <br /> Postconditions : ???
 */
-int preparerParade (Personnage* attaquant, Personnage* defenseur, int degat, int bonusA, int bonusD);
+void viserPourAttaque (Combattant* attaquant, Combattant* defenseur, int degat,char type);
 
 /**
 * \brief Preconditions : ???
 * <br /> Postconditions : ???
 */
-int viserPourAttaque (Personnage* attaquant, Personnage* defenseur, int degat, int bonusA, int bonusD);
-
-/**
-* \brief Preconditions : ???
-* <br /> Postconditions : ???
-*/
-int feinte (Personnage* attaquant, Personnage* defenseur, int degat, int bonusA, int bonusD);
-
-
-
+void preparerParade (Combattant* attaquant);
 
 /**
 * \brief Preconditions : ???

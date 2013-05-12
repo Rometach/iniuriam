@@ -1,11 +1,11 @@
 Ce fichier contient l'ensemble des objets utilisables dans Iniuriam
 
 Nom		P 	A 	D	Description							valeur
-Fleuret laser/	01	05	01	Qui a dit que seuls les maitres Jedi maniaient le sabre ?/	100	
+Fleuret laser/	01	10	01	Qui a dit que seuls les maitres Jedi maniaient le sabre ?/	100	
 Patte de lapin transgenique/	01	05	01	Au XXIIeme siecle, etait utilisee comme porte-bonheur, maintenant on tape avec au petit bonheur la chance.../	100
 Baton/	01	05	01	Malgre des siecles de civilisation, ca fait toujours aussi mal./	100
 Taser/	01	05	01	Concu pour les delinquants, fonctionne aussi bien sur les aliens./	100
-Tronconneuse/	01	05	01	Anecdote : c'est l'outil qui fut utilise pour le tournage de Massacre a la tronconneuse, de Tobe Hooper (1986)./
+Tronconneuse/	01	15	01	Anecdote : c'est l'outil qui fut utilise pour le tournage de Massacre a la tronconneuse, de Tobe Hooper (1986)./
 Couteau-suisse a plasma/	01	05	01	Même le tire-bouchon est dangereux./	100
 Robot Mixer/	01	05	01	Arme symbolique de la revolution feminine de 3151./	100	
 Fouet polyurethane/	01	05	01	Usages multiples./	100	

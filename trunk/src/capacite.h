@@ -34,14 +34,26 @@ void CapaciteLibere (Capacite* capacite);
 
 /**
 * \brief Preconditions : capacite est initialisé
-* <br /> Postconditions : la compétence comp est ajoutée à capacité
+* <br /> Postconditions : la compétence comp est ajoutée à capacité et l'expérience exp est ajoutée si la compétence est déjà dans capacite.
 */
-void ajouterCompetenceCapacite (Capacite* capacite, Competence* comp);
+void ajouterCompetenceCapacite (Capacite* capacite, Competence* comp, int exp);
 
 /**
 * \brief Preconditions : capacite1 est initialisé mais pas capacite2
 * <br /> Postconditions : Copie le contenu de capacite1 dans capacite2
 */
 void copieCapacite(Capacite* capacite1,Capacite* capacite2);
+
+/**
+* \brief Preconditions : capacite est initialisé
+* <br /> Postconditions : Recherche si la compétence type est dans capacite et retourne sa position s'il la trouve (-1 sinon)
+*/
+int chercherCompetence (Capacite* capacite, int type);
+
+/**
+* \brief Preconditions : capacite est initialisé
+* <br /> Postconditions : retourne la ième compétence de capacité
+*/
+Competence* getCompetence (Capacite* capacite, int i);
 
 #endif

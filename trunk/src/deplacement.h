@@ -19,6 +19,12 @@
 void copieTab2D (char tab[TAILLE_MAX][TAILLE_MAX], char tab2 [TAILLE_MAX][TAILLE_MAX]);
 
 /**
+* \brief Preconditions : /
+* <br /> Postconditions : retourne 1 si tab1 différent de tab2, 0 sinon
+*/
+char estDifferentTab2D (char tab1 [TAILLE_MAX][TAILLE_MAX],char tab2 [TAILLE_MAX][TAILLE_MAX]);
+
+/**
 * \brief Preconditions : 0<=y<TAILLE_MAX
 * <br /> Postconditions : vérifie l'accessibilité de la case y de tab : retourne 0 si inaccessible, 1 sinon.
 */

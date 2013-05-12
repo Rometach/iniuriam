@@ -75,7 +75,7 @@ void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char fac
         perso->agilite =(char)atoi(tampon);
         strncpy(tampon,ligne+i+14,2);
         perso->charisme =(char)atoi(tampon);
-        perso->ptDeVie= 100-(20-perso->defense)*3;
+        perso->ptDeVie= 100-(40-perso->defense)*3;
 
         j=(int)(strchr (ligne, '!')-ligne);
         for (k=i+17;k<j;k+=3)
@@ -103,8 +103,8 @@ void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char fac
         compTampon=(Competence*)malloc(((j-i-1)/2)*sizeof(Competence));
         for (k=i; k+1<j;k+=2)
         {
-            compInit (compTampon+(k-i)/2,ligne[k+2]-'0', experience/10);
-            ajouterCompetenceCapacite (&(perso->capacite), compTampon+(k-i)/2);
+            compInit (compTampon+(k-i)/2,ligne[k+2]-'0', experience);
+            ajouterCompetenceCapacite (&(perso->capacite), compTampon+(k-i)/2,experience);
         }
         fclose(fCarr);
         free(compTampon);
@@ -113,7 +113,6 @@ void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char fac
 
     /*Initialiser SDL_Surface*/
 }
-
 
 void persoLibere (Personnage *perso)
 {
@@ -245,6 +244,10 @@ void getPersoCapacite(Personnage *perso, Capacite* s)
     }
 }
 
+Capacite* getPersoCapacite2(Personnage *perso)
+{
+    return &perso->capacite;
+}
 
 void setPersoArgent(Personnage *perso, int somme)
 {
@@ -257,18 +260,34 @@ void addPersoPtDeVie(Personnage *perso, int pdv)
     perso->ptDeVie+=pdv;
 }
 
+void addPersoExperience(Personnage *perso, int exp)
+{
+    perso->experience+=exp;
+}
+
+int getPersoNiveau (Personnage* perso)
+{
+    return 1+perso->experience/10;
+}
 
 void ajouterInventaire (Personnage *perso, Objet *obj)
 {
     ajouterObjetInventaire(&perso->inventaire, obj);
 }
 
-
 void soustraireInventaire (Personnage *perso, Objet *obj)
 {
     enleverObjetInventaire(&(perso->inventaire),obj);
 }
 
+void ajouterCompetencePerso (Personnage *perso, int type,int exp)
+{
+    Competence* compTampon;
+    compTampon=(Competence*)malloc(sizeof(Competence));
+    compInit (compTampon,type, exp);
+    ajouterCompetenceCapacite (&(perso->capacite), compTampon,exp);
+    free(compTampon);
+}
 
 void persoUtiliseObjet (Personnage *perso,Objet *obj)
 {
