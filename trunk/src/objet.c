@@ -40,7 +40,9 @@ void objInit (Objet *obj, char type)
 
         strncpy(tampon,ligne+i+9,2);
         obj->protection=(char)atoi(tampon);
-        i+=11;
+
+        obj->utilite=(char)atoi(&ligne[i+9]);
+        i+=13;
 
         j=strchr(ligne+i,'/')-(ligne+i);
         strncpy(obj->description,ligne+i,j);

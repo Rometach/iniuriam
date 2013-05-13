@@ -691,7 +691,7 @@ void combat (Combattant* groupe, int l, char arene [TAILLE_MAX][TAILLE_MAX])
                 tourIA(groupe,i,nb,arene);
                 nb=testNbCombattant(groupe,nb,arene);
                 afficherTab2D(arene);
-                /*getchar();*/
+                getchar();
             }
         }
     }

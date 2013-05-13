@@ -1,38 +1,38 @@
 Ce fichier contient l'ensemble des objets utilisables dans Iniuriam
 
-Nom		P 	A 	D	Description							valeur
-Fleuret laser/	01	10	01	Qui a dit que seuls les maitres Jedi maniaient le sabre ?/	100	
-Patte de lapin transgenique/	01	05	01	Au XXIIeme siecle, etait utilisee comme porte-bonheur, maintenant on tape avec au petit bonheur la chance.../	100
-Baton/	01	05	01	Malgre des siecles de civilisation, ca fait toujours aussi mal./	100
-Taser/	01	05	01	Concu pour les delinquants, fonctionne aussi bien sur les aliens./	100
-Tronconneuse/	01	15	01	Anecdote : c'est l'outil qui fut utilise pour le tournage de Massacre a la tronconneuse, de Tobe Hooper (1986)./
-Couteau-suisse a plasma/	01	05	01	Même le tire-bouchon est dangereux./	100
-Robot Mixer/	01	05	01	Arme symbolique de la revolution feminine de 3151./	100	
-Fouet polyurethane/	01	05	01	Usages multiples./	100	
-Shuriken a induction/	01	05	01	Permet de toaster son petit-dejeuner a distance./	100
-Blaster de poche/	01	05	01	Objet au design presque aussi culte que l'Opinel en son temps./	100
-Blaster de competition/	01	05	01	Plus gros que le blaster de poche, il pique encore plus./	100
-Arbalete laser/	01	05	01	La parente avec l'arme qui tua 6.000 francais a Azincourt est assez lointaine./	100
-Arquebuse laser/	01	05	01	Attention : ne pas mettre les mains devant l'ouverture./	100
-Bazooka laser/	01	05	01	Attention : deconseille aux enfants de moins de trois ans./	100
-Bouclier en bois d'arbre/	01	05	01	Arbre : "Vegetal dont la tige, appelee fût ou tronc, ne se garnit de branches et de feuilles qu’a une certaine hauteur."/	100
-Bouclier electromagnetique/	01	05	01	Devie les coups ennemis grace aux lois de Maxwell. /	100
-Cuirasse anti-WIFI/	01	05	01	U*i**s.z *a *u*r..se p*ur av*.r *o*ns m*l q*a.. o* v.*s frap*e./	100
-Baton de dynamite/	01	05	01	1) Allumez. 2) Boum./	100
-C0ckt41l M0l0t0v/	01	05	01	Du nom d'un hacker russe celebre./	100
-Ration standard lyophilisee/	01	05	01	A consommer de preference avant : voir sur le paquet./	100
-Ration standard cuite/	01	05	01	Produit par les usines Tricatel ; vous prendrez l'aile ou la cuisse ?/	100
-Thermos de cafe equitable/	01	05	01	Les robots de Senspresso qui ont produit ce cafe ne sont PAS exploites./	100
-Briquet/	01	05	01	Le feu, symbole de la maîtrise technologique depuis le paleolithique./	100
-Clef a molette/	01	05	01	On appelle clef a molette tout instrument sur lequel on peut definir trois sous-ensembles : la clef et la molette./	100
-Decapsuleur spatial/	01	05	01	Qu'on l'utilise pour ouvrir une bouteille ou pour defoncer des cranes, on voit toujours des etoiles a la fin./	100
-Maniques/	01	05	01	Au moins, quand vous aurez fini d'en mettre, vous pourrez faire des pains et des tartes./	100
-Myristate de potassium/	01	05	01	En fait, c'est juste du savon./	100
-Corde/	01	05	01	Permet d'etendre son linge, de se pendre et de fouetter quelqu'un. Ah bon ? Elle a d'autres usages ? Incroyable./	100
-Extincteur/	01	05	01	Aucun progres n'a ete realise depuis 2040... Pourquoi ?/	100
-Ruban adhesif/	01	05	01	Devinez quoi ? Ca colle./	100
-Medikit/	01	05	01	Contient des pansements, un transfo de rechange, un doudou et de l'aspirine./	100
-Clef (USB)/	01	05	01	Hey, what did you expect ?/	100
-Pied de biche/	01	05	01	Les Sicaris appelent ca des pinces monseigneur. Personne ne sait pourquoi./	100
-Magicarpe/	01	00	00	lol/	-1000
+Nom		P 	A 	D	U	Description							valeur
+Fleuret laser/	01	10	01	1	Qui a dit que seuls les maitres Jedi maniaient le sabre ?/	100	
+Patte de lapin transgenique/	01	05	01	1	Au XXIIeme siecle, etait utilisee comme porte-bonheur, maintenant on tape avec au petit bonheur la chance.../	100
+Baton/	01	05	01	1	Malgre des siecles de civilisation, ca fait toujours aussi mal./	100
+Taser/	01	05	01	1	Concu pour les delinquants, fonctionne aussi bien sur les aliens./	100
+Tronconneuse/	01	15	01	1	Anecdote : c'est l'outil qui fut utilise pour le tournage de Massacre a la tronconneuse, de Tobe Hooper (1986)./
+Couteau-suisse a plasma/	01	05	01	1	Même le tire-bouchon est dangereux./	100
+Robot Mixer/	01	05	01	1	Arme symbolique de la revolution feminine de 3151./	100	
+Fouet polyurethane/	01	05	01	1	Usages multiples./	100	
+Shuriken a induction/	01	05	01	1	Permet de toaster son petit-dejeuner a distance./	100
+Blaster de poche/	01	05	01	1	Objet au design presque aussi culte que l'Opinel en son temps./	100
+Blaster de competition/	01	05	01	1	Plus gros que le blaster de poche, il pique encore plus./	100
+Arbalete laser/	01	05	01	1	La parente avec l'arme qui tua 6.000 francais a Azincourt est assez lointaine./	100
+Arquebuse laser/	01	05	01	1	Attention : ne pas mettre les mains devant l'ouverture./	100
+Bazooka laser/	01	05	01	1	Attention : deconseille aux enfants de moins de trois ans./	100
+Bouclier en bois d'arbre/	01	05	01	2	Arbre : "Vegetal dont la tige, appelee fût ou tronc, ne se garnit de branches et de feuilles qu’a une certaine hauteur."/	100
+Bouclier electromagnetique/	01	05	01	2	Devie les coups ennemis grace aux lois de Maxwell. /	100
+Cuirasse anti-WIFI/	01	05	01	2	U*i**s.z *a *u*r..se p*ur av*.r *o*ns m*l q*a.. o* v.*s frap*e./	100
+Baton de dynamite/	01	05	01	1	1) Allumez. 2) Boum./	100
+C0ckt41l M0l0t0v/	01	05	01	1	Du nom d'un hacker russe celebre./	100
+Ration standard lyophilisee/	01	05	01	3	A consommer de preference avant : voir sur le paquet./	100
+Ration standard cuite/	01	05	01	3	Produit par les usines Tricatel ; vous prendrez l'aile ou la cuisse ?/	100
+Thermos de cafe equitable/	01	05	01	3	Les robots de Senspresso qui ont produit ce cafe ne sont PAS exploites./	100
+Briquet/	01	05	01	5	Le feu, symbole de la maîtrise technologique depuis le paleolithique./	100
+Clef a molette/	01	05	01	5	On appelle clef a molette tout instrument sur lequel on peut definir trois sous-ensembles : la clef et la molette./	100
+Decapsuleur spatial/	01	05	01	5	Qu'on l'utilise pour ouvrir une bouteille ou pour defoncer des cranes, on voit toujours des etoiles a la fin./	100
+Maniques/	01	05	01	5	Au moins, quand vous aurez fini d'en mettre, vous pourrez faire des pains et des tartes./	100
+Myristate de potassium/	01	05	01	5	En fait, c'est juste du savon./	100
+Corde/	01	05	01	5	Permet d'etendre son linge, de se pendre et de fouetter quelqu'un. Ah bon ? Elle a d'autres usages ? Incroyable./	100
+Extincteur/	01	05	01	5	Aucun progres n'a ete realise depuis 2040... Pourquoi ?/	100
+Ruban adhesif/	01	05	01	5	Devinez quoi ? Ca colle./	100
+Medikit/	01	05	01	3	Contient des pansements, un transfo de rechange, un doudou et de l'aspirine./	100
+Clef (USB)/	01	05	01	4	Hey, what did you expect ?/	100
+Pied de biche/	01	05	01	4	Les Sicaris appelent ca des pinces monseigneur. Personne ne sait pourquoi./	100
+Magicarpe/	01	00	00	4	lol/	-1000
 //
