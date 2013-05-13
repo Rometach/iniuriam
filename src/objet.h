@@ -13,6 +13,11 @@ typedef struct
 {
     char nom [30];
     char type;
+    char utilite; /*1 arme
+                    2 armure
+                    3 potion, nourriture
+                    4 objet quête
+                    5 autre*/
     char portee;
     char degats;
     char protection;
