@@ -359,6 +359,47 @@ void copiePerso (Personnage* perso1, Personnage* perso2)
     /*Initialiser SDL_Surface*/
 }
 
+void equiper (Personnage* perso, Objet* obj)
+{
+
+    switch(getObjetUtilite(obj))
+    {
+        case 1: /*Arme*/
+            setMainDroite (&perso->equipement,obj);
+        break;
+        case 2:/*Armure*/
+            switch (getObjetPortee(obj))
+            {
+                case 1: /*Casque*/
+                    setEquiTete(&perso->equipement, obj);
+                break;
+                case 2: /*Plastron*/
+                    setEquiTorse(&perso->equipement, obj);
+                break;
+                case 3: /*Jambière*/
+                    setEquiBas(&perso->equipement, obj);
+                break;
+                case 4: /*Gantelets*/
+                    setEquiMains(&perso->equipement, obj);
+                break;
+                case 5: /*Sandales*/
+                    setEquiPieds(&perso->equipement, obj);
+                break;
+                case 6: /*Bouclier (main gauche)*/
+                    setMainGauche(&perso->equipement, obj);
+                break;
+                default: /*Souci*/
+                    printf("Le type de votre objet est incoherent\n");
+                break;
+            }
+        break;
+        default: /*Autre*/
+            printf("Vous ne pouvez vous équiper de cet objet.\n\n");
+        break;
+
+    }
+}
+
 int mainPerso()
 {
     char tab[100];

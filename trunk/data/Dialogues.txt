@@ -1,50 +1,50 @@
-Ce Fichier contient les possibles paroles des différents personnages
-Il y a d'abord les réponses aux actions standards, puis les infos spécifiques à chaque personnage
+Ce Fichier contient les possibles paroles des differents personnages
+Il y a d'abord les reponses aux actions standards, puis les infos specifiques a chaque personnage
 
 
 Soudoyer réussi
-Hmmm, je crois que je commence à comprendre votre problème.
+Hmmm, je crois que je commence a comprendre votre probleme.
 Chers amis, y a-t-il quelque chose que je puisse pour votre bon plaisir ?
 Je -comment dire ? Je vous suis redevable, on dirait.
 
 
 Soudoyer échoué
-Cet argent est à vous ? Non ? Ah bon. Chouette.
+Cet argent est a vous ? Non ? Ah bon. Chouette.
 Merci.
-Très drôle... Il en faut plus que ça pour m'amadouer.
+Tres drôle... Il en faut plus que ça pour m'amadouer.
 
 
 Séduire réussi
 Je... Enfin... Vous disiez ?
-Si je peux vous être utile...
-Et, à part ça, vous êtes libres demain soir ?
+Si je peux vous etre utile...
+Et, a part ça, vous etes libres demain soir ?
 
 
 Séduire échoué
-Ôte tes sales pattes de là, microbe de l'espace !
-Vous croyez sincèrement que je vais céder à vos petits sourires niais ?...
-Ah, non non non, ça va pas être possible là...
+Ote tes sales pattes de la, microbe de l'espace !
+Vous croyez sincerement que je vais ceder a vos petits sourires niais ?...
+Ah, non non non, ça va pas etre possible la...
 
 
 Menacer réussi
-Ok, ok, on se calme, il n'est nul besoin d'être belliqueux.
-Vous avez raison, le dialogue est la base d'une négociation solide.
-Gloups ! Pardonnez-moi si je vous ai offensé ! C'était involontaire !
+Ok, ok, on se calme, il n'est nul besoin d'etre belliqueux.
+Vous avez raison, le dialogue est la base d'une negociation solide.
+Gloups ! Pardonnez-moi si je vous ai offense ! C'etait involontaire !
 
 
 Menacer échoué
-Tu crois qu'il me fait peur, ton pistolet à eau ?
+Tu crois qu'il me fait peur, ton pistolet a eau ?
 C'est mignon, il grogne... Bon, on revient aux affaires ?
-Tu veux te battre ? Tu veux te faire dérouiller ? Suffit de demander...
+Tu veux te battre ? Tu veux te faire derouiller ? Suffit de demander...
 
 
 Refus info
-Moi la Fronše je pas parler, ooooh non.
-Désolé, je ne suis pas du quartier.
+Moi la Fronse je pas parler, ooooh non.
+Desole, je ne suis pas du quartier.
 Heiiin ?
 
 
 Babar
 Ce que vous cherchez se trouve chez Dumbo.
-Il n'y a plus de glace à la pistache.
+Il n'y a plus de glace a la pistache.
 Vous feriez mieux de fuir.

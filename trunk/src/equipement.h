@@ -60,6 +60,18 @@ void setEquiPieds(Equipement* equi, Objet* pieds);
 
 /**
 * \brief Preconditions : equi est initialisé
+* <br /> Postconditions : fixe l'objet équipé à la main gauche dans equi à bouclier
+*/
+void setMainGauche(Equipement* equi, Objet* bouclier);
+
+/**
+* \brief Preconditions : equi est initialisé
+* <br /> Postconditions : fixe l'objet équipé à la main droite dans equi à arme
+*/
+void setMainDroite(Equipement* equi, Objet* arme);
+
+/**
+* \brief Preconditions : equi est initialisé
 * <br /> Postconditions : retourne l'objet équipé à la tête dans equi
 */
 Objet* getEquiTete(Equipement* equi);

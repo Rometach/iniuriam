@@ -44,6 +44,16 @@ void setEquiPieds(Equipement* equi, Objet* pieds)
     equi->pieds=pieds;
 }
 
+void setMainGauche(Equipement* equi, Objet* bouclier)
+{
+    equi->armeGauche=bouclier;
+}
+
+void setMainDroite(Equipement* equi, Objet* arme)
+{
+    equi->armeDroite=arme;
+}
+
 Objet* getEquiTete(Equipement* equi)
 {
     return equi->tete;

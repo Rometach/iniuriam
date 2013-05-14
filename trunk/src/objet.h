@@ -14,14 +14,25 @@ typedef struct
 {
     char nom [30];
     char type;
-    char utilite; /*1 arme
-                    2 armure
-                    3 potion, nourriture
-                    4 objet quête
-                    5 autre*/
-    char portee;
-    char degats;
-    char protection;
+    char utilite;     /*1 arme
+                        2 armure
+                        3 potion, nourriture
+                        4 objet quête
+                        5 autre
+                       */
+    char portee;      /*valable pour arme, potion (à voir)
+                        armure : correspond à la partie du corps protégée
+                        objet quête :
+                       */
+    char degats;      /*valable pour arme
+                        potion : correspond au type de potion (soin, poison...)
+                        armure :
+                        objet quête :
+                       */
+    char protection;  /*valable pour armure, potion (pts de vie récupérés)
+                        arme :
+                        objet quête :
+                       */
     char description [100];
     int valeur;
 
@@ -39,6 +50,12 @@ void objInit (Objet *obj, char type);
 * <br /> Postconditions : retourne le type d'obj
 */
 char getObjetType(Objet *obj);
+
+/**
+* \brief Preconditions : obj est initialisé
+* <br /> Postconditions : retourne l'utilité d'obj
+*/
+char getObjetUtilite(Objet *obj);
 
 /**
 * \brief Preconditions : obj est initialisé
