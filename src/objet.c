@@ -64,6 +64,11 @@ char getObjetType(Objet *obj)
 	return obj->type;
 }
 
+char getObjetUtilite(Objet *obj)
+{
+	return obj->utilite;
+}
+
 
 char getObjetPortee(Objet *obj)
 {

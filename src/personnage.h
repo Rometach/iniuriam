@@ -247,5 +247,10 @@ void persoUtiliseObjet (Personnage *perso,Objet *obj);
 */
 void copiePerso (Personnage* perso1, Personnage* perso2);
 
+/**
+* \brief Preconditions : perso est initialisé, obj appartient à l'inventaire de perso
+* <br /> Postconditions : obj est équipé
+*/
+void equiper (Personnage* perso,Objet* obj);
 
 #endif

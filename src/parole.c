@@ -154,7 +154,7 @@ char menacer(Dialogue* dialogue, char* rep)
     if (bonus>0)bonus=getBonusatt(getCompetence(getPersoCapacite2(dialogue->perso1),bonus));
     else bonus=0;
 
-    test=rand()%(getPersoAttaque(dialogue->perso1)+getPersoCharisme(dialogue->perso1))-rand()%(getPersoDefense(dialogue->perso2)+getPersoIntelligence(dialogue->perso2))+(dialogue->humeur)+bonus/10;
+    test=rand()%(getPersoAttaque(dialogue->perso1)+getPersoCharisme(dialogue->perso1))-rand()%(getPersoDefense(dialogue->perso2)+getPersoIntelligence(dialogue->perso2))+(dialogue->humeur)+(int)(bonus/10);
 
     if(test>0)
     {

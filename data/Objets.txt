@@ -15,9 +15,9 @@ Blaster de competition/	01	05	01	1	Plus gros que le blaster de poche, il pique e
 Arbalete laser/	01	05	01	1	La parente avec l'arme qui tua 6.000 francais a Azincourt est assez lointaine./	100
 Arquebuse laser/	01	05	01	1	Attention : ne pas mettre les mains devant l'ouverture./	100
 Bazooka laser/	01	05	01	1	Attention : deconseille aux enfants de moins de trois ans./	100
-Bouclier en bois d'arbre/	01	05	01	2	Arbre : "Vegetal dont la tige, appelee fût ou tronc, ne se garnit de branches et de feuilles qu’a une certaine hauteur."/	100
-Bouclier electromagnetique/	01	05	01	2	Devie les coups ennemis grace aux lois de Maxwell. /	100
-Cuirasse anti-WIFI/	01	05	01	2	U*i**s.z *a *u*r..se p*ur av*.r *o*ns m*l q*a.. o* v.*s frap*e./	100
+Bouclier en bois d'arbre/	06	05	01	2	Arbre : "Vegetal dont la tige, appelee fut ou tronc, ne se garnit de branches et de feuilles qu’a une certaine hauteur."/	100
+Bouclier electromagnetique/	06	05	01	2	Devie les coups ennemis grace aux lois de Maxwell. /	100
+Cuirasse anti-WIFI/	02	05	01	2	U*i**s.z *a *u*r..se p*ur av*.r *o*ns m*l q*a.. o* v.*s frap*e./	100
 Baton de dynamite/	01	05	01	1	1) Allumez. 2) Boum./	100
 C0ckt41l M0l0t0v/	01	05	01	1	Du nom d'un hacker russe celebre./	100
 Ration standard lyophilisee/	01	05	01	3	A consommer de preference avant : voir sur le paquet./	100
