@@ -3,8 +3,8 @@ all: Iniuriam Editeur
 OPT = -Wall -ansi -pedantic -ggdb
 SDL=`sdl-config --cflags --libs` -lSDL_ttf -lSDL_image
 
-Iniuriam: main.o combat.o terrain.o tile.o deplacement.o parole.o personnage.o capacite.o competence.o inventaire.o equipement.o stock.o objet.o
-	gcc bin/main.o bin/combat.o bin/terrain.o bin/tile.o bin/deplacement.o bin/parole.o bin/personnage.o bin/capacite.o bin/competence.o bin/inventaire.o bin/equipement.o bin/stock.o bin/objet.o $(SDL) -o bin/Iniuriam
+Iniuriam: main.o combat.o deplacement.o parole.o affichage_sdl.o terrain.o tile.o  personnage.o capacite.o competence.o inventaire.o equipement.o stock.o objet.o
+	gcc bin/main.o bin/combat.o bin/deplacement.o bin/parole.o bin/affichage_sdl.o bin/terrain.o bin/tile.o bin/personnage.o bin/capacite.o bin/competence.o bin/inventaire.o bin/equipement.o bin/stock.o bin/objet.o $(SDL) -o bin/Iniuriam
 
 Editeur: Editeur_Carte.o affichage_sdl.o terrain.o tile.o
 	gcc bin/Editeur_Carte.o bin/affichage_sdl.o bin/terrain.o bin/tile.o $(SDL) -o bin/Editeur
@@ -18,6 +18,12 @@ combat.o: src/personnage.h src/terrain.h src/deplacement.h src/combat.h src/comb
 Editeur_Carte.o: src/affichage_sdl.h src/terrain.h src/Editeur_Carte.c
 	gcc -c $(OPT) $(SDL) -o bin/Editeur_Carte.o src/Editeur_Carte.c
 
+deplacement.o: src/deplacement.h src/deplacement.c
+	gcc -c $(OPT) -o bin/deplacement.o src/deplacement.c
+
+parole.o: src/affichage_sdl.h src/personnage.h src/parole.h src/parole.c
+	gcc -c $(OPT) -o bin/parole.o src/parole.c
+
 affichage_sdl.o: src/terrain.h src/tile.h src/affichage_sdl.c
 	gcc -c $(OPT) $(SDL) -o bin/affichage_sdl.o src/affichage_sdl.c
 
@@ -26,12 +32,6 @@ terrain.o: src/tile.h src/terrain.h src/terrain.c
 
 tile.o: src/tile.h src/tile.c
 	gcc -c $(OPT) -o bin/tile.o src/tile.c
-
-deplacement.o: src/deplacement.h src/deplacement.c
-	gcc -c $(OPT) -o bin/deplacement.o src/deplacement.c
-
-parole.o: src/personnage.h src/parole.h src/parole.c
-	gcc -c $(OPT) -o bin/parole.o src/parole.c
 
 personnage.o: src/personnage.h src/inventaire.h src/equipement.h src/capacite.h src/personnage.c
 	gcc -c $(OPT) $(SDL) -o bin/personnage.o src/personnage.c
