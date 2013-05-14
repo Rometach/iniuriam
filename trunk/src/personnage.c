@@ -328,9 +328,31 @@ void ajouterCompetencePerso (Personnage *perso, int type,int exp)
     free(compTampon);
 }
 
-void persoUtiliseObjet (Personnage *perso,Objet *obj)
+void persoUtiliseObjet (Personnage *perso, Objet *obj, Personnage* cible)
 {
-    /* Effet en fonction du type ; appel à soustraireInventaire si besoin ! */
+     switch(getObjetUtilite(obj))
+    {
+        case 3:/*Medoc, Nourriture*/
+            switch (getObjetDegats(obj))
+            {
+                case 1: /*Potion de soins, Nourriture bonne*/
+                    addPersoPtDeVie(cible,getObjetProtection(obj));
+                    soustraireInventaire(perso,obj);
+                break;
+                case 2: /*Poison*/
+                     addPersoPtDeVie(cible,-getObjetProtection(obj));
+                     soustraireInventaire(perso,obj);
+                break;
+                default: /*Souci*/
+                    printf("Le type de votre objet est incoherent\n");
+                break;
+            }
+        break;
+        default: /*Autre*/
+            printf("Vous ne pouvez vous utiliser cet objet.\n\n");
+        break;
+
+    }
 }
 
 void copiePerso (Personnage* perso1, Personnage* perso2)
@@ -361,7 +383,6 @@ void copiePerso (Personnage* perso1, Personnage* perso2)
 
 void equiper (Personnage* perso, Objet* obj)
 {
-
     switch(getObjetUtilite(obj))
     {
         case 1: /*Arme*/

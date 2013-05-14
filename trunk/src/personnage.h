@@ -237,9 +237,10 @@ void ajouterCompetencePerso (Personnage *perso, int type, int exp);
 
 /**
 * \brief Preconditions : perso est initialisé, obj est dans l'inventaire de perso
+                        éventuellement, cible correspond au personnage visé, initialisé
 * <br /> Postconditions : obj est utilisé et si besoin retiré de l'inventaire de perso
 */
-void persoUtiliseObjet (Personnage *perso,Objet *obj);
+void persoUtiliseObjet (Personnage *perso, Objet *obj, Personnage* cible);
 
 /**
 * \brief Preconditions : perso1 est initialisé, mais pas perso2
