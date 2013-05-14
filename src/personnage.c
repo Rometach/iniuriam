@@ -38,8 +38,8 @@ void initPerso (Personnage* perso)
 
     perso->posX=0;
     perso->posY=0;
-
 }
+
 
 void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char faction, char carriere, int experience,int argent, Objet* tab)
 {
@@ -118,21 +118,25 @@ void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char fac
     /*Initialiser SDL_Surface*/
 }
 
+
 void persoLibere (Personnage *perso)
 {
     inventaireLibere(&perso->inventaire);
     CapaciteLibere(&perso->capacite);
 }
 
+
 void getPersoNom(char* maChaine, Personnage *perso)
 {
     strcpy(maChaine,perso->nom);  /* Courageux, rajoutez un assert */
 }
 
+
 char getPersoRace(Personnage *perso)
 {
     return perso->race;
 }
+
 
 char getPersoSexe(Personnage *perso)
 {
@@ -143,6 +147,7 @@ char getPersoFaction(Personnage *perso)
 {
     return perso->faction;
 }
+
 
 void getPersoFactionNom(char* chaine, Personnage *perso)
 {
@@ -159,10 +164,12 @@ void getPersoFactionNom(char* chaine, Personnage *perso)
     }
 }
 
+
 char getPersoCarriere(Personnage *perso)
 {
     return perso->carriere;
 }
+
 
 void getCarriereNom(char carriere, char* s)
 {
@@ -185,15 +192,18 @@ void getCarriereNom(char carriere, char* s)
     }
 }
 
+
 int getPersoArgent(Personnage *perso)
 {
     return perso->argent;
 }
 
+
 int getPersoExperience(Personnage *perso)
 {
     return perso->experience;
 }
+
 
 char getPersoAttaque(Personnage *perso)
 {
@@ -306,6 +316,7 @@ void soustraireInventaire (Personnage *perso, Objet *obj)
 
 void ajouterCompetencePerso (Personnage *perso, int type,int exp)
 {
+    assert(type>0);
     Competence* compTampon;
     compTampon=(Competence*)malloc(sizeof(Competence));
     compInit (compTampon,type, exp);
