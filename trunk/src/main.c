@@ -15,6 +15,8 @@
 int main (int argc, char **argv)
 {
 
+    mainCombat();
+
     Terrain terrain;
     SDL_Surface* ecran = NULL;
     Personnage hero;
@@ -37,7 +39,6 @@ int main (int argc, char **argv)
 
     terLibere(&terrain);
     SDL_Quit();
-
 
     return 0;
 }

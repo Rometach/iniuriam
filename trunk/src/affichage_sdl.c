@@ -158,7 +158,7 @@ void affInventaire(Personnage* hero, SDL_Surface* ecran)
     TTF_Font *police = NULL;
     police = TTF_OpenFont("data/fonts-japanese-gothic.ttf", 15);
     SDL_Surface* quantite=NULL;
-    SDL_Color colorNoir = { 0 ,0,0};
+    /*SDL_Color colorNoir = { 0 ,0,0};*/
 
     position.x = 0;
     position.y = 0;
@@ -177,7 +177,7 @@ void affInventaire(Personnage* hero, SDL_Surface* ecran)
          while(i<hero->inventaire.nbObjet)
         {
         SDL_BlitSurface(hero->inventaire.st[i].objet->icon, &tile, ecran, &position);
-        quantite = TTF_RenderText_Solid(police, hero->inventaire.st[i].quantite, colorNoir);
+        /*quantite = TTF_RenderText_Solid(police, hero->inventaire.st[i].quantite, colorNoir);*/
         SDL_BlitSurface(quantite, NULL, ecran, &position);
 
         position.x+= TILE_LARGEUR;

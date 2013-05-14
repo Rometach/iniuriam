@@ -55,7 +55,7 @@ void initCombattant (Personnage* liste, int l, Combattant* groupe)
     char *tab = (char*) malloc(l*sizeof(char));
     for (i=0;i<l;i++)
     {
-        groupe[i].perso=(&liste[i]);        /*Faire un copier machin svp*/
+        groupe[i].perso=(&liste[i]);
         groupe[i].camp=getPersoFaction(&liste[i]);
         groupe[i].derniereAction=0;
         for (j=0;j<=i;j++)
@@ -239,8 +239,7 @@ char estLaFin (Combattant* groupe,int l)
 
 void copieCombattant (Combattant* comb1, Combattant* comb2)
 {
-    comb2->perso=(Personnage*)malloc(sizeof(Personnage));
-    copiePerso (comb1->perso, comb2->perso);
+    comb2->perso=comb1->perso;
     comb2->camp=comb1->camp;
     comb2->posX=comb1->posX;
     comb2->posY=comb1->posY;
@@ -249,31 +248,36 @@ void copieCombattant (Combattant* comb1, Combattant* comb2)
     copieTab2D(comb1->arene,comb2->arene);
 }
 
+
+
 int testNbCombattant (Combattant* groupe, int l, char arene [TAILLE_MAX][TAILLE_MAX])
 {
     Combattant* tampon;
     int i,j,n=l;
     for (i=0;i<n;i++)
     {
-        if (groupe[i].perso->ptDeVie<=0)
+        if (getPersoPtDeVie(groupe[i].perso)<=0)
         {
             n--;
+            if (n==1) printf("And the winner is %s !\nT'es fier(e) de toi ?\n\n",groupe[0].perso->nom);
+            else if (groupe[i].camp==groupe[0].camp) printf("C'était un(e) de vos potes ?\nEn tout cas c'est la fin pour %s\n\n",groupe[i].perso->nom);
+            else printf ("Il avait peut-être une femme et des gosses !!\n... mais ça évidemment tu t'en soucies pas !\n\n");
             tampon=(Combattant*)malloc(sizeof(Combattant));
             copieCombattant(&groupe[i],tampon);
             for (j=i;j<n;j++)
             {
                 groupe[j]=groupe[j+1];
             }
-            groupe[n]=*tampon;
+            copieCombattant(tampon,&groupe[n]);
             free (tampon);
             arene[groupe[n].posX][groupe[n].posY]=1;
-            if (n==1) printf("And the winner is %s !\nT'es fier(e) de toi ?\n\n",groupe[0].perso->nom);
-            else if ((groupe[n].camp==groupe[0].camp)&&(n!=1)) printf("C'était un(e) de vos potes ?\nEn tout cas c'est la fin pour %s\n\n",groupe[n].perso->nom);
-            else printf ("Il avait peut-être une femme et des gosses !!\n... mais ça évidemment tu t'en soucies pas !\n\n");
+
         }
     }
     return n;
 }
+
+
 
 int attaquer (Personnage* attaquant, Personnage* defenseur, int degats, int bonusA, int bonusD, int bonusAg, int bonusEsc, int type, char distance)
 {
@@ -351,14 +355,14 @@ void attaqueBrutale(Combattant* attaquant, Combattant* defenseur, int degat,char
 
     if (type) i=15;
     else i=14;
-    switch (deg/degat)
+    switch ((int)deg/degat)
     {
         case 0:
             if (defenseur->derniereAction==6)
             {
-                ajouterCompetencePerso (attaquant->perso,13,2);
+                ajouterCompetencePerso (defenseur->perso,13,2);
             }
-            ajouterCompetencePerso (attaquant->perso,12,1);
+            ajouterCompetencePerso (defenseur->perso,12,1);
         break;
 
         case 1:
@@ -674,6 +678,18 @@ void tourJoueur (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILL
 }
 
 
+void maFonction(Combattant* groupe, int l)
+{
+    int i;
+    printf("\n");
+    for(i=0;i<l;i++)
+    {
+        printf("%s\t%d\n",groupe[i].perso->nom,groupe[i].perso->ptDeVie);
+    }
+    printf("\n");
+}
+
+
 void combat (Combattant* groupe, int l, char arene [TAILLE_MAX][TAILLE_MAX])
 {
     int i,nb=l;
@@ -691,11 +707,14 @@ void combat (Combattant* groupe, int l, char arene [TAILLE_MAX][TAILLE_MAX])
                 tourIA(groupe,i,nb,arene);
                 nb=testNbCombattant(groupe,nb,arene);
                 afficherTab2D(arene);
-                getchar();
+                /*getchar();*/
+                maFonction(groupe,l);
             }
         }
     }
 }
+
+
 
 
 int mainCombat ()
