@@ -32,6 +32,10 @@ void initPerso (Personnage* perso)
     perso->charisme=0;
     perso->ptDeVie=0;
 
+    inventaireInit(&perso->inventaire);
+    CapaciteInit(&perso->capacite);
+    equiInit(&perso->equipement);
+
     perso->posX=0;
     perso->posY=0;
 
@@ -219,6 +223,26 @@ char getPersoCharisme(Personnage *perso)
 int getPersoPtDeVie(Personnage *perso)
 {
     return perso->ptDeVie;
+}
+
+void setPersoPosX(Personnage *perso, int x)
+{
+    perso->posX=x;
+}
+
+int getPersoPosX(Personnage *perso)
+{
+    return perso->posX;
+}
+
+void setPersoPosY(Personnage *perso, int y)
+{
+    perso->posY=y;
+}
+
+int getPersoPosY(Personnage *perso)
+{
+    return perso->posY;
 }
 
 void getPersoInventaire(Personnage *perso, Inventaire* inv)

@@ -52,10 +52,18 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/deplacement.h" />
+		<Unit filename="src/equipement.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/equipement.h" />
 		<Unit filename="src/inventaire.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/inventaire.h" />
+		<Unit filename="src/liste_perso.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/liste_perso.h" />
 		<Unit filename="src/main.c">
 			<Option compilerVar="CC" />
 		</Unit>

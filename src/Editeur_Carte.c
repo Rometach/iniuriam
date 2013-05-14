@@ -4,8 +4,8 @@
 #include "terrain.h"
 #include "affichage_sdl.h"
 
-int main()
-{
-    editerCarte();
-    return 0;
-}
+    int main()
+    {
+        editerCarte();
+        return 0;
+    }

@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include "personnage.h"
 
-
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */

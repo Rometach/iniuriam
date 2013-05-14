@@ -18,22 +18,24 @@ int main (int argc, char **argv)
     Terrain terrain;
     SDL_Surface* ecran = NULL;
     Personnage hero;
+    Personnage pnj;
     SDL_Init(SDL_INIT_VIDEO);
-    initTerrain(&terrain);
+    terInit(&terrain);
     initPerso(&hero);
+    initPerso(&pnj);
 
     ecran = SDL_SetVideoMode(TAILLE_FENETRE, TAILLE_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
     SDL_WM_SetCaption("Iniuriam", NULL);
 
-    chargeTerrain(&terrain, "data/Cartes/save.map");
+    terCharger(&terrain, "data/Cartes/save.map");
     hero.avatar=SDL_LoadBMP("data/Chipsets/perso.bmp");
+    pnj.avatar=SDL_LoadBMP("data/Chipsets/pnj.bmp");
+    setPersoPosX(&pnj, TILE_LARGEUR*5);
+    setPersoPosY(&pnj, TILE_HAUTEUR*0);
 
-    affCarte(&terrain, ecran);
-    affPerso(&hero, ecran);
-    affTexte(ecran);
-    eventJeuSDL(&hero, &terrain, ecran);
+    eventJeuSDL(&hero, &pnj, &terrain, ecran);
 
-    detruitTerrain(&terrain);
+    terLibere(&terrain);
     SDL_Quit();
 
 

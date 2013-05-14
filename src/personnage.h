@@ -6,6 +6,7 @@
 #include "SDL/SDL.h"
 #include "inventaire.h"
 #include "capacite.h"
+#include "equipement.h"
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
@@ -28,13 +29,15 @@ typedef struct
     char intelligence;
     char agilite;
     char charisme;
-    int ptDeVie;
+    char ptDeVie;
 
     int posX;
     int posY;
     Inventaire inventaire;
+    Equipement equipement;
 
 	SDL_Surface* avatar;
+
 } Personnage;
 
 
@@ -144,7 +147,31 @@ char getPersoCharisme(Personnage *perso);
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : retourne les points de vie du perso
 */
-int getPersoPtDeVie(Personnage *perso);
+char getPersoPtDeVie(Personnage *perso);
+
+/**
+* \brief Preconditions : perso est initialisé
+* <br /> Postconditions : change la position en X du perso
+*/
+void setPersoPosX(Personnage *perso, int x);
+
+/**
+* \brief Preconditions : perso est initialisé
+* <br /> Postconditions : récupère la position en X du perso
+*/
+int getPersoPosX(Personnage *perso);
+
+/**
+* \brief Preconditions : perso est initialisé
+* <br /> Postconditions : change la position en Y du perso
+*/
+void setPersoPosY(Personnage *perso, int y);
+
+/**
+* \brief Preconditions : perso est initialisé
+* <br /> Postconditions : récupère la position en Y du perso
+*/
+int getPersoPosX(Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé mais pas inv
@@ -166,13 +193,7 @@ void getPersoCapacite(Personnage *perso, Capacite* s);
 
 /**
 * \brief Preconditions : perso est initialisé
-* <br /> Postconditions : retourne la capacite du perso
-*/
-Capacite* getPersoCapacite2(Personnage *perso);
-
-/**
-* \brief Preconditions : perso est initialisé
-* <br /> Postconditions : fixe à somme l'argent de perso
+* <br /> Postconditions : fixe la somme d'argent du perso
 */
 void setPersoArgent(Personnage *perso, int somme);
 
@@ -181,18 +202,6 @@ void setPersoArgent(Personnage *perso, int somme);
 * <br /> Postconditions : ajoute pdv aux points de vie de perso
 */
 void addPersoPtDeVie(Personnage *perso, int pdv);
-
-/**
-* \brief Preconditions : perso est initialisé
-* <br /> Postconditions : ajoute exp aux points d'experience de perso
-*/
-void addPersoExperience(Personnage *perso, int exp);
-
-/**
-* \brief Preconditions : perso est initialisé
-* <br /> Postconditions : retourne le niveau général de perso
-*/
-int getPersoNiveau (Personnage* perso);
 
 /**
 * \brief Preconditions : perso est initialisé
@@ -206,11 +215,6 @@ void ajouterInventaire (Personnage *perso, Objet *obj);
 */
 void soustraireInventaire (Personnage *perso,Objet *obj);
 
-/**
-* \brief Preconditions : perso est initialisé
-* <br /> Postconditions : ajoute la compétence associée à type avec l'expérience à perso
-*/
-void ajouterCompetencePerso (Personnage *perso, int type,int exp);
 
 /**
 * \brief Preconditions : perso est initialisé, obj est dans l'inventaire de perso
@@ -218,11 +222,6 @@ void ajouterCompetencePerso (Personnage *perso, int type,int exp);
 */
 void persoUtiliseObjet (Personnage *perso,Objet *obj);
 
-/**
-* \brief Preconditions : perso1 est initialisé mais pas perso2
-* <br /> Postconditions : le contenu de perso1 est copié dans perso2
-*/
-void copiePerso (Personnage* perso1, Personnage* perso2);
 
 
 #endif
