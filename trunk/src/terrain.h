@@ -12,13 +12,13 @@
 
 typedef struct
 {
-    unsigned int nbrTile;        /** le nombre de tiles différente du chipset*/
+    unsigned int nbrTileChipset;        /** le nombre de tiles différente du chipset*/
     int decalageX;      /** Uniquement pour l'éditeur: décalage de la carte par rapport a l'affichage du chipset en case (0 en jeu)*/
     int defilY;         /** Uniquement pour l'éditeur: le défilement du chipset en case*/
     unsigned int tileSel;        /** Uniquement pour l'éditeur: la tile du chipset selectionner pour mettre sur la carte */
 
-    unsigned int hauteur;   /** hauteur en case */
-    unsigned int largeur;   /** largeur en case*/
+    unsigned int hauteurChipset;   /** hauteur en case */
+    unsigned int largeurChipset;   /** largeur en case*/
 
     Tile* tabChipset;       /** le tableau des cases du chipset*/
     SDL_Surface* chipset;       /** le chipset*/
@@ -31,13 +31,13 @@ typedef struct
 * \brief Preconditions : ter n'a pas déjà été initialisé
 * <br /> Postconditions : ter est initialisé
 */
-void initTerrain(Terrain* ter);
+void terInit(Terrain* ter);
 
 /**
 * \brief Preconditions : ter est initialisé
 * <br /> Postconditions : ter est remplis
 */
-void remplirStructTerrain(Terrain* ter);
+void terRemplirStruct(Terrain* ter);
 
 /**
 * \brief Preconditions : ter est initialisé
@@ -139,19 +139,19 @@ int getCarte(Terrain *ter, int i);
 * \brief Preconditions : ter est initialisé, nomChipset est le même que celui chargé dans remplirStructTerrain, nomFIchier non null
 * <br /> Postconditions : on sauvegarde la structure ter dans un fichier binaire nomFichier
 */
-void sauvTerrain(Terrain* ter, char* nomFichier, char* nomChipset);
+void terSauvegarde(Terrain* ter, char* nomFichier, char* nomChipset);
 
 /**
 * \brief Preconditions : ter est initialisé, nomFichier non null et existe
 * <br /> Postconditions : on charge le fihcier binaire nomFichier et on remplis la structure ter avec
 */
-void chargeTerrain(Terrain* ter, char* nomFichier);
+void terCharger(Terrain* ter, char* nomFichier);
 
 /**
 * \brief Preconditions : ter est initialisé
 * <br /> Postconditions : on libère ter
 */
-void detruitTerrain(Terrain* ter);
+void terLibere(Terrain* ter);
 
 #endif
 

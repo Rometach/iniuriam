@@ -10,21 +10,21 @@
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
 
-void initTerrain(Terrain* ter)
+void terInit(Terrain* ter)
 {
     ter->tabChipset=NULL;
     ter->carte=NULL;
     ter->chipset=NULL;
 
     ter->defilY=0;
-    ter->nbrTile=0;
-    ter->largeur=0;
-    ter->hauteur=0;
+    ter->nbrTileChipset=0;
+    ter->largeurChipset=0;
+    ter->hauteurChipset=0;
     ter->decalageX=0;
     ter->tileSel=0;
  }
 
-void remplirStructTerrain(Terrain* ter)
+void terRemplirStruct(Terrain* ter)
 {
     unsigned int i;
     unsigned int x = 0;
@@ -33,11 +33,11 @@ void remplirStructTerrain(Terrain* ter)
     ter->chipset=SDL_LoadBMP("data/Chipsets/HOTEL02.bmp");
     setHauteur(ter, ter->chipset->h/TILE_HAUTEUR);
     setLargeur(ter, ter->chipset->w/TILE_LARGEUR);
-    setNbrTile(ter, ter->hauteur*ter->largeur);
+    setNbrTile(ter, ter->hauteurChipset*ter->largeurChipset);
     setDecalageX(ter,6);
 
 /** On remplit tabChipset avec les différentes tiles du chipset*/
-    ter->tabChipset=(Tile*)malloc(ter->nbrTile*sizeof(Tile));
+    ter->tabChipset=(Tile*)malloc(ter->nbrTileChipset*sizeof(Tile));
     for(i=0/TILE_LARGEUR;i<getNbrTile(ter); i++ )
 
     {
@@ -49,7 +49,7 @@ void remplirStructTerrain(Terrain* ter)
             if(x>=ter->decalageX*TILE_LARGEUR+j)
                 {
                     y += TILE_HAUTEUR;
-                    if(y>=ter->hauteur*TILE_HAUTEUR)
+                    if(y>=ter->hauteurChipset*TILE_HAUTEUR)
                     {
                         y=0;
                         j+=ter->decalageX*TILE_LARGEUR;
@@ -58,16 +58,17 @@ void remplirStructTerrain(Terrain* ter)
                 }
     }
     /** On crée la carte*/
-    ter->carte=(unsigned int*)malloc(TAILLE_CARTE*sizeof(int));
-    for(i=0;i<TAILLE_CARTE; i++ )
+    ter->carte=(unsigned int*)malloc(CARTE_HAUTEUR*CARTE_LARGEUR*sizeof(unsigned int));
+    for(i=0;i<CARTE_HAUTEUR*CARTE_LARGEUR; i++ )
     {
         setCarte(ter,i, 0);
     }
+    setCarte(ter,20*20, 112);
 }
 
 void setNbrTile(Terrain* ter, unsigned int nbrTile)
 {
-    ter->nbrTile=nbrTile;
+    ter->nbrTileChipset=nbrTile;
 }
 
 void setDecalageX(Terrain* ter, int x)
@@ -87,12 +88,12 @@ void setTileSel(Terrain*ter, unsigned int selec)
 
 void setHauteur(Terrain* ter, unsigned int hauteur)
 {
-    ter->hauteur=hauteur;
+    ter->hauteurChipset=hauteur;
 }
 
 void setLargeur(Terrain* ter, unsigned int largeur)
 {
-    ter->largeur=largeur;
+    ter->largeurChipset=largeur;
 }
 
 void setTabChipset(Terrain* ter, int i, Tile* tile)
@@ -107,7 +108,7 @@ void setCarte(Terrain *ter, int i, unsigned int numTile)
 
 unsigned int getNbrTile(Terrain* ter)
 {
-    return ter->nbrTile;
+    return ter->nbrTileChipset;
 }
 
 int getDecalageX(Terrain* ter)
@@ -127,12 +128,12 @@ unsigned int getTileSel(Terrain* ter)
 
 unsigned int getHauteur(Terrain* ter)
 {
-    return ter->hauteur;
+    return ter->hauteurChipset;
 }
 
 unsigned int getLargeur(Terrain* ter)
 {
-    return ter->largeur;
+    return ter->largeurChipset;
 }
 
 Tile* getTabChipset(Terrain* ter, int i)
@@ -145,7 +146,7 @@ int getCarte(Terrain *ter, int i)
     return ter->carte[i];
 }
 
-void sauvTerrain(Terrain* ter, char* nomFichier, char* nomChipset)
+void terSauvegarde(Terrain* ter, char* nomFichier, char* nomChipset)
 {
      FILE *fichier;
      int i,x;
@@ -159,26 +160,26 @@ void sauvTerrain(Terrain* ter, char* nomFichier, char* nomChipset)
      strcpy(buffer,nomChipset);
      fwrite(&buffer,255,sizeof(char),fichier);
 
-     fwrite(&ter->nbrTile,1,sizeof(unsigned int),fichier);
-     fwrite(&ter->largeur,1,sizeof(unsigned int),fichier);
-     fwrite(&ter->hauteur,1,sizeof(unsigned int),fichier);
+     fwrite(&ter->nbrTileChipset,1,sizeof(unsigned int),fichier);
+     fwrite(&ter->largeurChipset,1,sizeof(unsigned int),fichier);
+     fwrite(&ter->hauteurChipset,1,sizeof(unsigned int),fichier);
      fwrite(&ter->decalageX,1,sizeof(int),fichier);
      fwrite(&ter->defilY,1,sizeof(int),fichier);
 
-     for(i=0;i<ter->nbrTile;i++)
+     for(i=0;i<ter->nbrTileChipset;i++)
      {
         fwrite(&ter->tabChipset[i].posX, 1, sizeof(unsigned int),fichier);
         fwrite(&ter->tabChipset[i].posY, 1, sizeof(unsigned int),fichier);
         fwrite(&ter->tabChipset[i].collision, 1, sizeof(unsigned char),fichier);
     }
 
-     for(x=0;x<TAILLE_CARTE;x++){
+     for(x=0;x<CARTE_HAUTEUR*CARTE_LARGEUR; x++){
         fwrite(&ter->carte[x], 1, sizeof(unsigned int),fichier);}
      fclose(fichier);
 }
 
 
-void chargeTerrain(Terrain* ter, char* nomFichier)
+void terCharger(Terrain* ter, char* nomFichier)
 {
     FILE *fichier;
     int i,x;
@@ -194,27 +195,27 @@ void chargeTerrain(Terrain* ter, char* nomFichier)
 /*    SDL_SetColorKey(ter->chipset, SDL_SRCCOLORKEY, SDL_MapRGB(ter->chipset->format,2,117,118));*/
 
 
-     fread(&ter->nbrTile,1,sizeof(unsigned int),fichier);
-     fread(&ter->largeur,1,sizeof(unsigned int),fichier);
-     fread(&ter->hauteur,1,sizeof(unsigned int),fichier);
+     fread(&ter->nbrTileChipset,1,sizeof(unsigned int),fichier);
+     fread(&ter->largeurChipset,1,sizeof(unsigned int),fichier);
+     fread(&ter->hauteurChipset,1,sizeof(unsigned int),fichier);
      fread(&ter->decalageX,1,sizeof(int),fichier);
      fread(&ter->defilY,1,sizeof(int),fichier);
 
-    ter->tabChipset=(Tile*)malloc((ter->nbrTile)*sizeof(Tile));
+    ter->tabChipset=(Tile*)malloc((ter->nbrTileChipset)*sizeof(Tile));
 
-     for(i=0;i<ter->nbrTile;i++)
+     for(i=0;i<ter->nbrTileChipset;i++)
      {
         fread(&ter->tabChipset[i].posX, 1, sizeof(unsigned int),fichier);
         fread(&ter->tabChipset[i].posY, 1, sizeof(unsigned int),fichier);
         fread(&ter->tabChipset[i].collision, 1, sizeof(unsigned char),fichier);
     }
 
-     ter->carte =(unsigned int*) malloc(ter->largeur*ter->hauteur*sizeof(unsigned int));
+     ter->carte =(unsigned int*) malloc(CARTE_HAUTEUR*CARTE_LARGEUR*sizeof(unsigned int));
 
-     for(x=0;x<TAILLE_CARTE;x++)
+     for(x=0;x<CARTE_HAUTEUR*CARTE_LARGEUR;x++)
         {
            fread(&ter->carte[x], 1, sizeof(unsigned int),fichier);
-           if(getCarte(ter, x)>=ter->nbrTile)
+           if(getCarte(ter, x)>=ter->nbrTileChipset)
            {
               fprintf(stderr,"Carte corrompue! (%d)\n",x);
               setCarte(ter,x, 0);
@@ -222,7 +223,7 @@ void chargeTerrain(Terrain* ter, char* nomFichier)
         }
 }
 
-void detruitTerrain(Terrain* ter)
+void terLibere(Terrain* ter)
 {
     setNbrTile(ter,0);
     setHauteur(ter,0);

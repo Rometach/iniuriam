@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "competence.h"
+#include "SDL/SDL.h"
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
@@ -23,6 +24,8 @@ typedef struct
     char protection;
     char description [100];
     int valeur;
+
+    SDL_Surface* icon;
 } Objet;
 
 /**
