@@ -5,6 +5,7 @@
 #include <string.h>
 #include <math.h>
 #include "parole.h"
+#include "affichage_sdl.h"
 
 
 #define TAILLE_MAX_DIAL 200
@@ -80,7 +81,7 @@ void setReponse (char* question, char* reponse)
 
 
 
-char obtenirInfo(Dialogue* dialogue, char* info)
+char obtenirInfo(Dialogue* dialogue, char* info, SDL_Surface* ecran)
 {
     int test, bonus=0;
     char nomPNJ[30];
@@ -104,14 +105,14 @@ char obtenirInfo(Dialogue* dialogue, char* info)
         setReponse("Refus info\n", info);
     }
 
-    printf("\n%s",info);
+    affDialogue( info, ecran);
     setDialogueHumeur(dialogue,dialogue->humeur-5);
 
     return dialogue->humeur;
 }
 
 
-char soudoyer(Dialogue* dialogue, int argent, char* rep)
+char soudoyer(Dialogue* dialogue, int argent, char* rep, SDL_Surface* ecran)
 {
     int test,bonus=0;
 
@@ -141,12 +142,12 @@ char soudoyer(Dialogue* dialogue, int argent, char* rep)
     }
 
     setDialogueHumeur(dialogue, dialogue->humeur+test);
-    printf("\n%s", rep);
+    affDialogue( rep, ecran);
     return dialogue->humeur;
 }
 
 
-char menacer(Dialogue* dialogue, char* rep)
+char menacer(Dialogue* dialogue, char* rep, SDL_Surface* ecran)
 {
     int test,bonus=0;
 
@@ -166,7 +167,7 @@ char menacer(Dialogue* dialogue, char* rep)
         setReponse("Menacer échoué\n", rep);
     }
 
-    printf("\n%s", rep);
+    affDialogue(rep, ecran);
     setDialogueHumeur(dialogue,dialogue->humeur+test);
 
     return dialogue->humeur;
@@ -175,7 +176,7 @@ char menacer(Dialogue* dialogue, char* rep)
 
 
 
-char seduire(Dialogue* dialogue, char* rep)
+char seduire(Dialogue* dialogue, char* rep, SDL_Surface* ecran)
 {
     int test, charisme, intelligence, bonus=0;
     charisme=getPersoCharisme(dialogue->perso1);
@@ -208,7 +209,7 @@ char seduire(Dialogue* dialogue, char* rep)
         setReponse("Séduire échoué\n", rep);
     }
 
-    printf("\n%s", rep);
+    affDialogue( rep, ecran);
     setDialogueHumeur(dialogue,dialogue->humeur+test);
 
     return dialogue->humeur;
@@ -216,7 +217,7 @@ char seduire(Dialogue* dialogue, char* rep)
 
 
 
-char acheter(Dialogue* dialogue, Objet* objet, char* rep)
+char acheter(Dialogue* dialogue, Objet* objet, char* rep, SDL_Surface* ecran)
 {
     int bonus=0;
     Inventaire inv;
@@ -252,14 +253,15 @@ char acheter(Dialogue* dialogue, Objet* objet, char* rep)
     }
 
     inventaireLibere(&inv);
-    printf("%s",rep);
+
+    affDialogue( rep, ecran);
     return(dialogue->humeur);
 }
 
 
 
 
-char vendre(Dialogue* dialogue, Objet* objet, char* rep)
+char vendre(Dialogue* dialogue, Objet* objet, char* rep, SDL_Surface* ecran)
 {
     int bonus=0;
     Inventaire inv;
@@ -295,12 +297,12 @@ char vendre(Dialogue* dialogue, Objet* objet, char* rep)
     }
 
     inventaireLibere(&inv);
-    printf("%s",rep);
+    affDialogue( rep, ecran);
     return(dialogue->humeur);
 }
 
 
-
+/*
 int mainParole ()
 {
     int k;
@@ -345,4 +347,4 @@ int mainParole ()
     persoLibere (&pnj);
     free(tab);
     return 0;
-}
+}*/

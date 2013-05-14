@@ -38,7 +38,7 @@ void setReponse (char* question, char* reponse);
 * \brief Preconditions : dialogue est initialisé, info a une longueur d'au moins TAILLE_MAX_DIAL
 * <br /> Postconditions : copie dans info l'information (éventuellement la réponse négative) retournée ; retourne la valeur courante de l'humeur
 */
-char obtenirInfo(Dialogue* dialogue, char* info);
+char obtenirInfo(Dialogue* dialogue, char* info, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : dialogue est initialisé, rep a une longueur d'au moins TAILLE_MAX_DIAL
@@ -46,7 +46,7 @@ char obtenirInfo(Dialogue* dialogue, char* info);
                           copie dans rep la reponse retournée ;
                           retourne la valeur courante de l'humeur
 */
-char soudoyer(Dialogue* dialogue, int argent, char* rep);
+char soudoyer(Dialogue* dialogue, int argent, char* rep, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : dialogue est initialisé, rep a une longueur d'au moins TAILLE_MAX_DIAL
@@ -54,7 +54,7 @@ char soudoyer(Dialogue* dialogue, int argent, char* rep);
                           copie dans rep la reponse retournée ;
                           retourne la valeur courante de l'humeur
 */
-char menacer(Dialogue* dialogue, char* rep);
+char menacer(Dialogue* dialogue, char* rep, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : dialogue est initialisé, rep a une longueur d'au moins TAILLE_MAX_DIAL
@@ -62,7 +62,7 @@ char menacer(Dialogue* dialogue, char* rep);
                           copie dans rep la reponse retournée ;
                           retourne la valeur courante de l'humeur
 */
-char seduire(Dialogue* dialogue, char* rep);
+char seduire(Dialogue* dialogue, char* rep, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : dialogue est initialisé, objet est dans l'inventaire du PNJ, rep a une longueur d'au moins TAILLE_MAX_DIAL
@@ -70,7 +70,7 @@ char seduire(Dialogue* dialogue, char* rep);
                           copie dans rep la reponse retournée ;
                           retourne la valeur courante de l'humeur
 */
-char acheter(Dialogue* dialogue, Objet* objet, char* rep);
+char acheter(Dialogue* dialogue, Objet* objet, char* rep, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : dialogue est initialisé, objet est dans l'inventaire du joueur, rep a une longueur d'au moins TAILLE_MAX_DIAL
@@ -78,7 +78,7 @@ char acheter(Dialogue* dialogue, Objet* objet, char* rep);
                           copie dans rep la reponse retournée ;
                           retourne la valeur courante de l'humeur
 */
-char vendre(Dialogue* dialogue, Objet* objet, char* rep);
+char vendre(Dialogue* dialogue, Objet* objet, char* rep, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : dialogue est initialisé

@@ -15,7 +15,7 @@
 
 #define TAILLE_MAX 500
 
-void initPerso (Personnage* perso)
+void persoInit (Personnage* perso)
 {
     strcpy(perso->nom,"");
     perso->race=0;

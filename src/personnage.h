@@ -47,7 +47,7 @@ typedef struct
 * \brief Preconditions : perso n'a pas déjà été initialisé
 * <br /> Postconditions : perso est initialisé vide
 */
-void initPerso (Personnage* perso);
+void persoInit (Personnage* perso);
 
 /**
 * \brief Preconditions : perso n'est pas initialisé ou initialisé à vide

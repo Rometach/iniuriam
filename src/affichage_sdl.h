@@ -10,6 +10,7 @@
 #include "terrain.h"
 #include "SDL/SDL_ttf.h"
 #include "personnage.h"
+#include "parole.h"
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
@@ -43,7 +44,13 @@ void affPerso(Personnage* hero, Personnage* pnj, SDL_Surface* ecran);
 * \brief Preconditions : Texte, ter initalisé et remplis
 * <br /> Postconditions : affiche du texte
 */
-void affDialogue(Personnage* hero, Personnage* pnj, SDL_Surface* ecran, char* dialoguetab);
+void affDialogue( char* dialoguetab, SDL_Surface* ecran);
+
+/**
+* \brief Preconditions : Texte, ter initalisé et remplis
+* <br /> Postconditions : affiche le menu du dialogue
+*/
+void affDialogue( char* dialoguetab,SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : hero, ecran initalisé et remplis
@@ -67,13 +74,13 @@ void eventEditeurSDL(Terrain* ter, SDL_Surface* ecran);
 * \brief Preconditions : hero, pnj, ter et ecran initalisé et remplis
 * <br /> Postconditions : gère les évenements en jeu
 */
-void eventJeuSDL(Personnage* hero, Personnage* pnj, Terrain* ter, SDL_Surface* ecran);
+void eventJeuSDL(Personnage* hero, Personnage* pnj, Terrain* ter, Dialogue* dialogue, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : hero, pnj et ecran initalisé et remplis
 * <br /> Postconditions : gère les évenements du dialogue
 */
-void eventDialogueSDL(Personnage* hero, Personnage* pnj, SDL_Surface*ecran);
+void eventDialogueSDL(Dialogue* dialogue, SDL_Surface*ecran);
 
 /**
 * \brief Preconditions :
