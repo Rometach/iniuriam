@@ -32,10 +32,6 @@ void initPerso (Personnage* perso)
     perso->charisme=0;
     perso->ptDeVie=0;
 
-    inventaireInit(&perso->inventaire);
-    CapaciteInit(&perso->capacite);
-    equiInit(&perso->equipement);
-
     perso->posX=0;
     perso->posY=0;
 }
@@ -114,6 +110,8 @@ void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char fac
         free(compTampon);
     }
     else printf ("Impossible d'ouvrir le fichier Carrieres.txt\n");
+
+    equiInit(&perso->equipement);
 
     /*Initialiser SDL_Surface*/
 }
@@ -282,6 +280,12 @@ Capacite* getPersoCapacite2(Personnage *perso)
 {
     return &perso->capacite;
 }
+
+Equipement* getPersoEquipement(Personnage *perso)
+{
+    return &perso->equipement;
+}
+
 
 void setPersoArgent(Personnage *perso, int somme)
 {

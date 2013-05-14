@@ -3,8 +3,8 @@ all: Iniuriam Editeur
 OPT = -Wall -ansi -pedantic -ggdb
 SDL=`sdl-config --cflags --libs` -lSDL_ttf -lSDL_image
 
-Iniuriam: main.o combat.o terrain.o tile.o deplacement.o parole.o personnage.o capacite.o competence.o inventaire.o stock.o objet.o
-	gcc bin/main.o bin/combat.o bin/terrain.o bin/tile.o bin/deplacement.o bin/parole.o bin/personnage.o bin/capacite.o bin/competence.o bin/inventaire.o bin/stock.o bin/objet.o $(SDL) -o bin/Iniuriam
+Iniuriam: main.o combat.o terrain.o tile.o deplacement.o parole.o personnage.o capacite.o competence.o inventaire.o equipement.o stock.o objet.o
+	gcc bin/main.o bin/combat.o bin/terrain.o bin/tile.o bin/deplacement.o bin/parole.o bin/personnage.o bin/capacite.o bin/competence.o bin/inventaire.o bin/equipement.o bin/stock.o bin/objet.o $(SDL) -o bin/Iniuriam
 
 Editeur: Editeur_Carte.o affichage_sdl.o terrain.o tile.o
 	gcc bin/Editeur_Carte.o bin/affichage_sdl.o bin/terrain.o bin/tile.o $(SDL) -o bin/Editeur
@@ -33,7 +33,7 @@ deplacement.o: src/deplacement.h src/deplacement.c
 parole.o: src/personnage.h src/parole.h src/parole.c
 	gcc -c $(OPT) -o bin/parole.o src/parole.c
 
-personnage.o: src/personnage.h src/inventaire.h src/capacite.h src/personnage.c
+personnage.o: src/personnage.h src/inventaire.h src/equipement.h src/capacite.h src/personnage.c
 	gcc -c $(OPT) $(SDL) -o bin/personnage.o src/personnage.c
 
 capacite.o: src/capacite.h src/competence.h src/capacite.c
@@ -44,6 +44,9 @@ competence.o: src/competence.h src/competence.c
 
 inventaire.o: src/inventaire.h src/stock.h src/inventaire.c
 	gcc -c $(OPT) -o bin/inventaire.o src/inventaire.c
+
+equipement.o: src/equipement.h src/objet.h src/equipement.c
+	gcc -c $(OPT) -o bin/equipement.o src/equipement.c
 
 stock.o: src/stock.h src/objet.h src/stock.c
 	gcc -c $(OPT) -o bin/stock.o src/stock.c
