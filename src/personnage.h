@@ -201,6 +201,12 @@ Capacite* getPersoCapacite2(Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé
+* <br /> Postconditions : retourne l'adresse de l'Equipement de perso
+*/
+Equipement* getPersoEquipement(Personnage *perso);
+
+/**
+* \brief Preconditions : perso est initialisé
 * <br /> Postconditions : fixe la somme d'argent du perso
 */
 void setPersoArgent(Personnage *perso, int somme);

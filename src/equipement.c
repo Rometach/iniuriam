@@ -10,11 +10,13 @@
 
 void equiInit(Equipement* equi)
 {
-/*    objInit(&equi->tete);
-    objInit(&equi->torse);
-    objInit(&equi->bas);
-    objInit(&equi->mains);
-    objInit(&equi->pieds);*/
+    equi->tete=NULL;
+    equi->torse=NULL;
+    equi->bas=NULL;
+    equi->mains=NULL;
+    equi->pieds=NULL;
+    equi->armeGauche=NULL;
+    equi->armeDroite=NULL;
 }
 
 void setEquiTete(Equipement* equi, Objet* tete)
@@ -65,9 +67,4 @@ Objet* getEquiMains(Equipement* equi)
 Objet* getEquiPieds(Equipement* equi)
 {
     return equi->pieds;
-}
-
-void equiLibere(Equipement* equi)
-{
-
 }

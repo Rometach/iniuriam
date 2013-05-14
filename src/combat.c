@@ -337,7 +337,11 @@ void attaqueBrutale(Combattant* attaquant, Combattant* defenseur, int degat,char
     {
         bonusDef+=5;
         i=chercherCompetence(getPersoCapacite2(defenseur->perso),17);
-        if (i>0)bonusDef+=i;
+        if (i>0)
+        {
+            i=getBonusdef(getCompetence(getPersoCapacite2(defenseur->perso),i));
+            bonusDef+=i;
+        }
         ajouterCompetencePerso (defenseur->perso,17,2);
     }
     else if(defenseur->derniereAction==6)
@@ -345,7 +349,13 @@ void attaqueBrutale(Combattant* attaquant, Combattant* defenseur, int degat,char
         bonusDef+=5;
         bonusEsc+=5;
         i=chercherCompetence(getPersoCapacite2(defenseur->perso),13);
-        if (i>0)bonusDef+=i;
+        if (i>0)
+        {
+            i=getBonusdef(getCompetence(getPersoCapacite2(defenseur->perso),i));
+            bonusDef+=i;
+            i=getBonusagi(getCompetence(getPersoCapacite2(defenseur->perso),i));
+            bonusEsc+=i;
+        }
         ajouterCompetencePerso (defenseur->perso,13,2);
     }
 
@@ -395,15 +405,25 @@ void attaquePrudente (Combattant* attaquant, Combattant* defenseur, int degat,ch
     {
         bonusDef+=5;
         i=chercherCompetence(getPersoCapacite2(defenseur->perso),17);
-        if (i>0)bonusDef+=i;
+        if (i>0)
+        {
+            i=getBonusdef(getCompetence(getPersoCapacite2(defenseur->perso),i));
+            bonusDef+=i;
+        }
         ajouterCompetencePerso (defenseur->perso,17,2);
     }
     else if(defenseur->derniereAction==6)
     {
         bonusEsc+=5;
         bonusDef+=5;
-        i=chercherCompetence(getPersoCapacite2(attaquant->perso),13);
-        if (i>0)bonusDef+=i;
+        i=chercherCompetence(getPersoCapacite2(defenseur->perso),13);
+        if (i>0)
+        {
+            i=getBonusdef(getCompetence(getPersoCapacite2(defenseur->perso),i));
+            bonusDef+=i;
+            i=getBonusagi(getCompetence(getPersoCapacite2(defenseur->perso),i));
+            bonusEsc+=i;
+        }
         ajouterCompetencePerso (defenseur->perso,13,2);
     }
 
@@ -450,7 +470,11 @@ void feinte (Combattant* attaquant, Combattant* defenseur, int degat,char type)
     {
         bonusDef+=5;
         i=chercherCompetence(getPersoCapacite2(defenseur->perso),17);
-        if (i>0)bonusDef+=i;
+        if (i>0)
+        {
+            i=getBonusdef(getCompetence(getPersoCapacite2(defenseur->perso),i));
+            bonusDef+=i;
+        }
         ajouterCompetencePerso (defenseur->perso,17,2);
     }
     else if(defenseur->derniereAction==6)
@@ -458,7 +482,13 @@ void feinte (Combattant* attaquant, Combattant* defenseur, int degat,char type)
         bonusEsc+=5;
         bonusDef+=5;
         i=chercherCompetence(getPersoCapacite2(defenseur->perso),13);
-        if (i>0)bonusDef+=i;
+        if (i>0)
+        {
+            i=getBonusdef(getCompetence(getPersoCapacite2(defenseur->perso),i));
+            bonusDef+=i;
+            i=getBonusagi(getCompetence(getPersoCapacite2(defenseur->perso),i));
+            bonusEsc+=i;
+        }
         ajouterCompetencePerso (defenseur->perso,13,2);
     }
 
@@ -508,7 +538,11 @@ void viserPourAttaque (Combattant* attaquant, Combattant* defenseur, int degat,c
     {
         bonusDef+=5;
         i=chercherCompetence(getPersoCapacite2(defenseur->perso),17);
-        if (i>0)bonusDef+=i;
+        if (i>0)
+        {
+            i=getBonusdef(getCompetence(getPersoCapacite2(defenseur->perso),i));
+            bonusDef+=i;
+        }
         ajouterCompetencePerso (defenseur->perso,17,2);
     }
     else if(defenseur->derniereAction==6)
@@ -516,7 +550,13 @@ void viserPourAttaque (Combattant* attaquant, Combattant* defenseur, int degat,c
         bonusEsc+=5;
         bonusDef+=5;
         i=chercherCompetence(getPersoCapacite2(defenseur->perso),13);
-        if (i>0)bonusDef+=i;
+        if (i>0)
+        {
+            i=getBonusdef(getCompetence(getPersoCapacite2(defenseur->perso),i));
+            bonusDef+=i;
+            i=getBonusagi(getCompetence(getPersoCapacite2(defenseur->perso),i));
+            bonusEsc+=i;
+        }
         ajouterCompetencePerso (defenseur->perso,13,2);
     }
 
@@ -708,7 +748,7 @@ void combat (Combattant* groupe, int l, char arene [TAILLE_MAX][TAILLE_MAX])
                 nb=testNbCombattant(groupe,nb,arene);
                 afficherTab2D(arene);
                 /*getchar();*/
-                maFonction(groupe,l);
+                /*maFonction(groupe,l);*/
             }
         }
     }
@@ -771,5 +811,6 @@ int mainCombat ()
     persoLibere(&liste[3]);
     free (liste);
     free (groupe);
+    free (tab);
     return 0;
 }
