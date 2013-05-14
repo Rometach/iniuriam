@@ -462,10 +462,10 @@ void eventInventaireSDL(Personnage* hero, SDL_Surface* ecran)
             break;
         }
     }
-//        TTF_CloseFont(police);
-//        free(dialoguetab);
-//        TTF_Quit();
-//       fclose(fichier);
+/*      TTF_CloseFont(police);
+        free(dialoguetab);
+        TTF_Quit();
+        fclose(fichier);*/
 
 }
 
@@ -529,7 +529,7 @@ void eventDialogueSDL( Dialogue* dialogue, SDL_Surface*ecran)
                                         }
                                 break;
 
-                                case 1: //soudoyer( dialogue, int argent, dialoguetab, ecran);
+                                case 1: /*soudoyer( dialogue, int argent, dialoguetab, ecran);*/
                                 break;
 
                                 case 2: menacer( dialogue, dialoguetab, ecran);
@@ -568,10 +568,10 @@ void eventDialogueSDL( Dialogue* dialogue, SDL_Surface*ecran)
                                         }
                                 break;
 
-                                case 4: //acheter( dialogue, Objet* objet, dialoguetab,  ecran);
+                                case 4: /*acheter( dialogue, Objet* objet, dialoguetab,  ecran);*/
                                 break;
 
-                                case 5: // vendre( dialogue, Objet* objet, dialoguetab, ecran);
+                                case 5: /* vendre( dialogue, Objet* objet, dialoguetab, ecran);*/
                                 break;
 
                                 default :

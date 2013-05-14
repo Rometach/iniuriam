@@ -8,7 +8,7 @@
 #include "deplacement.h"
 #include "combat.h"
 #include "inventaire.h"
-
+#include "equipement.h"
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
@@ -281,15 +281,22 @@ int testNbCombattant (Combattant* groupe, int l, char arene [TAILLE_MAX][TAILLE_
 
 int attaquer (Personnage* attaquant, Personnage* defenseur, int degats, int bonusA, int bonusD, int bonusAg, int bonusEsc, int type, char distance)
 {
-    int testA, testD;
+    int testA, testD=0;
     int deg=0;
-
+    Equipement* armure;
     if (distance) testA=getPersoAttaque(attaquant)+bonusAg-rand()%100;
     else testA=getPersoAgilite(attaquant)+bonusAg-rand()%100;
 
     if (testA>=0)
     {
-        testD=getPersoDefense(defenseur)+bonusD+bonusEsc-rand()%100;
+        armure=getPersoEquipement(attaquant);
+        if (armure->tete!=NULL)testD+=getObjetProtection(armure->tete);
+        if (armure->torse!=NULL)testD+=getObjetProtection(armure->torse);
+        if (armure->bas!=NULL)testD+=getObjetProtection(armure->bas);
+        if (armure->pieds!=NULL)testD+=getObjetProtection(armure->pieds);
+        if (armure->mains!=NULL)testD+=getObjetProtection(armure->mains);
+        if (armure->armeGauche!=NULL)testD+=getObjetProtection(armure->armeGauche);
+        testD+=getPersoDefense(defenseur)+bonusD+bonusEsc-rand()%100;
         testA=testA-max(testD,0)+bonusA;
         if(testA>=30)
         {
