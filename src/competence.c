@@ -2,14 +2,21 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
+#include <math.h>
 #include "competence.h"
+#include "constante.h"
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
 
-#define TAILLE_MAX 500
 
+
+int calculNiveau (int experience)
+{
+    assert (experience>=0);
+    return (int)log(experience+1);
+}
 
 void compInit (Competence * comp, char type, int experience)
 {
@@ -17,12 +24,12 @@ void compInit (Competence * comp, char type, int experience)
     FILE *fComp;
     assert(fComp = fopen ("data/Competences.txt", "r"));
     assert ((type>0)&&(type<30));
-    char ligne[TAILLE_MAX];
+    char ligne[TAILLE_MAX_FICHIER];
     if (fComp!=NULL)
     {
         for(i=0; i<type+3; i++)
         {
-            fgets(ligne,TAILLE_MAX,fComp);
+            fgets(ligne,TAILLE_MAX_FICHIER,fComp);
         }
 
         i= strchr (ligne, '/')-ligne;

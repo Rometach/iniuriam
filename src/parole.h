@@ -43,48 +43,50 @@ char obtenirInfo(Dialogue* dialogue, char* info, SDL_Surface* ecran);
 /**
 * \brief Preconditions : dialogue est initialisé, rep a une longueur d'au moins TAILLE_MAX_DIAL
 * <br /> Postconditions : la somme argent est transférée d'un personnage vers l'autre, avec un éventuel effet sur l'humeur du second ;
-                          copie dans rep la reponse retournée ;
-                          retourne la valeur courante de l'humeur
+*                          copie dans rep la reponse retournée ;
+*                          retourne la valeur courante de l'humeur
 */
 char soudoyer(Dialogue* dialogue, int argent, char* rep, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : dialogue est initialisé, rep a une longueur d'au moins TAILLE_MAX_DIAL
 * <br /> Postconditions : le premier personnage menace le second, avec un éventuel effet sur son humeur ;
-                          copie dans rep la reponse retournée ;
-                          retourne la valeur courante de l'humeur
+*                          copie dans rep la reponse retournée ;
+*                          retourne la valeur courante de l'humeur
 */
 char menacer(Dialogue* dialogue, char* rep, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : dialogue est initialisé, rep a une longueur d'au moins TAILLE_MAX_DIAL
 * <br /> Postconditions : le premier personnage tente de séduire le second, avec un éventuel effet sur son humeur ;
-                          copie dans rep la reponse retournée ;
-                          retourne la valeur courante de l'humeur
+*                          copie dans rep la reponse retournée ;
+*                          retourne la valeur courante de l'humeur
 */
 char seduire(Dialogue* dialogue, char* rep, SDL_Surface* ecran);
 
 /**
+* \brief Preconditions : dialogue est initialisé
+* <br /> Postconditions : le premier personnage tente de négotier avec le second le prix d'un objet (valeur) ;
+*                          retourne la valeur finale après negotiation
+*/
+int marchander (Dialogue* dialogue, int valeur);
+
+/**
 * \brief Preconditions : dialogue est initialisé, objet est dans l'inventaire du PNJ, rep a une longueur d'au moins TAILLE_MAX_DIAL
-* <br /> Postconditions : l'objet objet est vendu par le PNJ au joueur si cela est possible ;
-                          copie dans rep la reponse retournée ;
-                          retourne la valeur courante de l'humeur
+* <br /> Postconditions : l'objet objet est vendu par le PNJ au joueur si cela est possible, le joueur peut tenter de négotier le prix d'achat ;
+*                          copie dans rep la reponse retournée ;
+*                          retourne la valeur courante de l'humeur
 */
 char acheter(Dialogue* dialogue, Objet* objet, char* rep, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : dialogue est initialisé, objet est dans l'inventaire du joueur, rep a une longueur d'au moins TAILLE_MAX_DIAL
-* <br /> Postconditions : l'objet objet est acheté par le PNJ au joueur si cela est possible ;
-                          copie dans rep la reponse retournée ;
-                          retourne la valeur courante de l'humeur
+* <br /> Postconditions : l'objet objet est acheté par le PNJ au joueur si cela est possible , le joueur peut tenter de négotier le prix de vente ;
+*                          copie dans rep la reponse retournée ;
+*                          retourne la valeur courante de l'humeur
 */
 char vendre(Dialogue* dialogue, Objet* objet, char* rep, SDL_Surface* ecran);
 
-/**
-* \brief Preconditions : dialogue est initialisé
-* <br /> Postconditions : dialogue est initialisé avec les personnages perso1 et perso2 ; retourne la valeur courante de l'humeur
-*/
-/*char marchander(Dialogue* dialogue);*/
 
 int mainParole ();
 #endif

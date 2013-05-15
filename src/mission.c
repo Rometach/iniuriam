@@ -14,6 +14,7 @@ void missionInit (Mission* mission)
     mission->vaisseauCible=0;
     mission->persoCible=NULL;
     mission->objCible=NULL;
+    mission->suite=0;
 }
 
 

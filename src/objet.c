@@ -3,30 +3,29 @@
 #include <assert.h>
 #include <string.h>
 #include "objet.h"
+#include "constante.h"
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
 
-
-#define TAILLE_MAX 800
-
 void objInit (Objet *obj, char type)
 {
     int i,j;
     FILE* fObjet= fopen("data/Objets.txt", "r");
-    /*assert ((type>0)&&(type<30));*/
-    char ligne[TAILLE_MAX];
+    assert (type>0);
+    char ligne[TAILLE_MAX_FICHIER];
     char tampon [2];
 
     if (fObjet!=NULL)
     {
         for(i=0;i<type+3;i++)
         {
-            fgets(ligne,TAILLE_MAX,fObjet);
+            fgets(ligne,TAILLE_MAX_FICHIER,fObjet);
         }
-        i= strchr (ligne, '/')-ligne;
+        /*Passe les premières ligne du fichier Objets.txt*/
 
+        i= strchr (ligne, '/')-ligne;
         strncpy(obj->nom,ligne,i);
         obj->nom[i]='\0';
 
@@ -100,31 +99,36 @@ char* getObjetNom(Objet *obj)
 }
 
 
-void getObjetDescription(char* s, Objet *obj)
+char* getObjetDescription(Objet *obj)
 {
-	strcpy(s,obj->description);
+	return obj->description;
 }
 
-
-void initialiserTousLesObjets(Objet* tabObj)
+int getNbObjet()
 {
-    int i, max=0;
+    int max=0;
     FILE* fobj;
-    char ligne[TAILLE_MAX];
+    char ligne[TAILLE_MAX_FICHIER];
     assert(fobj=fopen("data/Objets.txt","r"));
     if (fobj!=NULL)
     {
         do
         {
-            fgets(ligne,TAILLE_MAX,fobj);
+            fgets(ligne,TAILLE_MAX_FICHIER,fobj);
             max++;
         }while (ligne[0]!='/'&&ligne[1]!='/');
+    }
+    fclose(fobj);
+    return max;
+}
+
+void initialiserTousLesObjets(Objet* tabObj,int max)
+{
+    int i;
         for(i=1;i<max-4;i++)
         {
             objInit(&tabObj[i],i);
         }
-    }
-    fclose(fobj);
 }
 
 

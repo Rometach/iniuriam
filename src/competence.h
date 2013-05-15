@@ -20,6 +20,11 @@ typedef struct
     char bonuschar;
 }Competence;
 
+/**
+* \brief Preconditions : perso n'a pas déjà été initialisé
+* <br /> Postconditions : perso est initialisé vide
+*/
+int calculNiveau(int experience);
 
 /**
 * \brief Preconditions : comp n'a pas déjà été initialisée
