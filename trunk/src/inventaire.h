@@ -43,14 +43,14 @@ void enleverObjetInventaire (Inventaire* inventaire, Objet* obj);
 
 /**
 * \brief Preconditions : inventaire2 est initialisé mais pas inventaire1
-* <br /> Postconditions : inventaire1 est initialisé ; inventaire2 est recopié dans inventaire1
+* <br /> Postconditions : inventaire2 est recopié dans inventaire1
 */
 void copieInventaire (Inventaire* inventaire1, Inventaire* inventaire2);
 
 
 /**
 * \brief Preconditions : inventaire est initialisé
-* <br /> Postconditions : affiche inventaire
+* <br /> Postconditions : affiche le contenu de l'inventaire
 */
 void afficherInventaire (Inventaire* inventaire);
 

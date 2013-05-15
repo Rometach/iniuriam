@@ -15,6 +15,7 @@ typedef struct
     char vaisseauCible;
     Personnage* persoCible;
     Objet* objCible;
+    char suite;
 }Mission;
 
 

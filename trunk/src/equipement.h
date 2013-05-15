@@ -18,7 +18,7 @@ typedef struct
     Objet* mains;
     Objet* pieds;
     Objet* armeGauche;
-    Objet* armeDroite;
+    Objet* armeDroite [3];
 
 } Equipement;
 
@@ -65,10 +65,10 @@ void setEquiPieds(Equipement* equi, Objet* pieds);
 void setMainGauche(Equipement* equi, Objet* bouclier);
 
 /**
-* \brief Preconditions : equi est initialisé
-* <br /> Postconditions : fixe l'objet équipé à la main droite dans equi à arme
+* \brief Preconditions : equi est initialisé, 0<=i<3
+* <br /> Postconditions : fixe le ième objet équipé à la main droite dans equi à arme
 */
-void setMainDroite(Equipement* equi, Objet* arme);
+void setMainDroite(Equipement* equi, Objet* arme,int i);
 
 /**
 * \brief Preconditions : equi est initialisé
@@ -94,12 +94,22 @@ Objet* getEquiBas(Equipement* equi);
 */
 Objet* getEquiMains(Equipement* equi);
 
-
 /**
 * \brief Preconditions : equi est initialisé
 * <br /> Postconditions : retourne l'objet équipé aux pieds dans equi
 */
 Objet* getEquiPieds(Equipement* equi);
 
+/**
+* \brief Preconditions : equi est initialisé
+* <br /> Postconditions : retourne l'objet équipé à la main gauche dans equi
+*/
+Objet* getEquiMainGauche(Equipement* equi);
+
+/**
+* \brief Preconditions : equi est initialisé,0<=i<3
+* <br /> Postconditions : retourne le ième objet équipé à la main droite dans equi
+*/
+Objet* getEquiMainDroite(Equipement* equi,int i);
 
 #endif

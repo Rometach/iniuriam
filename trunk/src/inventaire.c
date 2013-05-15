@@ -40,14 +40,14 @@ void ajouterObjetInventaire (Inventaire* inventaire, Objet* obj)
     {
         if(inventaire->st[i].objet->type==obj->type)
         {
-            incrementerStock(&inventaire->st[i],1);
+            incrementerStock(&inventaire->st[i],1);  /*L'objet est déjà dans l'inventaire*/
             ajoute=1;
         }
     }
 
     if (ajoute==0)
     {
-        if((inventaire->nbObjet)==(inventaire->capacite))
+        if((inventaire->nbObjet)==(inventaire->capacite)) /*Double la capacite de l'inventaire*/
         {
             tampon=(Stock*) malloc((2*inventaire->capacite)*sizeof(Stock));
             for (i=0;i<inventaire->capacite;i++)
@@ -69,15 +69,11 @@ void enleverObjetInventaire (Inventaire* inventaire, Objet* obj)
     int i, j;
     i=0;
 
-    while ((i<inventaire->nbObjet)&&(inventaire->st[i].objet->type!=obj->type))
-    {
-        printf("i=%d   %d %d\n", i,inventaire->st[i].objet->type, obj->type);
-        i++;
-    }
+    while ((i<inventaire->nbObjet)&&(inventaire->st[i].objet->type!=obj->type)) i++;
     assert(i!=inventaire->nbObjet);
-    if (getQuantiteStock((inventaire->st)+i)>0)
+    if (getStockQuantite((inventaire->st)+i)>1)
     {
-        decrementerStock((inventaire->st)+i,1);
+        incrementerStock((inventaire->st)+i,-1);
     }
     else
     {
@@ -104,15 +100,13 @@ void copieInventaire (Inventaire* inventaire1, Inventaire* inventaire2)
     inventaire1->capacite=inventaire2->capacite;
 }
 
-
-
 void afficherInventaire (Inventaire* inventaire)
 {
     int i;
     printf("\nInventaire :\n");
     for(i=0;i<inventaire->nbObjet;i++)
     {
-        printf("i=%d \t %s (%d) \t %s\n", i, inventaire->st[i].objet->nom, inventaire->st[i].quantite, inventaire->st[i].objet->description);
+        printf("i=%d  %s (%d) : %s\n", i, getObjetNom(getStockObjet(&(inventaire->st[i]))), getStockQuantite(&(inventaire->st[i])), getObjetDescription(getStockObjet(&(inventaire->st[i]))));
     }
     printf("NbObjet=%d \n Capacite=%d\n\n", inventaire->nbObjet, inventaire->capacite);
 }

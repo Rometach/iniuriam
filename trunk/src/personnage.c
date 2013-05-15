@@ -6,14 +6,14 @@
 #include "SDL/SDL.h"
 #include "inventaire.h"
 #include "capacite.h"
+#include "competence.h"
 #include "objet.h"
 #include "SDL/SDL.h"
+#include "constante.h"
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
-
-#define TAILLE_MAX 500
 
 void persoInit (Personnage* perso)
 {
@@ -42,7 +42,7 @@ void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char fac
     int i=0, j,k;
     FILE* fCarr,*fRace;
     Competence* compTampon;
-    char ligne [TAILLE_MAX],tampon[2];
+    char ligne [TAILLE_MAX_FICHIER],tampon[2];
 
     assert (strlen(nom)<30);
     strcpy(perso->nom,nom);
@@ -54,6 +54,8 @@ void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char fac
     perso->argent=argent;
     perso->experience= experience;
 
+    perso->niveau=calculNiveau(experience);
+
     inventaireInit(&(perso->inventaire));
 
     assert (fRace= fopen("data/Races.txt", "r"));
@@ -61,7 +63,7 @@ void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char fac
     {
         while (i<race+3)
         {
-            fgets(ligne,TAILLE_MAX,fRace);
+            fgets(ligne,TAILLE_MAX_FICHIER,fRace);
             i++;
         }
         i= (int)(strchr (ligne, '/')-ligne);
@@ -83,6 +85,23 @@ void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char fac
             strncpy(tampon,ligne+k,2);
             ajouterObjetInventaire(&(perso->inventaire), tab+((char)atoi(tampon)));
         }
+        equiInit(&perso->equipement);
+        i=0;
+        j=0;
+        while(i<getInventaireNbObjets(&(perso->inventaire))&&j<3)
+        {
+            k=getObjetUtilite(getStockObjet(getInventaireStock(&(perso->inventaire),i)));
+            if (k==1)/*l'objet est une arme*/
+            {
+                equiper (perso,getStockObjet(getInventaireStock(&(perso->inventaire),i)),j);
+                j++;
+            }
+            else if (k==2) /*l'objet est une armure*/
+            {
+                equiper (perso,getStockObjet(getInventaireStock(&(perso->inventaire),i)),0);
+            }
+            i++;
+        }
         fclose(fRace);
     }
 
@@ -95,7 +114,7 @@ void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char fac
     {
         while (i<carriere+3)
         {
-            fgets(ligne,TAILLE_MAX,fCarr);
+            fgets(ligne,TAILLE_MAX_FICHIER,fCarr);
             i++;
         }
         i= (int)(strchr (ligne, '/')-ligne);
@@ -110,8 +129,6 @@ void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char fac
         free(compTampon);
     }
     else printf ("Impossible d'ouvrir le fichier Carrieres.txt\n");
-
-    equiInit(&perso->equipement);
 
     /*Initialiser SDL_Surface*/
 }
@@ -175,10 +192,10 @@ void getCarriereNom(char carriere, char* s)
     FILE* fCarr= fopen("data/Carrieres.txt", "r");
     if(fCarr!=NULL)
     {
-        char ligne [TAILLE_MAX];
+        char ligne [TAILLE_MAX_FICHIER];
         for (i=0;i<carriere+3;i++)
         {
-           fgets(ligne,TAILLE_MAX,fCarr);
+           fgets(ligne,TAILLE_MAX_FICHIER,fCarr);
         }
     i= strchr (ligne, '/')-ligne;
     strncpy(s,ligne,i);
@@ -201,7 +218,6 @@ int getPersoExperience(Personnage *perso)
 {
     return perso->experience;
 }
-
 
 char getPersoAttaque(Personnage *perso)
 {
@@ -381,13 +397,15 @@ void copiePerso (Personnage* perso1, Personnage* perso2)
     /*Initialiser SDL_Surface*/
 }
 
-void equiper (Personnage* perso, Objet* obj)
+void equiper (Personnage* perso, Objet* obj,int i)
 {
     switch(getObjetUtilite(obj))
     {
         case 1: /*Arme*/
-            setMainDroite (&perso->equipement,obj);
+            assert (i>=0&&i<3);
+            setMainDroite (&perso->equipement,obj,i);
         break;
+
         case 2:/*Armure*/
             switch (getObjetPortee(obj))
             {
@@ -421,13 +439,14 @@ void equiper (Personnage* perso, Objet* obj)
     }
 }
 
+
 int mainPerso()
 {
     char tab[100];
     char tab2[100];
     Objet *liste;
-    liste=(Objet*)malloc(40*sizeof(Objet));
-    initialiserTousLesObjets(liste);
+    liste=(Objet*)malloc(getNbObjet()*sizeof(Objet));
+    initialiserTousLesObjets(liste,getNbObjet());
 
     Personnage perso;
     nouveauPerso (&perso, "Toromis", 1, 1, 1, 1, 0, 100,liste);

@@ -89,7 +89,7 @@ char obtenirInfo(Dialogue* dialogue, char* info, SDL_Surface* ecran)
     getPersoNom(nomPNJ, dialogue->perso2);
 
     bonus=chercherCompetence(getPersoCapacite2(dialogue->perso1),2);
-    if (bonus>0)bonus=getBonuschar(getCompetence(getPersoCapacite2(dialogue->perso1),bonus));
+    if (bonus>=0)bonus=getBonuschar(getCompetence(getPersoCapacite2(dialogue->perso1),bonus));
     else bonus=0;
 
     test=(rand()%100)-(int)(bonus/10);
@@ -120,7 +120,7 @@ char soudoyer(Dialogue* dialogue, int argent, char* rep, SDL_Surface* ecran)
     setPersoArgent(dialogue->perso2, getPersoArgent(dialogue->perso2)+argent);
 
     bonus=chercherCompetence(getPersoCapacite2(dialogue->perso1),6);
-    if (bonus>0)bonus=getBonuschar(getCompetence(getPersoCapacite2(dialogue->perso1),bonus));
+    if (bonus>=0)bonus=getBonuschar(getCompetence(getPersoCapacite2(dialogue->perso1),bonus));
     else bonus=0;
 
     if(getPersoFaction(dialogue->perso1)==3)  /*C'est plus facile de soudoyer un marchand...*/
@@ -152,7 +152,7 @@ char menacer(Dialogue* dialogue, char* rep, SDL_Surface* ecran)
     int test,bonus=0;
 
     bonus=chercherCompetence(getPersoCapacite2(dialogue->perso1),7);
-    if (bonus>0)bonus=getBonusatt(getCompetence(getPersoCapacite2(dialogue->perso1),bonus));
+    if (bonus>=0)bonus=getBonusatt(getCompetence(getPersoCapacite2(dialogue->perso1),bonus));
     else bonus=0;
 
     test=rand()%(getPersoAttaque(dialogue->perso1)+getPersoCharisme(dialogue->perso1))-rand()%(getPersoDefense(dialogue->perso2)+getPersoIntelligence(dialogue->perso2))+(dialogue->humeur)+(int)(bonus/10);
@@ -183,7 +183,7 @@ char seduire(Dialogue* dialogue, char* rep, SDL_Surface* ecran)
     intelligence=getPersoIntelligence(dialogue->perso2);
 
     bonus=chercherCompetence(getPersoCapacite2(dialogue->perso1),5);
-    if (bonus>0)bonus=getBonuschar(getCompetence(getPersoCapacite2(dialogue->perso1),bonus));
+    if (bonus>=0)bonus=getBonuschar(getCompetence(getPersoCapacite2(dialogue->perso1),bonus));
     else bonus=0;
 
     if (getPersoSexe(dialogue->perso2)==getPersoSexe(dialogue->perso1))     /*Mieux vaut séduire des individus du sexe opposé...*/
@@ -215,27 +215,48 @@ char seduire(Dialogue* dialogue, char* rep, SDL_Surface* ecran)
     return dialogue->humeur;
 }
 
+int marchander (Dialogue* dialogue, int valeur)
+{
+    int bonusCh, bonusIn;
+    bonusCh=chercherCompetence(getPersoCapacite2(dialogue->perso1),1);
+    if (bonusCh>=0) bonusCh=getBonuschar(getCompetence(getPersoCapacite2(dialogue->perso1),bonusCh))+rand()%100;
+    bonusIn=chercherCompetence(getPersoCapacite2(dialogue->perso2),1);
+    if (bonusIn>=0) bonusIn=getBonusint(getCompetence(getPersoCapacite2(dialogue->perso2),bonusIn))+rand()%100;
 
+    if (bonusCh-bonusIn>0) ajouterCompetencePerso (dialogue->perso1,1,(bonusIn-bonusCh)/10);
+    valeur+=(int)(valeur*(bonusIn-bonusCh)/10);
+    return valeur;
+}
 
 char acheter(Dialogue* dialogue, Objet* objet, char* rep, SDL_Surface* ecran)
 {
-    int bonus=0;
+    char c;
+    int bonus=0,valeur=getObjetValeur(objet);
     Inventaire inv;
     getPersoInventaire(dialogue->perso2,&inv);
 
     if(estObjDansInv(&inv,objet))
     {
-        if ((getPersoArgent(dialogue->perso1))>=(getObjetValeur(objet)))
+        printf ("Essayer de marchander ? (y=oui n=non)\n");
+        c=getchar();
+        switch (c)
+        {
+            case 'y':
+                valeur=marchander(dialogue,valeur);
+            break;
+            default: break;
+        }
+        if ((getPersoArgent(dialogue->perso1))>=valeur)
             {
                 bonus=chercherCompetence(getPersoCapacite2(dialogue->perso1),5);
-                if (bonus>0)bonus=getBonuschar(getCompetence(getPersoCapacite2(dialogue->perso1),bonus));
+                if (bonus>=0)bonus=getBonuschar(getCompetence(getPersoCapacite2(dialogue->perso1),bonus));
                 else bonus=0;
 
                 soustraireInventaire(dialogue->perso2,objet);
                 ajouterInventaire(dialogue->perso1,objet);
 
-                setPersoArgent(dialogue->perso2,getPersoArgent(dialogue->perso2)+(int)((getObjetValeur(objet)*100-bonus)/100));
-                setPersoArgent(dialogue->perso1,getPersoArgent(dialogue->perso1)-(int)((getObjetValeur(objet)*100-bonus)/100));
+                setPersoArgent(dialogue->perso2,getPersoArgent(dialogue->perso2)+(int)((valeur*100-bonus)/100));
+                setPersoArgent(dialogue->perso1,getPersoArgent(dialogue->perso1)-(int)((valeur*100-bonus)/100));
 
                 strcpy(rep,"Vendu !\n");
 
@@ -263,23 +284,33 @@ char acheter(Dialogue* dialogue, Objet* objet, char* rep, SDL_Surface* ecran)
 
 char vendre(Dialogue* dialogue, Objet* objet, char* rep, SDL_Surface* ecran)
 {
-    int bonus=0;
+    char c;
+    int bonus=0,valeur=getObjetValeur(objet);
     Inventaire inv;
     getPersoInventaire(dialogue->perso2,&inv);
 
     if(estObjDansInv(&inv,objet))
     {
-        if ((getPersoArgent(dialogue->perso2))>=(getObjetValeur(objet)))
+        printf ("Essayer de marchander ? (y=oui n=non)\n");
+        c=getchar();
+        switch (c)
+        {
+            case 'y':
+                valeur=marchander(dialogue,valeur);
+            break;
+            default: break;
+        }
+        if ((getPersoArgent(dialogue->perso2))>=valeur)
             {
                 bonus=chercherCompetence(getPersoCapacite2(dialogue->perso1),5);
-                if (bonus>0)bonus=getBonuschar(getCompetence(getPersoCapacite2(dialogue->perso1),bonus));
+                if (bonus>=0)bonus=getBonuschar(getCompetence(getPersoCapacite2(dialogue->perso1),bonus));
                 else bonus=0;
 
                 soustraireInventaire(dialogue->perso1,objet);
                 ajouterInventaire(dialogue->perso2,objet);
 
-                setPersoArgent(dialogue->perso1,getPersoArgent(dialogue->perso1)+(int)((getObjetValeur(objet)*100+bonus)/100));
-                setPersoArgent(dialogue->perso2,getPersoArgent(dialogue->perso2)-(int)((getObjetValeur(objet)*100+bonus)/100));
+                setPersoArgent(dialogue->perso1,getPersoArgent(dialogue->perso1)+(int)((valeur*100+bonus)/100));
+                setPersoArgent(dialogue->perso2,getPersoArgent(dialogue->perso2)-(int)((valeur*100+bonus)/100));
 
                 strcpy(rep,"Merci ! Je suis très content de cette aquisition !\n");
 
@@ -312,7 +343,6 @@ int mainParole ()
     char information[TAILLE_MAX_DIAL];
     Objet *tab;
 
-    tab=(Objet*)malloc(40*sizeof(Objet));
     initialiserTousLesObjets(tab);
 
     srand(time(NULL));

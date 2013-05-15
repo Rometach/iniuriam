@@ -21,6 +21,7 @@ typedef struct
     char carriere;
     int argent;
     int experience;
+    int niveau;
 
     Capacite capacite;
 
@@ -249,9 +250,9 @@ void persoUtiliseObjet (Personnage *perso, Objet *obj, Personnage* cible);
 void copiePerso (Personnage* perso1, Personnage* perso2);
 
 /**
-* \brief Preconditions : perso est initialisé, obj appartient à l'inventaire de perso
-* <br /> Postconditions : obj est équipé
+* \brief Preconditions : perso est initialisé, obj appartient à l'inventaire de perso, 0<=i<3
+* <br /> Postconditions : obj est équipé (à la ième place s'il s'agit d'une arme)
 */
-void equiper (Personnage* perso,Objet* obj);
+void equiper (Personnage* perso,Objet* obj,int i);
 
 #endif

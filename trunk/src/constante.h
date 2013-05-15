@@ -8,3 +8,8 @@
 #define CARTE_LARGEUR 20
 #define NBR_HERO 1
 
+#define TAILLE_MAX_FICHIER 800
+#define TAILLE_MAX 22
+#define NB_DEPLACEMENTS 5
+#define CHAMP_DE_VISION 30;
+

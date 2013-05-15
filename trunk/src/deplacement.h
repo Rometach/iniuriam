@@ -5,8 +5,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
-
-#define TAILLE_MAX 22
+#include "constante.h"
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
@@ -81,6 +80,7 @@ void reinitTunnel (int x, int y, char tab [TAILLE_MAX][TAILLE_MAX]);
 /**
 * \brief Preconditions : /
 * <br /> Postconditions : retourne le minimum de droite, gauche, haut et bas. L'ordre des paramètres détermine les priorités en cas d'égalité.
+*                         si l'un des paramètres est nul il n'est pas pris en compte
 */
 char quatresChemins (char droite, char haut, char bas, char gauche);
 

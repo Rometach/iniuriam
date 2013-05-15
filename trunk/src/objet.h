@@ -40,8 +40,8 @@ typedef struct
 } Objet;
 
 /**
-* \brief Preconditions : obj n'a pas déjà été initialisé
-* <br /> Postconditions : obj est initialisé avec les paramètres de son type : nom, portee, degats, protection, description et valeur
+* \brief Preconditions : obj n'a pas déjà été initialisé, type <= au nombre max d'objet de Objets.txt
+* <br /> Postconditions : obj est initialisé avec les paramètres de son type : nom, utilite, portee, degats, protection, description et valeur
 */
 void objInit (Objet *obj, char type);
 
@@ -82,21 +82,27 @@ char getObjetProtection(Objet *obj);
 int getObjetValeur(Objet *obj);
 
 /**
-* \brief Preconditions : obj est initialisé, s est une chaîne d'au moins 30 caractères
-* <br /> Postconditions : copie le nom d'obj dans s
+* \brief Preconditions : obj est initialisé
+* <br /> Postconditions : retourne le nom d'obj
 */
 char* getObjetNom(Objet *obj);
 
 /**
-* \brief Preconditions : obj est initialisé, s est une chaîne d'au moins 100 caractères
-* <br /> Postconditions : copie la description d'obj dans s
+* \brief Preconditions : obj est initialisé
+* <br /> Postconditions : retourne la description d'obj
 */
-void getObjetDescription(char* s, Objet *obj);
+char* getObjetDescription(Objet *obj);
 
 /**
-* \brief Preconditions : tabObjet est un tableau de longueur >= au nombre d'obejts dans objets.txt  ||| a changer si on implémente avec malloc
+* \brief Preconditions : /
+* <br /> Postconditions : retourne le nombre d'objet dans Objets.txt
+*/
+int getNbObjet();
+
+/**
+* \brief Preconditions : max<=nombre d'objet dans Objets.txt
 * <br /> Postconditions : initialise tous les objets dans tabObjet
 */
-void initialiserTousLesObjets(Objet* tabObj);
+void initialiserTousLesObjets(Objet* tabObj,int max);
 
 #endif
