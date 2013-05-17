@@ -730,6 +730,7 @@ void combat (Personnage* liste, int l, char arene [TAILLE_MAX][TAILLE_MAX])
             }
         }
     }
+    /*Ajouter expérience fin de combat*/
     free (groupe);
 }
 
