@@ -2,11 +2,11 @@ Ce fichier contient l'ensemble des missions jouables dans Iniuriam.
 
 Nom		Ensemble des sous-missions+coordonnées
 Tutoriel
-1 1 Babar/ 14/14/ 0/ 3
-2 1 ./ 15/15/ 0/ 4
-1 1 Babar/ 0/0/ 0/ 5
-1 2 Le super vilain/ 18/18/ 0/ 6
-1 1 Babar/ 0/0/ 0/ 0
+1 1 14/14/ 0/ 3 Babar
+2 1 15/15/ 0/ 4 .
+1 1 0/0/ 0/ 5 Babar
+1 2 18/18/ 0/ 6 Le super vilain
+1 1 0/0/ 0/ 0 Babar
 
 Le Mystère du poisson rouge/
 1 12/12/	
