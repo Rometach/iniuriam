@@ -748,8 +748,7 @@ int mainCombat ()
 
     liste=(Personnage*)malloc(4*sizeof(Personnage));
 
-    tab=(Objet*)malloc(getNbObjet()*sizeof(Objet));
-    initialiserTousLesObjets(tab,getNbObjet());
+    initialiserTousLesObjets(tab);
 
     nouveauPerso (&liste[0], "Toromis", 1, 1, 1, 1, 0, 100,tab);
     nouveauPerso (&liste[1], "Rometach", 1, 1, 1, 1, 0, 100,tab);
@@ -787,6 +786,6 @@ int mainCombat ()
     persoLibere(&liste[2]);
     persoLibere(&liste[3]);
     free (liste);
-    free (tab);
+    libererTousLesObjets(tab);
     return 0;
 }

@@ -38,7 +38,9 @@ void missionDefinir (Mission* mission, int l, Objet* tabObjets)
 
     strcpy(mission->nom,ligne);
     strcat(mission->nom,"\0");
-    fscanf(fMission,"%d %d %d %d %d %s",&mission->type, &mission->posXCible, &mission->posYCible, &nbObj, &mission->suite, nomPerso);
+    fscanf(fMission,"%c %d %d %d %c %s",&mission->type, &mission->posXCible, &mission->posYCible, &nbObj, &mission->suite, nomPerso);
+    mission->type=(char)atoi(&mission->type);
+    mission->suite=(char)atoi(&mission->suite);
 
     printf("%d %s %d %d %d %d",mission->type, nomPerso, mission->posXCible, mission->posYCible, nbObj, mission->suite);
 }
@@ -83,7 +85,7 @@ void missionAccomplir (Mission* mission, Objet* tabObjets)
     }
     else
     {
-        printf("Le jeu est fini...");
+        printf("La mission \"%s\" est finie...\n", mission->nom);
     }
 }
 
@@ -171,6 +173,34 @@ void MissionsDefinirHarmonieuses (Mission* tabMission, int l)
     /*NB: Il ne s'agit pas d'une méthode excessivement rapide ;
     toutefois on n'utilisera normalement cette fonction qu'une fois dans le jeu*/
 }
+
+
+char getMissionType(Mission* mission)
+{
+    return mission->type;
+}
+
+
+Objet* getMissionObjet(Mission* mission)
+{
+    return mission->objCible;
+}
+
+
+char estPersoMission(Mission* mission, Personnage* perso)
+{
+    char nom[30];
+    getPersoNom(nom,perso);
+    return strcmp(mission->nomPerso,nom);
+}
+
+
+char estLieuMission(Mission* mission, int posX, int posY)
+{
+    return (((mission->posXCible)==(posX))&&((mission->posYCible)==(posY)));
+}
+
+
 
 
 

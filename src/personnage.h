@@ -266,4 +266,21 @@ void copiePerso (Personnage* perso1, Personnage* perso2);
 */
 void equiper (Personnage* perso,Objet* obj,int i);
 
+/**
+* \brief Preconditions : /
+* <br /> Postconditions : retourne le nombre de personnages dans PNJ.txt
+*/
+int getNbPNJ();
+
+/**
+* \brief Preconditions : tabPNJ n'est pas initialisé
+* <br /> Postconditions : initialise tous les PNJ dans tabPNJ
+*/
+void initialiserTousLesPNJ(Personnage* tabPNJ);
+
+/**
+* \brief Preconditions : tabPNJ est initialisé
+* <br /> Postconditions : libère tabPNJ
+*/
+void libererTousLesPNJ(Personnage* tabPNJ);
 #endif

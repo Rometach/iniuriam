@@ -122,14 +122,25 @@ int getNbObjet()
     return max;
 }
 
-void initialiserTousLesObjets(Objet* tabObj,int max)
+void initialiserTousLesObjets(Objet* tabObj)
 {
     int i;
+    int max = getNbObjet();
+
+    tabObj=(Objet*)malloc(max*sizeof(Objet));
         for(i=1;i<max-4;i++)
         {
             objInit(&tabObj[i],i);
         }
 }
+
+
+void libererTousLesObjets(Objet* tabObj)
+{
+    free(tabObj);
+}
+
+
 
 
 int mainObjet ()

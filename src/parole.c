@@ -96,7 +96,7 @@ char obtenirInfo(Dialogue* dialogue, char* info, SDL_Surface* ecran)
 
     if(test<(dialogue->humeur))
     {
-        strcat(nomPNJ,"\n");
+        strcat(nomPNJ," Info\n");
         setReponse(nomPNJ, info);
         ajouterCompetencePerso (dialogue->perso1,2,2);
     }
@@ -105,11 +105,27 @@ char obtenirInfo(Dialogue* dialogue, char* info, SDL_Surface* ecran)
         setReponse("Refus info\n", info);
     }
 
-    affDialogue( info, ecran);
+    affDialogue(info, ecran);
     setDialogueHumeur(dialogue,dialogue->humeur-5);
 
     return dialogue->humeur;
 }
+
+
+char parlerQuete(Dialogue* dialogue, char* info, SDL_Surface* ecran)
+{
+    char nomPNJ[30];
+
+    getPersoNom(nomPNJ, dialogue->perso2);
+
+    strcat(nomPNJ," Mission\n");
+    setReponse(nomPNJ, info);
+
+    affDialogue(info, ecran);
+
+    return dialogue->humeur;
+}
+
 
 
 char soudoyer(Dialogue* dialogue, int argent, char* rep, SDL_Surface* ecran)

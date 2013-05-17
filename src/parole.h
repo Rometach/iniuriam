@@ -41,6 +41,13 @@ void setReponse (char* question, char* reponse);
 char obtenirInfo(Dialogue* dialogue, char* info, SDL_Surface* ecran);
 
 /**
+* \brief Preconditions : dialogue est initialisé, info a une longueur d'au moins TAILLE_MAX_DIAL
+                         le PNJ doit parler dans le cadre de la mission en cours
+* <br /> Postconditions : copie dans info ce que dit le PNJ ; retourne la valeur courante de l'humeur
+*/
+char parlerQuete(Dialogue* dialogue, char* info, SDL_Surface* ecran);
+
+/**
 * \brief Preconditions : dialogue est initialisé, rep a une longueur d'au moins TAILLE_MAX_DIAL
 * <br /> Postconditions : la somme argent est transférée d'un personnage vers l'autre, avec un éventuel effet sur l'humeur du second ;
 *                          copie dans rep la reponse retournée ;

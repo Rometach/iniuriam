@@ -100,9 +100,16 @@ char* getObjetDescription(Objet *obj);
 int getNbObjet();
 
 /**
-* \brief Preconditions : max<=nombre d'objet dans Objets.txt
-* <br /> Postconditions : initialise tous les objets dans tabObjet
+* \brief Preconditions : tabObj n'est pas initialisé
+* <br /> Postconditions : initialise tous les objets dans tabObj
 */
-void initialiserTousLesObjets(Objet* tabObj,int max);
+void initialiserTousLesObjets(Objet* tabObj);
+
+/**
+* \brief Preconditions : tabObj est initialisé
+* <br /> Postconditions : libère tabObj
+*/
+void libererTousLesObjets(Objet* tabObj);
+
 
 #endif
