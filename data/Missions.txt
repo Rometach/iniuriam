@@ -1,0 +1,7 @@
+Ce fichier contient l'ensemble des missions jouables dans Iniuriam.
+
+Nom		Ensemble des sous-missions+coordonnées
+Tutoriel/	1 12/12/	2 15/15/	3 18/18/
+Le Mystère du poisson rouge/ 1 12/12/	2 15/15/	3 18/18/
+
+
