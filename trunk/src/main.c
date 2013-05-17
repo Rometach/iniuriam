@@ -15,9 +15,10 @@
 
 int main (int argc, char **argv)
 {
+    mainCombat();
     Dialogue dialogue;
 
-    /*Terrain terrain;
+    Terrain terrain;
     SDL_Surface* ecran = NULL;
     Personnage hero;
     Personnage pnj;
@@ -25,24 +26,24 @@ int main (int argc, char **argv)
     terInit(&terrain);
     persoInit(&hero);
     persoInit(&pnj);
-    dialogueInit(&dialogue, &hero, &pnj);
 
     Objet *tab;
 
-    tab=(Objet*)malloc(40*sizeof(Objet));
-    initialiserTousLesObjets(tab);
+    tab=(Objet*)malloc(getNbObjet()*sizeof(Objet));
+    initialiserTousLesObjets(tab,getNbObjet());
 
     srand(time(NULL));
     nouveauPerso (&hero, "Toromis", 1, 1, 1, 1, 0, 100,tab);
     nouveauPerso (&pnj, "Babar", 1, 1, 1, 1, 0, 100,tab);
 
+    dialogueInit(&dialogue, &hero, &pnj);
 
     ecran = SDL_SetVideoMode(TAILLE_FENETRE, TAILLE_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
     SDL_WM_SetCaption("Iniuriam", NULL);
 
     terCharger(&terrain, "data/Cartes/save.map");
     hero.avatar=SDL_LoadBMP("data/Chipsets/perso.bmp");
-    pnj.avatar=SDL_LoadBMP("data/Chipsets/pnj.bmp");
+    pnj.avatar=SDL_LoadBMP("data/Chipsets/perso.bmp");
     setPersoPosX(&pnj, TILE_LARGEUR*5);
     setPersoPosY(&pnj, TILE_HAUTEUR*0);
 
@@ -52,7 +53,7 @@ int main (int argc, char **argv)
     persoLibere (&hero);
     free(tab);
     terLibere(&terrain);
-    SDL_Quit();*/
+    SDL_Quit();
 
     return 0;
 }
