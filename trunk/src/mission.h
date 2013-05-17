@@ -10,7 +10,12 @@ typedef struct
 {
     char nom[50];
 
-    char type;
+    char type;  /*1 : Parler à un personnage
+                  2 :
+                  3 :
+                  4 :
+                  5 :
+                  6 :*/
 
     int posXCible;
     int posYCible;
@@ -65,5 +70,28 @@ char sontHarmonieusesMissions (Mission* tabMission, int l);
 void MissionsDefinirHarmonieuses (Mission* tabMission, int l);
 
 
+/**
+* \brief Preconditions : mission est initialisée et définie
+* <br /> Postconditions : retourne le type de mission
+*/
+char getMissionType(Mission* mission);
+
+/**
+* \brief Preconditions : mission est initialisée et définie
+* <br /> Postconditions : retourne l'adresse de l'objet éventuellement ciblé par la mission
+*/
+Objet* getMissionObjet(Mission* mission);
+
+/**
+* \brief Preconditions : mission est initialisée et définie
+* <br /> Postconditions : retourne 1 si perso est ciblé par la mission, 1 sinon
+*/
+char estPersoMission(Mission* mission, Personnage* perso);
+
+/**
+* \brief Preconditions : mission est initialisée et définie
+* <br /> Postconditions : retourne 1 si le lieu de coordoonnées posX et posY est ciblée par la mission
+*/
+char estLieuMission(Mission* mission, int posX, int posY);
 
 #endif

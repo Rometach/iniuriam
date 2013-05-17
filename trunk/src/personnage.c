@@ -439,14 +439,50 @@ void equiper (Personnage* perso, Objet* obj,int i)
     }
 }
 
+int getNbPNJ()
+{
+    int max=0;
+    FILE* fPNJ;
+    char ligne[TAILLE_MAX_FICHIER];
+    assert(fPNJ=fopen("data/PNJ.txt","r"));
+    if (fPNJ!=NULL)
+    {
+        do
+        {
+            fgets(ligne,TAILLE_MAX_FICHIER,fPNJ);
+            max++;
+        }while (ligne[0]!='/'&&ligne[1]!='/');
+    }
+    fclose(fPNJ);
+    return max;
+}
+
+void initialiserTousLesPNJ(Personnage* tabPNJ)
+{
+    int i;
+    int max = getNbPNJ();
+
+    tabPNJ=(Personnage*)malloc(max*sizeof(Personnage));
+        for(i=1;i<max-4;i++)
+        {
+            /*STILL TO BE DONE*/
+        }
+}
+
+void libererTousLesPNJ(Personnage* tabPNJ)
+{
+    free(tabPNJ);
+}
+
+
+
 
 int mainPerso()
 {
     char tab[100];
     char tab2[100];
-    Objet *liste;
-    liste=(Objet*)malloc(getNbObjet()*sizeof(Objet));
-    initialiserTousLesObjets(liste,getNbObjet());
+    Objet *liste=NULL;
+    initialiserTousLesObjets(liste);
 
     Personnage perso;
     nouveauPerso (&perso, "Toromis", 1, 1, 1, 1, 0, 100,liste);
@@ -470,6 +506,6 @@ int mainPerso()
     printf("\n%d\n",getPersoPtDeVie(&perso));
 
     persoLibere(&perso);
-    free(liste);
+    libererTousLesObjets(liste);
     return 0;
 }

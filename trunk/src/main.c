@@ -17,7 +17,7 @@
 int main (int argc, char **argv)
 {
     Objet *tab=NULL;
-    tab=(Objet*)malloc(getNbObjet()*sizeof(Objet));
+    initialiserTousLesObjets(tab);
 
     Mission maMission;
 
@@ -25,9 +25,10 @@ int main (int argc, char **argv)
     missionDefinir(&maMission,1,tab);
 
 
-    Dialogue dialogue;
+    /*Dialogue dialogue;
 
-    /*Terrain terrain;
+
+    Terrain terrain;
     SDL_Surface* ecran = NULL;
     Personnage hero;
     Personnage pnj;
@@ -37,10 +38,6 @@ int main (int argc, char **argv)
     persoInit(&pnj);
     dialogueInit(&dialogue, &hero, &pnj);
 
-    Objet *tab;
-
-    tab=(Objet*)malloc(40*sizeof(Objet));
-    initialiserTousLesObjets(tab);
 
     srand(time(NULL));
     nouveauPerso (&hero, "Toromis", 1, 1, 1, 1, 0, 100,tab);
@@ -60,9 +57,10 @@ int main (int argc, char **argv)
 
     persoLibere(&pnj);
     persoLibere (&hero);
-    free(tab);
     terLibere(&terrain);
     SDL_Quit();*/
+
+    libererTousLesObjets(tab);
 
     return 0;
 }
