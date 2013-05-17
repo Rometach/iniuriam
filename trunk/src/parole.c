@@ -22,11 +22,11 @@ void dialogueInit (Dialogue* dialogue, Personnage* perso1, Personnage* perso2)
     {
         dialogue->humeur=50;
     }
-    else if ((getPersoFaction(perso1)==0)&&(getPersoFaction(perso2)==1))  /*Les personnages sont ennemis*/
+    else if ((getPersoFaction(perso1)==2)&&(getPersoFaction(perso2)==1))  /*Les personnages sont ennemis*/
     {
         dialogue->humeur=10;
     }
-    else if ((getPersoFaction(perso1)==1)&&(getPersoFaction(perso2)==0))  /*Les personnages sont ennemis*/
+    else if ((getPersoFaction(perso1)==1)&&(getPersoFaction(perso2)==2))  /*Les personnages sont ennemis*/
     {
         dialogue->humeur=10;
     }
