@@ -15,9 +15,20 @@
 typedef struct
 {
     char nom [30];
-    char race;
-    char sexe;
-    char faction;
+    char race;/*0 : inconnu
+                1 : humain
+                2 : cyborg
+                3 : sicaris
+                4 : medarsins
+                */
+    char sexe;/*0 : inconnu
+                1 : homme
+                2 : femme*/
+    char faction;/*0 : inconnu
+                1 : Sistéen
+                2 : Heredian
+                3 : Marchand
+                */
     char carriere;
     int argent;
     int experience;

@@ -168,11 +168,11 @@ void getPersoFactionNom(char* chaine, Personnage *perso)
 {
     switch(perso->faction)
     {
-        case 0 :
-            strcpy(chaine,"Sistéen");
         case 1 :
-            strcpy(chaine,"Heredian");
+            strcpy(chaine,"Sistéen");
         case 2 :
+            strcpy(chaine,"Heredian");
+        case 3 :
             strcpy(chaine,"Marchand");
         default :
             strcpy(chaine,"Non défini");
