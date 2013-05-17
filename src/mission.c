@@ -3,22 +3,48 @@
 #include <time.h>
 #include "personnage.h"
 #include "mission.h"
-
+#include "constante.h"
 
 
 void missionInit (Mission* mission)
 {
-    mission->accomplie=0;
-    mission->type=-1;
-    mission->batimentCible=0;
-    mission->vaisseauCible=0;
-    mission->persoCible=NULL;
+    mission->type=0;
+    strcpy(mission->nom,"");
+    mission->posXCible=-1;
+    mission->posXCible=-1;
+    strcpy(mission->nomPerso,"");
     mission->objCible=NULL;
     mission->suite=0;
 }
 
 
-void missionDefinir (Mission* mission)
+void missionDefinir (Mission* mission, int l, Objet* tabObjets)
+{
+    int i;
+    char nomPerso[30];
+    int nbObj;
+
+    char ligne [TAILLE_MAX_FICHIER];
+
+    FILE* fMission;
+    fMission=fopen("data/Missions.txt","r");
+
+    for(i=0;i<l+3;i++)
+    {
+        fgets(ligne,TAILLE_MAX_FICHIER,fMission);
+    }
+
+    printf("\n%s\n",ligne);
+
+    strcpy(mission->nom,ligne);
+    strcat(mission->nom,"\0");
+    fscanf(fMission,"%d %d %d %d %d %s",&mission->type, &mission->posXCible, &mission->posYCible, &nbObj, &mission->suite, nomPerso);
+
+    printf("%d %s %d %d %d %d",mission->type, nomPerso, mission->posXCible, mission->posYCible, nbObj, mission->suite);
+}
+
+
+void missionDefinirAleatoire (Mission* mission)
 {
     mission->type=rand()%9;
     switch(mission->type)
@@ -49,9 +75,16 @@ void missionDefinir (Mission* mission)
 }
 
 
-void missionAccomplir (Mission* mission)
+void missionAccomplir (Mission* mission, Objet* tabObjets)
 {
-    mission->accomplie=1;
+    if ((mission->suite)!=0)
+    {
+        missionDefinir(mission,mission->suite,tabObjets);
+    }
+    else
+    {
+        printf("Le jeu est fini...");
+    }
 }
 
 
@@ -69,7 +102,7 @@ char sontHarmonieusesMissions (Mission* tabMission, int l)
         }
     }
 
-    /*On vérifie que le même bâtiment n'est pas en jeu plusieurs fois*/
+    /*On vérifie que le même bâtiment n'est pas en jeu plusieurs fois
     for(i=0;i<l-1;i++)
     {
         if(((tabMission[i].type)==0)||((tabMission[i].type)==3))
@@ -85,7 +118,8 @@ char sontHarmonieusesMissions (Mission* tabMission, int l)
         }
     }
 
-    /*On vérifie que le même personnage n'est pas en jeu plusieurs fois*/
+
+    On vérifie que le même personnage n'est pas en jeu plusieurs fois
     for(i=0;i<l-1;i++)
     {
         if(((tabMission[i].type)==2)||((tabMission[i].type)==7))
@@ -99,7 +133,7 @@ char sontHarmonieusesMissions (Mission* tabMission, int l)
                 }
             }
         }
-    }
+    }*/         /**A CORRIGER (<=> modifications de struct Mission) !!!!! */
 
     /*On vérifie que le même objet n'est pas en jeu plusieurs fois*/
     for(i=0;i<l-1;i++)
@@ -129,7 +163,7 @@ void MissionsDefinirHarmonieuses (Mission* tabMission, int l)
     {
         for(i=0;i<l;i++)
         {
-            missionDefinir(tabMission+i);
+            missionDefinirAleatoire(tabMission+i);
         }
     }
     while(!sontHarmonieusesMissions(tabMission, l));

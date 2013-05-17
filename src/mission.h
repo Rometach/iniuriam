@@ -4,18 +4,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "personnage.h"
+#include "tile.h"
 
 typedef struct
 {
-    char accomplie;
+    char nom[50];
 
     char type;
 
-    char batimentCible; /*Ptet ben qu'une Case* fera l'affaire*/
-    char vaisseauCible;
-    Personnage* persoCible;
+    int posXCible;
+    int posYCible;
+    char nomPerso[30];
     Objet* objCible;
-    char suite;
+
+    char suite;     /*0 si la mission est la dernière d'une quête
+                    correspond sinon au numéro de ligne de la mission suivante dans Missions.txt*/
 }Mission;
 
 
@@ -27,17 +30,25 @@ void missionInit (Mission* mission);
 
 
 /**
-* \brief Preconditions : mission est initialisée
+* \brief Preconditions : mission est initialisée et non définie
+                         l correspond à la ligne où
 * <br /> Postconditions : mission est une vraie mission avec des objectifs bien définis
 */
-void missionDefinir (Mission* mission);
+void missionDefinir (Mission* mission, int l, Objet* tabObjets);
+
+
+/**
+* \brief Preconditions : mission est initialisée et non définie
+* <br /> Postconditions : mission est définie avec des objectifs aléatoires
+*/
+void missionDefinirAleatoire (Mission* mission);
 
 
 /**
 * \brief Preconditions : mission est initialisée et définie
 * <br /> Postconditions : mission est considérée comme accomplie
 */
-void missionAccomplir (Mission* mission);
+void missionAccomplir (Mission* mission, Objet* tabObjets);
 
 
 /**
