@@ -2,13 +2,13 @@ Ce fichier contient l'ensemble des objets utilisables dans Iniuriam
 
 Nom		P 	A 	D	U	Description							valeur
 Fleuret laser/	01	10	01	1	Qui a dit que seuls les maitres Jedi maniaient le sabre ?/	100	
-Patte de lapin transgenique/	01	05	01	1	Au XXIIeme siecle, etait utilisee comme porte-bonheur, maintenant on tape avec au petit bonheur la chance.../	100
-Baton/	01	05	01	1	Malgre des siecles de civilisation, ca fait toujours aussi mal./	100
-Taser/	01	05	01	1	Concu pour les delinquants, fonctionne aussi bien sur les aliens./	100
+Patte de lapin transgenique/	01	05	01	1	Au XXIIeme siecle, etait utilisee comme porte-bonheur, maintenant on tape avec au petit bonheur la chance.../	101
+Baton/	01	05	01	1	Malgre des siecles de civilisation, ca fait toujours aussi mal./	102
+Taser/	01	05	01	1	Concu pour les delinquants, fonctionne aussi bien sur les aliens./	103
 Tronconneuse/	01	15	01	1	Anecdote : c'est l'outil qui fut utilise pour le tournage de Massacre a la tronconneuse, de Tobe Hooper (1986)./
-Couteau-suisse a plasma/	01	05	01	1	Même le tire-bouchon est dangereux./	100
-Robot Mixer/	01	05	01	1	Arme symbolique de la revolution feminine de 3151./	100	
-Fouet polyurethane/	01	05	01	1	Usages multiples./	100	
+Couteau-suisse a plasma/	01	05	01	1	Même le tire-bouchon est dangereux./	104
+Robot Mixer/	01	05	01	1	Arme symbolique de la revolution feminine de 3151./	105	
+Fouet polyurethane/	01	05	01	1	Usages multiples./	106	
 Shuriken a induction/	01	05	01	1	Permet de toaster son petit-dejeuner a distance./	100
 Blaster de poche/	01	05	01	1	Objet au design presque aussi culte que l'Opinel en son temps./	100
 Blaster de competition/	01	05	01	1	Plus gros que le blaster de poche, il pique encore plus./	100

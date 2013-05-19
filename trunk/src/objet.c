@@ -127,7 +127,7 @@ void initialiserTousLesObjets(Objet* tabObj)
     int i;
     int max = getNbObjet();
 
-    tabObj=(Objet*)malloc(max*sizeof(Objet));
+//    tabObj=(Objet*)malloc(max*sizeof(Objet));
         for(i=1;i<max-4;i++)
         {
             objInit(&tabObj[i],i);
