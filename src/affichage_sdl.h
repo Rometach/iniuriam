@@ -1,4 +1,3 @@
-
 #ifndef AFFICHAGE_SDL_H
 #define AFFICHAGE_SDL_H
 

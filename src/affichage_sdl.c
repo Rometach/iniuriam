@@ -204,9 +204,9 @@ void affInventaire(Personnage* perso, SDL_Surface* ecran)
 
     position.y= (CARTE_HAUTEUR-3)*TILE_HAUTEUR;
     position.x= 2*TILE_LARGEUR;
-    sprintf (quantiteChar, "Argent: %d ", perso->argent );
+    /*sprintf (quantiteChar, "Argent: %d ", perso->argent );
     quantite = TTF_RenderText_Solid(police,  quantiteChar, colorNoir);
-    SDL_BlitSurface(quantite, NULL, ecran, &position);
+    SDL_BlitSurface(quantite, NULL, ecran, &position);*/
 
     SDL_Flip(ecran);
     SDL_FreeSurface(inventaire);
