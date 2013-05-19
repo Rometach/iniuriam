@@ -32,13 +32,13 @@ void affEditeur(Terrain* ter, SDL_Surface* ecran);
 * \brief Preconditions : ter et ecran initalisé et remplis
 * <br /> Postconditions : affiche la carte
 */
-void affCarte(Terrain* ter, SDL_Surface* ecran);
+void affCarte(const Terrain* ter, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : hero, et ecran initalisé et remplis
 * <br /> Postconditions : affiche le hero
 */
-void affPerso(Personnage* hero, Personnage* pnj, SDL_Surface* ecran);
+void affPerso(const Personnage* hero, const Personnage* pnjs, const Personnage* ennemis, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : Texte, ter initalisé et remplis
@@ -59,6 +59,12 @@ void affDialogue( char* dialoguetab,SDL_Surface* ecran);
 void affInventaire(Personnage* hero, SDL_Surface* ecran);
 
 /**
+* \brief Preconditions : position, objet et ecran initalisé et remplis
+* <br /> Postconditions :affiche les informations d'un objet
+*/
+void affInfOb(SDL_Rect* position, Objet* objet, SDL_Surface* ecran);
+
+/**
 * \brief Preconditions : hero, ecran initalisé et remplis
 * <br /> Postconditions : gère les évements de l'inventaire
 */
@@ -74,13 +80,13 @@ void eventEditeurSDL(Terrain* ter, SDL_Surface* ecran);
 * \brief Preconditions : hero, pnj, ter et ecran initalisé et remplis
 * <br /> Postconditions : gère les évenements en jeu
 */
-void eventJeuSDL(Personnage* hero, Personnage* pnj, Terrain* ter, Dialogue* dialogue, SDL_Surface* ecran);
+void eventJeuSDL(Personnage* hero, Personnage* pnj, Personnage* ennemi, Terrain* ter, Dialogue* dialogue, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : hero, pnj et ecran initalisé et remplis
 * <br /> Postconditions : gère les évenements du dialogue
 */
-void eventDialogueSDL(Dialogue* dialogue, SDL_Surface*ecran);
+void eventDialogueSDL( Dialogue* dialogue, const Personnage* hero, const Personnage* pnjs, const Personnage* ennemis, Terrain* ter, SDL_Surface*ecran);
 
 /**
 * \brief Preconditions :
