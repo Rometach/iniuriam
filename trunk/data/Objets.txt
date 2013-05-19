@@ -1,7 +1,7 @@
 Ce fichier contient l'ensemble des objets utilisables dans Iniuriam
 
 Nom		P 	A 	D	U	Description							valeur
-Fleuret laser/	01	10	01	1	Qui a dit que seuls les maitres Jedi maniaient le sabre ?/	100	
+Fleuret laser/	01	10	01	1	Qui a dit que seuls les maitres Jedi maniaient le sabre ?/	100
 Patte de lapin transgenique/	01	05	01	1	Au XXIIeme siecle, etait utilisee comme porte-bonheur, maintenant on tape avec au petit bonheur la chance.../	101
 Baton/	01	05	01	1	Malgre des siecles de civilisation, ca fait toujours aussi mal./	102
 Taser/	01	05	01	1	Concu pour les delinquants, fonctionne aussi bien sur les aliens./	103
