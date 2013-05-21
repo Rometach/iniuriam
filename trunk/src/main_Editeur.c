@@ -5,7 +5,7 @@
 
     int main()
     {
-        editerCarte();
+        editerObjet();
         return 0;
     }
 

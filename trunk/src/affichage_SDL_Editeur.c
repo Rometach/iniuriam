@@ -171,7 +171,7 @@ char eventEditeurObjet(SDL_Surface *ecran)
     char continuer=1;
     SDL_Event event;
 
-    //SDL_EnableKeyRepeat(10, 10);
+    /*SDL_EnableKeyRepeat(10, 10);*/
     while (continuer)
     {
         SDL_WaitEvent(&event);
@@ -257,7 +257,7 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
             case 5:
                 switch (type)
                 {
-                    case 1://Menu Principal
+                    case 1:/*Menu Principal*/
                         switch (choix)
                         {
                             case 0:
