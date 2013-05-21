@@ -77,14 +77,14 @@ char seduire(Dialogue* dialogue, char* rep);
 
 /**
 * \brief Preconditions : dialogue est initialisé
-* <br /> Postconditions : le premier personnage tente de négotier avec le second le prix d'un objet (valeur) ;
-*                          retourne la valeur finale après negotiation
+* <br /> Postconditions : le premier personnage tente de négocier avec le second le prix d'un objet (valeur) ;
+*                         valeur est modifiée en conséquence
 */
-int marchander (Dialogue* dialogue, int valeur);
+void marchander (Dialogue* dialogue, int* valeur);
 
 /**
 * \brief Preconditions : dialogue est initialisé, objet est dans l'inventaire du PNJ, rep a une longueur d'au moins TAILLE_MAX_DIAL
-* <br /> Postconditions : l'objet objet est vendu par le PNJ au joueur si cela est possible, le joueur peut tenter de négotier le prix d'achat ;
+* <br /> Postconditions : l'objet objet est vendu par le PNJ au joueur si cela est possible, le joueur peut tenter de négocier le prix d'achat ;
 *                          copie dans rep la reponse retournée ;
 *                          retourne la valeur courante de l'humeur
 */
