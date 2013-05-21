@@ -1,11 +1,16 @@
 #ifndef __combat_h__
 #define __combat_h__
 
+#include <assert.h>
+#include <time.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "personnage.h"
 #include "terrain.h"
 #include "constante.h"
+#include "deplacement.h"
+
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle

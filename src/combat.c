@@ -1,14 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
-#include <time.h>
-#include <math.h>
-#include "personnage.h"
-#include "terrain.h"
-#include "deplacement.h"
 #include "combat.h"
-#include "equipement.h"
-#include "constante.h"
+
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle

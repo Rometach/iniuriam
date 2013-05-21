@@ -3,9 +3,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "SDL/SDL.h"
+#include <assert.h>
+#include <string.h>
+#include <SDL/SDL.h>
 #include "inventaire.h"
 #include "capacite.h"
+#include "constante.h"
 #include "equipement.h"
 
 /**

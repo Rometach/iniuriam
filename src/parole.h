@@ -3,6 +3,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <assert.h>
+#include <string.h>
+#include <math.h>
 #include "personnage.h"
 
 /**
@@ -88,7 +92,7 @@ char acheter(Dialogue* dialogue, Objet* objet, char* rep);
 
 /**
 * \brief Preconditions : dialogue est initialisé, objet est dans l'inventaire du joueur, rep a une longueur d'au moins TAILLE_MAX_DIAL
-* <br /> Postconditions : l'objet objet est acheté par le PNJ au joueur si cela est possible , le joueur peut tenter de négotier le prix de vente ;
+* <br /> Postconditions : l'objet objet est acheté par le PNJ au joueur si cela est possible ; le joueur peut tenter de négocier le prix de vente ;
 *                          copie dans rep la reponse retournée ;
 *                          retourne la valeur courante de l'humeur
 */

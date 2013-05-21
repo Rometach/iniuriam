@@ -1,10 +1,14 @@
 #ifndef TERRAIN_H
 #define TERRAIN_H
 
-#include "SDL/SDL.h"
-#include "tile.h"
+#include <SDL/SDL.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
+#include "tile.h"
+#include "constante.h"
+
+
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle

@@ -7,6 +7,7 @@
 #include <string.h>
 #include "constante.h"
 
+
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */

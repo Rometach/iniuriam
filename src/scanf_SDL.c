@@ -1,9 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "SDL/SDL.h"
-#include "SDL/SDL_ttf.h"
-#include "SDL/SDL_image.h"
-#include "constante.h"
+#include "scanf_SDL.h"
+
 
 char eventScanf (SDL_Surface* ecran,char chiffre)
 {

@@ -1,5 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include "tile.h"
 
 void initTile(Tile* t)

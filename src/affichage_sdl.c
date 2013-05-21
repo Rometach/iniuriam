@@ -1,15 +1,5 @@
-#include "SDL/SDL.h"
-#include "SDL/SDL_ttf.h"
-#include "SDL/SDL_image.h"
-#include "terrain.h"
-#include "tile.h"
 #include "affichage_sdl.h"
-#include "stdlib.h"
-#include "stdio.h"
-#include "assert.h"
-#include "constante.h"
-#include "combat.h"
-#include "deplacement.h"
+
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
@@ -787,7 +777,7 @@ void eventAcheterSDL( Dialogue* dialogue, char* dialoguetab, const Personnage* h
                 {
                     if(event.key.keysym.sym==SDLK_RETURN)
                     {
-                        acheter(dialogue, objet, dialoguetab, ecran);
+                        acheter(dialogue, objet, dialoguetab);
                         affAcheter(dialogue, objet, ecran);
                         affDialogue(dialoguetab, ecran);
                     }
@@ -851,7 +841,7 @@ void eventDialogueSDL( Dialogue* dialogue, const Personnage* hero, const Personn
                         {
                             switch(curseur)
                             {
-                                case 0: obtenirInfo(dialogue, reponse, ecran);
+                                case 0: obtenirInfo(dialogue, reponse);
                                         affDialogue( reponse, ecran);
                                         while (continuer)
                                         {
@@ -873,7 +863,7 @@ void eventDialogueSDL( Dialogue* dialogue, const Personnage* hero, const Personn
                                 case 1: //soudoyer( dialogue, int argent, reponse, ecran);
                                 break;
 
-                                case 2: menacer( dialogue, reponse, ecran);
+                                case 2: menacer( dialogue, reponse);
                                          affDialogue( reponse, ecran);
                                          while (continuer)
                                         {
@@ -892,7 +882,7 @@ void eventDialogueSDL( Dialogue* dialogue, const Personnage* hero, const Personn
                                         }
                                 break;
 
-                                case 3: seduire( dialogue, reponse, ecran);
+                                case 3: seduire( dialogue, reponse);
                                         affDialogue( reponse, ecran);
                                          while (continuer)
                                         {

@@ -1,14 +1,14 @@
 #ifndef AFFICHAGE_SDL_H
 #define AFFICHAGE_SDL_H
 
-#include "SDL/SDL.h"
-#include "tile.h"
+#include <SDL/SDL.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <SDL/SDL_ttf.h>
+#include <assert.h>
+
 #include "constante.h"
-#include "terrain.h"
-#include "SDL/SDL_ttf.h"
-#include "personnage.h"
+#include "combat.h"
 #include "parole.h"
 
 /**
