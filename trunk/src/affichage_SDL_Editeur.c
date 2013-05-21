@@ -70,7 +70,6 @@ void affEditeur(Terrain* ter, SDL_Surface* ecran)
             tile.x=getPosX(ter->tabChipset[ter->carte[i]]);
             tile.y=getPosY(ter->tabChipset[ter->carte[i]]);
             SDL_BlitSurface(ter->chipset, &tile, ecran, &position);
-            printf("%d ",ter->carte[i]);
 
             position.x+= TILE_LARGEUR;
             if(position.x>(CARTE_LARGEUR+ter->decalageX)*TILE_LARGEUR)
@@ -133,7 +132,7 @@ void eventEditeurSDL(Terrain* ter, SDL_Surface* ecran )
                     }
                     else if(event.key.keysym.sym==SDLK_s) /** Sauvegarde de la carte */
                     {
-                        terSauvegarde(ter, "data/Cartes/save.map", "data/Chipsets/HOTEL02.bmp");
+                        terSauvegarde(ter, "data/Cartes/save.map", "data/Chipsets/desertChipset.bmp");
                     }
                     else if(event.key.keysym.sym==SDLK_l) /** Chargement de la carte */
                     {   terLibere(ter);
@@ -967,14 +966,13 @@ void editerCarte ()
     SDL_Surface* ecran = NULL;
     SDL_Init(SDL_INIT_VIDEO);
 
-    ecran = SDL_SetVideoMode(TAILLE_FENETRE, TAILLE_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
-    SDL_WM_SetCaption("Iniuriam", NULL);
-
     terInit(&terrain);
     terRemplirStruct(&terrain);
 
-    affChipset(&terrain, ecran);
-    affEditeur(&terrain, ecran);
+    ecran = SDL_SetVideoMode(TAILLE_FENETRE+32*terrain.decalageX, TAILLE_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
+    SDL_WM_SetCaption("Iniuriam", NULL);
+
+
     eventEditeurSDL(&terrain, ecran);
 
     terLibere(&terrain);

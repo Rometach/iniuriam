@@ -63,7 +63,6 @@ void terRemplirStruct(Terrain* ter)
     {
         setCarte(ter,i, 0);
     }
-    setCarte(ter,20*20, 112);
 }
 
 void setNbrTile(Terrain* ter, unsigned int nbrTile)
@@ -170,7 +169,7 @@ void terSauvegarde(Terrain* ter, char* nomFichier, char* nomChipset)
      {
         fwrite(&ter->tabChipset[i].posX, 1, sizeof(unsigned int),fichier);
         fwrite(&ter->tabChipset[i].posY, 1, sizeof(unsigned int),fichier);
-        fwrite(&ter->tabChipset[i].collision, 1, sizeof(unsigned char),fichier);
+        fwrite(&ter->tabChipset[i].collision, 1, sizeof( char),fichier);
     }
 
      for(x=0;x<CARTE_HAUTEUR*CARTE_LARGEUR; x++){
@@ -207,7 +206,7 @@ void terCharger(Terrain* ter, char* nomFichier)
      {
         fread(&ter->tabChipset[i].posX, 1, sizeof(unsigned int),fichier);
         fread(&ter->tabChipset[i].posY, 1, sizeof(unsigned int),fichier);
-        fread(&ter->tabChipset[i].collision, 1, sizeof(unsigned char),fichier);
+        fread(&ter->tabChipset[i].collision, 1, sizeof(char),fichier);
     }
 
      ter->carte =(unsigned int*) malloc(CARTE_HAUTEUR*CARTE_LARGEUR*sizeof(unsigned int));

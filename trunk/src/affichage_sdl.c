@@ -9,6 +9,7 @@
 #include "assert.h"
 #include "constante.h"
 #include "combat.h"
+#include "deplacement.h"
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
@@ -100,6 +101,7 @@ void affCarte(const Terrain* ter, SDL_Surface* ecran)
             {
                 position.y+= TILE_HAUTEUR;
                 position.x=0;
+
             }
     }
     SDL_Flip(ecran);
@@ -124,7 +126,7 @@ void affPerso(const Personnage* hero, const Personnage* pnjs, const Personnage* 
     SDL_Flip(ecran);
 }
 
-void affCombat(Terrain* ter, Combattant* liste, char arene[TAILLE_MAX][TAILLE_MAX], SDL_Surface* ecran)
+void affCombat(Terrain* ter, Combattant* groupe, int l, char arene[TAILLE_MAX][TAILLE_MAX], SDL_Surface* ecran)
 {
     SDL_Rect position;
     SDL_Rect tile;
@@ -150,13 +152,12 @@ void affCombat(Terrain* ter, Combattant* liste, char arene[TAILLE_MAX][TAILLE_MA
         position.x=0;
     }
 
-    position.x = liste[0].posX;
-    position.y = liste[0].posY;
-    SDL_BlitSurface(liste[0].avatar, NULL, ecran, &position);
-
-    position.x = liste[1].posX;
-    position.y = liste[1].posY;
-    SDL_BlitSurface(liste[1].avatar, NULL, ecran, &position);
+    for (i=0; i<l; i++)
+    {
+    position.x = groupe[i].posX*TILE_LARGEUR;
+    position.y = groupe[i].posY*TILE_HAUTEUR;
+    SDL_BlitSurface(groupe[i].avatar, NULL, ecran, &position);
+    }
 
     SDL_Flip(ecran);
 }
@@ -538,23 +539,32 @@ void eventCombatSDL(Personnage* hero, Personnage* ennemi, Terrain* ter, SDL_Surf
     int continuer =1;
     SDL_Event event;
 
-    liste=(Personnage*)malloc(2*sizeof(Personnage));
+    Objet *tabObjets=NULL;
+
+    initialiserTousLesObjets(&tabObjets);
+
+    liste=(Personnage*)malloc(4*sizeof(Personnage));
 
     liste[0]=*hero;
     liste[1]=*ennemi;
+    nouveauPerso (&liste[2], "MechantII", 2, 1, 2, 1, 0, 100, tabObjets);
+    nouveauPerso (&liste[3], "Allie", 1, 1, 1, 1, 0, 100, tabObjets);
 
     areneInit(ter, arene);
-
-
-    int i,nb=2;
+    afficherTab2D(arene);
+    int i, nb=4;
     Combattant* groupe;
-    groupe=(Combattant*)malloc(2*sizeof(Combattant));
+    groupe=(Combattant*)malloc(4*sizeof(Combattant));
 
-    initCombat(liste,2,groupe,arene);
+    initCombat(liste,4,groupe,arene);
+    afficherTab2D(arene);
     groupe[0].avatar=SDL_LoadBMP("data/Chipsets/perso.bmp");
     groupe[1].avatar=SDL_LoadBMP("data/Chipsets/pnj.bmp");
+     groupe[3].avatar=SDL_LoadBMP("data/Chipsets/perso.bmp");
+    groupe[2].avatar=SDL_LoadBMP("data/Chipsets/pnj.bmp");
 
-    affCombat(ter, groupe, arene, ecran);
+    affCombat(ter, groupe,4, arene, ecran);
+
     while (estLaFin(groupe, nb)==0)
     {
         for (i=0;i<nb;i++)
@@ -569,14 +579,14 @@ void eventCombatSDL(Personnage* hero, Personnage* ennemi, Terrain* ter, SDL_Surf
                 tourIA(groupe,i,nb,arene);
                 nb=testNbCombattant(groupe,nb,arene);
 
-//                afficherTab2D(arene);
+                afficherTab2D(arene);
                 /*getchar();*/
             }
-            affCombat(ter, groupe, arene, ecran);
+            affCombat(ter, groupe,4, arene, ecran);
         }
     }
     /*Ajouter expérience fin de combat*/
-    free (groupe);
+ /* free (groupe);*/
 
 
     while (continuer)

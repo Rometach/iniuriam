@@ -81,6 +81,7 @@ void afficherTab2D (char tab[TAILLE_MAX][TAILLE_MAX])
         }
         printf("\n");
     }
+    printf("\n\n");
 }
 
 char chercher2 (char tab[TAILLE_MAX][TAILLE_MAX],int x, int y,char i)

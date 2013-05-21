@@ -22,7 +22,7 @@ void areneInit (Terrain* terrain, char tab[TAILLE_MAX][TAILLE_MAX])
     {
         for (j=0;j<TAILLE_MAX;j++)
         {
-            tab[i][j]=terrain->tabChipset[i*TAILLE_MAX+j].collision;
+            tab[i][j]=getCollision(terrain->tabChipset[terrain->carte[i*TAILLE_MAX+j]]);
         }
     }
 }
@@ -106,17 +106,17 @@ void getCombattantArene (Combattant* combattant, char arene[TAILLE_MAX][TAILLE_M
 void initPosGauche (Combattant* combattant, char arene[TAILLE_MAX][TAILLE_MAX])
 {
     int i=1,j=1;
-    char colonne [TAILLE_MAX], place=0;
+    char place=0;
     while ((place==0)&&(i<TAILLE_MAX))
     {
-        getColonne(i,arene,colonne);
+        j=1;
         while ((place==0)&&(j<TAILLE_MAX))
         {
-            if (deplacerCase(j,colonne)!=0)
+            if (deplacerCase(j,arene[i])!=0)
             {
                 arene[i][j]=4;
-                combattant->posX=i;
-                combattant->posY=j;
+                combattant->posX=j;
+                combattant->posY=i;
                 combattant->orientation=4;
                 place=1;
             }
@@ -136,17 +136,17 @@ void initPosGauche (Combattant* combattant, char arene[TAILLE_MAX][TAILLE_MAX])
 void initPosDroite (Combattant* combattant, char arene[TAILLE_MAX][TAILLE_MAX])
 {
     int i=TAILLE_MAX-2,j=TAILLE_MAX-2;
-    char colonne [TAILLE_MAX], place=0;
+    char place=0;
     while ((place==0)&&(i>0))
     {
-        getColonne(i,arene,colonne);
+        j=TAILLE_MAX-2;
         while ((place==0)&&(j>0))
         {
-            if (deplacerCase(j,colonne)!=0)
+            if (deplacerCase(j,arene[i])!=0)
             {
                 arene[i][j]=4;
-                combattant->posX=i;
-                combattant->posY=j;
+                combattant->posX=j;
+                combattant->posY=i;
                 combattant->orientation=1;
                 place=1;
             }

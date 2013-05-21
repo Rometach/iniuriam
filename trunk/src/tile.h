@@ -6,7 +6,7 @@ typedef struct
 {
     unsigned int posX;
     unsigned int posY;
-    unsigned char collision;
+    char collision;
 
 } Tile;
 
@@ -32,7 +32,7 @@ int getPosY(Tile t);
 * \brief Preconditions : tile est initialisé
 * <br /> Postconditions : on récupère collision
 */
-int getCollision(Tile t);
+char getCollision(Tile t);
 
 /**
 * \brief Preconditions : tile est initialisé
@@ -50,6 +50,6 @@ void setPosY(Tile* t, int y);
 * \brief Preconditions : tile est initialisé
 * <br /> Postconditions : on change collision
 */
-void setCollision(Tile* t, int collision);
+void setCollision(Tile* t, char collision);
 
 #endif
