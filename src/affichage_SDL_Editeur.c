@@ -447,10 +447,9 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                 SDL_FreeSurface(nom);
             break;
             case 3:/*Modifier Objet*/
-                max=getNbObjet ();
+                max=getNbObjet();
                 nb=max-4;
-                tab=(Objet*)malloc((max)*sizeof(Objet));
-                initialiserTousLesObjets (tab);
+                initialiserTousLesObjets (&tab);
 
                 nom = TTF_RenderText_Shaded(police, "Modifier un objet", couleur_texte,couleur_rect);
                 position.x=TAILLE_FENETRE/2-100;
@@ -469,10 +468,9 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                 rectangle=(SDL_Surface**)malloc((max-4)*sizeof(SDL_Surface*));
             break;
             case 4:/*Supprimer Objet*/
-                max=getNbObjet ();
+                max=getNbObjet();
                 nb=max-4;
-                tab=(Objet*)malloc((max)*sizeof(Objet));
-                initialiserTousLesObjets (tab);
+                initialiserTousLesObjets (&tab);
 
                 nom = TTF_RenderText_Shaded(police, "Supprimer un objet", couleur_texte,couleur_rect);
                 position.x=TAILLE_FENETRE/2-100;
