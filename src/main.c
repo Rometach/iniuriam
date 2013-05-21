@@ -29,16 +29,14 @@ int main (int argc, char **argv)
     persoInit(&ennemi);
     dialogueInit(&dialogue, &hero, &ennemi);
     int i;
-    Objet *tab=NULL;
-    int max = getNbObjet();
+    Objet *tabObjets=NULL;
 
-    tab=(Objet*)malloc(max*sizeof(Objet));
-    initialiserTousLesObjets(tab);
+    initialiserTousLesObjets(&tabObjets);
 
     srand(time(NULL));
-    nouveauPerso (&hero, "Toromis", 1, 1, 1, 1, 0, 100, tab);
-    nouveauPerso (&ennemi, "Mechant", 2, 1, 2, 1, 0, 100, tab);
-    nouveauPerso (&pnj, "Babar", 1, 1, 1, 1, 0, 100, tab);
+    nouveauPerso (&hero, "Toromis", 1, 1, 1, 1, 0, 100, tabObjets);
+    nouveauPerso (&ennemi, "Mechant", 2, 1, 2, 1, 0, 100, tabObjets);
+    nouveauPerso (&pnj, "Babar", 1, 1, 1, 1, 0, 100, tabObjets);
 
     ecran = SDL_SetVideoMode(TAILLE_FENETRE, TAILLE_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
     SDL_WM_SetCaption("Iniuriam", NULL);
@@ -66,7 +64,7 @@ int main (int argc, char **argv)
 
     persoLibere(&ennemi);
     persoLibere (&hero);
-    libererTousLesObjets(tab);
+    libererTousLesObjets(&tabObjets);
     terLibere(&terrain);
     SDL_Quit();
 

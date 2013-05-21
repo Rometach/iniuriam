@@ -74,8 +74,8 @@ void nouveauPerso(Personnage *perso, char nom[], char race, char sexe, char fact
 void persoLibere (Personnage *perso);
 
 /**
-* \brief Preconditions : perso est initialisé
-* <br /> Postconditions : retourne le nom de perso
+* \brief Preconditions : perso est initialisé, maChaine a une longueur >= 30
+* <br /> Postconditions : copie le nom de perso dans maChaine
 */
 void getPersoNom(char* maChaine, Personnage *perso);
 

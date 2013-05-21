@@ -107,9 +107,7 @@ char testMissionParlerA(Mission* mission, Personnage* perso)
     char nom[30];
     getPersoNom(nom,perso);
 
-    return ((mission->type==1)&&(strcmp(mission->nomPerso,nom)));
-
-    /*VERIFIER SI STRCMP RENVOIT 0 OU 1 EN CAS D'EFALITE !!!!*/
+    return ((mission->type==1)&&((strcmp(mission->nomPerso,nom))==0));
 }
 
 
@@ -118,9 +116,7 @@ char testMissionFaireParler(Mission* mission, Personnage* perso)
     char nom[30];
     getPersoNom(nom,perso);
 
-    return ((mission->type==2)&&(strcmp(mission->nomPerso,nom)));
-
-    /*VERIFIER SI STRCMP RENVOIT 0 OU 1 EN CAS D'EFALITE !!!!*/
+    return ((mission->type==2)&&((strcmp(mission->nomPerso,nom))==0));
 }
 
 
@@ -129,9 +125,7 @@ char testMissionTuer(Mission* mission, Personnage* perso)
     char nom[30];
     getPersoNom(nom,perso);
 
-    return ((mission->type==3)&&(strcmp(mission->nomPerso,nom)));
-
-    /*VERIFIER SI STRCMP RENVOIT 0 OU 1 EN CAS D'EFALITE !!!!*/
+    return ((mission->type==3)&&((strcmp(mission->nomPerso,nom))==0));
 }
 
 

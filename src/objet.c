@@ -198,7 +198,7 @@ void initialiserTousLesObjets(Objet** tabObj)
 
     for(i=1;i<max-3;i++)
         {
-            objInit(&((*tabObj)[i-1]),i);
+            objInit(&((*tabObj)[i]),i);
         }
 }
 
