@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
-#include "objet.h"
+#include "objet_Editeur.h"
 #include "constante.h"
 
 /**
@@ -118,9 +118,10 @@ int getObjetValeur(Objet *obj)
 }
 
 
-char* getObjetNom(Objet *obj)
+void getObjetNom(Objet *obj,char* nom)
 {
-	return obj->nom;
+    assert (strlen(nom)<30);
+    strcpy(nom,obj->nom);
 }
 
 

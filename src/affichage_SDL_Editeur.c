@@ -1,12 +1,15 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <assert.h>
 #include "SDL/SDL.h"
 #include "SDL/SDL_ttf.h"
 #include "SDL/SDL_image.h"
+#include "affichage_SDL_Editeur.h"
 #include "terrain.h"
 #include "tile.h"
-#include "affichage_SDL_Editeur.h"
-#include "stdlib.h"
-#include "stdio.h"
-#include "assert.h"
+#include "competence.h"
+#include "perso_Editeur.h"
+#include "objet_Editeur.h"
 #include "constante.h"
 #include "scanf_SDL.h"
 
@@ -227,7 +230,7 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
 {
     char action=6,selection;
     int i,nb,choix=0,page=0,objet,valeur,max=0;
-    char ligne[TAILLE_MAX_FICHIER],tampon[TAILLE_MAX_FICHIER], chaine1 [100], chaine2[100];
+    char ligne[TAILLE_MAX_FICHIER],tampon[TAILLE_MAX_FICHIER], chaine1 [150], chaine2[150];
     char* fin;
     char ok=0;
     Objet* tab, nouveau;
@@ -657,7 +660,7 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                     valeur=atoi(tampon);
                 break;
                 case 6:
-                    scanfSDL(tampon,ecran,100,&action,police,0);
+                    scanfSDL(tampon,ecran,150,&action,police,0);
                 break;
                 default:
                     scanfSDL(tampon,ecran,2,&action,police,1);
@@ -680,7 +683,11 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                                 tab=(Objet*)malloc(max*sizeof(Objet));
                                 for(i=1;i<max-3;i++)
                                 {
-                                    if (strcmp(getObjetNom(&tab[i]),tampon)==0) ok=0;
+                                    getObjetNom(&tab[i],chaine1);
+                                    if (strcmp(chaine1,tampon)==0)
+                                    {
+                                        ok=0;
+                                    }
                                 }
                                 if (ok)
                                 {
@@ -707,7 +714,8 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                                 setObjetDescription (&nouveau,tampon);
                                 fObjet=fopen("data/Objets.txt","r+");
                                 fseek(fObjet, -3, SEEK_END);
-                                fprintf(fObjet,"%s/\t",getObjetNom(&nouveau));
+                                getObjetNom(&nouveau,chaine1);
+                                fprintf(fObjet,"%s/\t",chaine1);
                                     if ((int)getObjetPortee(&nouveau)<10) fprintf(fObjet,"0");
                                     fprintf(fObjet,"%d\t",getObjetPortee(&nouveau));
                                     if ((int)getObjetDegats(&nouveau)<10) fprintf(fObjet,"0");

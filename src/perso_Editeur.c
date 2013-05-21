@@ -2,12 +2,10 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
-#include "personnage.h"
+#include "perso_Editeur.h"
 #include "SDL/SDL.h"
-#include "inventaire.h"
-#include "capacite.h"
 #include "competence.h"
-#include "objet.h"
+#include "objet_Editeur.h"
 #include "SDL/SDL.h"
 #include "constante.h"
 
@@ -181,7 +179,7 @@ int getNbPNJ()
     return max;
 }
 
-void initialiserTousLesPNJ(Personnage* tabPNJ)
+void initialiserTousLesPNJ(Personnage** tabPNJ)
 {
     int i;
     int max = getNbPNJ();

@@ -1,5 +1,5 @@
-#ifndef __objet_h__
-#define __objet_h__
+#ifndef __objet_Editeur_h__
+#define __objet_Editeur_h__
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -33,7 +33,7 @@ typedef struct
                         arme :
                         objet quête :
                        */
-    char description [100];
+    char description [150];
     int valeur;
 
     SDL_Surface* icon;
@@ -91,7 +91,7 @@ int getObjetValeur(Objet *obj);
 * \brief Preconditions : obj est initialisé
 * <br /> Postconditions : retourne le nom d'obj
 */
-char* getObjetNom(Objet *obj);
+void getObjetNom(Objet *obj,char* nom);
 
 /**
 * \brief Preconditions : obj est initialisé
