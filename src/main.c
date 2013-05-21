@@ -57,12 +57,16 @@ int main (int argc, char **argv)
     hero.inventaire.st[0].quantite=2;
     setPersoPosX(&ennemi, TILE_LARGEUR*5);
     setPersoPosY(&ennemi, TILE_HAUTEUR*0);
+    for (i=0;i<3;i++)
+    {
+        printf("%d\n", hero.inventaire.st[i].objet->valeur);
+    }
 
     eventJeuSDL(&hero, &pnj, &ennemi, &terrain, &dialogue, ecran);
 
     persoLibere(&ennemi);
     persoLibere (&hero);
-    free(tab);
+    libererTousLesObjets(tab);
     terLibere(&terrain);
     SDL_Quit();
 
