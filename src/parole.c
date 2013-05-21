@@ -5,7 +5,7 @@
 #include <string.h>
 #include <math.h>
 #include "parole.h"
-#include "affichage_sdl.h"
+
 
 
 #define TAILLE_MAX_DIAL 200
@@ -81,7 +81,7 @@ void setReponse (char* question, char* reponse)
 
 
 
-char obtenirInfo(Dialogue* dialogue, char* info, SDL_Surface* ecran)
+char obtenirInfo(Dialogue* dialogue, char* info)
 {
     int test, bonus=0;
     char nomPNJ[30];
@@ -111,7 +111,7 @@ char obtenirInfo(Dialogue* dialogue, char* info, SDL_Surface* ecran)
 }
 
 
-char parlerQuete(Dialogue* dialogue, char* info, SDL_Surface* ecran)
+char parlerQuete(Dialogue* dialogue, char* info)
 {
     char nomPNJ[30];
 
@@ -120,12 +120,10 @@ char parlerQuete(Dialogue* dialogue, char* info, SDL_Surface* ecran)
     strcat(nomPNJ," Mission\n");
     setReponse(nomPNJ, info);
 
-    affDialogue(info, ecran);
-
     return dialogue->humeur;
 }
 
-char soudoyer(Dialogue* dialogue, int argent, char* rep, SDL_Surface* ecran)
+char soudoyer(Dialogue* dialogue, int argent, char* rep)
 {
     int test,bonus=0;
 
@@ -155,12 +153,11 @@ char soudoyer(Dialogue* dialogue, int argent, char* rep, SDL_Surface* ecran)
     }
 
     setDialogueHumeur(dialogue, dialogue->humeur+test);
-    affDialogue( rep, ecran);
     return dialogue->humeur;
 }
 
 
-char menacer(Dialogue* dialogue, char* rep, SDL_Surface* ecran)
+char menacer(Dialogue* dialogue, char* rep)
 {
     int test,bonus=0;
 
@@ -188,7 +185,7 @@ char menacer(Dialogue* dialogue, char* rep, SDL_Surface* ecran)
 
 
 
-char seduire(Dialogue* dialogue, char* rep, SDL_Surface* ecran)
+char seduire(Dialogue* dialogue, char* rep)
 {
     int test, charisme, intelligence, bonus=0;
     charisme=getPersoCharisme(dialogue->perso1);
@@ -239,7 +236,7 @@ int marchander (Dialogue* dialogue, int valeur)
     return valeur;
 }
 
-char acheter(Dialogue* dialogue, Objet* objet, char* rep, SDL_Surface* ecran)
+char acheter(Dialogue* dialogue, Objet* objet, char* rep)
 {
     char c;
     int bonus=0,valeur=getObjetValeur(objet);
@@ -292,7 +289,7 @@ char acheter(Dialogue* dialogue, Objet* objet, char* rep, SDL_Surface* ecran)
 
 
 
-char vendre(Dialogue* dialogue, Objet* objet, char* rep, SDL_Surface* ecran)
+char vendre(Dialogue* dialogue, Objet* objet, char* rep)
 {
     char c;
     int bonus=0,valeur=getObjetValeur(objet);
