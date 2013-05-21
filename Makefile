@@ -6,17 +6,26 @@ SDL=`sdl-config --cflags --libs` -lSDL_ttf -lSDL_image
 Iniuriam: main.o combat.o deplacement.o parole.o affichage_sdl.o terrain.o tile.o  personnage.o capacite.o competence.o inventaire.o equipement.o stock.o objet.o
 	gcc bin/main.o bin/combat.o bin/deplacement.o bin/parole.o bin/affichage_sdl.o bin/terrain.o bin/tile.o bin/personnage.o bin/capacite.o bin/competence.o bin/inventaire.o bin/equipement.o bin/stock.o bin/objet.o $(SDL) -o bin/Iniuriam
 
-Editeur: Editeur_Carte.o affichage_sdl.o terrain.o tile.o
-	gcc bin/Editeur_Carte.o bin/affichage_sdl.o bin/terrain.o bin/tile.o $(SDL) -o bin/Editeur
+Editeur: main_Editeur.o affichage_SDL_Editeur.o objet_Editeur.o scanf_SDL.o terrain.o tile.o
+	gcc bin/main_Editeur.o bin/affichage_SDL_Editeur.o bin/objet_Editeur.o bin/scanf_SDL.o bin/terrain.o bin/tile.o $(SDL) -o bin/Editeur
+
+main_Editeur.o: src/affichage_SDL_Editeur.h src/main_Editeur.c
+	gcc -c $(OPT) $(SDL) -o bin/main_Editeur.o src/main_Editeur.c
+
+affichage_SDL_Editeur.o: src/terrain.h src/objet_Editeur.h src/scanf_SDL.h src/affichage_SDL_Editeur.c 
+	gcc -c $(OPT) $(SDL) -o bin/affichage_SDL_Editeur.o src/affichage_SDL_Editeur.c
+
+objet_Editeur.o: src/objet_Editeur.h src/objet_Editeur.c
+	gcc -c $(OPT) -o bin/objet_Editeur.o src/objet_Editeur.c
+
+scanf_SDL.o: src/scanf_SDL.h src/scanf_SDL.c
+	gcc -c $(OPT) -o bin/scanf_SDL.o src/scanf_SDL.c
 
 main.o: src/parole.h src/combat.h src/terrain.h src/main.c
 	gcc -c $(OPT) -o bin/main.o src/main.c
 
 combat.o: src/personnage.h src/terrain.h src/deplacement.h src/combat.h src/combat.c
 	gcc -c $(OPT) -o bin/combat.o src/combat.c
-
-Editeur_Carte.o: src/affichage_sdl.h src/terrain.h src/Editeur_Carte.c
-	gcc -c $(OPT) $(SDL) -o bin/Editeur_Carte.o src/Editeur_Carte.c
 
 deplacement.o: src/deplacement.h src/deplacement.c
 	gcc -c $(OPT) -o bin/deplacement.o src/deplacement.c
