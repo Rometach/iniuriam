@@ -123,7 +123,7 @@ int getNbObjet();
 * \brief Preconditions : tabObj n'est pas initialisé
 * <br /> Postconditions : initialise tous les objets dans tabObj
 */
-void initialiserTousLesObjets(Objet* tabObj);
+void initialiserTousLesObjets(Objet** tabObj);
 
 /**
 * \brief Preconditions : tabObj est initialisé

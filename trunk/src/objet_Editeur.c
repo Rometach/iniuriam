@@ -187,14 +187,14 @@ int getNbObjet()
     return max;
 }
 
-void initialiserTousLesObjets(Objet* tabObj)
+void initialiserTousLesObjets(Objet** tabObj)
 {
     int i;
     int max = getNbObjet();
-    //*tabObj=(Objet*)malloc(max*sizeof(Objet));
+    *tabObj=(Objet*)malloc(max*sizeof(Objet));
         for(i=1;i<max-3;i++)
         {
-            objInit(&tabObj[i],i);
+            objInit(&((*tabObj)[i]),i);
         }
 }
 
@@ -239,9 +239,8 @@ void modifierObjet ()
             case 1: /*Ajouter un objet*/
                 while (choix!=0)
                 {
-                    max=getNbObjet ();
-                    tab=(Objet*)malloc(max*sizeof(Objet));
-                    initialiserTousLesObjets (tab);
+                    max=getNbObjet();
+                    initialiserTousLesObjets (&tab);
                     while (c)
                     {
                         c=0;
@@ -320,9 +319,7 @@ void modifierObjet ()
             case 2: /*Modifier un objet*/
                 while (choix!=0)
                 {
-                    max=getNbObjet ();
-                    tab=(Objet*)malloc(max*sizeof(Objet));
-                    initialiserTousLesObjets (tab);
+                    initialiserTousLesObjets (&tab);
                     for (i=1;i<max-3;i++)
                     {
                         printf ("%d.  %s\n",i, tab[i].nom);
@@ -567,9 +564,7 @@ void modifierObjet ()
             case 3:/*Supprimer un objet*/
                 while (choix!=0)
                 {
-                    max=getNbObjet ();
-                    tab=(Objet*)malloc((max)*sizeof(Objet));
-                    initialiserTousLesObjets (tab);
+                    initialiserTousLesObjets (&tab);
                     for (i=1;i<max-3;i++)
                     {
                         printf ("%d.  %s\n",i, tab[i].nom);
