@@ -3,8 +3,8 @@
 
 #include "SDL/SDL.h"
 #include "tile.h"
-#include "stdlib.h"
-#include "stdio.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle

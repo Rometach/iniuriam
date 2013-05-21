@@ -4,9 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "SDL/SDL.h"
-#include "inventaire.h"
-#include "capacite.h"
-#include "equipement.h"
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
@@ -34,8 +31,6 @@ typedef struct
     int experience;
     int niveau;
 
-    Capacite capacite;
-
     char attaque;
     char defense;
     char intelligence;
@@ -45,10 +40,6 @@ typedef struct
 
     int posX;
     int posY;
-
-    Inventaire inventaire;
-
-    Equipement equipement;
 
 	SDL_Surface* avatar;
 
