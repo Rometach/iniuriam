@@ -48,6 +48,7 @@
 		</Unit>
 		<Unit filename="src/competence.h" />
 		<Unit filename="src/constante.h" />
+		<Unit filename="src/creationPerso.h" />
 		<Unit filename="src/deplacement.c">
 			<Option compilerVar="CC" />
 		</Unit>

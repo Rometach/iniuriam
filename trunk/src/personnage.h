@@ -57,15 +57,30 @@ typedef struct
 
 /**
 * \brief Preconditions : perso n'a pas déjà été initialisé
-* <br /> Postconditions : perso est initialisé vide
+* <br /> Postconditions : perso est initialisé, vide
 */
 void persoInit (Personnage* perso);
 
 /**
 * \brief Preconditions : perso n'est pas initialisé ou initialisé à vide
-* <br /> Postconditions : les paramètres nom, race, sexe, carriere, et expérience sont fournis
+                        tab contient tous les objets du jeu
+                        les autres paramètres respectent les critères imposés par la structure
+* <br /> Postconditions : perso est initialisé et ses paramètres nom, race, sexe, carriere, et expérience sont fournis
 */
-void nouveauPerso(Personnage *perso, char nom[], char race, char sexe, char faction, char carriere,int experience, int argent, Objet* tab);
+void nouveauPerso(Personnage *perso, char nom[], char race, char sexe, char faction, char carriere, int experience, int argent, Objet* tab);
+
+/**
+* \brief Preconditions : /
+* <br /> Postconditions : retourne le nombre de personnages dans PNJ.txt
+*/
+int getNbPNJ();
+
+/**
+* \brief Preconditions : perso n'est pas initialisé ou initialisé à vide, l<=getNbPNJ()
+                        tab contient tous les objets du jeu
+* <br /> Postconditions : perso est initialisé avec les paramètres du l-ième PNJ du fichier PNJ.txt
+*/
+void persoInitPNJ(Personnage *perso, int l, Objet* tab);
 
 /**
 * \brief Preconditions : perso est initialisé
@@ -267,20 +282,24 @@ void copiePerso (Personnage* perso1, Personnage* perso2);
 void equiper (Personnage* perso,Objet* obj,int i);
 
 /**
-* \brief Preconditions : /
-* <br /> Postconditions : retourne le nombre de personnages dans PNJ.txt +3
-*/
-int getNbPNJ();
-
-/**
 * \brief Preconditions : tabPNJ n'est pas initialisé
+                        tabObjets contient tous les objets
 * <br /> Postconditions : initialise tous les PNJ dans tabPNJ
 */
-void initialiserTousLesPNJ(Personnage** tabPNJ);
+void initialiserTousLesPNJ(Personnage** tabPNJ, Objet* tabObjets);
 
 /**
 * \brief Preconditions : tabPNJ est initialisé
 * <br /> Postconditions : libère tabPNJ
 */
 void libererTousLesPNJ(Personnage** tabPNJ);
+
+
+/**
+* \brief Preconditions : /
+* <br /> Postconditions : Fonction de test de non-regression du module Personnage ; retourne 0 si tout s'est bien passé
+*/
+int mainPerso();
+
+
 #endif

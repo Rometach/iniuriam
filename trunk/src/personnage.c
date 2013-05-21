@@ -133,6 +133,59 @@ void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char fac
     /*Initialiser SDL_Surface*/
 }
 
+
+
+int getNbPNJ()
+{
+    int max=0;
+    FILE* fPNJ;
+    char ligne[TAILLE_MAX_FICHIER];
+    assert(fPNJ=fopen("data/PNJ.txt","r"));
+    if (fPNJ!=NULL)
+    {
+        do
+        {
+            fgets(ligne,TAILLE_MAX_FICHIER,fPNJ);
+            max++;
+        }while (ligne[0]!='/'&&ligne[1]!='/');
+    }
+    fclose(fPNJ);
+
+    assert(max%3==0);
+
+    return ((max-3)/3);
+}
+
+
+
+void persoInitPNJ(Personnage *perso, int l, Objet* tab)
+{
+    FILE* fPNJ;
+    char ligne [TAILLE_MAX_FICHIER];
+    int i;
+    int race, sexe, faction, carriere, experience, argent;
+
+    char nom[30];
+
+    assert(fPNJ= fopen("data/PNJ.txt", "r"));
+
+    for(i=0;i<(3*l)+1;i++)
+    {
+        fgets(ligne,TAILLE_MAX_FICHIER,fPNJ);
+    }
+    /*On va à la ligne qui nous intéresse*/
+
+    strcpy(nom, ligne);
+    fscanf(fPNJ, "%d %d %d %d %d %d", &race, &sexe, &faction, &carriere, &experience, &argent);
+
+    fclose(fPNJ);
+
+    nouveauPerso(perso, nom, (char) race, (char) sexe, (char) faction, (char) carriere, experience, argent, tab);
+
+}
+
+
+
 void persoLibere (Personnage *perso)
 {
     inventaireLibere(&perso->inventaire);
@@ -438,25 +491,9 @@ void equiper (Personnage* perso, Objet* obj,int i)
     }
 }
 
-int getNbPNJ()
-{
-    int max=0;
-    FILE* fPNJ;
-    char ligne[TAILLE_MAX_FICHIER];
-    assert(fPNJ=fopen("data/PNJ.txt","r"));
-    if (fPNJ!=NULL)
-    {
-        do
-        {
-            fgets(ligne,TAILLE_MAX_FICHIER,fPNJ);
-            max++;
-        }while (ligne[0]!='/'&&ligne[1]!='/');
-    }
-    fclose(fPNJ);
-    return max;
-}
 
-void initialiserTousLesPNJ(Personnage** tabPNJ)
+
+void initialiserTousLesPNJ(Personnage** tabPNJ, Objet* tabObjets)
 {
     int i;
     int max = getNbPNJ();
@@ -464,15 +501,15 @@ void initialiserTousLesPNJ(Personnage** tabPNJ)
     (*tabPNJ)=(Personnage*)malloc(max*sizeof(Personnage));
 
 
-    for(i=1;i<max-3;i++)
+    for(i=1;i<=max;i++)
         {
-            objInit(&((*tabPNJ)[i-1]),i);
+            persoInitPNJ(&((*tabPNJ)[i-1]),i,tabObjets);
         }
 }
 
 void libererTousLesPNJ(Personnage** tabPNJ)
 {
-    free(&tabPNJ);
+    free(*tabPNJ);
 }
 
 
@@ -480,33 +517,50 @@ void libererTousLesPNJ(Personnage** tabPNJ)
 
 int mainPerso()
 {
-    char tab[100];
-    char tab2[100];
-    Objet *liste=NULL;
-    initialiserTousLesObjets(liste);
-
+    char nom[30];
+    char carriere[100];
+    int i;
     Personnage perso;
-    nouveauPerso (&perso, "Toromis", 1, 1, 1, 1, 0, 100,liste);
-    getPersoNom(tab, &perso);
-    printf("\n%s\n",tab);
-    printf("\n%d\n",getPersoRace(&perso));
-    printf("\n%d\n",getPersoSexe(&perso));
 
-    printf("\n%d\n",getPersoCarriere(&perso));
+    Objet *tabObjets=NULL;
+    initialiserTousLesObjets(&tabObjets);
 
-    getCarriereNom(getPersoCarriere(&perso), tab2);
-    printf("\n%s\n",tab2);
+    for(i=0;i<100;i++)
+    {
+        nouveauPerso (&perso, "Toromis", 1, 1, 1, 1, 0, 100, tabObjets);
+        getPersoNom(nom, &perso);
+        printf("\n%s\n",nom);
+        printf("\n%d\n",getPersoRace(&perso));
+        printf("\n%d\n",getPersoSexe(&perso));
 
-    printf("\n%d\n",getPersoArgent(&perso));
-    printf("\n%d\n",getPersoExperience(&perso));
-    printf("\n%d\n",getPersoAttaque(&perso));
-    printf("\n%d\n",getPersoDefense(&perso));
-    printf("\n%d\n",getPersoIntelligence(&perso));
-    printf("\n%d\n",getPersoAgilite(&perso));
-    printf("\n%d\n",getPersoCharisme(&perso));
-    printf("\n%d\n",getPersoPtDeVie(&perso));
+        printf("\n%d\n",getPersoCarriere(&perso));
 
-    persoLibere(&perso);
-    libererTousLesObjets(liste);
+        getCarriereNom(getPersoCarriere(&perso), carriere);
+        printf("\n%s\n",carriere);
+
+        printf("\n%d\n",getPersoArgent(&perso));
+        printf("\n%d\n",getPersoExperience(&perso));
+        printf("\n%d\n",getPersoAttaque(&perso));
+        printf("\n%d\n",getPersoDefense(&perso));
+        printf("\n%d\n",getPersoIntelligence(&perso));
+        printf("\n%d\n",getPersoAgilite(&perso));
+        printf("\n%d\n",getPersoCharisme(&perso));
+        printf("\n%d\n",getPersoPtDeVie(&perso));
+
+        persoLibere(&perso);
+    }
+
+
+
+    Personnage* tabPNJ;
+
+    for(i=0;i<10;i++)
+    {
+        initialiserTousLesPNJ(&tabPNJ, tabObjets);
+        libererTousLesPNJ(&tabPNJ);
+    }
+
+    libererTousLesObjets(&tabObjets);
+
     return 0;
 }
