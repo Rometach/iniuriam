@@ -189,10 +189,10 @@ char seduire(Dialogue* dialogue, char* rep)
     if (bonus>=0)bonus=getBonuschar(getCompetence(getPersoCapacite2(dialogue->perso1),bonus));
     else bonus=0;
 
-    if (getPersoSexe(dialogue->perso2)==getPersoSexe(dialogue->perso1))     /*Mieux vaut séduire des individus du sexe opposé...*/
+    if (getPersoSexe(dialogue->perso2)==getPersoSexe(dialogue->perso1))     /*Quand on est de même sexe, il n'est pas judicieux de se séduire.*/
     {
-        if (charisme==0) test=-1;
-        else test=(rand()%charisme)+(dialogue->humeur)-50+(int)(bonus/10);
+        if (charisme==0) test=-10;
+        else test=(rand()%charisme)+(dialogue->humeur)-100+(int)(bonus/10);
     }
     else
     {
@@ -217,7 +217,7 @@ char seduire(Dialogue* dialogue, char* rep)
     return dialogue->humeur;
 }
 
-int marchander (Dialogue* dialogue, int valeur)
+void marchander (Dialogue* dialogue, int* valeur)
 {
     int bonusCh, bonusIn;
     bonusCh=chercherCompetence(getPersoCapacite2(dialogue->perso1),1);
@@ -226,8 +226,7 @@ int marchander (Dialogue* dialogue, int valeur)
     if (bonusIn>=0) bonusIn=getBonusint(getCompetence(getPersoCapacite2(dialogue->perso2),bonusIn))+rand()%100;
 
     if (bonusCh-bonusIn>0) ajouterCompetencePerso (dialogue->perso1,1,(bonusIn-bonusCh)/10);
-    valeur+=(int)(valeur*(bonusIn-bonusCh)/10);
-    return valeur;
+    *valeur+=(int)((*valeur)*(bonusIn-bonusCh)/10);
 }
 
 char acheter(Dialogue* dialogue, Objet* objet, char* rep)
@@ -244,7 +243,7 @@ char acheter(Dialogue* dialogue, Objet* objet, char* rep)
         switch (c)
         {
             case 'y':
-                valeur=marchander(dialogue,valeur);
+                marchander(dialogue,&valeur);
             break;
             default: break;
         }
@@ -297,7 +296,7 @@ char vendre(Dialogue* dialogue, Objet* objet, char* rep)
         switch (c)
         {
             case 'y':
-                valeur=marchander(dialogue,valeur);
+                marchander(dialogue,&valeur);
             break;
             default: break;
         }
