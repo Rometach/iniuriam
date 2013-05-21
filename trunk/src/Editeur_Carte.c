@@ -2,10 +2,11 @@
 #include <stdio.h>
 #include <assert.h>
 #include "terrain.h"
-#include "affichage_sdl.h"
+#include "affichage_SDL_Editeur.h"
+#include "objet.h"
 
     int main()
     {
-        editerCarte();
+        editerObjet();
         return 0;
     }

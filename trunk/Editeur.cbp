@@ -34,11 +34,34 @@
 		<Unit filename="src/Editeur_Carte.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src/affichage_sdl.c">
+		<Unit filename="src/affichage_SDL_Editeur.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src/affichage_sdl.h" />
+		<Unit filename="src/affichage_SDL_Editeur.h" />
+		<Unit filename="src/competence.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/competence.h" />
 		<Unit filename="src/constante.h" />
+		<Unit filename="src/mission.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/mission.h" />
+		<Unit filename="src/objet.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/objet.h" />
+		<Unit filename="src/objet_Editeur.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/perso_Editeur.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/perso_Editeur.h" />
+		<Unit filename="src/scanf_SDL.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/scanf_SDL.h" />
 		<Unit filename="src/terrain.c">
 			<Option compilerVar="CC" />
 		</Unit>

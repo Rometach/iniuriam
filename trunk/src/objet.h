@@ -59,6 +59,12 @@ char getObjetUtilite(Objet *obj);
 
 /**
 * \brief Preconditions : obj est initialisé
+* <br /> Postconditions : retourne l'utilité d'obj
+*/
+char* getObjetUtiliteNom(Objet *obj);
+
+/**
+* \brief Preconditions : obj est initialisé
 * <br /> Postconditions : retourne la portée d'obj
 */
 char getObjetPortee(Objet *obj);
@@ -93,6 +99,20 @@ char* getObjetNom(Objet *obj);
 */
 char* getObjetDescription(Objet *obj);
 
+void setObjetNom(Objet* obj,char* nom);
+
+void setObjetPortee(Objet* obj,int portee);
+
+void setObjetDegats(Objet* obj,int degats);
+
+void setObjetProtection(Objet* obj,int protection);
+
+void setObjetUtilite(Objet* obj,int utilite);
+
+void setObjetValeur(Objet* obj,int valeur);
+
+void setObjetDescription(Objet* obj,char* description);
+
 /**
 * \brief Preconditions : /
 * <br /> Postconditions : retourne le nombre d'objet dans Objets.txt
@@ -111,5 +131,9 @@ void initialiserTousLesObjets(Objet* tabObj);
 */
 void libererTousLesObjets(Objet* tabObj);
 
+void copierFichier ();
 
+
+
+void modifierObjet ();
 #endif
