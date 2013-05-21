@@ -8,6 +8,7 @@
 #include "stdio.h"
 #include "assert.h"
 #include "constante.h"
+#include "combat.h"
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
@@ -31,8 +32,8 @@ void affChipset(Terrain* ter, SDL_Surface* ecran)
 
             SDL_BlitSurface(ter->chipset, &tile, ecran, &position);
 
-            position.w=2;
-            position.h=2;
+            position.w=4;
+            position.h=4;
             SDL_FillRect(SDL_GetVideoSurface(),&position,
                          ((getCollision(ter->tabChipset[i]))==0)?
                          SDL_MapRGB(SDL_GetVideoSurface()->format,255,0,0)
@@ -66,7 +67,6 @@ void affEditeur(Terrain* ter, SDL_Surface* ecran)
             tile.x=getPosX(ter->tabChipset[ter->carte[i]]);
             tile.y=getPosY(ter->tabChipset[ter->carte[i]]);
             SDL_BlitSurface(ter->chipset, &tile, ecran, &position);
-            printf("%d ",ter->carte[i]);
 
             position.x+= TILE_LARGEUR;
             if(position.x>(CARTE_LARGEUR+ter->decalageX)*TILE_LARGEUR)
@@ -124,30 +124,40 @@ void affPerso(const Personnage* hero, const Personnage* pnjs, const Personnage* 
     SDL_Flip(ecran);
 }
 
-void affCombat(Terrain* ter, SDL_Surface* ecran)
+void affCombat(Terrain* ter, Combattant* liste, char arene[TAILLE_MAX][TAILLE_MAX], SDL_Surface* ecran)
 {
-     SDL_Rect position;
+    SDL_Rect position;
     SDL_Rect tile;
-    unsigned int i;
+    unsigned int i, j;
 
     position.x = 0;
     position.y = 0;
     tile.w=TILE_LARGEUR;
     tile.h=TILE_HAUTEUR;
 
-     for(i= 0; i<CARTE_HAUTEUR*CARTE_LARGEUR; i++)
+     for(i= 0; i<TAILLE_MAX; i++)
      {
-            tile.x=getPosX(ter->tabChipset[ter->carte[i]]);
-            tile.y=getPosY(ter->tabChipset[ter->carte[i]]);
+         for(j=0; j<TAILLE_MAX; j++)
+         {
+            tile.x = getPosX(ter->tabChipset[ter->carte[i*CARTE_LARGEUR+j]]);
+            tile.y = getPosY(ter->tabChipset[ter->carte[i*CARTE_LARGEUR+j]]);
             SDL_BlitSurface(ter->chipset, &tile, ecran, &position);
 
             position.x+= TILE_LARGEUR;
-            if(position.x>=CARTE_LARGEUR*TILE_LARGEUR)
-            {
-                position.y+= TILE_HAUTEUR;
-                position.x=0;
-            }
+
+        }
+        position.y+= TILE_HAUTEUR;
+        position.x=0;
     }
+
+    position.x = liste[0].posX;
+    position.y = liste[0].posY;
+    SDL_BlitSurface(liste[0].avatar, NULL, ecran, &position);
+
+    position.x = liste[1].posX;
+    position.y = liste[1].posY;
+    SDL_BlitSurface(liste[1].avatar, NULL, ecran, &position);
+
     SDL_Flip(ecran);
 }
 
@@ -157,7 +167,7 @@ void affInventaire(Personnage* perso, SDL_Surface* ecran)
     SDL_Rect position;
     SDL_Rect tile;
     unsigned int i;
-    char quantiteChar[2];
+    char quantiteChar[255];
 
     TTF_Init();
     TTF_Font *police = NULL;
@@ -204,9 +214,9 @@ void affInventaire(Personnage* perso, SDL_Surface* ecran)
 
     position.y= (CARTE_HAUTEUR-3)*TILE_HAUTEUR;
     position.x= 2*TILE_LARGEUR;
-    /*sprintf (quantiteChar, "Argent: %d ", perso->argent );
+    sprintf (quantiteChar, "Argent: %d ", perso->argent );
     quantite = TTF_RenderText_Solid(police,  quantiteChar, colorNoir);
-    SDL_BlitSurface(quantite, NULL, ecran, &position);*/
+    SDL_BlitSurface(quantite, NULL, ecran, &position);
 
     SDL_Flip(ecran);
     SDL_FreeSurface(inventaire);
@@ -456,6 +466,8 @@ void eventEditeurSDL(Terrain* ter, SDL_Surface* ecran )
     int continuer = 1;
     SDL_Event event;
 
+    affEditeur(ter, ecran);
+
     while (continuer)
     {
         SDL_WaitEvent(&event);
@@ -474,7 +486,7 @@ void eventEditeurSDL(Terrain* ter, SDL_Surface* ecran )
                     }
                     else if(event.key.keysym.sym==SDLK_s) /** Sauvegarde de la carte */
                     {
-                        terSauvegarde(ter, "data/Cartes/save.map", "data/Chipsets/HOTEL02.bmp");
+                        terSauvegarde(ter, "data/Cartes/save.map", "data/Chipsets/desertChipset.bmp");
                     }
                     else if(event.key.keysym.sym==SDLK_l) /** Chargement de la carte */
                     {   terLibere(ter);
@@ -519,8 +531,64 @@ void eventEditeurSDL(Terrain* ter, SDL_Surface* ecran )
     }
 }
 
-void eventCombatSDL(Personnage* hero, Personnage* ennemi,SDL_Surface* ecran)
+void eventCombatSDL(Personnage* hero, Personnage* ennemi, Terrain* ter, SDL_Surface* ecran)
 {
+    Personnage* liste;
+    char arene [TAILLE_MAX][TAILLE_MAX];
+    int continuer =1;
+    SDL_Event event;
+
+    liste=(Personnage*)malloc(2*sizeof(Personnage));
+
+    liste[0]=*hero;
+    liste[1]=*ennemi;
+
+    areneInit(ter, arene);
+
+
+    int i,nb=2;
+    Combattant* groupe;
+    groupe=(Combattant*)malloc(2*sizeof(Combattant));
+
+    initCombat(liste,2,groupe,arene);
+    groupe[0].avatar=SDL_LoadBMP("data/Chipsets/perso.bmp");
+    groupe[1].avatar=SDL_LoadBMP("data/Chipsets/pnj.bmp");
+
+    affCombat(ter, groupe, arene, ecran);
+    while (estLaFin(groupe, nb)==0)
+    {
+        for (i=0;i<nb;i++)
+        {
+            if(groupe[i].camp==groupe[0].camp)
+            {
+                tourJoueur(groupe,i,nb,arene);
+                nb=testNbCombattant(groupe,nb,arene);
+            }
+            else
+            {
+                tourIA(groupe,i,nb,arene);
+                nb=testNbCombattant(groupe,nb,arene);
+
+//                afficherTab2D(arene);
+                /*getchar();*/
+            }
+            affCombat(ter, groupe, arene, ecran);
+        }
+    }
+    /*Ajouter expérience fin de combat*/
+    free (groupe);
+
+
+    while (continuer)
+    {
+        SDL_WaitEvent(&event);
+        switch(event.type)
+        {
+            default:
+            break;
+        }
+    }
+
 
 }
 
@@ -570,7 +638,7 @@ void eventJeuSDL(Personnage* hero, Personnage* pnjs, Personnage* ennemis,Terrain
                            || ((hero->posY+TILE_HAUTEUR)==ennemis->posY && hero->posX==ennemis->posX)
                            || ((hero->posY-TILE_HAUTEUR)==ennemis->posY && hero->posX==ennemis->posX) )
                         {
-//                            eventCombatSDL(dialogue, ecran);
+                            eventCombatSDL(hero, ennemis, ter, ecran);
                         }
                     }
                     else if(event.key.keysym.sym==SDLK_i) /** Touche d'inventaire*/
@@ -736,9 +804,9 @@ void eventDialogueSDL( Dialogue* dialogue, const Personnage* hero, const Personn
     SDL_Event event;
     int curseur = 0;
 
-    char* dialoguetab;
-    dialoguetab=malloc(400*sizeof(char));
-    affMenuDialogue(ecran, dialoguetab, curseur);
+    char* reponse;
+    reponse=malloc(400*sizeof(char));
+    affMenuDialogue(ecran, reponse, curseur);
 
 
     while (continuer)
@@ -758,7 +826,7 @@ void eventDialogueSDL( Dialogue* dialogue, const Personnage* hero, const Personn
                             if(curseur>0)
                             {
                                 curseur--;
-                                affMenuDialogue(ecran, dialoguetab, curseur);
+                                affMenuDialogue(ecran, reponse, curseur);
                             }
                         }
                         else if(event.key.keysym.sym==SDLK_DOWN)
@@ -766,14 +834,15 @@ void eventDialogueSDL( Dialogue* dialogue, const Personnage* hero, const Personn
                             if(curseur<4)
                             {
                                 curseur++;
-                                affMenuDialogue(ecran, dialoguetab, curseur);
+                                affMenuDialogue(ecran, reponse, curseur);
                             }
                         }
                         else if(event.key.keysym.sym==SDLK_e)
                         {
                             switch(curseur)
                             {
-                                case 0: obtenirInfo(dialogue, dialoguetab, ecran);
+                                case 0: obtenirInfo(dialogue, reponse, ecran);
+                                        affDialogue( reponse, ecran);
                                         while (continuer)
                                         {
                                             SDL_WaitEvent(&event);
@@ -791,10 +860,11 @@ void eventDialogueSDL( Dialogue* dialogue, const Personnage* hero, const Personn
                                         }
                                 break;
 
-                                case 1: //soudoyer( dialogue, int argent, dialoguetab, ecran);
+                                case 1: //soudoyer( dialogue, int argent, reponse, ecran);
                                 break;
 
-                                case 2: menacer( dialogue, dialoguetab, ecran);
+                                case 2: menacer( dialogue, reponse, ecran);
+                                         affDialogue( reponse, ecran);
                                          while (continuer)
                                         {
                                             SDL_WaitEvent(&event);
@@ -812,7 +882,8 @@ void eventDialogueSDL( Dialogue* dialogue, const Personnage* hero, const Personn
                                         }
                                 break;
 
-                                case 3: seduire( dialogue, dialoguetab, ecran);
+                                case 3: seduire( dialogue, reponse, ecran);
+                                        affDialogue( reponse, ecran);
                                          while (continuer)
                                         {
                                             SDL_WaitEvent(&event);
@@ -830,11 +901,11 @@ void eventDialogueSDL( Dialogue* dialogue, const Personnage* hero, const Personn
                                         }
                                 break;
 
-                                case 4: eventAcheterSDL(dialogue, dialoguetab, hero, pnjs, ennemis, ter, ecran);
-                                    //acheter( dialogue, Objet* objet, dialoguetab,  ecran);
+                                case 4: eventAcheterSDL(dialogue, reponse, hero, pnjs, ennemis, ter, ecran);
+
                                 break;
 
-                                case 5: // vendre( dialogue, Objet* objet, dialoguetab, ecran);
+                                case 5: // vendre( dialogue, Objet* objet, reponse, ecran);
                                 break;
 
                                 default :
@@ -853,7 +924,7 @@ void eventDialogueSDL( Dialogue* dialogue, const Personnage* hero, const Personn
             break;
         }
     }
-        free(dialoguetab);
+        free(reponse);
 }
 
 void editerCarte ()
@@ -862,14 +933,14 @@ void editerCarte ()
     SDL_Surface* ecran = NULL;
     SDL_Init(SDL_INIT_VIDEO);
 
-    ecran = SDL_SetVideoMode(TAILLE_FENETRE, TAILLE_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
-    SDL_WM_SetCaption("Iniuriam", NULL);
-
     terInit(&terrain);
     terRemplirStruct(&terrain);
 
-    affChipset(&terrain, ecran);
-    affEditeur(&terrain, ecran);
+    ecran = SDL_SetVideoMode(TAILLE_FENETRE+32*terrain.decalageX, TAILLE_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
+    SDL_WM_SetCaption("Iniuriam", NULL);
+
+
+
     eventEditeurSDL(&terrain, ecran);
 
     terLibere(&terrain);

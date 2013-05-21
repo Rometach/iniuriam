@@ -105,7 +105,6 @@ char obtenirInfo(Dialogue* dialogue, char* info, SDL_Surface* ecran)
         setReponse("Refus info\n", info);
     }
 
-    affDialogue(info, ecran);
     setDialogueHumeur(dialogue,dialogue->humeur-5);
 
     return dialogue->humeur;
@@ -125,8 +124,6 @@ char parlerQuete(Dialogue* dialogue, char* info, SDL_Surface* ecran)
 
     return dialogue->humeur;
 }
-
-
 
 char soudoyer(Dialogue* dialogue, int argent, char* rep, SDL_Surface* ecran)
 {
@@ -183,7 +180,6 @@ char menacer(Dialogue* dialogue, char* rep, SDL_Surface* ecran)
         setReponse("Menacer échoué\n", rep);
     }
 
-    affDialogue(rep, ecran);
     setDialogueHumeur(dialogue,dialogue->humeur+test);
 
     return dialogue->humeur;
@@ -225,7 +221,6 @@ char seduire(Dialogue* dialogue, char* rep, SDL_Surface* ecran)
         setReponse("Séduire échoué\n", rep);
     }
 
-    affDialogue( rep, ecran);
     setDialogueHumeur(dialogue,dialogue->humeur+test);
 
     return dialogue->humeur;
@@ -291,7 +286,6 @@ char acheter(Dialogue* dialogue, Objet* objet, char* rep, SDL_Surface* ecran)
 
     inventaireLibere(&inv);
 
-    affDialogue( rep, ecran);
     return(dialogue->humeur);
 }
 
@@ -344,7 +338,6 @@ char vendre(Dialogue* dialogue, Objet* objet, char* rep, SDL_Surface* ecran)
     }
 
     inventaireLibere(&inv);
-    affDialogue( rep, ecran);
     return(dialogue->humeur);
 }
 

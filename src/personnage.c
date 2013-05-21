@@ -133,7 +133,6 @@ void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char fac
     /*Initialiser SDL_Surface*/
 }
 
-
 void persoLibere (Personnage *perso)
 {
     inventaireLibere(&perso->inventaire);
