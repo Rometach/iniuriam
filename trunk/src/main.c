@@ -37,7 +37,7 @@ int main (int argc, char **argv)
 
     srand(time(NULL));
     nouveauPerso (&hero, "Toromis", 1, 1, 1, 1, 0, 100, tab);
-    nouveauPerso (&ennemi, "Babar", 1, 1, 1, 1, 0, 100, tab);
+    nouveauPerso (&ennemi, "Mechant", 2, 1, 2, 1, 0, 100, tab);
     nouveauPerso (&pnj, "Babar", 1, 1, 1, 1, 0, 100, tab);
 
     ecran = SDL_SetVideoMode(TAILLE_FENETRE, TAILLE_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
@@ -52,14 +52,14 @@ int main (int argc, char **argv)
     {
     pnj.inventaire.st[i].objet->icon=SDL_LoadBMP("data/Chipsets/perso.bmp");
     hero.inventaire.st[i].objet->icon=SDL_LoadBMP("data/Chipsets/perso.bmp");
-//    ennemi.inventaire.st[i].objet->icon=SDL_LoadBMP("data/Chipsets/perso.bmp");
+    ennemi.inventaire.st[i].objet->icon=SDL_LoadBMP("data/Chipsets/perso.bmp");
     }
     hero.inventaire.st[0].quantite=2;
     setPersoPosX(&ennemi, TILE_LARGEUR*5);
     setPersoPosY(&ennemi, TILE_HAUTEUR*0);
     for (i=0;i<3;i++)
     {
-        printf("%d\n", hero.inventaire.st[i].objet->valeur);
+        printf("%d\n", ennemi.inventaire.st[i].objet->valeur);
     }
 
     eventJeuSDL(&hero, &pnj, &ennemi, &terrain, &dialogue, ecran);
@@ -71,4 +71,54 @@ int main (int argc, char **argv)
     SDL_Quit();
 
     return 0;
+/*
+    Personnage *liste;
+    Objet *tab=NULL;
+    int i,j,type=1;
+    char arene [TAILLE_MAX][TAILLE_MAX],ligne [TAILLE_MAX+2];
+
+    srand(time(NULL));
+
+    liste=(Personnage*)malloc(4*sizeof(Personnage));
+
+    initialiserTousLesObjets(tab);
+
+    nouveauPerso (&liste[0], "Toromis", 1, 1, 1, 1, 0, 100,tab);
+    nouveauPerso (&liste[1], "Rometach", 1, 1, 1, 1, 0, 100,tab);
+    nouveauPerso (&liste[2], "Babar", 2, 1, 2, 1, 0, 100,tab);
+    nouveauPerso (&liste[3], "BabarII", 2, 1, 2, 1, 0, 100,tab);
+
+    FILE* fTerr=fopen("data/Terrains.txt", "r");
+
+    if (fTerr!=NULL)
+    {
+        for (i=0; i<4;i++)
+        {
+            fgets(ligne,TAILLE_MAX+2,fTerr);
+        }
+        for (i=0;i<(TAILLE_MAX+2)*(type-1);i++)
+        {
+            fgets(ligne,TAILLE_MAX+2,fTerr);
+        }
+        for (i=0;i<TAILLE_MAX;i++)
+        {
+            fgets(ligne,TAILLE_MAX+2,fTerr);
+            for (j=0;j<TAILLE_MAX;j++)
+            {
+                arene[i][j]=ligne[j]-'0';
+            }
+        }
+        fclose (fTerr);
+
+        afficherTab2D (arene);
+        combat (liste,4,arene);
+
+    }
+    persoLibere(&liste[0]);
+    persoLibere(&liste[1]);
+    persoLibere(&liste[2]);
+    persoLibere(&liste[3]);
+    free (liste);
+    libererTousLesObjets(tab);
+    return 0;*/
 }

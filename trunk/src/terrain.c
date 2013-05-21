@@ -30,11 +30,11 @@ void terRemplirStruct(Terrain* ter)
     unsigned int x = 0;
     unsigned int y = 0;
     unsigned int j=0;
-    ter->chipset=SDL_LoadBMP("data/Chipsets/HOTEL02.bmp");
+    ter->chipset=SDL_LoadBMP("data/Chipsets/desertChipset.bmp");
     setHauteur(ter, ter->chipset->h/TILE_HAUTEUR);
     setLargeur(ter, ter->chipset->w/TILE_LARGEUR);
     setNbrTile(ter, ter->hauteurChipset*ter->largeurChipset);
-    setDecalageX(ter,6);
+    setDecalageX(ter,4);
 
 /** On remplit tabChipset avec les différentes tiles du chipset*/
     ter->tabChipset=(Tile*)malloc(ter->nbrTileChipset*sizeof(Tile));

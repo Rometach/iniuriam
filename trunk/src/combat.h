@@ -33,6 +33,7 @@ typedef struct
                             5 visée
                             6 préparation de parade*/
     char arene [TAILLE_MAX][TAILLE_MAX];
+    SDL_Surface* avatar;
 } Combattant;
 
 
