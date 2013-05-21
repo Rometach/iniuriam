@@ -126,7 +126,7 @@ void initPosGauche (Combattant* combattant, char arene[TAILLE_MAX][TAILLE_MAX])
     }
     if (place==0)
     {
-        char nom [40];
+        char nom [30];
         getPersoNom(nom,combattant->perso);
         printf ("Impossible de placer %s\n", nom);
     }
@@ -156,7 +156,7 @@ void initPosDroite (Combattant* combattant, char arene[TAILLE_MAX][TAILLE_MAX])
     }
     if (place==0)
     {
-        char nom [40];
+        char nom [30];
         getPersoNom(nom,combattant->perso);
         printf ("Impossible de placer %s\n", nom);
     }

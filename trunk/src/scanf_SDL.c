@@ -244,6 +244,11 @@ char eventScanf (SDL_Surface* ecran,char chiffre)
                         else caractere='-';
                         continuer=0;
                     break;
+                    case SDLK_WORLD_72:
+                        if (shift) caractere='7';
+                        else caractere='e';
+                        continuer=0;
+                    break;
                     case SDLK_UNDERSCORE:
                         if (shift) caractere='8';
                         else caractere='_';
