@@ -1,15 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
-#include <string.h>
 #include "personnage.h"
-#include "SDL/SDL.h"
-#include "inventaire.h"
-#include "capacite.h"
-#include "competence.h"
-#include "objet.h"
-#include "SDL/SDL.h"
-#include "constante.h"
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle

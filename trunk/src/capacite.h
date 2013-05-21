@@ -1,6 +1,8 @@
 #ifndef __capacite_h__
 #define __capacite_h__
 
+#include <assert.h>
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "competence.h"

@@ -1,10 +1,12 @@
 #ifndef __mission_h__
 #define __mission_h__
 
+#include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "personnage.h"
-#include "tile.h"
+#include "constante.h"
+
 
 typedef struct
 {

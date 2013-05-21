@@ -1,10 +1,4 @@
-#include "SDL/SDL.h"
 #include "terrain.h"
-#include "tile.h"
-#include "stdlib.h"
-#include "stdio.h"
-#include "assert.h"
-#include "constante.h"
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle

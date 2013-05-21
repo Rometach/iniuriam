@@ -1,9 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include "personnage.h"
 #include "mission.h"
-#include "constante.h"
+
 
 
 void missionInit (Mission* mission)
