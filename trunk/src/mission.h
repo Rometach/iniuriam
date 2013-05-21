@@ -11,10 +11,10 @@ typedef struct
     char nom[50];
 
     char type;  /*1 : Parler à un personnage
-                  2 :
-                  3 :
-                  4 :
-                  5 :
+                  2 : Faire parler (obtenir des infos d') un personnage
+                  3 : Tuer un personnage
+                  4 : Obtenir un objet
+                  5 : Se rendre à un certain endroit
                   6 :*/
 
     int posXCible;
@@ -36,38 +36,16 @@ void missionInit (Mission* mission);
 
 /**
 * \brief Preconditions : mission est initialisée et non définie
-                         l correspond à la ligne où
+                         l correspond à la ligne où est écrite la mission dans le fichier Missions.txt
 * <br /> Postconditions : mission est une vraie mission avec des objectifs bien définis
 */
 void missionDefinir (Mission* mission, int l, Objet* tabObjets);
-
-
-/**
-* \brief Preconditions : mission est initialisée et non définie
-* <br /> Postconditions : mission est définie avec des objectifs aléatoires
-*/
-void missionDefinirAleatoire (Mission* mission);
-
 
 /**
 * \brief Preconditions : mission est initialisée et définie
 * <br /> Postconditions : mission est considérée comme accomplie
 */
 void missionAccomplir (Mission* mission, Objet* tabObjets);
-
-
-/**
-* \brief Preconditions : tabMission est un tableau de missions initialisées et définies, de longueur l
-* <br /> Postconditions : retourne 1 si les missions du tableaux forment un ensemble harmonieux, 0 sinon
-*/
-char sontHarmonieusesMissions (Mission* tabMission, int l);
-
-
-/**
-* \brief Preconditions : tabMission est un tableau de missions initialisées, de longueur l
-* <br /> Postconditions : toutes les missions de tabMission sont définies et forment un ensemble harmonieux
-*/
-void MissionsDefinirHarmonieuses (Mission* tabMission, int l);
 
 
 /**
@@ -84,14 +62,52 @@ Objet* getMissionObjet(Mission* mission);
 
 /**
 * \brief Preconditions : mission est initialisée et définie
-* <br /> Postconditions : retourne 1 si perso est ciblé par la mission, 1 sinon
+* <br /> Postconditions : retourne 1 si perso est concerné par la mission, 0 sinon
 */
 char estPersoMission(Mission* mission, Personnage* perso);
 
 /**
 * \brief Preconditions : mission est initialisée et définie
-* <br /> Postconditions : retourne 1 si le lieu de coordoonnées posX et posY est ciblée par la mission
+* <br /> Postconditions : retourne 1 si le lieu de coordoonnées posX et posY est ciblé par la mission, 0 sinon
 */
 char estLieuMission(Mission* mission, int posX, int posY);
+
+/**
+* \brief Preconditions : mission est initialisée et définie
+* <br /> Postconditions : retourne 1 si l'objet obj est concerné par la mission, 0 sinon
+*/
+char estObjetMission(Mission* mission, Objet* obj);
+
+/**
+* \brief Preconditions : mission est initialisée et définie
+* <br /> Postconditions : retourne 1 si la mission est de parler à perso, 0 sinon
+*/
+char testMissionParlerA(Mission* mission, Personnage* perso);
+
+/**
+* \brief Preconditions : mission est initialisée et définie
+* <br /> Postconditions : retourne 1 si la mission est de faire parler perso, 0 sinon
+*/
+char testMissionFaireParler(Mission* mission, Personnage* perso);
+
+/**
+* \brief Preconditions : mission est initialisée et définie
+* <br /> Postconditions : retourne 1 si la mission est de tuer perso, 0 sinon
+*/
+char testMissionTuer(Mission* mission, Personnage* perso);
+
+/**
+* \brief Preconditions : mission est initialisée et définie
+* <br /> Postconditions : retourne 1 si la mission est d'obtenir l'objet obj, 0 sinon
+*/
+char testMissionObtenir(Mission* mission, Objet* obj);
+
+/**
+* \brief Preconditions : mission est initialisée et définie
+* <br /> Postconditions : retourne 1 si la mission est d'aller au lieu de coordonnées (posX,posY), 0 sinon
+*/
+char testMissionAllerA(Mission* mission, int posX, int posY);
+
+
 
 #endif

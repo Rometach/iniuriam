@@ -33,7 +33,7 @@ typedef struct
                         arme :
                         objet quête :
                        */
-    char description [100];
+    char description [150];
     int valeur;
 
     SDL_Surface* icon;
@@ -99,23 +99,51 @@ char* getObjetNom(Objet *obj);
 */
 char* getObjetDescription(Objet *obj);
 
+/**
+* \brief Preconditions : /
+* <br /> Postconditions : change le nom d'obj pour nom
+*/
 void setObjetNom(Objet* obj,char* nom);
 
+/**
+* \brief Preconditions : /
+* <br /> Postconditions : change la portée d'obj pour portee
+*/
 void setObjetPortee(Objet* obj,int portee);
 
+/**
+* \brief Preconditions : /
+* <br /> Postconditions : change les degats d'obj pour degats
+*/
 void setObjetDegats(Objet* obj,int degats);
 
+/**
+* \brief Preconditions : /
+* <br /> Postconditions : change la protection d'obj pour protection
+*/
 void setObjetProtection(Objet* obj,int protection);
 
+/**
+* \brief Preconditions : /
+* <br /> Postconditions : change l'utilité d'obj pour utilite
+*/
 void setObjetUtilite(Objet* obj,int utilite);
 
+/**
+* \brief Preconditions : /
+* <br /> Postconditions : change la valeur d'obj pour valeur
+*/
 void setObjetValeur(Objet* obj,int valeur);
 
+/**
+* \brief Preconditions : /
+* <br /> Postconditions : change la description d'obj pour description
+*/
 void setObjetDescription(Objet* obj,char* description);
 
 /**
 * \brief Preconditions : /
-* <br /> Postconditions : retourne le nombre d'objet dans Objets.txt
+* <br /> Postconditions : retourne le nombre d'objet dans Objets.txt +3
 */
 int getNbObjet();
 
@@ -123,13 +151,19 @@ int getNbObjet();
 * \brief Preconditions : tabObj n'est pas initialisé
 * <br /> Postconditions : initialise tous les objets dans tabObj
 */
-void initialiserTousLesObjets(Objet* tabObj);
+void initialiserTousLesObjets(Objet** tabObj);
 
 /**
 * \brief Preconditions : tabObj est initialisé
 * <br /> Postconditions : libère tabObj
 */
-void libererTousLesObjets(Objet* tabObj);
+void libererTousLesObjets(Objet** tabObj);
+
+/**
+* \brief Preconditions : obj est initialisé
+* <br /> Postconditions : affiche les caractéristiques d'obj dans la console
+*/
+void afficherObjet(Objet* obj);
 
 void copierFichier ();
 
