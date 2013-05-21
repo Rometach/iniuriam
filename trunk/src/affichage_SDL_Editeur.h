@@ -3,12 +3,16 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "SDL/SDL.h"
-#include "tile.h"
-#include "constante.h"
+#include <assert.h>
+#include <SDL/SDL.h>
+#include <SDL/SDL_ttf.h>
+#include <SDL/SDL_image.h>
+
 #include "terrain.h"
-#include "SDL/SDL_ttf.h"
-#include "perso_Editeur.h"
+#include "constante.h"
+#include "scanf_SDL.h"
+#include "objet_Editeur.h"
+
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle

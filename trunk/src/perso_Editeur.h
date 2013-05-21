@@ -3,7 +3,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "SDL/SDL.h"
+#include <assert.h>
+#include <string.h>
+#include <SDL/SDL.h>
+#include "constante.h"
+
+
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle

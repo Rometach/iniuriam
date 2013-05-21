@@ -1,13 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
-#include <string.h>
 #include "perso_Editeur.h"
-#include "SDL/SDL.h"
-#include "competence.h"
-#include "objet_Editeur.h"
-#include "SDL/SDL.h"
-#include "constante.h"
+
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle

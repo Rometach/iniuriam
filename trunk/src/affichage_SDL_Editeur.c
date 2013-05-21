@@ -1,17 +1,5 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <assert.h>
-#include "SDL/SDL.h"
-#include "SDL/SDL_ttf.h"
-#include "SDL/SDL_image.h"
 #include "affichage_SDL_Editeur.h"
-#include "terrain.h"
-#include "tile.h"
-#include "competence.h"
-#include "perso_Editeur.h"
-#include "objet_Editeur.h"
-#include "constante.h"
-#include "scanf_SDL.h"
+
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle

@@ -80,6 +80,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/personnage.h" />
+		<Unit filename="src/scanf_SDL.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/scanf_SDL.h" />
 		<Unit filename="src/stock.c">
 			<Option compilerVar="CC" />
 		</Unit>
