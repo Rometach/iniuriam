@@ -133,4 +133,8 @@ void libererTousLesObjets(Objet* tabObj);
 
 void copierFichier ();
 
+
+
+void modifierObjet ();
 #endif
+

@@ -47,13 +47,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/mission.h" />
-		<Unit filename="src/objet.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src/objet.h" />
 		<Unit filename="src/objet_Editeur.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="src/objet_Editeur.h" />
 		<Unit filename="src/perso_Editeur.c">
 			<Option compilerVar="CC" />
 		</Unit>
