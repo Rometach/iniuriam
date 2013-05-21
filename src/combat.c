@@ -739,16 +739,14 @@ void combat (Personnage* liste, int l, char arene [TAILLE_MAX][TAILLE_MAX])
 
 int mainCombat ()
 {
-    Personnage *liste;
+    Personnage liste[4];
     Objet *tab=NULL;
     int i,j,type=1;
     char arene [TAILLE_MAX][TAILLE_MAX],ligne [TAILLE_MAX+2];
 
     srand(time(NULL));
 
-    liste=(Personnage*)malloc(4*sizeof(Personnage));
-
-    initialiserTousLesObjets(tab);
+    initialiserTousLesObjets(&tab);
 
     nouveauPerso (&liste[0], "Toromis", 1, 1, 1, 1, 0, 100,tab);
     nouveauPerso (&liste[1], "Rometach", 1, 1, 1, 1, 0, 100,tab);
@@ -785,7 +783,7 @@ int mainCombat ()
     persoLibere(&liste[1]);
     persoLibere(&liste[2]);
     persoLibere(&liste[3]);
-    free (liste);
-    libererTousLesObjets(tab);
+
+    libererTousLesObjets(&tab);
     return 0;
 }

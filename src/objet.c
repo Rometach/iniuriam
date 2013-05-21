@@ -13,7 +13,7 @@ void objInit (Objet *obj, char type)
 {
     int i,j;
     FILE* fObjet= fopen("data/Objets.txt", "r");
-    assert (type>0);
+    assert ((type>0)&&(type<=getNbObjet()-3));
     char ligne[TAILLE_MAX_FICHIER];
     char tampon [2];
 
@@ -26,7 +26,9 @@ void objInit (Objet *obj, char type)
         /*Passe les premières ligne du fichier Objets.txt*/
 
         i= strchr (ligne, '/')-ligne;
+
         strncpy(obj->nom,ligne,i);
+
         obj->nom[i]='\0';
 
         obj->type = type;
@@ -186,21 +188,24 @@ int getNbObjet()
     return max;
 }
 
-void initialiserTousLesObjets(Objet* tabObj)
+void initialiserTousLesObjets(Objet** tabObj)
 {
     int i;
     int max = getNbObjet();
-    //*tabObj=(Objet*)malloc(max*sizeof(Objet));
-        for(i=1;i<max-3;i++)
+
+    (*tabObj)=(Objet*)malloc(max*sizeof(Objet));
+
+
+    for(i=1;i<max-3;i++)
         {
-            objInit(&tabObj[i],i);
+            objInit(&((*tabObj)[i-1]),i);
         }
 }
 
 
-void libererTousLesObjets(Objet* tabObj)
+void libererTousLesObjets(Objet** tabObj)
 {
-    free(tabObj);
+    free(*tabObj);
 }
 
 void copierFichier (char* fichier1, char* fichier2)
@@ -216,4 +221,29 @@ void copierFichier (char* fichier1, char* fichier2)
     }
     fclose (fSource);
     fclose (fDest);
+}
+
+
+void afficherObjet(Objet* obj)
+{
+    printf("\nObjet %s :\nType %d\nUtilite %d\nPortee %d\nDegats %d\nProtection %d\nValeur %d\n%s\n\n", obj->nom, obj->type, obj->utilite, obj->portee, obj->degats, obj->protection, obj->valeur, obj->description);
+}
+
+
+
+int mainObjet()
+{
+    int i;
+    Objet* tabObj;
+
+    initialiserTousLesObjets(&tabObj);
+
+    for(i=0;i<getNbObjet()-3;i++)
+    {
+        printf("%d%d\n",i,i);
+        afficherObjet(&(tabObj[i]));
+    }
+    printf("BLABLA\n");
+    libererTousLesObjets(&tabObj);
+    return 0;
 }

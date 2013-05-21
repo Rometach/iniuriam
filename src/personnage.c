@@ -456,21 +456,23 @@ int getNbPNJ()
     return max;
 }
 
-void initialiserTousLesPNJ(Personnage* tabPNJ)
+void initialiserTousLesPNJ(Personnage** tabPNJ)
 {
     int i;
     int max = getNbPNJ();
 
-    tabPNJ=(Personnage*)malloc(max*sizeof(Personnage));
-        for(i=1;i<max-4;i++)
+    (*tabPNJ)=(Personnage*)malloc(max*sizeof(Personnage));
+
+
+    for(i=1;i<max-3;i++)
         {
-            /*STILL TO BE DONE*/
+            objInit(&((*tabPNJ)[i-1]),i);
         }
 }
 
-void libererTousLesPNJ(Personnage* tabPNJ)
+void libererTousLesPNJ(Personnage** tabPNJ)
 {
-    free(tabPNJ);
+    free(&tabPNJ);
 }
 
 

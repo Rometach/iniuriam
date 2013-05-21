@@ -46,36 +46,6 @@ void missionDefinir (Mission* mission, int l, Objet* tabObjets)
 }
 
 
-void missionDefinirAleatoire (Mission* mission)
-{
-    mission->type=rand()%9;
-    switch(mission->type)
-    {
-        case 0:
-        /*mission->batimentCible=*/
-        break;
-        case 1:
-        /*mission->vaisseauCible=*/
-        break;
-        case 2:
-        /*mission->persoCible=*/
-        break;
-        case 3:
-        /*mission->batimentCible=*/
-        break;
-
-        case 5:
-        /*mission->objetCible=*/
-        break;
-        case 6:
-        /*mission->objetCible=*/
-        break;
-        case 7:
-        /*mission->persoCible=*/
-        break;
-    }
-}
-
 
 void missionAccomplir (Mission* mission, Objet* tabObjets)
 {
@@ -89,90 +59,6 @@ void missionAccomplir (Mission* mission, Objet* tabObjets)
     }
 }
 
-
-char sontHarmonieusesMissions (Mission* tabMission, int l)
-{
-    int i,j;
-
-    /*On vérifie qu'il n'y a pas 2 missions de même type*/
-    for(i=0;i<l-1;i++)
-    {
-        for(j=i+1;j<l;j++)
-        {
-            if((tabMission[i].type)==(tabMission[j].type))
-            {return 0;}
-        }
-    }
-
-    /*On vérifie que le même bâtiment n'est pas en jeu plusieurs fois
-    for(i=0;i<l-1;i++)
-    {
-        if(((tabMission[i].type)==0)||((tabMission[i].type)==3))
-        {
-            for(j=i+1;j<l;j++)
-            {
-                if(((tabMission[j].type)==0)||((tabMission[j].type)==3))
-                {
-                    if((tabMission[i].batimentCible)==(tabMission[j].batimentCible))
-                    {return 0;}
-                }
-            }
-        }
-    }
-
-
-    On vérifie que le même personnage n'est pas en jeu plusieurs fois
-    for(i=0;i<l-1;i++)
-    {
-        if(((tabMission[i].type)==2)||((tabMission[i].type)==7))
-        {
-            for(j=i+1;j<l;j++)
-            {
-                if(((tabMission[j].type)==2)||((tabMission[j].type)==7))
-                {
-                    if((tabMission[i].persoCible)==(tabMission[j].persoCible))
-                    {return 0;}
-                }
-            }
-        }
-    }*/         /**A CORRIGER (<=> modifications de struct Mission) !!!!! */
-
-    /*On vérifie que le même objet n'est pas en jeu plusieurs fois*/
-    for(i=0;i<l-1;i++)
-    {
-        if(((tabMission[i].type)==5)||((tabMission[i].type)==6))
-        {
-            for(j=i+1;j<l;j++)
-            {
-                if(((tabMission[j].type)==5)||((tabMission[j].type)==6))
-                {
-                    if((tabMission[i].objCible)==(tabMission[j].objCible))
-                    {return 0;}
-                }
-            }
-        }
-    }
-
-    return 1;
-}
-
-
-void MissionsDefinirHarmonieuses (Mission* tabMission, int l)
-{
-    int i;
-
-    do
-    {
-        for(i=0;i<l;i++)
-        {
-            missionDefinirAleatoire(tabMission+i);
-        }
-    }
-    while(!sontHarmonieusesMissions(tabMission, l));
-
-    /*NB: Il ne s'agit pas d'une méthode excessivement rapide ;
-    toutefois on n'utilisera normalement cette fonction qu'une fois dans le jeu*/
-}
 
 
 char getMissionType(Mission* mission)
@@ -198,6 +84,76 @@ char estPersoMission(Mission* mission, Personnage* perso)
 char estLieuMission(Mission* mission, int posX, int posY)
 {
     return (((mission->posXCible)==(posX))&&((mission->posYCible)==(posY)));
+    /*Ici une proposition de code au cas où on souhaiterait simplement s'assurer que (posX,posY)
+        est à distance inférieure ou égale à DIST_MAX_TEST du lieu ciblé (en norme 1) :
+
+    int d;
+    d=fabs((mission->posXCible)-(posX))+fabs((mission->posYCible)-(posY));
+
+    return(d<=DIST_MAX_TEST);
+
+    */
+}
+
+
+char estObjetMission(Mission* mission, Objet* obj)
+{
+    return (mission->objCible==obj);
+}
+
+
+char testMissionParlerA(Mission* mission, Personnage* perso)
+{
+    char nom[30];
+    getPersoNom(nom,perso);
+
+    return ((mission->type==1)&&(strcmp(mission->nomPerso,nom)));
+
+    /*VERIFIER SI STRCMP RENVOIT 0 OU 1 EN CAS D'EFALITE !!!!*/
+}
+
+
+char testMissionFaireParler(Mission* mission, Personnage* perso)
+{
+    char nom[30];
+    getPersoNom(nom,perso);
+
+    return ((mission->type==2)&&(strcmp(mission->nomPerso,nom)));
+
+    /*VERIFIER SI STRCMP RENVOIT 0 OU 1 EN CAS D'EFALITE !!!!*/
+}
+
+
+char testMissionTuer(Mission* mission, Personnage* perso)
+{
+    char nom[30];
+    getPersoNom(nom,perso);
+
+    return ((mission->type==3)&&(strcmp(mission->nomPerso,nom)));
+
+    /*VERIFIER SI STRCMP RENVOIT 0 OU 1 EN CAS D'EFALITE !!!!*/
+}
+
+
+char testMissionObtenir(Mission* mission, Objet* obj)
+{
+    return ((mission->type==4)&&(mission->objCible==obj));
+}
+
+
+char testMissionAllerA(Mission* mission, int posX, int posY)
+{
+    return ((mission->type==5)&&(mission->posXCible==posX)&&(mission->posYCible==posY));
+
+    /*Ici une proposition de code au cas où on souhaiterait simplement s'assurer que (posX,posY)
+        est à distance inférieure ou égale à DIST_MAX_TEST du lieu ciblé (en norme 1) :
+
+    int d;
+    d=fabs((mission->posXCible)-(posX))+fabs((mission->posYCible)-(posY));
+
+    return ((mission->type==5)&&(d<=DIST_MAX_TEST));
+
+    */
 }
 
 
