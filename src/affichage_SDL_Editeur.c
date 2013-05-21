@@ -711,9 +711,9 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                             case 6:/*Ajout de la description*/
                                 setObjetDescription (&nouveau,tampon);
                                 fObjet=fopen("data/Objets.txt","r+");
-                                fseek(fObjet, -3, SEEK_END);
+                                fseek(fObjet, -4, SEEK_END);
                                 getObjetNom(&nouveau,chaine1);
-                                fprintf(fObjet,"%s/\t",chaine1);
+                                fprintf(fObjet,"\n%s/\t",chaine1);
                                     if ((int)getObjetPortee(&nouveau)<10) fprintf(fObjet,"0");
                                     fprintf(fObjet,"%d\t",getObjetPortee(&nouveau));
                                     if ((int)getObjetDegats(&nouveau)<10) fprintf(fObjet,"0");
@@ -952,7 +952,7 @@ void editerObjet ()
     TTF_Init();
 
     police = TTF_OpenFont("data/Jester.ttf", 30);
-    ecran=SDL_SetVideoMode(TAILLE_FENETRE, TAILLE_FENETRE, 32, SDL_HWSURFACE);
+    ecran=SDL_SetVideoMode(TAILLE_FENETRE, TAILLE_FENETRE_OBJET, 32, SDL_HWSURFACE);
     SDL_WM_SetCaption("Editeur d'Objet", NULL);
     afficherEditeurObjet(ecran,1,police);/*Affichage de l'écran principal*/
 
