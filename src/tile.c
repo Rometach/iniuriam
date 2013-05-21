@@ -19,7 +19,7 @@ int getPosY(Tile t)
     return t.posY;
 }
 
-int getCollision(Tile t)
+char getCollision(Tile t)
 {
     return t.collision;
 }
@@ -34,7 +34,7 @@ void setPosY(Tile* t, int y)
     t->posY=y;
 }
 
-void setCollision(Tile* t, int collision)
+void setCollision(Tile* t, char collision)
 {
     t->collision=collision;
 }

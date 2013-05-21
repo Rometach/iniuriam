@@ -513,8 +513,6 @@ void libererTousLesPNJ(Personnage** tabPNJ)
 }
 
 
-
-
 int mainPerso()
 {
     char nom[30];
