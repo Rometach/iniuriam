@@ -192,10 +192,6 @@ char eventEditeurObjet()
                         action=3;
                         continuer=0;
                     break;
-                    case SDLK_BACKSPACE:
-                        action=4;
-                        continuer=0;
-                    break;
                     case SDLK_RETURN:
                         action=5;
                         continuer=0;
@@ -244,18 +240,28 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
         nb=0;
         switch(action)
         {
-            case 1:
-
+            case 1:/*Touche Echap*/
+                switch (type)
+                {
+                    case 5:/*Echap lors d'une confirmation*/
+                    break;
+                    case 6:/*Echap dans le menu de l'objet*/
+                        type=3;
+                        choix=0;
+                    break;
+                    default:
+                        type=1;
+                        choix=0;
+                    break;
+                }
             break;
-            case 2:
+            case 2:/*Touche Flèche haut*/
                 choix--;
             break;
-            case 3:
+            case 3:/*Touche Flèche bas*/
                 choix++;
             break;
-            case 4:
-            break;
-            case 5:
+            case 5:/*Touche Entrée*/
                 switch (type)
                 {
                     case 1:/*Menu Principal*/
@@ -323,6 +329,7 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                                     fclose (fObjet);
                                     copierFichier("data/Tampon.txt","data/Objets.txt");
                                     remove("data/Tampon.txt");
+                                    max--;
                                 }
                                 type=5;
                                 strcpy(chaine1,"Supprimer un autre objet");
@@ -400,22 +407,71 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
             break;
             case 2:/*Ajouter un objet*/
                 nb=0;
+
                 switch (selection)
                 {
                     case 0:
                         strcpy(chaine1,"le nom");
                     break;
                     case 1:
-                        strcpy(chaine1,"la portee");
+                        strcpy(chaine1,"l'utilite");
                     break;
                     case 2:
-                        strcpy(chaine1,"les degats");
+                        switch(getObjetUtilite(&nouveau))
+                        {
+                            case 2:
+                                strcpy(chaine1,"le type");
+                                strcpy(texte_SDL[0],"1. Casque");
+                                strcpy(texte_SDL[1],"2. Plastron");
+                                strcpy(texte_SDL[2],"3. Jambieres");
+                                strcpy(texte_SDL[3],"4. Chaussures");
+                                strcpy(texte_SDL[4],"5. Gants");
+                                strcpy(texte_SDL[5],"6. Bouclier");
+                                for (i=0;i<6;i++)
+                                {
+                                    position_rect.x=TAILLE_FENETRE/2-250;
+                                    position_rect.y=TAILLE_FENETRE/4+40*i;
+                                    texte=TTF_RenderText_Shaded(police, texte_SDL[i], couleur_texte,couleur_rect);
+                                    SDL_BlitSurface(texte, NULL, ecran, &position_rect);
+                                    SDL_FreeSurface(texte);
+                                }
+                            break;
+                            default:
+                                strcpy(chaine1,"la portee");
+                            break;
+                        }
                     break;
                     case 3:
-                        strcpy(chaine1,"la protection");
+                        switch (getObjetUtilite(&nouveau))
+                        {
+                            case 3:
+                                strcpy(chaine1,"l'effet");
+                                strcpy(texte_SDL[0],"1. Soin");
+                                strcpy(texte_SDL[1],"2. Degats");
+                                for (i=0;i<2;i++)
+                                {
+                                    position_rect.x=TAILLE_FENETRE/2-250;
+                                    position_rect.y=TAILLE_FENETRE/4+40*i;
+                                    texte=TTF_RenderText_Shaded(police, texte_SDL[i], couleur_texte,couleur_rect);
+                                    SDL_BlitSurface(texte, NULL, ecran, &position_rect);
+                                    SDL_FreeSurface(texte);
+                                }
+                            break;
+                            default:
+                                strcpy(chaine1,"les degats");
+                            break;
+                        }
                     break;
                     case 4:
-                        strcpy(chaine1,"l'utilite");
+                        switch (getObjetUtilite(&nouveau))
+                        {
+                            case 3:
+                                strcpy(chaine1,"l'impact");
+                            break;
+                            default:
+                                strcpy(chaine1,"la protection");
+                            break;
+                        }
                     break;
                     case 5:
                         strcpy(chaine1,"la valeur");
@@ -499,36 +555,110 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
 
                 getObjetNom(tab,chaine1);
                 sprintf(texte_SDL[0],"Nom : %s",chaine1);
-                sprintf(texte_SDL[1],"Portee : %d",getObjetPortee(tab));
-                sprintf(texte_SDL[2],"Degats : %d",getObjetDegats(tab));
-                sprintf(texte_SDL[3],"Protection : %d",getObjetProtection(tab));
-                sprintf(texte_SDL[4],"Utilite : %s",getObjetUtiliteNom(tab));
+                sprintf(texte_SDL[1],"Utilite : %s",getObjetUtiliteNom(tab));
+                switch (getObjetUtilite(tab))
+                {
+                    case 2:
+                        sprintf(texte_SDL[2],"Type : %s",getArmureType(tab));
+                    break;
+                    default:
+                        sprintf(texte_SDL[2],"Portee : %d",getObjetPortee(tab));
+                    break;
+                }
+                switch (getObjetUtilite(tab))
+                {
+                    case 3:
+                        sprintf(texte_SDL[3],"Effet : %s",getPotionType(tab));
+                    break;
+                    default:
+                        sprintf(texte_SDL[3],"Degats : %d",getObjetDegats(tab));
+                    break;
+                }
+                switch (getObjetUtilite(tab))
+                {
+                    case 3:
+                        sprintf(texte_SDL[4],"Impact : %d",getObjetProtection(tab));
+                    break;
+                    default:
+                        sprintf(texte_SDL[4],"Protection : %d",getObjetProtection(tab));
+                    break;
+                }
                 sprintf(texte_SDL[5],"Valeur : %d",getObjetValeur(tab));
                 getObjetDescription(tab,chaine1);
                 sprintf(texte_SDL[6],"Description : %s",chaine1);
-                strcpy(texte_SDL[7],"Annuler");
+                strcpy(texte_SDL[7],"Valider");
 
                 free (tab);
                 rectangle=(SDL_Surface**)malloc(8*sizeof(SDL_Surface*));
             break;
             case 7:/*Modification d'un paramètre*/
                 nb=0;
+                tab=(Objet*)malloc(sizeof(Objet));
+                objInit(tab,objet);
                 switch (selection)
                 {
                     case 0:
                         strcpy(chaine1,"le nom");
                     break;
                     case 1:
-                        strcpy(chaine1,"la portee");
+                        strcpy(chaine1,"l'utilite");
                     break;
                     case 2:
-                        strcpy(chaine1,"les degats");
+                        switch (getObjetUtilite(tab))
+                        {
+                            case 2:
+                                strcpy(chaine1,"le type");
+                                strcpy(texte_SDL[0],"1. Casque");
+                                strcpy(texte_SDL[1],"2. Plastron");
+                                strcpy(texte_SDL[2],"3. Jambieres");
+                                strcpy(texte_SDL[3],"4. Chaussures");
+                                strcpy(texte_SDL[4],"5. Gants");
+                                strcpy(texte_SDL[5],"6. Bouclier");
+                                for (i=0;i<6;i++)
+                                {
+                                    position_rect.x=TAILLE_FENETRE/2-250;
+                                    position_rect.y=TAILLE_FENETRE/4+40*i;
+                                    texte=TTF_RenderText_Shaded(police, texte_SDL[i], couleur_texte,couleur_rect);
+                                    SDL_BlitSurface(texte, NULL, ecran, &position_rect);
+                                    SDL_FreeSurface(texte);
+                                }
+                            break;
+                            default:
+                                strcpy(chaine1,"la portee");
+                            break;
+                        }
                     break;
                     case 3:
-                        strcpy(chaine1,"la protection");
+                        switch (getObjetUtilite(tab))
+                        {
+                            case 3:
+                                strcpy(chaine1,"l'effet");
+                                strcpy(texte_SDL[0],"1. Soin");
+                                strcpy(texte_SDL[1],"2. Degats");
+                                for (i=0;i<2;i++)
+                                {
+                                    position_rect.x=TAILLE_FENETRE/2-250;
+                                    position_rect.y=TAILLE_FENETRE/4+40*i;
+                                    texte=TTF_RenderText_Shaded(police, texte_SDL[i], couleur_texte,couleur_rect);
+                                    SDL_BlitSurface(texte, NULL, ecran, &position_rect);
+                                    SDL_FreeSurface(texte);
+                                }
+                            break;
+                            default:
+                                strcpy(chaine1,"les degats");
+                            break;
+                        }
                     break;
                     case 4:
-                        strcpy(chaine1,"l'utilite");
+                        switch (getObjetUtilite(tab))
+                        {
+                            case 3:
+                                strcpy(chaine1,"l'impact");
+                        break;
+                            default:
+                                strcpy(chaine1,"la protection");
+                            break;
+                        }
                     break;
                     case 5:
                         strcpy(chaine1,"la valeur");
@@ -539,6 +669,8 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                     default:
                     break;
                 }
+                free (tab);
+
                 sprintf(ligne,"Modifier %s de l'objet.",chaine1);
                 nom = TTF_RenderText_Shaded(police,ligne, couleur_texte,couleur_rect);
                 position.x=TAILLE_FENETRE/2-100;
@@ -575,9 +707,10 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
             *rectangle= SDL_CreateRGBSurface(SDL_HWSURFACE, 500, 50, 32, 0, 0, 0, 0);
             SDL_FillRect(*rectangle, NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
             position_rect.x=TAILLE_FENETRE/2-250;
-            position_rect.y=TAILLE_FENETRE/3+150;
+            position_rect.y=TAILLE_FENETRE/3+200;
             SDL_BlitSurface(*rectangle, NULL, ecran, &position_rect);
             SDL_FreeSurface(*rectangle);
+            free (rectangle);
         }
         else /*Affichage du cadre*/
         {
@@ -627,7 +760,21 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                 case 0:
                     scanfSDL(tampon,ecran,30,&action,police,0);
                 break;
-                case 4:
+                case 1:
+                    strcpy(texte_SDL[0],"1. Arme");
+                    strcpy(texte_SDL[1],"2. Armure");
+                    strcpy(texte_SDL[2],"3. Potion ou nourriture");
+                    strcpy(texte_SDL[3],"4. Objet de quete");
+                    strcpy(texte_SDL[4],"5. Autre");
+                    for (i=0;i<5;i++)
+                    {
+                        position_rect.x=TAILLE_FENETRE/2-250;
+                        position_rect.y=TAILLE_FENETRE/4+40*i;
+                        texte=TTF_RenderText_Shaded(police, texte_SDL[i], couleur_texte,couleur_rect);
+                        SDL_BlitSurface(texte, NULL, ecran, &position_rect);
+                        SDL_FreeSurface(texte);
+                    }
+                    SDL_Flip(ecran);
                     scanfSDL(tampon,ecran,1,&action,police,1);
                     valeur=atoi(tampon);
                 break;
@@ -644,11 +791,15 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                 break;
             }
 
-            if (type==2)
+            if (type==2)/*Ajout d'un objet*/
             {
                 switch (action)
                 {
                     case 1:/*Echap*/
+                        action=0;
+                        type=1;
+                        choix=0;
+                        ok=1;
                     break;
                     case 2:/*Entrée*/
                         switch (selection)
@@ -670,16 +821,16 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                                 }
                                 free(tab);
                             break;
-                            case 1:/*Ajout de la portee*/
+                            case 2:/*Ajout de la portee*/
                                 setObjetPortee (&nouveau,valeur);
                             break;
-                            case 2:/*Ajout des dégats*/
+                            case 3:/*Ajout des dégats*/
                                 setObjetDegats (&nouveau,valeur);
                             break;
-                            case 3:/*Ajout de la protection*/
+                            case 4:/*Ajout de la protection*/
                                 setObjetProtection (&nouveau,valeur);
                             break;
-                            case 4:/*Ajout de l'utilité*/
+                            case 1:/*Ajout de l'utilité*/
                                 setObjetUtilite (&nouveau,valeur);
                             break;
                             case 5:/*Ajout de la valeur*/
@@ -699,6 +850,7 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                                     getObjetDescription(&nouveau,chaine1);
                                     fprintf(fObjet,"%d\t%d\t%s/\t%d\n//",(int)getObjetProtection(&nouveau),(int)getObjetUtilite(&nouveau),chaine1,(int)getObjetValeur(&nouveau));
                                     fclose (fObjet);
+                                    max++;
                             break;
                             default:
                             break;
@@ -706,6 +858,7 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                     break;
                     default:/*Quitter ou erreur*/
                         action=0;
+                        ok=0;
                     break;
                 }
                 if (action&&selection<6) /*Poursuite de l'ajout*/
@@ -717,14 +870,18 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                 {
                     action=5;
                     type=3;
-                    choix=max-4;
+                    choix=max-5;
                 }
             }
-            else if (type==7)
+            else if (type==7)/*Modification d'un paramètre de l'objet*/
             {
                 switch (action)
                 {
                     case 1:/*Echap*/
+                        action=5;
+                        type=3;
+                        choix=objet-1;
+                        ok=1;
                     break;
                     case 2:/*Entrée*/
                         tab=(Objet*)malloc(sizeof(Objet));
@@ -753,7 +910,7 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                                 copierFichier("data/Tampon.txt","data/Objets.txt");
                                 remove("data/Tampon.txt");
                             break;
-                            case 1:/*Modifier Portee*/
+                            case 2:/*Modifier Portee*/
                                 for (i=0;i<objet+2;i++)
                                 {
                                     fgets (ligne,TAILLE_MAX_FICHIER,fObjet);
@@ -778,7 +935,7 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                                 copierFichier("data/Tampon.txt","data/Objets.txt");
                                 remove("data/Tampon.txt");
                             break;
-                            case 2:/*Modifier Degats*/
+                            case 3:/*Modifier Degats*/
                                 for (i=0;i<objet+2;i++)
                                 {
                                     fgets (ligne,TAILLE_MAX_FICHIER,fObjet);
@@ -803,7 +960,7 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                                 copierFichier("data/Tampon.txt","data/Objets.txt");
                                 remove("data/Tampon.txt");
                             break;
-                            case 3:/*Modifier Protection*/
+                            case 4:/*Modifier Protection*/
                                 for (i=0;i<objet+2;i++)
                                 {
                                     fgets (ligne,TAILLE_MAX_FICHIER,fObjet);
@@ -828,7 +985,7 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                                 copierFichier("data/Tampon.txt","data/Objets.txt");
                                 remove("data/Tampon.txt");
                             break;
-                            case 4:/*Modifier utilite*/
+                            case 1:/*Modifier utilite*/
                                 for (i=0;i<objet+2;i++)
                                 {
                                     fgets (ligne,TAILLE_MAX_FICHIER,fObjet);
@@ -910,6 +1067,7 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                     break;
                     default:/*Quitter ou erreur*/
                         action=0;
+                        ok=0;
                     break;
                 }
                 if (action) /*Retour menu modif objet si aucune erreur*/
@@ -923,9 +1081,15 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
         else if (action&&nb)
         {
             action=eventEditeurObjet();
+            free (rectangle);
+        }
+
+        if (ok&&action==0)/*Touche Echap*/
+        {
+            action=1;
+            ok=0;
         }
     }
-    free (rectangle);
 }
 
 void editerObjet ()

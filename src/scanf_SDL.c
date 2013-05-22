@@ -345,10 +345,10 @@ void scanfSDL (char* chaine,SDL_Surface* ecran, int longueur, char * action,TTF_
     strcpy(chaine,"");
 
     position.x=TAILLE_FENETRE/2-250;
-    position.y=TAILLE_FENETRE/3+150;
+    position.y=TAILLE_FENETRE/3+200;
 
     position_rect.x=TAILLE_FENETRE/2-250;
-    position_rect.y=TAILLE_FENETRE/3+150;
+    position_rect.y=TAILLE_FENETRE/3+200;
 
     while (continuer)
     {
@@ -381,8 +381,11 @@ void scanfSDL (char* chaine,SDL_Surface* ecran, int longueur, char * action,TTF_
                 }
             break;
             case 3:/*Entrée*/
-                *action=2;
-                continuer=0;
+                if (strlen(chaine)!=0)
+                {
+                    *action=2;
+                    continuer=0;
+                }
             break;
             default:
                 if (i<longueur)
