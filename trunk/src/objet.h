@@ -26,13 +26,11 @@ typedef struct
                         armure : correspond à la partie du corps protégée
                         objet quête :
                        */
-    char degats;      /*valable pour arme
+    char degats;      /*valable pour arme,armure
                         potion : correspond au type de potion (soin, poison...)
-                        armure :
                         objet quête :
                        */
-    char protection;  /*valable pour armure, potion (pts de vie récupérés)
-                        arme :
+    char protection;  /*valable pour arme,armure, potion (pts de vie récupérés)
                         objet quête :
                        */
     char description [150];

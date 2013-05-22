@@ -130,6 +130,53 @@ void getObjetDescription(Objet *obj,char* description)
 	strcpy(description,obj->description);
 }
 
+char* getArmureType (Objet* obj)
+{
+    assert(obj->utilite==2);
+    switch (obj->portee)
+    {
+        case 1 :
+            return "Casque";
+        break;
+        case 2 :
+            return "Plastron";
+        break;
+        case 3 :
+            return "Jambieres";
+        break;
+        case 4 :
+            return "Gants";
+        break;
+        case 5 :
+            return "Chaussures";
+        break;
+        case 6:
+            return "Bouclier";
+        break;
+        default :
+            return "Indefini";
+        break;
+    }
+}
+
+char* getPotionType(Objet* obj)
+{
+    assert(obj->utilite==3);
+    switch (obj->portee)
+    {
+        case 1 :
+            return "Soin";
+        break;
+        case 2 :
+            return "Degats";
+        break;
+        default :
+            return "Indefini";
+        break;
+    }
+}
+
+
 void setObjetNom(Objet* obj,char* nom)
 {
     assert (strlen(nom)<30);

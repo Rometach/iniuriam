@@ -28,13 +28,11 @@ typedef struct
                         armure : correspond à la partie du corps protégée
                         objet quête :
                        */
-    char degats;      /*valable pour arme
+    char degats;      /*valable pour arme,armure
                         potion : correspond au type de potion (soin, poison...)
-                        armure :
                         objet quête :
                        */
-    char protection;  /*valable pour armure, potion (pts de vie récupérés)
-                        arme :
+    char protection;  /*valable pour arme,armure, potion (pts de vie récupérés)
                         objet quête :
                        */
     char description [150];
@@ -103,12 +101,24 @@ void getObjetNom(Objet *obj,char* nom);
 */
 char* getObjetNom2(Objet *obj);
 
-
 /**
 * \brief Preconditions : obj est initialisé
 * <br /> Postconditions : retourne la description d'obj dans description
 */
 void getObjetDescription(Objet *obj,char* description);
+
+/**
+* \brief Preconditions : obj est initialisé et est une armure
+* <br /> Postconditions : retourne la place d'obj
+*/
+char* getArmureType(Objet* obj);
+
+/**
+* \brief Preconditions : obj est initialisé et est une potion
+* <br /> Postconditions : retourne le type de potion d'obj
+*/
+char* getPotionType(Objet* obj);
+
 
 /**
 * \brief Preconditions : obj est initialisé

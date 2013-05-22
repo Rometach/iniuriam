@@ -456,10 +456,10 @@ void equiper (Personnage* perso, Objet* obj,int i)
                 case 2: /*Plastron*/
                     setEquiTorse(&perso->equipement, obj);
                 break;
-                case 3: /*Jambière*/
+                case 3: /*Jambières*/
                     setEquiBas(&perso->equipement, obj);
                 break;
-                case 4: /*Gantelets*/
+                case 4: /*Gants*/
                     setEquiMains(&perso->equipement, obj);
                 break;
                 case 5: /*Sandales*/
