@@ -3,6 +3,10 @@ ajouter des const partout
 faire des MainRegression
 Commenter les trucs qui ne le sont pas
 Enlever les . et les ->
+Créer un dossier lib pour SDL, TTF ...
+Valgrind à donf
+Rajouter des assert
+Dans l'éditeur, rajouter une fonction qui saute des lignes
 
 
 POUR FINIR LE PROJET
@@ -11,3 +15,4 @@ faire un éditeur de PNJ
 établir la quete du Tutoriel
 créer le Menu
 ajouter plein de screens
+Doxyfile

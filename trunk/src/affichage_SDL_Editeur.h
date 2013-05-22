@@ -42,6 +42,22 @@ void affCarte(Terrain* ter, SDL_Surface* ecran);
 */
 void eventEditeurSDL(Terrain* ter, SDL_Surface* ecran);
 
+/**
+* \brief Preconditions : police et ecran sont initalisés, 0<type<8
+* <br /> Postconditions : affiche les différentes pages de l'éditeur d'objet, selon le type.
+*/
+void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police);
+
+/**
+* \brief Preconditions : SDL est initialisé
+* <br /> Postconditions : gère les évenements de l'éditeur d'objet. Retourne le type d'event réalisé.
+*/
+char eventEditeurObjet();
+
+/**
+* \brief Preconditions : /
+* <br /> Postconditions : permet d'éditer, de sauver et de charger des objets
+*/
 void editerObjet();
 
 /**

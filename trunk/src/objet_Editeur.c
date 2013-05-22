@@ -116,14 +116,18 @@ int getObjetValeur(Objet *obj)
 
 void getObjetNom(Objet *obj,char* nom)
 {
-    assert (strlen(nom)<30);
     strcpy(nom,obj->nom);
 }
 
 
-char* getObjetDescription(Objet *obj)
+char* getObjetNom2(Objet *obj)
 {
-	return obj->description;
+    return obj->nom;
+}
+
+void getObjetDescription(Objet *obj,char* description)
+{
+	strcpy(description,obj->description);
 }
 
 void setObjetNom(Objet* obj,char* nom)

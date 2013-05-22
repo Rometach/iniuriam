@@ -332,7 +332,7 @@ char eventScanf (SDL_Surface* ecran,char chiffre)
     return caractere;
 }
 
-void scanfSDL (char* string,SDL_Surface* ecran, int longueur, char * action,TTF_Font *police,char chiffre)
+void scanfSDL (char* chaine,SDL_Surface* ecran, int longueur, char * action,TTF_Font *police,char chiffre)
 {
     char continuer=1;
     char caractere[2];
@@ -342,7 +342,7 @@ void scanfSDL (char* string,SDL_Surface* ecran, int longueur, char * action,TTF_
     SDL_Color couleur_texte= {255, 255, 255},couleur_rect= {10, 10, 10};
 
     caractere[1]='\0';
-    strcpy(string,"");
+    strcpy(chaine,"");
 
     position.x=TAILLE_FENETRE/2-250;
     position.y=TAILLE_FENETRE/3+150;
@@ -373,8 +373,8 @@ void scanfSDL (char* string,SDL_Surface* ecran, int longueur, char * action,TTF_
                     SDL_BlitSurface(rectangle, NULL, ecran, &position_rect);
                     SDL_FreeSurface(rectangle);
 
-                    string[i]='\0';
-                    texte=TTF_RenderText_Shaded(police, string, couleur_texte,couleur_rect);
+                    chaine[i]='\0';
+                    texte=TTF_RenderText_Shaded(police, chaine, couleur_texte,couleur_rect);
                     SDL_BlitSurface(texte, NULL, ecran, &position);
                     SDL_FreeSurface(texte);
                     SDL_Flip(ecran);
@@ -394,8 +394,8 @@ void scanfSDL (char* string,SDL_Surface* ecran, int longueur, char * action,TTF_
                     SDL_BlitSurface(rectangle, NULL, ecran, &position_rect);
                     SDL_FreeSurface(rectangle);
 
-                    strcat (string,caractere);
-                    texte=TTF_RenderText_Shaded(police, string, couleur_texte,couleur_rect);
+                    strcat (chaine,caractere);
+                    texte=TTF_RenderText_Shaded(police, chaine, couleur_texte,couleur_rect);
                     SDL_BlitSurface(texte, NULL, ecran, &position);
                     SDL_FreeSurface(texte);
                     SDL_Flip(ecran);

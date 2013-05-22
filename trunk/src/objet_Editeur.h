@@ -93,28 +93,63 @@ int getObjetValeur(Objet *obj);
 
 /**
 * \brief Preconditions : obj est initialisé
-* <br /> Postconditions : retourne le nom d'obj
+* <br /> Postconditions : retourne le nom d'obj dans nom
 */
 void getObjetNom(Objet *obj,char* nom);
 
 /**
 * \brief Preconditions : obj est initialisé
-* <br /> Postconditions : retourne la description d'obj
+* <br /> Postconditions : retourne le nom d'obj
 */
-char* getObjetDescription(Objet *obj);
+char* getObjetNom2(Objet *obj);
 
+
+/**
+* \brief Preconditions : obj est initialisé
+* <br /> Postconditions : retourne la description d'obj dans description
+*/
+void getObjetDescription(Objet *obj,char* description);
+
+/**
+* \brief Preconditions : obj est initialisé
+* <br /> Postconditions : fixe le nom d'obj à nom
+*/
 void setObjetNom(Objet* obj,char* nom);
 
+/**
+* \brief Preconditions : obj est initialisé
+* <br /> Postconditions : fixe la portée d'obj à portee
+*/
 void setObjetPortee(Objet* obj,int portee);
 
+/**
+* \brief Preconditions : obj est initialisé
+* <br /> Postconditions : fixe la valeur de dégâts d'obj à degats
+*/
 void setObjetDegats(Objet* obj,int degats);
 
+/**
+* \brief Preconditions : obj est initialisé
+* <br /> Postconditions : fixe la valeur de protection d'obj à protection
+*/
 void setObjetProtection(Objet* obj,int protection);
 
+/**
+* \brief Preconditions : obj est initialisé
+* <br /> Postconditions : fixe l'utilité d'obj à utilite
+*/
 void setObjetUtilite(Objet* obj,int utilite);
 
+/**
+* \brief Preconditions : obj est initialisé
+* <br /> Postconditions : fixe la valeur (prix) d'obj à valeur
+*/
 void setObjetValeur(Objet* obj,int valeur);
 
+/**
+* \brief Preconditions : obj est initialisé
+* <br /> Postconditions : fixe la description d'obj à description
+*/
 void setObjetDescription(Objet* obj,char* description);
 
 /**
