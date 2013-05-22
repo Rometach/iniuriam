@@ -424,8 +424,8 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                                 strcpy(texte_SDL[0],"1. Casque");
                                 strcpy(texte_SDL[1],"2. Plastron");
                                 strcpy(texte_SDL[2],"3. Jambieres");
-                                strcpy(texte_SDL[3],"4. Chaussures");
-                                strcpy(texte_SDL[4],"5. Gants");
+                                strcpy(texte_SDL[3],"4. Gants");
+                                strcpy(texte_SDL[4],"5. Chaussures");
                                 strcpy(texte_SDL[5],"6. Bouclier");
                                 for (i=0;i<6;i++)
                                 {
@@ -611,8 +611,8 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                                 strcpy(texte_SDL[0],"1. Casque");
                                 strcpy(texte_SDL[1],"2. Plastron");
                                 strcpy(texte_SDL[2],"3. Jambieres");
-                                strcpy(texte_SDL[3],"4. Chaussures");
-                                strcpy(texte_SDL[4],"5. Gants");
+                                strcpy(texte_SDL[3],"4. Gants");
+                                strcpy(texte_SDL[4],"5. Chaussures");
                                 strcpy(texte_SDL[5],"6. Bouclier");
                                 for (i=0;i<6;i++)
                                 {
@@ -806,7 +806,7 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                         {
                             case 0:/*Ajout du nom*/
                                 ok=1;
-                                tab=(Objet*)malloc(max*sizeof(Objet));
+                                initialiserTousLesObjets(&tab);
                                 for(i=1;i<max-3;i++)
                                 {
                                     getObjetNom(&tab[i],chaine1);
@@ -819,6 +819,7 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                                 {
                                     setObjetNom (&nouveau,tampon);
                                 }
+                                else selection--;
                                 free(tab);
                             break;
                             case 2:/*Ajout de la portee*/

@@ -35,4 +35,5 @@ Medikit/	01	05	01	3	Contient des pansements, un transfo de rechange, un doudou e
 Cle (USB)/	01	05	01	4	Hey, what did you expect ?/	100
 Pied de biche/	01	05	01	4	Les Sicaris appelent ca des pinces monseigneur. Personne ne sait pourquoi./	100
 Magicarpe/	01	00	00	4	lol/	-
+Gantelets/	04	00	10	2	Pour proteger tes petites mimines du froid et des coups./	10
 //
