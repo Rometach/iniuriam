@@ -58,4 +58,10 @@ int chercherCompetence (Capacite* capacite, int type);
 */
 Competence* getCompetence (Capacite* capacite, int i);
 
+/**
+* \brief Preconditions : capacite est initialisé
+* <br /> Postconditions : retourne la quantite de capacité
+*/
+int getCapaciteQuantite(Capacite* capacite);
+
 #endif

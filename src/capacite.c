@@ -20,7 +20,6 @@ void CapaciteLibere (Capacite* capacite)
     capacite->quantite=0;
 }
 
-
 /* En mode tableau dynamique*/
 void ajouterCompetenceCapacite (Capacite* capacite, Competence* comp,int exp)
 {
@@ -81,4 +80,9 @@ int chercherCompetence (Capacite* capacite, int type)
 Competence* getCompetence (Capacite* capacite, int i)
 {
     return &(capacite->comp[i]);
+}
+
+int getCapaciteQuantite(Capacite* capacite)
+{
+    return capacite->quantite;
 }

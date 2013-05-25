@@ -203,7 +203,7 @@ void setPersoPosY(Personnage *perso, int y);
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : récupère la position en Y du perso
 */
-int getPersoPosX(Personnage *perso);
+int getPersoPosY(Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé mais pas inv
