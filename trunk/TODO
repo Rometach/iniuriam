@@ -1,3 +1,6 @@
+Si vous travaillez actuellement sur un des points suivants mettez votre nom en face.
+Essayez donc de commit régulièrement.
+
 POUR AVOIR UN PROJET CLEAN
 ajouter des const partout
 faire des MainRegression
@@ -6,13 +9,13 @@ Enlever les . et les ->
 Créer un dossier lib pour SDL, TTF ...
 Valgrind à donf
 Rajouter des assert
-Dans l'éditeur, rajouter une fonction qui saute des lignes
+Dans l'éditeur, rajouter une fonction qui saute des lignes->Dimitri
 
 
 POUR FINIR LE PROJET
 faire un éditeur de PJ
 faire un éditeur de PNJ
 établir la quete du Tutoriel
-créer le Menu
+créer le Menu ->Dimitri
 ajouter plein de screens
 Doxyfile
