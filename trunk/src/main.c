@@ -8,6 +8,7 @@
 #include "combat.h"
 #include "constante.h"
 #include "time.h"
+#include "menu.h"
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
@@ -15,7 +16,7 @@
 
 int main (int argc, char **argv)
 {
-    Dialogue dialogue;
+    /*Dialogue dialogue;
 
     Terrain terrain;
     SDL_Surface* ecran = NULL;
@@ -66,8 +67,8 @@ int main (int argc, char **argv)
     persoLibere (&hero);
     libererTousLesObjets(&tabObjets);
     terLibere(&terrain);
-    SDL_Quit();
-
+    SDL_Quit();*/
+    mainMenu();
     return 0;
 /*
     Personnage *liste;

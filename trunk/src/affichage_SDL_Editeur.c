@@ -5,6 +5,18 @@
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
 
+int min (int a,int b)
+{
+    if (a<=b) return a;
+    else return b;
+}
+
+int maxi (int a,int b)
+{
+    if (a>=b) return a;
+    else return b;
+}
+
 void affChipset(Terrain* ter, SDL_Surface* ecran)
 {
     SDL_Rect position;
@@ -209,10 +221,10 @@ char eventEditeurObjet()
     return action;
 }
 
-void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
+void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
 {
-    char action=6,selection;
-    int i,nb,choix=0,page=0,objet=1,valeur,max;
+    char action,selection,type=1;
+    int i,j,nb,choix=0,objet=1,valeur,max,decalage=0,taille;
     char ligne[TAILLE_MAX_FICHIER],tampon[TAILLE_MAX_FICHIER], chaine1 [150], chaine2[150];
     char* fin;
     char ok=0;
@@ -289,18 +301,15 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                         }
                     break;
                     case 2:/*Ajouter un objet*/
-                        page=0;
                         choix=0;
                         selection++;
                     break;
                     case 3:/*Modifier un objet*/
-                        page=0;
                         type=6;
                         objet=choix+1;
                         choix=0;
                     break;
                     case 4:/*Supprimer*/
-                        page=0;
                         type=5;
                         selection=1;
                         tab=(Objet*)malloc(sizeof(Objet));
@@ -507,6 +516,7 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
 
                 free (tab);
                 rectangle=(SDL_Surface**)malloc((max-4)*sizeof(SDL_Surface*));
+                ok=0;
             break;
             case 4:/*Supprimer Objet*/
                 nb=max-4;
@@ -587,7 +597,6 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                 getObjetDescription(tab,chaine1);
                 sprintf(texte_SDL[6],"Description : %s",chaine1);
                 strcpy(texte_SDL[7],"Valider");
-
                 free (tab);
                 rectangle=(SDL_Surface**)malloc(8*sizeof(SDL_Surface*));
             break;
@@ -685,20 +694,16 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
         else if (choix<0)/*aller à la dernière page et au dernier choix*/
         {
             choix=nb-1;
-            page=(nb-1-(nb-1)%9)/9;
         }
         else if (choix>nb-1)/*aller à la première page et au premier choix*/
         {
             choix=0;
-            page=0;
         }
-        else if (choix%9==0)/*avancer d'une page*/
+        else if (choix==9)/*avancer d'une page*/
         {
-            page=choix/9;
         }
-        else if (choix<page*9)/*reculer d'une page*/
+        else if (choix==0)/*reculer d'une page*/
         {
-            page--;
         }
 
         if (nb==0) /*Cas où on a besoin d'un scanf*/
@@ -712,46 +717,88 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
             SDL_FreeSurface(*rectangle);
             free (rectangle);
         }
-        else /*Affichage du cadre*/
+        decalage=0;
+        for (i=0;i<nb;i++)/*Page visible*/
         {
-            cadre = SDL_CreateRGBSurface(SDL_HWSURFACE, 310, 60, 32, 0, 0, 0, 0);
-            SDL_FillRect(cadre, NULL, SDL_MapRGB(ecran->format, 255, 0, 0));
-            position_rect.x=TAILLE_FENETRE/2-155;
-            position_rect.y=TAILLE_FENETRE/3-5+(50+(100/nb))*(choix-page*9);
-            SDL_BlitSurface(cadre, NULL, ecran, &position_rect);
-            SDL_FreeSurface(cadre);
-        }
+            if (i==choix) /*Affichage du cadre*/
+            {
+                cadre = SDL_CreateRGBSurface(SDL_HWSURFACE, 310, 60, 32, 0, 0, 0, 0);
+                SDL_FillRect(cadre, NULL, SDL_MapRGB(ecran->format, 255, 0, 0));
+                position_rect.x=TAILLE_FENETRE/2-155;
+                position_rect.y=TAILLE_FENETRE/3-5+(50+(100/nb))*i+50*(decalage);
+                SDL_BlitSurface(cadre, NULL, ecran, &position_rect);
+                SDL_FreeSurface(cadre);
+            }
 
-        for (i=page*9;i<nb;i++)/*Page visible*/
-        {
+            taille=0;
+            position_rect.x=TAILLE_FENETRE/2-150;
+            position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*i+50*(decalage);
+            if (strlen(texte_SDL[i])>18)
+            {
+                strcpy(chaine1,texte_SDL[i]);
+                while (strlen(chaine1)>=18)
+                {
+                    taille++;
+                    j=17;
+                    while (j>=1&&chaine1[j]!=' ') j--;
+                    if (j!=0)
+                    {
+                        valeur=j;
+                        strncpy(chaine2,chaine1,valeur);
+                        chaine2[valeur]='\0';
+                    }
+                    else
+                    {
+                        strncpy(chaine2,chaine1,17);
+                        chaine2[17]='-';
+                        chaine2[18]='\0';
+
+                    }
+                    if (i==choix) /*Affichage d'un cadre suplémentaire*/
+                    {
+                        cadre = SDL_CreateRGBSurface(SDL_HWSURFACE, 310, 60, 32, 0, 0, 0, 0);
+                        SDL_FillRect(cadre, NULL, SDL_MapRGB(ecran->format, 255, 0, 0));
+                        position_rect.x=TAILLE_FENETRE/2-155;
+                        position_rect.y=TAILLE_FENETRE/3-5+(50+(100/nb))*i+50*(decalage+taille);
+                        SDL_BlitSurface(cadre, NULL, ecran, &position_rect);
+                        SDL_FreeSurface(cadre);
+                        position_rect.x+=5;
+                        position_rect.y-=45;
+                    }
+
+                    rectangle[i]= SDL_CreateRGBSurface(SDL_HWSURFACE, 300, 50, 32, 0, 0, 0, 0);
+                    SDL_FillRect(rectangle[i], NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
+                    SDL_BlitSurface(rectangle[i], NULL, ecran, &position_rect);
+                    SDL_FreeSurface(rectangle[i]);
+
+                    position_rect.x+= 25;
+                    texte=TTF_RenderText_Shaded(police, chaine2, couleur_texte,couleur_rect);
+                    SDL_BlitSurface(texte, NULL, ecran, &position_rect);
+                    SDL_FreeSurface(texte);
+                    position_rect.x-= 25;
+                    position_rect.y+=50;
+                    for (j=0;j<strlen(texte_SDL[i])-valeur+1;j++)
+                    {
+                        chaine1[j]=chaine1[valeur+j];
+                    }
+                }
+                strcpy(texte_SDL[i],chaine1);
+                decalage+=taille;
+            }
             rectangle[i]= SDL_CreateRGBSurface(SDL_HWSURFACE, 300, 50, 32, 0, 0, 0, 0);
             SDL_FillRect(rectangle[i], NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
-            position_rect.x=TAILLE_FENETRE/2-150;
-            position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*(i-page*9);
+
+            position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*i+50*(decalage);
             SDL_BlitSurface(rectangle[i], NULL, ecran, &position_rect);
             SDL_FreeSurface(rectangle[i]);
 
             position_rect.x+= 25;
-            position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*(i-page*9);
+            position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*i+50*(decalage);
             texte=TTF_RenderText_Shaded(police, texte_SDL[i], couleur_texte,couleur_rect);
             SDL_BlitSurface(texte, NULL, ecran, &position_rect);
             SDL_FreeSurface(texte);
         }
-        for (i=0;i<page*9;i++)/*Pages invisibles*/
-        {
-            rectangle[i]= SDL_CreateRGBSurface(SDL_HWSURFACE, 300, 50, 32, 0, 0, 0, 0);
-            SDL_FillRect(rectangle[i], NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
-            position_rect.x=TAILLE_FENETRE/2-150;
-            position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*(i+page*9);
-            SDL_BlitSurface(rectangle[i], NULL, ecran, &position_rect);
-            SDL_FreeSurface(rectangle[i]);
 
-            position_rect.x+= 25;
-            position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*(i+page*9);
-            texte=TTF_RenderText_Shaded(police, texte_SDL[i], couleur_texte,couleur_rect);
-            SDL_BlitSurface(texte, NULL, ecran, &position_rect);
-            SDL_FreeSurface(texte);
-        }
         SDL_Flip(ecran);
         if (nb==0&&action)/*Besoin d'un scanf*/
         {
@@ -882,21 +929,20 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                         action=5;
                         type=3;
                         choix=objet-1;
-                        ok=1;
                     break;
                     case 2:/*Entrée*/
                         tab=(Objet*)malloc(sizeof(Objet));
                         objInit(tab,objet);
                         fObjet= fopen("data/Objets.txt", "r");
                         fTampon= fopen("data/Tampon.txt", "w");
+                        for (i=0;i<objet+2;i++)
+                        {
+                            fgets (ligne,TAILLE_MAX_FICHIER,fObjet);
+                            fprintf(fTampon,"%s",ligne);
+                        }
                         switch (selection)
                         {
                             case 0:/*Modifier nom*/
-                                for (i=0;i<objet+2;i++)
-                                {
-                                    fgets (ligne,TAILLE_MAX_FICHIER,fObjet);
-                                    fprintf(fTampon,"%s",ligne);
-                                }
                                 fprintf (fTampon,"%s",tampon);
                                 fgets (ligne,TAILLE_MAX_FICHIER,fObjet);
                                 getObjetNom(tab,chaine1);
@@ -912,11 +958,6 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                                 remove("data/Tampon.txt");
                             break;
                             case 2:/*Modifier Portee*/
-                                for (i=0;i<objet+2;i++)
-                                {
-                                    fgets (ligne,TAILLE_MAX_FICHIER,fObjet);
-                                    fprintf(fTampon,"%s",ligne);
-                                }
                                 fgets (ligne,TAILLE_MAX_FICHIER,fObjet);
                                 getObjetNom(tab,chaine1);
                                 fin=ligne+strlen(chaine1)+2;
@@ -937,11 +978,6 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                                 remove("data/Tampon.txt");
                             break;
                             case 3:/*Modifier Degats*/
-                                for (i=0;i<objet+2;i++)
-                                {
-                                    fgets (ligne,TAILLE_MAX_FICHIER,fObjet);
-                                    fprintf(fTampon,"%s",ligne);
-                                }
                                 fgets (ligne,TAILLE_MAX_FICHIER,fObjet);
                                 getObjetNom(tab,chaine1);
                                 fin=ligne+strlen(chaine1)+5;
@@ -962,11 +998,6 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                                 remove("data/Tampon.txt");
                             break;
                             case 4:/*Modifier Protection*/
-                                for (i=0;i<objet+2;i++)
-                                {
-                                    fgets (ligne,TAILLE_MAX_FICHIER,fObjet);
-                                    fprintf(fTampon,"%s",ligne);
-                                }
                                 fgets (ligne,TAILLE_MAX_FICHIER,fObjet);
                                 getObjetNom(tab,chaine1);
                                 fin=ligne+strlen(chaine1)+8;
@@ -987,11 +1018,6 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                                 remove("data/Tampon.txt");
                             break;
                             case 1:/*Modifier utilite*/
-                                for (i=0;i<objet+2;i++)
-                                {
-                                    fgets (ligne,TAILLE_MAX_FICHIER,fObjet);
-                                    fprintf(fTampon,"%s",ligne);
-                                }
                                 fgets (ligne,TAILLE_MAX_FICHIER,fObjet);
                                 getObjetNom(tab,chaine1);
                                 fin=ligne+strlen(chaine1)+11;
@@ -1011,11 +1037,6 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                                 remove("data/Tampon.txt");
                             break;
                             case 5:/*Modifier valeur*/
-                                for (i=0;i<objet+2;i++)
-                                {
-                                    fgets (ligne,TAILLE_MAX_FICHIER,fObjet);
-                                    fprintf(fTampon,"%s",ligne);
-                                }
                                 fgets (ligne,TAILLE_MAX_FICHIER,fObjet);
                                 getObjetNom(tab,chaine1);
                                 getObjetDescription(tab,chaine2);
@@ -1036,11 +1057,6 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                                 remove("data/Tampon.txt");
                             break;
                             case 6:/*Modifier Description*/
-                                for (i=0;i<objet+2;i++)
-                                {
-                                    fgets (ligne,TAILLE_MAX_FICHIER,fObjet);
-                                    fprintf(fTampon,"%s",ligne);
-                                }
                                 fgets (ligne,TAILLE_MAX_FICHIER,fObjet);
                                 getObjetDescription(tab,chaine1);
                                 fin=strstr (ligne,chaine1);
@@ -1068,7 +1084,6 @@ void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police)
                     break;
                     default:/*Quitter ou erreur*/
                         action=0;
-                        ok=0;
                     break;
                 }
                 if (action) /*Retour menu modif objet si aucune erreur*/
@@ -1104,7 +1119,7 @@ void editerObjet ()
     police = TTF_OpenFont("data/Jester.ttf", 30);
     ecran=SDL_SetVideoMode(TAILLE_FENETRE, TAILLE_FENETRE_OBJET, 32, SDL_HWSURFACE);
     SDL_WM_SetCaption("Editeur d'Objet", NULL);
-    afficherEditeurObjet(ecran,1,police);/*Affichage de l'écran principal*/
+    afficherEditeurObjet(ecran,police);/*Affichage de l'écran principal*/
     SDL_FreeSurface(ecran);
     TTF_CloseFont(police);
     TTF_Quit();

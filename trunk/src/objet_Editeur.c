@@ -30,14 +30,13 @@ void objInit (Objet *obj, char type)
         strncpy(tampon,ligne+i+2,2);
         obj->portee=(char)atoi(tampon);
 
-        strncpy(tampon,ligne+i+6,2);
+        strncpy(tampon,ligne+i+5,2);
         obj->degats=(char)atoi(tampon);
 
-        strncpy(tampon,ligne+i+9,2);
+        strncpy(tampon,ligne+i+8,2);
         obj->protection=(char)atoi(tampon);
 
-        strncpy(tampon,ligne+i+11,1);
-        obj->utilite=(char)atoi(tampon);
+        obj->utilite=ligne[i+11]-'0';
         i+=13;
 
         j=strchr(ligne+i,'/')-(ligne+i);

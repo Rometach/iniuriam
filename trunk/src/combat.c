@@ -185,7 +185,6 @@ void initCombat (Personnage* liste, int l, Combattant* groupe, char arene[TAILLE
     ordreGroupe(groupe,l);
 }
 
-
 char estDansChampDeVision (char arene[TAILLE_MAX][TAILLE_MAX], int x, int y, int z, int t,char orientation)
 {
     int i,j,a,b,c,d,rayon=30;
@@ -194,6 +193,12 @@ char estDansChampDeVision (char arene[TAILLE_MAX][TAILLE_MAX], int x, int y, int
     {
         switch (orientation)
         {
+            case 0:
+                    a=max(x-rayon,1);
+                    b=min(rayon+x,TAILLE_MAX-1);
+                    c=max(y-rayon,1);
+                    d=min(y+rayon,TAILLE_MAX-1);
+            break;
             case 1: a=max(x-rayon,1);
                     b=min(rayon+x,TAILLE_MAX-1);
                     c=max(y-rayon,1);
@@ -689,7 +694,6 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MA
     }
 }
 
-
 void combat (Personnage* liste, int l, char arene [TAILLE_MAX][TAILLE_MAX])
 {
     int i,nb=l;
@@ -718,6 +722,44 @@ void combat (Personnage* liste, int l, char arene [TAILLE_MAX][TAILLE_MAX])
     free (groupe);
 }
 
+char estAPortee (char arene[TAILLE_MAX][TAILLE_MAX],Combattant* attaquant, Combattant* defenseur,int portee)
+{
+    int rayon;
+    if (estDansChampDeVision(arene,attaquant->posX,attaquant->posY,defenseur->posX,defenseur->posY,0))
+    {
+        rayon=(int)sqrt(pow((defenseur->posX-attaquant->posX),2)+pow((defenseur->posY-attaquant->posY),2));
+        if (rayon<=portee) return 1;
+    }
+    return 0;
+}
+
+void afficherPortee (char arene[TAILLE_MAX][TAILLE_MAX],Combattant* perso, int portee)
+{
+    int i,j,rayon;
+    for (i=-portee;i<portee;i++)
+    {
+        for(j=-portee;j<portee;j++)
+        {
+            if (estDansChampDeVision(arene,perso->posX,perso->posY,i,j,0))
+            {
+                rayon=(int)sqrt(pow((i-perso->posX),2)+pow((j-perso->posY),2));
+                if (rayon<=portee&&perso->posX!=i&&perso->posY!=j) arene[i][j]=5;
+            }
+        }
+    }
+}
+
+void effacerPortee (char arene[TAILLE_MAX][TAILLE_MAX],Combattant* perso, int portee)
+{
+    int i,j;
+    for (i=-portee;i<portee;i++)
+    {
+        for(j=-portee;j<portee;j++)
+        {
+            if(arene[i][j]==5)arene[i][j]=1;
+        }
+    }
+}
 
 int mainCombat ()
 {

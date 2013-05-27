@@ -73,6 +73,13 @@ void persoInit (Personnage* perso);
 void nouveauPerso(Personnage *perso, char nom[], char race, char sexe, char faction, char carriere, int experience, int argent, Objet* tab);
 
 /**
+* \brief Preconditions : perso n'est pas initialisé ou initialisé à vide
+                         tous les paramètres respectent les critères imposés par la structure
+* <br /> Postconditions : perso est initialisé avec tous les paramètres de sa structure.
+*/
+void chargerPerso (Personnage* perso,char nom[50],char race,char sexe,char faction,char carriere,int experience,int argent,char attaque,char defense,char intelligence,char agilite,char charisme,int ptDeVie,int posX,int posY,Competence* liste,int nbCompetence,int* inventaire,int nbObjet,int armure[5],int arme[3]);
+
+/**
 * \brief Preconditions : /
 * <br /> Postconditions : retourne le nombre de personnages dans PNJ.txt
 */

@@ -46,7 +46,7 @@ void eventEditeurSDL(Terrain* ter, SDL_Surface* ecran);
 * \brief Preconditions : police et ecran sont initalisés, 0<type<8
 * <br /> Postconditions : affiche les différentes pages de l'éditeur d'objet, selon le type.
 */
-void afficherEditeurObjet (SDL_Surface *ecran, char type,TTF_Font *police);
+void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police);
 
 /**
 * \brief Preconditions : SDL est initialisé
