@@ -64,6 +64,18 @@ void affInventaire(Personnage* hero, SDL_Surface* ecran);
 void affInfOb(SDL_Rect* position, Objet* objet, SDL_Surface* ecran);
 
 /**
+* \brief Preconditions : combattant, choix et ecran initalisé et remplis
+* <br /> Postconditions : affiche la selection de l'arme en combat
+*/
+void affArmesEqui(Combattant* hero, int choix, SDL_Surface* ecran);
+
+/**
+* \brief Preconditions : combattant et ecran initalisé et remplis
+* <br /> Postconditions : gère la selection de l'arme en combat
+*/
+void eventArmesEquiSDL(Combattant* combattant, Objet* armeChoisie, SDL_Surface* ecran);
+
+/**
 * \brief Preconditions : hero, ecran initalisé et remplis
 * <br /> Postconditions : gère les évements de l'inventaire
 */
@@ -86,6 +98,18 @@ void eventJeuSDL(Personnage* hero, Personnage* pnj, Personnage* ennemi, Terrain*
 * <br /> Postconditions : gère les évenements du dialogue
 */
 void eventDialogueSDL( Dialogue* dialogue, const Personnage* hero, const Personnage* pnjs, const Personnage* ennemis, Terrain* ter, SDL_Surface*ecran);
+
+/**
+* \brief Preconditions : hero, ennemi, ter et ecran initialisés
+* <br /> Postconditions : gère les évenements lors du combat
+*/
+void eventCombatSDL(Personnage* hero, Personnage* ennemi, Terrain* ter, SDL_Surface* ecran);
+
+/**
+* \brief Preconditions :groupe, j, l et arene sont initialisés
+* <br /> Postconditions : gère les évenements lors du tour de combat du joueur
+*/
+void eventTourJoueurSDL(Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MAX], Terrain* ter, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions :

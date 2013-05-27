@@ -690,12 +690,6 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MA
 }
 
 
-void tourJoueur (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MAX])
-{
-
-}
-
-
 void combat (Personnage* liste, int l, char arene [TAILLE_MAX][TAILLE_MAX])
 {
     int i,nb=l;
@@ -709,7 +703,6 @@ void combat (Personnage* liste, int l, char arene [TAILLE_MAX][TAILLE_MAX])
         {
             if(groupe[i].camp==groupe[0].camp)
             {
-                tourJoueur(groupe,i,nb,arene);
                 nb=testNbCombattant(groupe,nb,arene);
             }
             else
@@ -724,8 +717,6 @@ void combat (Personnage* liste, int l, char arene [TAILLE_MAX][TAILLE_MAX])
     /*Ajouter expérience fin de combat*/
     free (groupe);
 }
-
-
 
 
 int mainCombat ()

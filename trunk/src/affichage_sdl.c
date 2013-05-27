@@ -154,9 +154,8 @@ void affCombat(Terrain* ter, Combattant* groupe, int l, char arene[TAILLE_MAX][T
 
 void affInventaire(Personnage* perso, SDL_Surface* ecran)
 {
-    SDL_Surface* inventaire;
+    SDL_Surface* cadreInventaire;
     SDL_Rect position;
-    SDL_Rect tile;
     unsigned int i;
     char quantiteChar[255];
 
@@ -168,16 +167,12 @@ void affInventaire(Personnage* perso, SDL_Surface* ecran)
 
     position.x = 0;
     position.y = 0;
-    tile.w=TILE_LARGEUR;
-    tile.h=TILE_HAUTEUR;
 
-    inventaire = SDL_CreateRGBSurface(SDL_HWSURFACE, (CARTE_LARGEUR-2)*TILE_LARGEUR, (CARTE_HAUTEUR-2)*TILE_HAUTEUR, 32, 0, 0, 0, 0);
-    position.x = TILE_LARGEUR;
-    position.y = TILE_HAUTEUR;
-    SDL_FillRect(inventaire, NULL, SDL_MapRGB(ecran->format, 76, 24, 0));
-    SDL_BlitSurface(inventaire, NULL, ecran,&position);
+    cadreInventaire = SDL_CreateRGBSurface(SDL_HWSURFACE, TAILLE_FENETRE, TAILLE_FENETRE, 32, 0, 0, 0, 0);
+    SDL_FillRect(cadreInventaire, NULL, SDL_MapRGB(ecran->format, 76, 24, 0));
+    SDL_BlitSurface(cadreInventaire, NULL, ecran,&position);
 
-    position.x = 3*TILE_LARGEUR;
+    position.x = TAILLE_FENETRE/6;
     position.y = TILE_HAUTEUR;
     quantite = TTF_RenderText_Solid(police,  "Inventaire", colorNoir);
     SDL_BlitSurface(quantite, NULL, ecran,&position);
@@ -187,15 +182,15 @@ void affInventaire(Personnage* perso, SDL_Surface* ecran)
 
      for(i=0; i<perso->inventaire.capacite; i++)
      {
-         if(i<perso->inventaire.nbObjet)
+         if(i<perso->inventaire.nbObjet && position.y<TAILLE_FENETRE-3*TILE_HAUTEUR)
         {
-        SDL_BlitSurface(perso->inventaire.st[i].objet->icon, &tile, ecran, &position);
+        SDL_BlitSurface(perso->inventaire.st[i].objet->icon, NULL, ecran, &position);
         sprintf (quantiteChar, "%d", perso->inventaire.st[i].quantite );
         quantite = TTF_RenderText_Solid(police,  quantiteChar, colorNoir);
         SDL_BlitSurface(quantite, NULL, ecran, &position);
 
         position.x+= TILE_LARGEUR;
-            if(position.x>=CARTE_LARGEUR*TILE_LARGEUR)
+            if(position.x>=TAILLE_FENETRE/2-TILE_LARGEUR)
             {
                 position.y+= TILE_HAUTEUR;
                 position.x= 2*TILE_LARGEUR;
@@ -203,14 +198,24 @@ void affInventaire(Personnage* perso, SDL_Surface* ecran)
         }
      }
 
-    position.y= (CARTE_HAUTEUR-3)*TILE_HAUTEUR;
+
+    position.x = TAILLE_FENETRE*2/3;
+    position.y = TILE_HAUTEUR;
+    quantite = TTF_RenderText_Solid(police,  "Equipement", colorNoir);
+    SDL_BlitSurface(quantite, NULL, ecran,&position);
+
+    position.x= TAILLE_FENETRE/2+2*TILE_LARGEUR;
+    position.y= 3*TILE_HAUTEUR;
+
+    position.y= TAILLE_FENETRE-2*TILE_HAUTEUR;
     position.x= 2*TILE_LARGEUR;
     sprintf (quantiteChar, "Argent: %d ", perso->argent );
     quantite = TTF_RenderText_Solid(police,  quantiteChar, colorNoir);
     SDL_BlitSurface(quantite, NULL, ecran, &position);
 
+
     SDL_Flip(ecran);
-    SDL_FreeSurface(inventaire);
+    SDL_FreeSurface(cadreInventaire);
     SDL_FreeSurface(quantite);
     TTF_CloseFont(police);
     TTF_Quit();
@@ -226,13 +231,16 @@ void affDialogue( char* dialoguetab, SDL_Surface* ecran)
     SDL_Surface* cadreDialogue;
     SDL_Surface* texte = NULL;
     SDL_Rect position;
-
+    char* tampon;
+    char * phrase;
     TTF_Init();
     TTF_Font *police = NULL;
+    int i=1;
     police = TTF_OpenFont("data/fonts-japanese-gothic.ttf", 15);
 
     SDL_Color colorNoir = { 0 ,0,0};
-
+    tampon=malloc(400*sizeof(char));
+    phrase = malloc(400*sizeof(char));
     cadreDialogue = SDL_CreateRGBSurface(SDL_HWSURFACE, (CARTE_LARGEUR-4)*TILE_LARGEUR, 4*TILE_HAUTEUR, 32, 0, 0, 0, 0);
     position.x = 2*TILE_LARGEUR;
     position.y = (CARTE_HAUTEUR-5)*TILE_HAUTEUR;
@@ -240,9 +248,24 @@ void affDialogue( char* dialoguetab, SDL_Surface* ecran)
     SDL_FillRect(cadreDialogue, NULL, SDL_MapRGB(ecran->format, 76, 24, 0));
     SDL_BlitSurface(cadreDialogue, NULL, ecran,&position);
 
-    texte = TTF_RenderText_Solid(police, dialoguetab, colorNoir);
+    strcpy(tampon, &dialoguetab[0]);
+    texte = TTF_RenderText_Solid(police, tampon, colorNoir);
+    if(texte->w>cadreDialogue->w-10)
+    {   strncpy(tampon, dialoguetab, 0);
+                tampon[1] = '\0';
+                texte = TTF_RenderText_Solid(police, tampon, colorNoir);
+            while(texte->w<cadreDialogue->w-10 && dialoguetab[i]!='\0')
+            {
+                strncpy(tampon, dialoguetab, i);
+                tampon[i+1] = '\0';
+                texte = TTF_RenderText_Solid(police, tampon, colorNoir);
+                printf("%s \n", tampon);
+                i+=2;
+            }
+//             phrase=(tampon - strrchr(tampon, (int)" "));
+//             printf("%s \n", phrase);
+    }
     SDL_BlitSurface(texte, NULL, ecran, &position);
-
     SDL_Flip(ecran);
 
     SDL_FreeSurface(cadreDialogue);
@@ -282,12 +305,12 @@ void affMenuDialogue(SDL_Surface* ecran, char* dialoguetab, int curseur)
         if(i==curseur)
             {
                 position.x = 2*TILE_LARGEUR;
-                position.y = (CARTE_HAUTEUR-5+i)*TILE_HAUTEUR;
+                position.y = (CARTE_HAUTEUR-5)*TILE_HAUTEUR+i*TILE_HAUTEUR/2;
                 texte = TTF_RenderText_Solid(police, "*", colorNoir);
                 SDL_BlitSurface(texte, NULL, ecran, &position);
             }
         position.x = 3*TILE_LARGEUR;
-        position.y = (CARTE_HAUTEUR-5+i)*TILE_HAUTEUR;
+        position.y = (CARTE_HAUTEUR-5)*TILE_HAUTEUR+i*TILE_HAUTEUR/2;
         texte = TTF_RenderText_Solid(police, menu[i], colorNoir);
         SDL_BlitSurface(texte, NULL, ecran, &position);
     }
@@ -304,7 +327,6 @@ void affAcheter(Dialogue* dialogue, Objet* objet, SDL_Surface* ecran)
 {
  SDL_Surface* inventaire;
     SDL_Rect position;
-    SDL_Rect tile;
     unsigned int i;
     char infoChar[255];
 
@@ -317,8 +339,6 @@ void affAcheter(Dialogue* dialogue, Objet* objet, SDL_Surface* ecran)
     police = TTF_OpenFont("data/fonts-japanese-gothic.ttf", 15);
     position.x = 0;
     position.y = 0;
-    tile.w=TILE_LARGEUR;
-    tile.h=TILE_HAUTEUR;
 
     inventaire = SDL_CreateRGBSurface(SDL_HWSURFACE, (CARTE_LARGEUR-2)*TILE_LARGEUR, (CARTE_HAUTEUR-6)*TILE_HAUTEUR, 32, 0, 0, 0, 0);
     position.x = TILE_LARGEUR;
@@ -338,7 +358,7 @@ void affAcheter(Dialogue* dialogue, Objet* objet, SDL_Surface* ecran)
      {
          if(i<dialogue->perso2->inventaire.nbObjet)
         {
-        SDL_BlitSurface(dialogue->perso2->inventaire.st[i].objet->icon, &tile, ecran, &position);
+        SDL_BlitSurface(dialogue->perso2->inventaire.st[i].objet->icon, NULL, ecran, &position);
 
         position.x+= TILE_LARGEUR;
             if(position.x>=(CARTE_LARGEUR-5)*TILE_LARGEUR)
@@ -451,6 +471,107 @@ void affInfOb(SDL_Rect* position, Objet* objet, SDL_Surface* ecran)
     TTF_Quit();
 }
 
+void affArmesEqui(Combattant* combattant, int choix, SDL_Surface* ecran)
+{
+    int i;
+    SDL_Surface* cadreArmes;
+    SDL_Surface* texte = NULL;
+    SDL_Rect position;
+    TTF_Init();
+    TTF_Font *police = NULL;
+    police = TTF_OpenFont("data/fonts-japanese-gothic.ttf", 15);
+    SDL_Color colorNoir = { 0 ,0,0};
+
+    cadreArmes = SDL_CreateRGBSurface(SDL_HWSURFACE, (CARTE_LARGEUR-4)*TILE_LARGEUR, 4*TILE_HAUTEUR, 32, 0, 0, 0, 0);
+    position.x = 2*TILE_LARGEUR;
+    position.y = TAILLE_FENETRE-5*TILE_HAUTEUR;
+    SDL_FillRect(cadreArmes, NULL, SDL_MapRGB(ecran->format, 76, 24, 0));
+    SDL_BlitSurface(cadreArmes, NULL, ecran,&position);
+
+    for(i=0;i<=2;i++)
+    {
+        if(i==choix)
+            {
+                position.x = 2*TILE_LARGEUR+i*TILE_LARGEUR*3;
+                position.y = TAILLE_FENETRE-5*TILE_HAUTEUR;
+                texte = TTF_RenderText_Solid(police, "*", colorNoir);
+                SDL_BlitSurface(texte, NULL, ecran, &position);
+            }
+        position.x = 3*TILE_LARGEUR+i*TILE_LARGEUR*3;
+        position.y = TAILLE_FENETRE-5*TILE_HAUTEUR;
+        SDL_BlitSurface(combattant->perso->equipement.armeDroite[i]->icon, NULL, ecran, &position);
+    }
+
+    SDL_Flip(ecran);
+    SDL_FreeSurface(cadreArmes);
+     TTF_CloseFont(police);
+    TTF_Quit();
+}
+
+void eventArmesEquiSDL(Combattant* combattant, Objet* armeChoisie, SDL_Surface* ecran)
+{
+    int choix=0;
+    int continuer= 1;
+    int i;
+    Objet* arme;
+    SDL_Event event;
+    SDL_Rect position;
+    affArmesEqui(combattant, choix, ecran);
+    while (continuer)
+    {
+        SDL_WaitEvent(&event);
+        switch(event.type)
+        {
+            case SDL_KEYDOWN:
+            { if(event.key.state==SDL_PRESSED)
+                {
+                    if(event.key.keysym.sym==SDLK_RIGHT)
+                    {   if(choix<2)
+                        {   choix++;
+                            armeChoisie=getEquiMainDroite(&combattant->perso->equipement, choix);
+                        }
+                    }
+                    else if(event.key.keysym.sym==SDLK_LEFT)
+                    {   if(choix>0)
+                        {   choix--;
+                            armeChoisie=getEquiMainDroite(&combattant->perso->equipement, choix);
+                        }
+                    }
+                    else if(event.key.keysym.sym==SDLK_a)
+                    {
+                        continuer = 0;
+                    }
+                    affArmesEqui(combattant, choix, ecran);
+                }
+            }
+
+            case SDL_MOUSEMOTION:
+            {
+                for(i=0; i<=2; i++)
+                {
+                    if(event.button.x>3*TILE_LARGEUR+i*TILE_LARGEUR*3 && event.button.x<4*TILE_LARGEUR+i*TILE_LARGEUR*3 && event.button.y>TAILLE_FENETRE-5*TILE_HAUTEUR && event.button.y<TAILLE_FENETRE-4*TILE_HAUTEUR)
+                    {
+                    position.x = event.motion.x+10;
+                    position.y = event.motion.y;
+                    arme=combattant->perso->equipement.armeDroite[i];
+                    affArmesEqui(combattant, choix, ecran);
+                    affInfOb(&position, arme, ecran);
+                    }
+                }
+            }
+
+            break;
+
+            case SDL_QUIT:
+                continuer = 0;
+            break;
+
+            default:
+            break;
+        }
+    }
+}
+
 void eventEditeurSDL(Terrain* ter, SDL_Surface* ecran )
 {
     int i;
@@ -547,7 +668,6 @@ void eventCombatSDL(Personnage* hero, Personnage* ennemi, Terrain* ter, SDL_Surf
     groupe=(Combattant*)malloc(4*sizeof(Combattant));
 
     initCombat(liste,4,groupe,arene);
-    afficherTab2D(arene);
     groupe[0].avatar=SDL_LoadBMP("data/Chipsets/perso.bmp");
     groupe[1].avatar=SDL_LoadBMP("data/Chipsets/pnj.bmp");
      groupe[3].avatar=SDL_LoadBMP("data/Chipsets/perso.bmp");
@@ -561,14 +681,13 @@ void eventCombatSDL(Personnage* hero, Personnage* ennemi, Terrain* ter, SDL_Surf
         {
             if(groupe[i].camp==groupe[0].camp)
             {
-                tourJoueur(groupe,i,nb,arene);
+                eventTourJoueurSDL( groupe, i, 4, arene, ter, ecran );
                 nb=testNbCombattant(groupe,nb,arene);
             }
             else
             {
                 tourIA(groupe,i,nb,arene);
                 nb=testNbCombattant(groupe,nb,arene);
-
                 afficherTab2D(arene);
                 /*getchar();*/
             }
@@ -578,20 +697,63 @@ void eventCombatSDL(Personnage* hero, Personnage* ennemi, Terrain* ter, SDL_Surf
     /*Ajouter expérience fin de combat*/
  /* free (groupe);*/
 
-
-    while (continuer)
-    {
-        SDL_WaitEvent(&event);
-        switch(event.type)
-        {
-            default:
-            break;
-        }
-    }
-
-
 }
 
+void eventTourJoueurSDL(Combattant* groupe, int i, int l, char arene [TAILLE_MAX][TAILLE_MAX], Terrain* ter, SDL_Surface* ecran)
+{
+    int continuer =1;
+    SDL_Event event;
+    Objet* armeChoisie;
+
+     while (continuer)
+                {
+                    SDL_WaitEvent(&event);
+                    switch(event.type)
+                    {
+                        case SDL_KEYDOWN:
+                    { if(event.key.state==SDL_PRESSED)
+                        {
+                            if(event.key.keysym.sym==SDLK_RIGHT)    /** Deplacement vers la droite*/
+                            {   if(arene[groupe[i].posY][groupe[i].posX+1]==1)
+                                {   groupe[i].posX+=1;
+                                    arene[groupe[i].posY][groupe[i].posX]=4;
+                                    arene[groupe[i].posY][groupe[i].posX-1]=1;
+                                }
+                            }
+                            else if(event.key.keysym.sym==SDLK_LEFT)    /** Deplacement vers la gauche*/
+                            {   if(arene[groupe[i].posY][groupe[i].posX-1]==1)
+                                {   groupe[i].posX-=1;
+                                    arene[groupe[i].posY][groupe[i].posX]=4;
+                                    arene[groupe[i].posY][groupe[i].posX+1]=1;
+                                }
+                            }
+                            else if(event.key.keysym.sym==SDLK_DOWN)    /** Deplacement vers le bas*/
+                            {   if(arene[groupe[i].posY+1][groupe[i].posX]==1)
+                                {   groupe[i].posY+=1;
+                                    arene[groupe[i].posY][groupe[i].posX]=4;
+                                    arene[groupe[i].posY-1][groupe[i].posX]=1;
+                                }
+                            }
+                            else if(event.key.keysym.sym==SDLK_UP)  /** Déplacement vers le haut */
+                            {   if(arene[groupe[i].posY-1][groupe[i].posX]==1)
+                                {   groupe[i].posY-=1;
+                                    arene[groupe[i].posY][groupe[i].posX]=4;
+                                    arene[groupe[i].posY+1][groupe[i].posX]=1;
+                                }
+                            }
+                            else if(event.key.keysym.sym==SDLK_a)
+                            {
+                                eventArmesEquiSDL(&groupe[i], armeChoisie, ecran);
+                            }
+                            afficherTab2D(arene);
+                            affCombat(ter, groupe, 4, arene, ecran);
+                        }
+                    }
+                        default:
+                        break;
+                    }
+                }
+}
 
 void eventJeuSDL(Personnage* hero, Personnage* pnjs, Personnage* ennemis,Terrain* ter, Dialogue* dialogue, SDL_Surface* ecran)
 {
@@ -691,7 +853,7 @@ void eventInventaireSDL(Personnage* hero, SDL_Surface* ecran)
             {
              if(event.button.button==SDL_BUTTON_RIGHT)
                 {
-                    if(event.button.x>2*TILE_LARGEUR && event.button.x<(CARTE_LARGEUR-5)*TILE_LARGEUR && event.button.y>3*TILE_HAUTEUR && event.button.y<(CARTE_HAUTEUR-1)*TILE_HAUTEUR
+                    if(event.button.x>2*TILE_LARGEUR && event.button.x<(TAILLE_FENETRE-5*TILE_LARGEUR) && event.button.y>3*TILE_HAUTEUR && event.button.y<(TAILLE_FENETRE-TILE_HAUTEUR)
                        && (event.button.y/TILE_HAUTEUR-3+event.button.x/TILE_LARGEUR-2)<hero->inventaire.nbObjet)
                     {   objet=hero->inventaire.st[event.button.y/TILE_HAUTEUR-3+event.button.x/TILE_LARGEUR-2].objet;
 
@@ -831,7 +993,7 @@ void eventDialogueSDL( Dialogue* dialogue, const Personnage* hero, const Personn
                         }
                         else if(event.key.keysym.sym==SDLK_DOWN)
                         {
-                            if(curseur<4)
+                            if(curseur<5)
                             {
                                 curseur++;
                                 affMenuDialogue(ecran, reponse, curseur);
@@ -938,7 +1100,6 @@ void editerCarte ()
 
     ecran = SDL_SetVideoMode(TAILLE_FENETRE+32*terrain.decalageX, TAILLE_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
     SDL_WM_SetCaption("Iniuriam", NULL);
-
 
 
     eventEditeurSDL(&terrain, ecran);
