@@ -232,7 +232,7 @@ void affDialogue( char* dialoguetab, SDL_Surface* ecran)
     SDL_Surface* texte = NULL;
     SDL_Rect position;
     char* tampon;
-    char * phrase;
+    //char * phrase;
     TTF_Init();
     TTF_Font *police = NULL;
     int i=1;
@@ -240,7 +240,7 @@ void affDialogue( char* dialoguetab, SDL_Surface* ecran)
 
     SDL_Color colorNoir = { 0 ,0,0};
     tampon=malloc(400*sizeof(char));
-    phrase = malloc(400*sizeof(char));
+    //phrase = malloc(400*sizeof(char));
     cadreDialogue = SDL_CreateRGBSurface(SDL_HWSURFACE, (CARTE_LARGEUR-4)*TILE_LARGEUR, 4*TILE_HAUTEUR, 32, 0, 0, 0, 0);
     position.x = 2*TILE_LARGEUR;
     position.y = (CARTE_HAUTEUR-5)*TILE_HAUTEUR;
@@ -647,8 +647,8 @@ void eventCombatSDL(Personnage* hero, Personnage* ennemi, Terrain* ter, SDL_Surf
 {
     Personnage* liste;
     char arene [TAILLE_MAX][TAILLE_MAX];
-    int continuer =1;
-    SDL_Event event;
+    //int continuer =1;
+    //SDL_Event event;
 
     Objet *tabObjets=NULL;
 
@@ -703,7 +703,7 @@ void eventTourJoueurSDL(Combattant* groupe, int i, int l, char arene [TAILLE_MAX
 {
     int continuer =1;
     SDL_Event event;
-    Objet* armeChoisie;
+    Objet* armeChoisie=NULL;
 
      while (continuer)
                 {

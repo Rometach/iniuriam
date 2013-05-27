@@ -10,7 +10,7 @@ Créer un dossier lib pour SDL, TTF ...
 Valgrind à donf
 Rajouter des assert
 Dans l'éditeur, rajouter une fonction qui saute des lignes->Dimitri
-
+#include <bool.h> ???
 
 POUR FINIR LE PROJET
 faire un éditeur de PJ

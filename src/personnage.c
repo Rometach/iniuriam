@@ -42,7 +42,6 @@ void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char fac
     perso->carriere=carriere;
     perso->argent=argent;
     perso->experience= experience;
-
     perso->niveau=calculNiveau(experience);
 
     inventaireInit(&(perso->inventaire));
@@ -122,7 +121,57 @@ void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char fac
     /*Initialiser SDL_Surface*/
 }
 
+void chargerPerso (Personnage* perso,char nom[50],char race,char sexe, char faction, char carriere, int experience, int argent, char attaque,char defense, char intelligence, char agilite, char charisme,int ptDeVie,int posX,int posY,Competence* liste, int nbCompetence,int* inventaire,int nbObjet,int armure[5],int arme[3])
+{
+    int i;
+    Objet tampon;
 
+    strcpy(perso->nom,nom);
+    perso->race=race;
+    perso->sexe=sexe;
+    perso->faction=faction;
+    perso->carriere=carriere;
+    perso->experience=experience;
+    perso->niveau=calculNiveau(experience);
+    perso->argent=argent;
+    perso->attaque=attaque;
+    perso->defense=defense;
+    perso->intelligence=intelligence;
+    perso->agilite=agilite;
+    perso->charisme=charisme;
+    perso->ptDeVie=ptDeVie;
+    perso->posX=posX;
+    perso->posY=posY;
+    CapaciteInit(&(perso->capacite));
+    for (i=0;i<nbCompetence;i++)
+    {
+        ajouterCompetenceCapacite (&(perso->capacite), &liste[i],liste[i].experience);
+    }
+    inventaireInit(&(perso->inventaire));
+    for (i=0;i<nbObjet;i++)
+    {
+        objInit(&tampon,inventaire[i]);
+        ajouterObjetInventaire(&(perso->inventaire), &tampon);
+    }
+    equiInit(&perso->equipement);
+    for (i=0;i<5;i++)
+    {
+        if (armure[i]!=0)
+        {
+            objInit(&tampon,armure[i]);
+            equiper(perso,&tampon,0);
+        }
+
+    }
+    for (i=0;i<3;i++)
+    {
+        if (arme[i]!=0)
+        {
+            objInit(&tampon,arme[i]);
+            equiper(perso,&tampon,i);
+        }
+    }
+}
 
 int getNbPNJ()
 {

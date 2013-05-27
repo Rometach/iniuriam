@@ -64,4 +64,10 @@ Competence* getCompetence (Capacite* capacite, int i);
 */
 int getCapaciteQuantite(Capacite* capacite);
 
+/**
+* \brief Preconditions : capacite est initialisé
+* <br /> Postconditions : retourne la quantite de capacité
+*/
+int getCapaciteNbCompetence(Capacite* capacite);
+
 #endif

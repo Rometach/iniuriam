@@ -86,3 +86,8 @@ int getCapaciteQuantite(Capacite* capacite)
 {
     return capacite->quantite;
 }
+
+int getCapaciteNbCompetence(Capacite* capacite)
+{
+    return capacite->nbCompetence;
+}

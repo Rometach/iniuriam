@@ -249,6 +249,19 @@ void tourJoueur (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILL
 */
 void combat (Personnage* liste, int l, char arene [TAILLE_MAX][TAILLE_MAX]);
 
+/**
+* \brief Preconditions : arene,attaquant et defenseurs sont initialisés.
+* <br /> Postconditions : retourne 1 si le defenseur est à portee de l'attaquant, 0 sinon.
+*/
+char estAPortee (char arene[TAILLE_MAX][TAILLE_MAX],Combattant* attaquant, Combattant* defenseur,int portee);
+
+/**
+* \brief Preconditions : arene et perso sont initialisés.
+* <br /> Postconditions : affiche la portee de l'arme de perso.
+*/
+void afficherPortee (char arene[TAILLE_MAX][TAILLE_MAX],Combattant* perso, int portee);
+
+void effacerPortee (char arene[TAILLE_MAX][TAILLE_MAX],Combattant* perso, int portee);
 
 int mainCombat();
 

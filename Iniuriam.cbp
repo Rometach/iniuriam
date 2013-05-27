@@ -48,7 +48,6 @@
 		</Unit>
 		<Unit filename="src/competence.h" />
 		<Unit filename="src/constante.h" />
-		<Unit filename="src/creationPerso.h" />
 		<Unit filename="src/deplacement.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -64,6 +63,10 @@
 		<Unit filename="src/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="src/menu.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/menu.h" />
 		<Unit filename="src/mission.c">
 			<Option compilerVar="CC" />
 		</Unit>
