@@ -30,7 +30,12 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add directory="libs/include" />
 		</Compiler>
+		<Linker>
+			<Add option="-lSDL -lSDL_ttf -lfmodex" />
+			<Add directory="libs/lib" />
+		</Linker>
 		<Unit filename="src/affichage_sdl.c">
 			<Option compilerVar="CC" />
 		</Unit>
