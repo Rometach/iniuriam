@@ -335,7 +335,7 @@ char eventMenu()
 
 void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
 {
-    char action,selection=0,type=1,lettre;
+    char action=6,selection=0,type=1,lettre;
     int nb=0,choix=0,decalage=0,taille,i,j,valeur;
     char ligne[TAILLE_MAX_FICHIER], chaine1 [150], chaine2[150],tampon[50];
     char texte_SDL [10][150];
