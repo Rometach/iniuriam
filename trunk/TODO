@@ -2,23 +2,22 @@ Si vous travaillez actuellement sur un des points suivants mettez votre nom en f
 Essayez donc de commit régulièrement.
 
 POUR AVOIR UN PROJET CLEAN
-ajouter des const partout
-faire des MainRegression
+ajouter des const partout->Romain
+faire des MainRegression->Romain, ++
 Commenter les trucs qui ne le sont pas
 Enlever les . et les ->
 Créer un dossier lib pour SDL, TTF ...->Dimitri
 Valgrind à donf
 Rajouter des assert
-Dans l'éditeur, rajouter une fonction qui saute des lignes->Dimitri,Romain
-#include <bool.h> ???
+Dans l'éditeur, rajouter une fonction qui saute des lignes->Dimitri
 
 POUR FINIR LE PROJET
-faire un éditeur de PJ->Romain
+faire un éditeur de PJ->Dimitri
 faire un éditeur de PNJ->Dimitri
 établir la quete du Tutoriel->Romain
 ajouter plein de screens->Isabelle
 affichage combat->Isabelle
-Doxyfile->Dimitri
-Images et sons ???
-Makefile->Dimitri
+Doxyfile->Romain
+Images ??
+Makefile->Romain
 ReadMe-> Romain
