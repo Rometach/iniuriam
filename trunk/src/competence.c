@@ -6,11 +6,7 @@
 
 
 
-int calculNiveau (int experience)
-{
-    assert (experience>=0);
-    return (int)log(experience+1);
-}
+
 
 void compInit (Competence * comp, char type, int experience)
 {
@@ -45,9 +41,9 @@ void compInit (Competence * comp, char type, int experience)
     }
 }
 
-char *getAction (Competence *comp)
+void getAction (Competence *comp, char* action)
 {
-    return comp->action;
+    strcpy (action, comp->action);
 }
 
 char getType(const Competence *comp)
@@ -106,18 +102,34 @@ void copieCompetence(Competence *comp1, Competence *comp2)
 
 
 
-int mainComp()
+int mainCompetence()
 {
-    Competence comp1;
-    compInit(&comp1, 1, 20);
-    printf("Ok!");
-    printf("%s", getAction(&comp1));
-    printf("%d", getType(&comp1));
-    printf("%d", getExperience(&comp1));
-    printf("%d", getBonusatt(&comp1));
-    printf("%d", getBonusdef(&comp1));
-    printf("%d", getBonusint(&comp1));
-    printf("%d", getBonusagi(&comp1));
-    printf("%d", getBonuschar(&comp1));
-    return 0;
+    int i,j;
+    char action[30];
+    Competence comp[20];
+
+    for(j=0;j<1;j++)
+    {
+        for(i=0;i<19;i++)
+        {
+            compInit(&comp[i],i+1,10);
+
+            if((i%2)==0)
+            {
+                compExp (&comp[i], 10);
+            }
+
+            getAction(&comp[i],action);
+            printf("Action : %s\n", action);
+            printf("Type : %d\n", (int)getType(&comp[i]));
+            printf("Experience : %d\n", getExperience(&comp[i]));
+            printf("Bonusatt : %d\n", (int)getBonusatt(&comp[i]));
+            printf("Bonusdef : %d\n", (int)getBonusdef(&comp[i]));
+            printf("Bonusint : %d\n", (int)getBonusint(&comp[i]));
+            printf("Bonusagi : %d\n", (int)getBonusagi(&comp[i]));
+            printf("Bonuschar : %d\n\n", (int)getBonuschar(&comp[i]));
+        }
+    }
+
+    return EXIT_SUCCESS;
 }

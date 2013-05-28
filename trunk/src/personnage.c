@@ -554,6 +554,14 @@ void libererTousLesPNJ(Personnage** tabPNJ)
 }
 
 
+int calculNiveau (int experience)
+{
+    assert (experience>=0);
+    return (int)log(experience+1);
+}
+
+
+
 int mainPerso()
 {
     char nom[30];
