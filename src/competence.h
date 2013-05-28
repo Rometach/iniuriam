@@ -25,8 +25,8 @@ typedef struct
 }Competence;
 
 /**
-* \brief Preconditions : perso n'a pas déjà été initialisé
-* <br /> Postconditions : perso est initialisé vide
+* \brief Preconditions : experience>=0
+* <br /> Postconditions : retourne le niveau lié à experience
 */
 int calculNiveau(int experience);
 
