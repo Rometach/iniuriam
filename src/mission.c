@@ -34,11 +34,11 @@ void missionDefinir (Mission* mission, int l, Objet* tabObjets)
 
     strcpy(mission->nom,ligne);
     strcat(mission->nom,"\0");
-    fscanf(fMission,"%c %d %d %d %c %s",&mission->type, &mission->posXCible, &mission->posYCible, &nbObj, &mission->suite, nomPerso);
+    fscanf(fMission,"%c %d %d %d %d %s",&mission->type, &mission->posXCible, &mission->posYCible, &nbObj, &mission->suite, nomPerso);
     mission->type=(char)atoi(&mission->type);
-    mission->suite=(char)atoi(&mission->suite);
+    strcpy(mission->nomPerso,nomPerso);
 
-    printf("%d %s %d %d %d %d",mission->type, nomPerso, mission->posXCible, mission->posYCible, nbObj, mission->suite);
+    printf("Type : %d \nnomPerso : %s \nposX: %d \nposY : %d \nObjetNombre : %d \nSuite : %d\n\n",mission->type, nomPerso, mission->posXCible, mission->posYCible, nbObj, mission->suite);
 }
 
 
@@ -73,7 +73,7 @@ char estPersoMission(Mission* mission, Personnage* perso)
 {
     char nom[30];
     getPersoNom(nom,perso);
-    return strcmp(mission->nomPerso,nom);
+    return 1-strcmp(mission->nomPerso,nom);
 }
 
 
@@ -152,7 +152,24 @@ char testMissionAllerA(Mission* mission, int posX, int posY)
 
 int mainMission()
 {
+    int i;
+    Mission mission;
+    Objet* tabObj;
+
     srand(time(NULL));
+    initialiserTousLesObjets(&tabObj);
+
+    for(i=0;i<100;i++)
+    {
+        missionInit(&mission);
+        missionDefinir(&mission, 1, tabObj);
+        missionAccomplir(&mission, tabObj);
+        missionAccomplir(&mission, tabObj);
+        missionAccomplir(&mission, tabObj);
+        missionAccomplir(&mission, tabObj);
+        missionAccomplir(&mission, tabObj);
+        missionAccomplir(&mission, tabObj);
+    }
 
     return 0;
 }
