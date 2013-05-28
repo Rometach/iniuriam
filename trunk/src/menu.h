@@ -7,7 +7,7 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
 #include <SDL/SDL_image.h>
-#include <FMOD/fmod.h>
+
 
 #include "constante.h"
 #include "scanf_SDL.h"

@@ -24,7 +24,7 @@ typedef struct
     char nomPerso[30];
     Objet* objCible;
 
-    char suite;     /*0 si la mission est la dernière d'une quête
+    int suite;     /*0 si la mission est la dernière d'une quête
                     correspond sinon au numéro de ligne de la mission suivante dans Missions.txt*/
 }Mission;
 
@@ -109,6 +109,13 @@ char testMissionObtenir(Mission* mission, Objet* obj);
 * <br /> Postconditions : retourne 1 si la mission est d'aller au lieu de coordonnées (posX,posY), 0 sinon
 */
 char testMissionAllerA(Mission* mission, int posX, int posY);
+
+
+/**
+* \brief Preconditions : /
+* <br /> Postconditions : teste le module Mission
+*/
+int mainMission();
 
 
 

@@ -16,6 +16,9 @@
 
 int main (int argc, char **argv)
 {
+    mainMission();
+    return 0;
+
     /*Dialogue dialogue;
 
     Terrain terrain;
