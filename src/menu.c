@@ -126,7 +126,9 @@ void sauverPartie (char nom [50],Partie* jeu)
         fprintf(fTampon,"\n\n");
         getPersoNom(tampon,jeu->joueur[i]);
         fprintf(fTampon,"%s\n%d %d %d ",tampon,getPersoRace(jeu->joueur[i]),getPersoSexe(jeu->joueur[i]),getPersoFaction(jeu->joueur[i]));
-        fprintf(fTampon,"%d %d %d %d %d %d %d %d %d %d %d\n",getPersoCarriere(jeu->joueur[i]),getPersoExperience(jeu->joueur[i]),getPersoArgent(jeu->joueur[i]),getPersoAttaque(jeu->joueur[i]),getPersoDefense(jeu->joueur[i]),getPersoIntelligence(jeu->joueur[i]),getPersoAgilite(jeu->joueur[i]),getPersoCharisme(jeu->joueur[i]),getPersoPtDeVie(jeu->joueur[i]),getPersoPosX(jeu->joueur[i]),getPersoPosY(jeu->joueur[i]));
+        fprintf(fTampon,"%d %d %d %d %d %d %d %d %d %d %d\n",getPersoCarriere(jeu->joueur[i]),getPersoExperience(jeu->joueur[i]),
+                getPersoArgent(jeu->joueur[i]),getPersoAttaque(jeu->joueur[i]),getPersoDefense(jeu->joueur[i]),getPersoIntelligence(jeu->joueur[i]),
+                getPersoAgilite(jeu->joueur[i]),getPersoCharisme(jeu->joueur[i]),getPersoPtDeVie(jeu->joueur[i]),getPersoPosX(jeu->joueur[i]),getPersoPosY(jeu->joueur[i]));
 
         for (j=0;j<getCapaciteNbCompetence(getPersoCapacite2(jeu->joueur[i]));j++)
         {
@@ -213,7 +215,8 @@ void chargerPartie (char nom [50],Partie* jeu)
         strncpy(tampon,ligne1,strlen(ligne1)-1);
         tampon[strlen(ligne1)-1]='\0';
 
-        fscanf(fPartie,"%c %c %c %c %d %d %d %d %d %d %d %d %d %d\n",&race,&sexe,&faction,&carriere,&experience,&argent,&attaque,&defense,&intelligence,&agilite,&charisme,&ptDeVie,&posX,&posY);
+        fscanf(fPartie,"%c %c %c %c %d %d %d %d %d %d %d %d %d %d\n",&race,&sexe,&faction,&carriere,&experience,&argent,&attaque,&defense,&intelligence,
+               &agilite,&charisme,&ptDeVie,&posX,&posY);
         race-='0';
         sexe-='0';
         faction-='0';
