@@ -41,10 +41,10 @@ void CapaciteLibere (Capacite* capacite);
 void ajouterCompetenceCapacite (Capacite* capacite, Competence* comp, int exp);
 
 /**
-* \brief Preconditions : capacite1 est initialisée ; capacite2 ne l'est pas
-* <br /> Postconditions : capacite2 est initialise et le contenu de capacite1 est copié dans capacite2
+* \brief Preconditions : capacite1 est initialisée ; capacite2 aussi
+* <br /> Postconditions : capacite2 est initialise et le contenu de capacite1 est copié dans capacite2 (qui est écrasé)
 */
-void copieCapacite(Capacite* capacite1, Capacite** capacite2);
+void copieCapacite(Capacite* capacite1, Capacite* capacite2);
 
 /**
 * \brief Preconditions : capacite est initialisé

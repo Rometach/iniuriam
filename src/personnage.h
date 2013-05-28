@@ -304,6 +304,12 @@ void initialiserTousLesPNJ(Personnage** tabPNJ, Objet* tabObjets);
 */
 void libererTousLesPNJ(Personnage** tabPNJ);
 
+/**
+* \brief Preconditions : experience>=0
+* <br /> Postconditions : retourne le niveau lié à experience
+*/
+int calculNiveau(int experience);
+
 
 /**
 * \brief Preconditions : /

@@ -55,19 +55,19 @@ void ajouterCompetenceCapacite (Capacite* capacite, Competence* comp,int exp)
     }
 }
 
-void copieCapacite(Capacite* capacite1, Capacite** capacite2)
+void copieCapacite(Capacite* capacite1, Capacite* capacite2)
 {
     int i;
 
-    (*capacite2)=(Capacite*)malloc(sizeof(Capacite));
+    CapaciteLibere(capacite2);
 
-    (*capacite2)->comp=malloc((capacite1->quantite)*sizeof(Competence));
-    (*capacite2)->nbCompetence=capacite1->nbCompetence;
-    (*capacite2)->quantite=capacite1->quantite;
+    capacite2->comp=malloc((capacite1->quantite)*sizeof(Competence));
+    capacite2->nbCompetence=capacite1->nbCompetence;
+    capacite2->quantite=capacite1->quantite;
 
     for (i=0;i<capacite1->nbCompetence;i++)
     {
-        copieCompetence(&((*capacite2)->comp[i]), &(capacite1->comp[i]));
+        copieCompetence(&(capacite2->comp[i]), &(capacite1->comp[i]));
     }
 }
 
@@ -104,8 +104,7 @@ int mainCapacite()
     char action[30];
     Competence comp[10];
     Competence *pointcomp;
-    Capacite capacite;
-    Capacite* capacite2;
+    Capacite capacite, capacite2;
 
 
     for(i=0;i<10;i++)
@@ -117,6 +116,7 @@ int mainCapacite()
     for(i=0;i<100;i++)
     {
         CapaciteInit (&capacite);
+        CapaciteInit (&capacite2);
 
         for(j=0;j<9;j++)
         {
@@ -125,19 +125,19 @@ int mainCapacite()
 
         copieCapacite(&capacite, &capacite2);
 
-        printf("8=%d\n-1=%d\n", chercherCompetence(capacite2,9), chercherCompetence (capacite2,10));
+        printf("8=%d\n-1=%d\n", chercherCompetence(&capacite2,9), chercherCompetence (&capacite2,10));
 
-        for(j=0;j<getCapaciteNbCompetence(capacite2);j++)
+        for(j=0;j<getCapaciteNbCompetence(&capacite2);j++)
         {
-            pointcomp=getCompetence(capacite2, j);
-            strcpy(action, getAction(pointcomp));
+            pointcomp=getCompetence(&capacite2, j);
+            getAction(pointcomp,action);
             printf("%s\n",action);
         }
 
-        printf("Il y a %d competences sur %d\n", getCapaciteNbCompetence(capacite2), getCapaciteQuantite(capacite2));
+        printf("Il y a %d competences sur %d\n", getCapaciteNbCompetence(&capacite2), getCapaciteQuantite(&capacite2));
 
         CapaciteLibere (&capacite);
-        CapaciteLibere (capacite2);
+        CapaciteLibere (&capacite2);
     }
 
     return EXIT_SUCCESS;
