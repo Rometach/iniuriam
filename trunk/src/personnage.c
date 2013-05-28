@@ -21,8 +21,8 @@ void persoInit (Personnage* perso)
     perso->charisme=0;
     perso->ptDeVie=0;
 
-    perso->posX=0;
-    perso->posY=0;
+    perso->posX=1;
+    perso->posY=1;
 }
 
 
@@ -118,13 +118,14 @@ void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char fac
     }
     else printf ("Impossible d'ouvrir le fichier Carrieres.txt\n");
 
-    perso->posX=0;
-    perso->posY=0;
+    perso->posX=1;
+    perso->posY=1;
 
     /*Initialiser SDL_Surface*/
 }
 
-void chargerPerso (Personnage* perso,char nom[50],char race,char sexe, char faction, char carriere, int experience, int argent, char attaque,char defense, char intelligence, char agilite, char charisme,int ptDeVie,int posX,int posY,Competence* liste, int nbCompetence,int* inventaire,int nbObjet,int armure[5],int arme[3])
+void chargerPerso (Personnage* perso,char nom[50],char race,char sexe, char faction, char carriere, int experience, int argent, char attaque,char defense, char intelligence,
+                   char agilite, char charisme,int ptDeVie,int posX,int posY,Competence* liste, int nbCompetence,int* inventaire,int nbObjet,int armure[5],int arme[3])
 {
     int i;
     Objet tampon;

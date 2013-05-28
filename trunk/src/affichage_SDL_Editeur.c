@@ -701,9 +701,11 @@ void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
         }
         else if (choix==9)/*avancer d'une page*/
         {
+
         }
         else if (choix==0)/*reculer d'une page*/
         {
+
         }
 
         if (nb==0) /*Cas où on a besoin d'un scanf*/

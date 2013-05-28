@@ -80,8 +80,8 @@ void getPartieMissionActuelle (Partie* jeu,char tampon [50]);
 char eventMenu();
 
 /**
-* \brief Preconditions : police et ecran sont initalisés,
-* <br /> Postconditions : affiche les différentes pages du menu principal d'Iniuriam, selon le type.
+* \brief Preconditions : police et ecran sont initalisés.
+* <br /> Postconditions : affiche les différentes pages du menu principal et du menu pause d'Iniuriam, selon le type.
 */
 void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie);
 
