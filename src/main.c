@@ -9,6 +9,7 @@
 #include "constante.h"
 #include "time.h"
 #include "menu.h"
+#include <FMOD/fmod.h>
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
@@ -71,7 +72,22 @@ int main (int argc, char **argv)
     libererTousLesObjets(&tabObjets);
     terLibere(&terrain);
     SDL_Quit();*/
+
+    FMOD_SYSTEM *system;
+    FMOD_SOUND *musique;
+
+    FMOD_System_Create(&system);
+    FMOD_System_Init(system, 1, FMOD_INIT_NORMAL, NULL);
+
+    FMOD_System_CreateSound(system, "data/Media/GRAMATIK-Just Jammin'.mp3", FMOD_SOFTWARE | FMOD_2D | FMOD_CREATESTREAM, 0, &musique);
+
+    FMOD_Sound_SetLoopCount(musique, -1);
+    FMOD_System_PlaySound(system, FMOD_CHANNEL_FREE, musique, 0, NULL);
+
     mainMenu();
+    FMOD_Sound_Release(musique);
+    FMOD_System_Close(system);
+    FMOD_System_Release(system);
     return 0;
 /*
     Personnage *liste;

@@ -267,6 +267,7 @@ void chargerPartie (char nom [50],Partie* jeu)
             j++;
         }
         fscanf(fPartie,"%d %d %d %d %d %d %d %d\n",&armure[0],&armure[1],&armure[2],&armure[3],&armure[4],&arme[0],&arme[1],&arme[2]);
+        /*Misssions ...*/
         fgets (ligne1,TAILLE_MAX_FICHIER,fPartie);
         chargerPerso(&groupe[i],tampon,race,sexe,faction,carriere,experience,argent,attaque,defense,intelligence,agilite,charisme,ptDeVie,posX,posY,liste,max1,inventaire,max2,armure,arme);
         free (inventaire);

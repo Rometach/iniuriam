@@ -2,6 +2,7 @@ all: Iniuriam Editeur
 
 OPT = -Wall -ansi -pedantic -ggdb
 SDL=`sdl-config --cflags --libs` -lSDL_ttf -lSDL_image
+FMOD= -lfmodex
 
 Iniuriam: main.o combat.o deplacement.o parole.o affichage_sdl.o terrain.o tile.o  personnage.o capacite.o competence.o inventaire.o equipement.o stock.o objet.o
 	gcc bin/main.o bin/combat.o bin/deplacement.o bin/parole.o bin/affichage_sdl.o bin/terrain.o bin/tile.o bin/personnage.o bin/capacite.o bin/competence.o bin/inventaire.o bin/equipement.o bin/stock.o bin/objet.o $(SDL) -o bin/Iniuriam
