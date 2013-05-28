@@ -74,7 +74,6 @@ void setReponse (char* question, char* reponse)
 }
 
 
-
 char obtenirInfo(Dialogue* dialogue, char* info)
 {
     int test, bonus=0;
@@ -121,33 +120,41 @@ char soudoyer(Dialogue* dialogue, int argent, char* rep)
 {
     int test,bonus=0;
 
-    setPersoArgent(dialogue->perso1, getPersoArgent(dialogue->perso1)-argent);
-    setPersoArgent(dialogue->perso2, getPersoArgent(dialogue->perso2)+argent);
-
-    bonus=chercherCompetence(getPersoCapacite2(dialogue->perso1),6);
-    if (bonus>=0)bonus=getBonuschar(getCompetence(getPersoCapacite2(dialogue->perso1),bonus));
-    else bonus=0;
-
-    if(getPersoFaction(dialogue->perso1)==3)  /*C'est plus facile de soudoyer un marchand...*/
+    if(getPersoArgent(dialogue->perso1)>argent)
     {
-        test=(rand()%((int)(argent/2)))-5+(int)(bonus/10);
+        setPersoArgent(dialogue->perso1, getPersoArgent(dialogue->perso1)-argent);
+        setPersoArgent(dialogue->perso2, getPersoArgent(dialogue->perso2)+argent);
+
+        bonus=chercherCompetence(getPersoCapacite2(dialogue->perso1),6);
+        if (bonus>=0)bonus=getBonuschar(getCompetence(getPersoCapacite2(dialogue->perso1),bonus));
+        else bonus=0;
+
+        if(getPersoFaction(dialogue->perso1)==3)  /*C'est plus facile de soudoyer un marchand...*/
+        {
+            test=(rand()%((int)(argent/2)))-5+(int)(bonus/10);
+        }
+        else
+        {
+            test=(rand()%((int)(argent/10)))-5+(int)(bonus/10);
+        }
+        if (test>0)
+        {
+            setReponse("Soudoyer réussi\n",rep);
+            ajouterCompetencePerso (dialogue->perso1,6,5);
+        }
+        else
+        {
+            setReponse("Soudoyer échoué\n",rep);
+        }
+
+        setDialogueHumeur(dialogue, dialogue->humeur+test);
+        return dialogue->humeur;
     }
     else
     {
-        test=(rand()%((int)(argent/10)))-5+(int)(bonus/10);
+        strcpy(rep, "Vous n'avez pas assez d'argent");
+        return dialogue->humeur;
     }
-    if (test>0)
-    {
-        setReponse("Soudoyer réussi\n",rep);
-        ajouterCompetencePerso (dialogue->perso1,6,5);
-    }
-    else
-    {
-        setReponse("Soudoyer échoué\n",rep);
-    }
-
-    setDialogueHumeur(dialogue, dialogue->humeur+test);
-    return dialogue->humeur;
 }
 
 
@@ -175,7 +182,6 @@ char menacer(Dialogue* dialogue, char* rep)
 
     return dialogue->humeur;
 }
-
 
 
 

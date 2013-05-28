@@ -243,7 +243,15 @@ char estDansChampDeVision (char arene[TAILLE_MAX][TAILLE_MAX], int x, int y, int
                             /*La case occulte el l'IA sont alignés selon l'axe des abscisses
                               vérifie donc si la cible est sur le même axe et si la case occulte est entre l'IA et sa cible*/
                         }
-                        else if ((int)((j-y)/(i-x)*z)==t) /*Vérifie si la case occulte, l'IA et la cible sont alignés et si la case occulte est entre l'IA et sa cible*/
+                        else if (x==z)
+                        {
+                            if((x==i)&&(fabs(x-i)<fabs(x-z))) return 0;
+                        }
+                        else if (y==t)
+                        {
+                            if ((y==j)&&(fabs(i-x)<fabs(i-z))) return 0;
+                        }
+                        else if ((int)((j-y)/(i-x))==(int)((y-t)/(x-z))) /*Vérifie si la case occulte, l'IA et la cible sont alignés et si la case occulte est entre l'IA et sa cible*/
                         {
                             return 0;
                         }
@@ -634,7 +642,7 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MA
             }
             if (rayon<=portee) /*L'IA est à portée de la cible*/
             {
-                        if (rayon>3)
+                        if (rayon>1)
                         {
                             attaquer(groupe[j].perso,groupe[cible].perso,degats,0,0,0,0,14,0);
                             /*L'IA attaque le joueur à distance*/

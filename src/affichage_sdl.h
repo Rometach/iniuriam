@@ -49,13 +49,25 @@ void affDialogue( char* dialoguetab, SDL_Surface* ecran);
 * \brief Preconditions : Texte, ter initalisé et remplis
 * <br /> Postconditions : affiche le menu du dialogue
 */
-void affDialogue( char* dialoguetab,SDL_Surface* ecran);
+void affMenuDialogue( char* dialoguetab, int curseur, SDL_Surface* ecran);
+
+/**
+* \brief Preconditions : Texte, ter initalisé et remplis
+* <br /> Postconditions : affiche les choix que l'on peut faire lorsque l'on soudoie
+*/
+void affSoudoyer(char* dialoguetab, int curseur, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : hero, ecran initalisé et remplis
 * <br /> Postconditions :affiche l'inventaire
 */
 void affInventaire(Personnage* hero, SDL_Surface* ecran);
+
+/**
+* \brief Preconditions : hero, ecran initalisé et remplis
+* <br /> Postconditions :affiche le profil
+*/
+void affProfil(Personnage* hero, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : position, objet et ecran initalisé et remplis
@@ -71,15 +83,21 @@ void affArmesEqui(Combattant* hero, int choix, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : combattant et ecran initalisé et remplis
-* <br /> Postconditions : gère la selection de l'arme en combat
+* <br /> Postconditions : gère la selection de l'arme en combat et retourne le choix qu'on a fait
 */
-void eventArmesEquiSDL(Combattant* combattant, Objet* armeChoisie, SDL_Surface* ecran);
+int eventArmesEquiSDL(Combattant* combattant, int choix, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : hero, ecran initalisé et remplis
 * <br /> Postconditions : gère les évements de l'inventaire
 */
 void eventInventaireSDL(Personnage* hero, SDL_Surface* ecran);
+
+/**
+* \brief Preconditions : hero, ecran initalisé et remplis
+* <br /> Postconditions : gère les évements du profil
+*/
+void eventProfilSDL(Personnage* hero, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : ter et ecran initalisé et remplis
