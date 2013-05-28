@@ -17,67 +17,6 @@
 
 int main (int argc, char **argv)
 {
-    mainCompetence();
-    getchar();
-    mainCapacite();
-    return 0;
-
-    /*mainMission();
-    return 0;*/
-
-    /*Dialogue dialogue;
-
-    Terrain terrain;
-    SDL_Surface* ecran = NULL;
-    Personnage hero;
-    Personnage pnj;
-    Personnage ennemi;
-    SDL_Init(SDL_INIT_VIDEO);
-    terInit(&terrain);
-    persoInit(&hero);
-    persoInit(&pnj);
-    persoInit(&ennemi);
-    dialogueInit(&dialogue, &hero, &ennemi);
-    int i;
-    Objet *tabObjets=NULL;
-
-    initialiserTousLesObjets(&tabObjets);
-
-    srand(time(NULL));
-    nouveauPerso (&hero, "Toromis", 1, 1, 1, 1, 0, 100, tabObjets);
-    nouveauPerso (&ennemi, "Mechant", 2, 1, 2, 1, 0, 100, tabObjets);
-    nouveauPerso (&pnj, "Babar", 1, 1, 1, 1, 0, 100, tabObjets);
-
-    ecran = SDL_SetVideoMode(TAILLE_FENETRE, TAILLE_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
-    SDL_WM_SetCaption("Iniuriam", NULL);
-
-    terCharger(&terrain, "data/Cartes/save.map");
-    hero.avatar=SDL_LoadBMP("data/Chipsets/perso.bmp");
-    pnj.avatar=SDL_LoadBMP("data/Chipsets/pnj.bmp");
-    ennemi.avatar=SDL_LoadBMP("data/Chipsets/pnj.bmp");
-
-    for(i=0; i<hero.inventaire.nbObjet; i++)
-    {
-    pnj.inventaire.st[i].objet->icon=SDL_LoadBMP("data/Chipsets/perso.bmp");
-    hero.inventaire.st[i].objet->icon=SDL_LoadBMP("data/Chipsets/perso.bmp");
-    ennemi.inventaire.st[i].objet->icon=SDL_LoadBMP("data/Chipsets/perso.bmp");
-    }
-    hero.inventaire.st[0].quantite=2;
-    setPersoPosX(&ennemi, TILE_LARGEUR*5);
-    setPersoPosY(&ennemi, TILE_HAUTEUR*0);
-    for (i=0;i<3;i++)
-    {
-        printf("%d\n", ennemi.inventaire.st[i].objet->valeur);
-    }
-
-    eventJeuSDL(&hero, &pnj, &ennemi, &terrain, &dialogue, ecran);
-
-    persoLibere(&ennemi);
-    persoLibere (&hero);
-    libererTousLesObjets(&tabObjets);
-    terLibere(&terrain);
-    SDL_Quit();*/
-
     /*FMOD_SYSTEM *system;
     FMOD_SOUND *musique;
 

@@ -983,7 +983,7 @@ int mainMenu ()
     police = TTF_OpenFont("data/Jester.ttf", 30);
     ecran=SDL_SetVideoMode(TAILLE_FENETRE, TAILLE_FENETRE_OBJET, 32, SDL_HWSURFACE);
     SDL_WM_SetCaption("Iniuriam",NULL);
-    afficherMenu(ecran,0,police,&jeu);/*Affichage de l'écran principal*/
+    afficherMenu(ecran,0,police,NULL);/*Affichage de l'écran principal*/
 
     partieLibere (&jeu);
     free (tab);
