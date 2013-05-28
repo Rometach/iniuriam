@@ -335,7 +335,7 @@ char eventMenu()
 
 void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
 {
-    char action,selection=0,type=1;
+    char action,selection=0,type=1,lettre;
     int nb=0,choix=0,decalage=0,taille,i,j,valeur;
     char ligne[TAILLE_MAX_FICHIER], chaine1 [150], chaine2[150],tampon[50];
     char texte_SDL [10][150];
@@ -398,6 +398,25 @@ void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                             choix=0;
                         break;
                         case 6:/*Confirmation*/
+                        break;
+                        case 7:
+                            type=5;
+                            strcpy(chaine2,"Sauvegarde ");
+                            switch (lettre)
+                            {
+                                case 0:
+                                    strcat(chaine2,"A");
+                                break;
+                                case 1:
+                                    strcat(chaine2,"B");
+                                break;
+                                case 2:
+                                    strcat(chaine2,"C");
+                                break;
+                                default:
+                                break;
+                            }
+                            choix=0;
                         break;
                         default:
                             type=1;
@@ -564,12 +583,18 @@ void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                                     default:
                                     break;
                                 }
+                                lettre=choix;
                                 choix=0;
                             }
                         break;
                         case 4:/*Option*/
                         break;
                         case 5:/*Actions partie*/
+                            if (choix==0)
+                            {
+                                type=7;
+                                choix=0;
+                            }
                             if (choix==3||((choix==1)&&(strcmp(chaine1,"(Vide)")==0)))
                             {
                                 strcpy(chaine1,"Iniuriam");
@@ -599,6 +624,9 @@ void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                                 choix=0;
                                 supprimerPartie(tampon);
                             }
+                        break;
+                        case 7:
+
                         break;
                         default:
                         break;
@@ -671,6 +699,8 @@ void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                 position.y=TAILLE_FENETRE/20+25;
                 SDL_BlitSurface(nom, NULL, ecran, &position);
                 SDL_FreeSurface(nom);
+                SDL_Flip(ecran);
+                getchar();
 
                 fgets (chaine1,TAILLE_MAX_FICHIER,fPartie);
                 valeur=chaine1[strlen(chaine1)-2]-'0';
@@ -719,6 +749,7 @@ void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                 position.x=TAILLE_FENETRE/2-200;
                 position.y+=145;
                 SDL_BlitSurface(sauvegarde, NULL, ecran, &position);
+
                 SDL_FreeSurface(sauvegarde);
                 /*Nom de la sauvegarde*/
                 nom = TTF_RenderText_Shaded(police, chaine1, couleur_texte,couleur_rect);
@@ -740,6 +771,7 @@ void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                         position.y+=35;
                         SDL_BlitSurface(nom, NULL, ecran, &position);
                         SDL_FreeSurface(nom);
+
                         for (i=0;i<4;i++) fgets(ligne,TAILLE_MAX_FICHIER,fPartie);
                     }
                 }
@@ -794,7 +826,12 @@ void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
 
                 rectangle=(SDL_Surface**)malloc(2*sizeof(SDL_Surface*));
             break;
-            case 10:/*Nouvelle Partie*/
+            case 7:/*Nouvelle Partie*/
+                nom = TTF_RenderText_Shaded(police,"Nouvelle partie", couleur_texte,couleur_rect);
+                position.x=TAILLE_FENETRE/2-100;
+                position.y=TAILLE_FENETRE/20+25;
+                SDL_BlitSurface(nom, NULL, ecran, &position);
+                SDL_FreeSurface(nom);
             break;
             default:
             break;
@@ -815,7 +852,7 @@ void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
         {
         }
 
-        if (nb==0) /*Cas où on a besoin d'un scanf*/
+        /*if (nb==0) Cas où on a besoin d'un scanf
         {
             rectangle=(SDL_Surface**)malloc(sizeof(SDL_Surface*));
             *rectangle= SDL_CreateRGBSurface(SDL_HWSURFACE, 500, 50, 32, 0, 0, 0, 0);
@@ -825,7 +862,7 @@ void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
             SDL_BlitSurface(*rectangle, NULL, ecran, &position_rect);
             SDL_FreeSurface(*rectangle);
             free (rectangle);
-        }
+        }*/
         decalage=0;
         if (type!=5)
         {
@@ -943,7 +980,7 @@ int mainMenu ()
     police = TTF_OpenFont("data/Jester.ttf", 30);
     ecran=SDL_SetVideoMode(TAILLE_FENETRE, TAILLE_FENETRE_OBJET, 32, SDL_HWSURFACE);
     SDL_WM_SetCaption("Iniuriam",NULL);
-    afficherMenu(ecran,1,police,&jeu);/*Affichage de l'écran principal*/
+    afficherMenu(ecran,0,police,&jeu);/*Affichage de l'écran principal*/
 
     partieLibere (&jeu);
     free (tab);

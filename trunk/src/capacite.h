@@ -41,10 +41,10 @@ void CapaciteLibere (Capacite* capacite);
 void ajouterCompetenceCapacite (Capacite* capacite, Competence* comp, int exp);
 
 /**
-* \brief Preconditions : capacite1 est initialisé mais pas capacite2
-* <br /> Postconditions : Copie le contenu de capacite1 dans capacite2
+* \brief Preconditions : capacite1 est initialisée mais pas capacite2
+* <br /> Postconditions : capacite2 est initialisée ; le contenu de capacite1 est copié dans capacite2
 */
-void copieCapacite(Capacite* capacite1,Capacite* capacite2);
+void copieCapacite(Capacite* capacite1, Capacite** capacite2);
 
 /**
 * \brief Preconditions : capacite est initialisé
@@ -69,5 +69,12 @@ int getCapaciteQuantite(Capacite* capacite);
 * <br /> Postconditions : retourne la quantite de capacité
 */
 int getCapaciteNbCompetence(Capacite* capacite);
+
+
+/**
+* \brief Preconditions : /
+* <br /> Postconditions : teste les fonctions du module Competence
+*/
+int mainCapacite();
 
 #endif
