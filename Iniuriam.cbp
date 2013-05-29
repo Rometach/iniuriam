@@ -33,7 +33,7 @@
 			<Add directory="libs/include" />
 		</Compiler>
 		<Linker>
-			<Add option="-lSDL -lSDL_ttf -lfmodex" />
+			<Add option="-lSDL -lSDL_ttf -lfmodex64" />
 			<Add directory="libs/lib" />
 		</Linker>
 		<Unit filename="src/affichage_sdl.c">

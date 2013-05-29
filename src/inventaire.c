@@ -16,7 +16,6 @@ void inventaireInit (Inventaire* inventaire)
     inventaire->capacite=1;
 }
 
-
 void inventaireLibere (Inventaire* inventaire)
 {
     int i;
@@ -28,7 +27,6 @@ void inventaireLibere (Inventaire* inventaire)
     inventaire->nbObjet=0;
     inventaire->capacite=0;
 }
-
 
 void ajouterObjetInventaire (Inventaire* inventaire, Objet* obj)
 {
@@ -63,7 +61,6 @@ void ajouterObjetInventaire (Inventaire* inventaire, Objet* obj)
     }
 }
 
-
 void enleverObjetInventaire (Inventaire* inventaire, Objet* obj)
 {
     int i, j;
@@ -82,10 +79,9 @@ void enleverObjetInventaire (Inventaire* inventaire, Objet* obj)
             copieStock((inventaire->st)+j,(inventaire->st)+j+1);
         }
         stockLibere((inventaire->st)+(inventaire->nbObjet));
+        incrementerStock((inventaire->st)+i,-1);
     }
 }
-
-
 
 void copieInventaire (Inventaire* inventaire1, Inventaire* inventaire2)
 {
@@ -112,7 +108,6 @@ void afficherInventaire (Inventaire* inventaire)
 }
 
 
-
 char estObjDansInv (Inventaire* inventaire, Objet* obj)
 {
     int i;
@@ -125,23 +120,17 @@ char estObjDansInv (Inventaire* inventaire, Objet* obj)
     return 0;
 }
 
-
 Stock* getInventaireStock (Inventaire* inventaire,int i)
 {
     return &(inventaire->st[i]);
 }
-
 
 int getInventaireNbObjets (Inventaire* inventaire)
 {
     return inventaire->nbObjet;
 }
 
-
 int getInventaireCapacite (Inventaire* inventaire)
 {
     return inventaire->capacite;
 }
-
-
-

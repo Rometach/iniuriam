@@ -46,6 +46,24 @@ void objInit (Objet *obj, char type)
         obj->description[j]='\0';
 
         obj->valeur=atoi(ligne+i+j+2);
+
+        switch(obj->utilite)
+        {
+            case 1: obj->icon=SDL_LoadBMP("data/Media/objetArme.bmp");
+            break;
+
+            case 2: obj->icon=SDL_LoadBMP("data/Media/objetArmure.bmp");
+            break;
+
+            case 3: obj->icon=SDL_LoadBMP("data/Media/objetSoin.bmp");
+            break;
+
+            case 4: obj->icon=SDL_LoadBMP("data/Media/objetQuete.bmp");
+            break;
+
+            default: obj->icon=SDL_LoadBMP("data/Media/objetAutre.bmp");
+            break;
+        }
     }
     else
     {
