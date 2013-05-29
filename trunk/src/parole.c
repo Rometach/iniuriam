@@ -30,8 +30,6 @@ void dialogueInit (Dialogue* dialogue, Personnage* perso1, Personnage* perso2)
     }
 }
 
-
-
 char setDialogueHumeur (Dialogue* dialogue, int hum)
 {
     if (hum<0)
@@ -48,8 +46,6 @@ char setDialogueHumeur (Dialogue* dialogue, int hum)
     }
     return dialogue->humeur;
 }
-
-
 
 void setReponse (char* question, char* reponse)
 {
@@ -72,7 +68,6 @@ void setReponse (char* question, char* reponse)
         printf ("Impossible d'ouvrir le fichier Dialogues.txt");
     }
 }
-
 
 char obtenirInfo(Dialogue* dialogue, char* info)
 {
@@ -102,7 +97,6 @@ char obtenirInfo(Dialogue* dialogue, char* info)
 
     return dialogue->humeur;
 }
-
 
 char parlerQuete(Dialogue* dialogue, char* info)
 {
@@ -157,7 +151,6 @@ char soudoyer(Dialogue* dialogue, int argent, char* rep)
     }
 }
 
-
 char menacer(Dialogue* dialogue, char* rep)
 {
     int test,bonus=0;
@@ -182,8 +175,6 @@ char menacer(Dialogue* dialogue, char* rep)
 
     return dialogue->humeur;
 }
-
-
 
 char seduire(Dialogue* dialogue, char* rep)
 {
@@ -285,9 +276,6 @@ char acheter(Dialogue* dialogue, Objet* objet, char* rep)
     return(dialogue->humeur);
 }
 
-
-
-
 char vendre(Dialogue* dialogue, Objet* objet, char* rep)
 {
     char c;
@@ -336,7 +324,6 @@ char vendre(Dialogue* dialogue, Objet* objet, char* rep)
     inventaireLibere(&inv);
     return(dialogue->humeur);
 }
-
 
 /*
 int mainParole ()

@@ -228,7 +228,12 @@ void affInventaire(Personnage* perso, SDL_Surface* ecran)
 
     position.x= TAILLE_FENETRE/2+2*TILE_LARGEUR;
     position.y= 3*TILE_HAUTEUR;
-//    SDL_BlitSurface(perso->equipement.tete->icon, NULL, ecran, &position);
+    if(perso->equipement.tete==NULL)
+    {
+
+    }
+    else
+    { SDL_BlitSurface(perso->equipement.tete->icon, NULL, ecran, &position);}
 
     position.y= TAILLE_FENETRE-2*TILE_HAUTEUR;
     position.x= 2*TILE_LARGEUR;
@@ -254,13 +259,13 @@ void affProfil(Personnage* perso, SDL_Surface* ecran)
     TTF_Font *police = NULL;
     police = TTF_OpenFont("data/fonts-japanese-gothic.ttf", 15);
     SDL_Surface* quantite=NULL;
-    SDL_Color colorNoir = { 0, 0, 0};
+    SDL_Color colorNoir = { 0, 255, 0};
 
     position.x = 0;
     position.y = 0;
 
     cadreProfil = SDL_CreateRGBSurface(SDL_HWSURFACE, TAILLE_FENETRE, TAILLE_FENETRE, 32, 0, 0, 0, 0);
-    SDL_FillRect(cadreProfil, NULL, SDL_MapRGB(ecran->format, 76, 24, 0));
+    SDL_FillRect(cadreProfil, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
     SDL_BlitSurface(cadreProfil, NULL, ecran,&position);
 
     position.x = TAILLE_FENETRE/3;
@@ -474,15 +479,14 @@ void affMenuDialogue(char* dialoguetab, int curseur, SDL_Surface* ecran)
     SDL_Surface* dialogue=NULL;
     SDL_Surface* texte = NULL;
     SDL_Rect position;
-    SDL_Color colorNoir = { 0, 0, 0};
-    char menu[7][20];
+    SDL_Color couleur = { 0, 255, 0};
+    char menu[6][20];
     strcpy(menu[0], "Obtenir des infos");
     strcpy(menu[1], "Soudoyer");
     strcpy(menu[2], "Menacer");
     strcpy(menu[3], "Seduire");
     strcpy(menu[4], "Acheter");
     strcpy(menu[5],  "Vendre");
-    strcpy(menu[6],  "Quete");
 
     TTF_Init();
     TTF_Font *police = NULL;
@@ -492,21 +496,21 @@ void affMenuDialogue(char* dialoguetab, int curseur, SDL_Surface* ecran)
     position.x = 2*TILE_LARGEUR;
     position.y = (CARTE_HAUTEUR-5)*TILE_HAUTEUR;
 
-    SDL_FillRect(dialogue, NULL, SDL_MapRGB(ecran->format, 76, 24, 0));
+    SDL_FillRect(dialogue, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
     SDL_BlitSurface(dialogue, NULL, ecran,&position);
 
-    for(i=0;i<7;i++)
+    for(i=0;i<6;i++)
     {
         if(i==curseur)
             {
                 position.x = 2*TILE_LARGEUR;
                 position.y = (CARTE_HAUTEUR-5)*TILE_HAUTEUR+i*TILE_HAUTEUR/2;
-                texte = TTF_RenderText_Solid(police, "*", colorNoir);
+                texte = TTF_RenderText_Solid(police, "*", couleur);
                 SDL_BlitSurface(texte, NULL, ecran, &position);
             }
         position.x = 3*TILE_LARGEUR;
         position.y = (CARTE_HAUTEUR-5)*TILE_HAUTEUR+i*TILE_HAUTEUR/2;
-        texte = TTF_RenderText_Solid(police, menu[i], colorNoir);
+        texte = TTF_RenderText_Solid(police, menu[i], couleur);
         SDL_BlitSurface(texte, NULL, ecran, &position);
     }
 
@@ -577,21 +581,19 @@ void affAcheter(Dialogue* dialogue, Objet* objet, SDL_Surface* ecran)
     TTF_Font *police = NULL;
 
     SDL_Surface* info=NULL;
-    SDL_Color colorNoir = { 0, 0, 0};
+    SDL_Color couleur = { 0, 255, 0};
 
     police = TTF_OpenFont("data/fonts-japanese-gothic.ttf", 15);
     position.x = 0;
     position.y = 0;
 
-    inventaire = SDL_CreateRGBSurface(SDL_HWSURFACE, (CARTE_LARGEUR-2)*TILE_LARGEUR, (CARTE_HAUTEUR-6)*TILE_HAUTEUR, 32, 0, 0, 0, 0);
-    position.x = TILE_LARGEUR;
-    position.y = TILE_HAUTEUR;
-    SDL_FillRect(inventaire, NULL, SDL_MapRGB(ecran->format, 76, 24, 0));
+    inventaire = SDL_CreateRGBSurface(SDL_HWSURFACE, TAILLE_FENETRE, TAILLE_FENETRE, 32, 0, 0, 0, 0);
+    SDL_FillRect(inventaire, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
     SDL_BlitSurface(inventaire, NULL, ecran,&position);
 
     position.x = 3*TILE_LARGEUR;
     position.y = TILE_HAUTEUR;
-    info = TTF_RenderText_Solid(police,  "Acheter", colorNoir);
+    info = TTF_RenderText_Solid(police,  "Acheter", couleur);
     SDL_BlitSurface(info, NULL, ecran,&position);
 
     position.x= 2*TILE_LARGEUR;
@@ -601,7 +603,71 @@ void affAcheter(Dialogue* dialogue, Objet* objet, SDL_Surface* ecran)
      {
          if(i<dialogue->perso2->inventaire.nbObjet)
         {
-        SDL_BlitSurface(dialogue->perso2->inventaire.st[i].objet->icon, NULL, ecran, &position);
+            SDL_BlitSurface(dialogue->perso2->inventaire.st[i].objet->icon, NULL, ecran, &position);
+            sprintf (infoChar, "%d", dialogue->perso2->inventaire.st[i].quantite );
+            info = TTF_RenderText_Solid(police, infoChar, couleur);
+            SDL_BlitSurface(info, NULL, ecran, &position);
+
+            position.x+= TILE_LARGEUR;
+            if(position.x>=(CARTE_LARGEUR-5)*TILE_LARGEUR)
+            {
+                position.y+= TILE_HAUTEUR;
+                position.x= 2*TILE_LARGEUR;
+            }
+        }
+     }
+
+    position.x = (CARTE_LARGEUR-5)*TILE_LARGEUR;
+    position.y = 3*TILE_HAUTEUR;
+    sprintf (infoChar, "%d", dialogue->perso1->argent);
+    info = TTF_RenderText_Solid(police,  infoChar, couleur);
+    SDL_BlitSurface(info, NULL, ecran, &position);
+
+    SDL_Flip(ecran);
+    SDL_FreeSurface(inventaire);
+    SDL_FreeSurface(info);
+    TTF_CloseFont(police);
+    TTF_Quit();
+
+}
+
+void affVendre(Dialogue* dialogue, Objet* objet, SDL_Surface* ecran)
+{
+    SDL_Surface* inventaire;
+    SDL_Rect position;
+    unsigned int i;
+    char infoChar[255];
+
+    TTF_Init();
+    TTF_Font *police = NULL;
+
+    SDL_Surface* info=NULL;
+    SDL_Color couleur = { 0, 255, 0};
+
+    police = TTF_OpenFont("data/fonts-japanese-gothic.ttf", 15);
+    position.x = 0;
+    position.y = 0;
+
+    inventaire = SDL_CreateRGBSurface(SDL_HWSURFACE, TAILLE_FENETRE, TAILLE_FENETRE, 32, 0, 0, 0, 0);
+    SDL_FillRect(inventaire, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
+    SDL_BlitSurface(inventaire, NULL, ecran,&position);
+
+    position.x = 3*TILE_LARGEUR;
+    position.y = TILE_HAUTEUR;
+    info = TTF_RenderText_Solid(police,  "Vendre", couleur);
+    SDL_BlitSurface(info, NULL, ecran,&position);
+
+    position.x= 2*TILE_LARGEUR;
+    position.y= 3*TILE_HAUTEUR;
+
+     for(i=0; i<dialogue->perso1->inventaire.capacite && position.y<((TILE_HAUTEUR-4)*CARTE_HAUTEUR); i++)
+     {
+         if(i<dialogue->perso1->inventaire.nbObjet)
+        {
+        SDL_BlitSurface(dialogue->perso1->inventaire.st[i].objet->icon, NULL, ecran, &position);
+        sprintf (infoChar, "%d", dialogue->perso1->inventaire.st[i].quantite );
+        info = TTF_RenderText_Solid(police,  infoChar, couleur);
+        SDL_BlitSurface(info, NULL, ecran, &position);
 
         position.x+= TILE_LARGEUR;
             if(position.x>=(CARTE_LARGEUR-5)*TILE_LARGEUR)
@@ -615,7 +681,7 @@ void affAcheter(Dialogue* dialogue, Objet* objet, SDL_Surface* ecran)
     position.x = (CARTE_LARGEUR-5)*TILE_LARGEUR;
     position.y = 3*TILE_HAUTEUR;
     sprintf (infoChar, "%d", dialogue->perso1->argent);
-    info = TTF_RenderText_Solid(police,  infoChar, colorNoir);
+    info = TTF_RenderText_Solid(police,  infoChar, couleur);
     SDL_BlitSurface(info, NULL, ecran, &position);
 
     SDL_Flip(ecran);
@@ -623,7 +689,6 @@ void affAcheter(Dialogue* dialogue, Objet* objet, SDL_Surface* ecran)
     SDL_FreeSurface(info);
     TTF_CloseFont(police);
     TTF_Quit();
-
 }
 
 void affInfOb(SDL_Rect* position, Objet* objet, SDL_Surface* ecran)
@@ -723,12 +788,12 @@ void affArmesEqui(Combattant* combattant, int choix, SDL_Surface* ecran)
     TTF_Init();
     TTF_Font *police = NULL;
     police = TTF_OpenFont("data/fonts-japanese-gothic.ttf", 15);
-    SDL_Color colorNoir = { 0 ,0,0};
+    SDL_Color colorNoir = { 0 ,255,0};
 
     cadreArmes = SDL_CreateRGBSurface(SDL_HWSURFACE, (CARTE_LARGEUR-4)*TILE_LARGEUR, 4*TILE_HAUTEUR, 32, 0, 0, 0, 0);
     position.x = 2*TILE_LARGEUR;
     position.y = TAILLE_FENETRE-5*TILE_HAUTEUR;
-    SDL_FillRect(cadreArmes, NULL, SDL_MapRGB(ecran->format, 76, 24, 0));
+    SDL_FillRect(cadreArmes, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
     SDL_BlitSurface(cadreArmes, NULL, ecran,&position);
 
     for(i=0;i<=2;i++)
@@ -748,6 +813,103 @@ void affArmesEqui(Combattant* combattant, int choix, SDL_Surface* ecran)
     SDL_Flip(ecran);
     SDL_FreeSurface(cadreArmes);
      TTF_CloseFont(police);
+    TTF_Quit();
+}
+
+void affJournal(Personnage* perso, Mission* mission, SDL_Surface* ecran)
+{
+SDL_Surface* cadreProfil;
+    SDL_Rect position;
+    char info[255];
+
+    TTF_Init();
+    TTF_Font *police = NULL;
+    police = TTF_OpenFont("data/fonts-japanese-gothic.ttf", 15);
+    SDL_Surface* texte=NULL;
+    SDL_Color couleur = { 0, 255, 0};
+
+    position.x = 0;
+    position.y = 0;
+
+    cadreProfil = SDL_CreateRGBSurface(SDL_HWSURFACE, TAILLE_FENETRE, TAILLE_FENETRE, 32, 0, 0, 0, 0);
+    SDL_FillRect(cadreProfil, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
+    SDL_BlitSurface(cadreProfil, NULL, ecran,&position);
+
+    position.x = TAILLE_FENETRE/3;
+    position.y = TAILLE_FENETRE/10;
+    texte = TTF_RenderText_Solid(police,  "Journal de quetes", couleur);
+    SDL_BlitSurface(texte, NULL, ecran,&position);
+
+    position.x=TAILLE_FENETRE/6;
+    position.y=TAILLE_FENETRE/6;
+
+    texte = TTF_RenderText_Solid(police, mission->nom, couleur);
+    SDL_BlitSurface(texte, NULL, ecran,&position);
+
+    position.y+= 25;
+    switch(mission->type)
+    {
+        case 1:
+        texte = TTF_RenderText_Solid(police,  "Type: Parler à quelqu'un", couleur);
+        SDL_BlitSurface(texte, NULL, ecran,&position);
+        break;
+
+        case 2:
+        texte = TTF_RenderText_Solid(police,  "Type: Obtenir des infos", couleur);
+        SDL_BlitSurface(texte, NULL, ecran,&position);
+        break;
+
+        case 3:
+        texte = TTF_RenderText_Solid(police,  "Type: Tuer quelqu'un", couleur);
+        SDL_BlitSurface(texte, NULL, ecran,&position);
+        break;
+
+        case 4:
+        texte = TTF_RenderText_Solid(police,  "Type: Obtenir un objet", couleur);
+        SDL_BlitSurface(texte, NULL, ecran,&position);
+        break;
+
+        case 5:
+        texte = TTF_RenderText_Solid(police,  "Type: Se rendre à un certain endroit", couleur);
+        SDL_BlitSurface(texte, NULL, ecran,&position);
+        break;
+
+        default:
+        break;
+    }
+   if(&mission->posXCible!=NULL)
+   {
+        position.y+= 25;
+        sprintf(info,"%d", mission->posXCible);
+        texte = TTF_RenderText_Solid(police, info , couleur);
+        SDL_BlitSurface(texte, NULL, ecran,&position);
+   }
+     if(&mission->posYCible!=NULL)
+   {
+       position.y+= 25;
+        sprintf(info,"%d", mission->posYCible);
+        texte = TTF_RenderText_Solid(police, info , couleur);
+        SDL_BlitSurface(texte, NULL, ecran,&position);
+   }
+    if(mission->nomPerso!=NULL)
+    {   position.y+= 25;
+        sprintf(info, "Nom du personnage: %s",mission->nomPerso);
+        texte = TTF_RenderText_Solid(police, info, couleur);
+        SDL_BlitSurface(texte, NULL, ecran,&position);
+    }
+    if(mission->objCible!=NULL)
+    {   position.y+= 25;
+        sprintf(info, "Objet a trouver: %s", mission->objCible->nom);
+        texte = TTF_RenderText_Solid(police, mission->objCible->nom , couleur);
+        SDL_BlitSurface(texte, NULL, ecran,&position);
+    }
+
+
+
+    SDL_Flip(ecran);
+    SDL_FreeSurface(cadreProfil);
+    SDL_FreeSurface(texte);
+    TTF_CloseFont(police);
     TTF_Quit();
 }
 
@@ -1012,7 +1174,6 @@ void eventCombatSDL(Personnage* hero, Personnage* ennemi, Terrain* ter, SDL_Surf
     nouveauPerso (&liste[3], "Allie", 1, 1, 1, 1, 0, 100, tabObjets);
 
     areneInit(ter, arene);
-    afficherTab2D(arene);
     int i, nb=4;
     Combattant* groupe;
     groupe=(Combattant*)malloc(4*sizeof(Combattant));
@@ -1126,11 +1287,12 @@ void eventTourJoueurSDL(Combattant* groupe, int i, int nbCombattant, char arene 
                 }
 }
 
-void eventJeuSDL(Personnage* hero, Personnage* pnjs, Personnage* ennemis,Terrain* ter, Dialogue* dialogue, SDL_Surface* ecran)
+void eventJeuSDL(Personnage* hero, Personnage* pnjs, Personnage* ennemis, Mission* mission, Terrain* ter, Dialogue* dialogue, SDL_Surface* ecran)
 {
     int continuer = 1;
     SDL_Event event;
-
+    char* reponse;
+    reponse=malloc(400*sizeof(char));
     affCarte(ter, ecran);
     affPerso(hero, pnjs, ennemis, ecran);
     while (continuer)
@@ -1164,7 +1326,21 @@ void eventJeuSDL(Personnage* hero, Personnage* pnjs, Personnage* ennemis,Terrain
                            || ((hero->posY+TILE_HAUTEUR)==pnjs->posY && hero->posX==pnjs->posX)
                            || ((hero->posY-TILE_HAUTEUR)==pnjs->posY && hero->posX==pnjs->posX) )
                         {
-                            eventDialogueSDL(dialogue, hero, pnjs, ennemis, ter, ecran);
+                            if(testMissionParlerA(mission, pnjs))
+                            {   parlerQuete(dialogue, reponse);
+                                affDialogue( reponse, ecran);
+                                while (continuer)
+                                {
+                                    SDL_WaitEvent(&event);
+                                    switch(event.type)
+                                    {case SDL_KEYDOWN:
+                                        { if(event.key.state==SDL_PRESSED)
+                                            {if(event.key.keysym.sym==SDLK_e)
+                                                {continuer=0;
+                                                }}}}
+                                }
+                            }
+                            eventDialogueSDL(dialogue, hero, pnjs, ennemis, reponse, ter, ecran);
                         }
                         if( ((hero->posX+TILE_LARGEUR)==ennemis->posX && hero->posY==ennemis->posY)
                            || ((hero->posX-TILE_LARGEUR)==ennemis->posX && hero->posY==ennemis->posY)
@@ -1182,6 +1358,10 @@ void eventJeuSDL(Personnage* hero, Personnage* pnjs, Personnage* ennemis,Terrain
                     {
                             eventProfilSDL(hero, ecran);
                     }
+                    else if(event.key.keysym.sym==SDLK_j) /** Touche du journal de quete*/
+                    {
+                            eventJournalSDL(hero, mission, ecran);
+                    }
                     affCarte(ter, ecran);
                     affPerso(hero, pnjs, ennemis, ecran);
                 }
@@ -1193,6 +1373,37 @@ void eventJeuSDL(Personnage* hero, Personnage* pnjs, Personnage* ennemis,Terrain
             break;
             }
         }
+        free(reponse);
+}
+
+void eventJournalSDL(Personnage* hero, Mission* mission, SDL_Surface* ecran)
+{
+    int continuer = 1;
+    SDL_Event event;
+
+    affJournal(hero, mission, ecran);
+
+    while (continuer)
+    {
+        SDL_WaitEvent(&event);
+        switch(event.type)
+        {
+            case SDL_KEYDOWN:
+            { if(event.key.state==SDL_PRESSED)
+                {
+                       if(event.key.keysym.sym==SDLK_j)
+                    {
+                            continuer = 0;
+                    }
+                }
+            }
+            break;
+
+            case SDL_QUIT:
+                continuer = 0;
+            break;
+        }
+    }
 }
 
 void eventProfilSDL(Personnage* hero, SDL_Surface* ecran)
@@ -1287,17 +1498,15 @@ void eventInventaireSDL(Personnage* hero, SDL_Surface* ecran)
     }
 }
 
-void eventAcheterSDL( Dialogue* dialogue, char* dialoguetab, const Personnage* hero, const Personnage* pnjs, const Personnage* ennemis, const Terrain* ter, SDL_Surface* ecran)
+void eventAcheterSDL(Dialogue* dialogue, char* reponse, SDL_Surface* ecran)
 {
     int continuer = 1;
     SDL_Event event;
     Objet* objet;
     SDL_Rect position;
-
+    strcpy(reponse, " ");
     objet=dialogue->perso2->inventaire.st[0].objet;
 
-    affCarte(ter, ecran);
-    affPerso(hero, pnjs, ennemis, ecran);
     affAcheter(dialogue, objet, ecran);
 
     while (continuer)
@@ -1315,6 +1524,7 @@ void eventAcheterSDL( Dialogue* dialogue, char* dialoguetab, const Personnage* h
                     objet=dialogue->perso2->inventaire.st[event.button.y/TILE_HAUTEUR-3+event.button.x/TILE_LARGEUR-2].objet;
                     affAcheter(dialogue, objet, ecran);
                     affInfOb(&position, objet, ecran);
+                    affDialogue(reponse, ecran);
                     }
             }
             break;
@@ -1326,11 +1536,18 @@ void eventAcheterSDL( Dialogue* dialogue, char* dialoguetab, const Personnage* h
                     if(event.button.x>2*TILE_LARGEUR && event.button.x<(CARTE_LARGEUR-5)*TILE_LARGEUR && event.button.y>3*TILE_HAUTEUR && event.button.y<(CARTE_HAUTEUR-1)*TILE_HAUTEUR
                        && (event.button.y/TILE_HAUTEUR-3+event.button.x/TILE_LARGEUR-2)<dialogue->perso2->inventaire.nbObjet)
                     {   objet=dialogue->perso2->inventaire.st[event.button.y/TILE_HAUTEUR-3+event.button.x/TILE_LARGEUR-2].objet;
-//                        acheter(dialogue, objet, dialoguetab, ecran);
-                        affAcheter(dialogue, objet, ecran);
                     }
                 }
-
+                else if(event.button.button==SDL_BUTTON_RIGHT)
+                {
+                    if(event.button.x>2*TILE_LARGEUR && event.button.x<(CARTE_LARGEUR-5)*TILE_LARGEUR && event.button.y>3*TILE_HAUTEUR && event.button.y<(CARTE_HAUTEUR-1)*TILE_HAUTEUR
+                       && (event.button.y/TILE_HAUTEUR-3+event.button.x/TILE_LARGEUR-2)<dialogue->perso2->inventaire.nbObjet)
+                    {   objet=dialogue->perso2->inventaire.st[event.button.y/TILE_HAUTEUR-3+event.button.x/TILE_LARGEUR-2].objet;
+                        acheter(dialogue, objet, reponse);
+                        affAcheter(dialogue, objet, ecran);
+                        affDialogue(reponse, ecran);
+                    }
+                }
             }
             break;
 
@@ -1340,9 +1557,91 @@ void eventAcheterSDL( Dialogue* dialogue, char* dialoguetab, const Personnage* h
                 {
                     if(event.key.keysym.sym==SDLK_RETURN)
                     {
-                        acheter(dialogue, objet, dialoguetab);
+                        acheter(dialogue, objet, reponse);
                         affAcheter(dialogue, objet, ecran);
-                        affDialogue(dialoguetab, ecran);
+                        affDialogue(reponse, ecran);
+
+                    }
+                    else if(event.key.keysym.sym==SDLK_ESCAPE)
+                    {
+                        continuer = 0;
+                    }
+                }
+            }
+            break;
+
+            case SDL_QUIT:
+                    continuer = 0;
+            break;
+
+            default :
+            break;
+        }
+    }
+}
+
+void eventVendreSDL(Dialogue* dialogue, char* reponse, SDL_Surface* ecran)
+{
+    int continuer = 1;
+    SDL_Event event;
+    Objet* objet;
+    SDL_Rect position;
+    strcpy(reponse, " ");
+    objet=dialogue->perso1->inventaire.st[0].objet;
+
+    affVendre(dialogue, objet, ecran);
+
+    while (continuer)
+    {
+        SDL_WaitEvent(&event);
+        switch(event.type)
+        {
+            case SDL_MOUSEMOTION:
+            {
+                 if(event.button.x>2*TILE_LARGEUR && event.button.x<(CARTE_LARGEUR-5)*TILE_LARGEUR && event.button.y>3*TILE_HAUTEUR && event.button.y<(CARTE_HAUTEUR-1)*TILE_HAUTEUR
+                    && (event.button.y/TILE_HAUTEUR-3+event.button.x/TILE_LARGEUR-2)<dialogue->perso1->inventaire.nbObjet)
+                   {
+                    position.x = event.motion.x+10;
+                    position.y = event.motion.y;
+                    objet=dialogue->perso1->inventaire.st[event.button.y/TILE_HAUTEUR-3+event.button.x/TILE_LARGEUR-2].objet;
+                    affVendre(dialogue, objet, ecran);
+                    affInfOb(&position, objet, ecran);
+                    affDialogue(reponse, ecran);
+                    }
+            }
+            break;
+
+            case SDL_MOUSEBUTTONDOWN:
+            {
+                if(event.button.button==SDL_BUTTON_LEFT)
+                {
+                    if(event.button.x>2*TILE_LARGEUR && event.button.x<(CARTE_LARGEUR-5)*TILE_LARGEUR && event.button.y>3*TILE_HAUTEUR && event.button.y<(CARTE_HAUTEUR-1)*TILE_HAUTEUR
+                       && (event.button.y/TILE_HAUTEUR-3+event.button.x/TILE_LARGEUR-2)<dialogue->perso2->inventaire.nbObjet)
+                    {   objet=dialogue->perso1->inventaire.st[event.button.y/TILE_HAUTEUR-3+event.button.x/TILE_LARGEUR-2].objet;
+                    }
+                }
+                else if(event.button.button==SDL_BUTTON_RIGHT)
+                {
+                    if(event.button.x>2*TILE_LARGEUR && event.button.x<(CARTE_LARGEUR-5)*TILE_LARGEUR && event.button.y>3*TILE_HAUTEUR && event.button.y<(CARTE_HAUTEUR-1)*TILE_HAUTEUR
+                       && (event.button.y/TILE_HAUTEUR-3+event.button.x/TILE_LARGEUR-2)<dialogue->perso1->inventaire.nbObjet)
+                    {   objet=dialogue->perso1->inventaire.st[event.button.y/TILE_HAUTEUR-3+event.button.x/TILE_LARGEUR-2].objet;
+                        vendre(dialogue, objet, reponse);
+                        affVendre(dialogue, objet, ecran);
+                        affDialogue(reponse, ecran);
+                    }
+                }
+            }
+            break;
+
+            case SDL_KEYDOWN:
+            {
+                if(event.key.state==SDL_PRESSED)
+                {
+                    if(event.key.keysym.sym==SDLK_RETURN)
+                    {
+                        vendre(dialogue, objet, reponse);
+                        affVendre(dialogue, objet, ecran);
+                        affDialogue(reponse, ecran);
                     }
                     else if(event.key.keysym.sym==SDLK_ESCAPE)
                     {
@@ -1421,13 +1720,10 @@ void eventSoudoyerSDL( Dialogue* dialogue, char* rep, SDL_Surface* ecran)
 
 }
 
-void eventDialogueSDL( Dialogue* dialogue, const Personnage* hero, const Personnage* pnjs, const Personnage* ennemis, Terrain* ter, SDL_Surface*ecran)
+void eventDialogueSDL( Dialogue* dialogue, const Personnage* hero, const Personnage* pnjs, const Personnage* ennemis, char reponse[400], Terrain* ter, SDL_Surface*ecran)
 {   int continuer = 1;
     SDL_Event event;
     int curseur = 0;
-
-    char* reponse;
-    reponse=malloc(400*sizeof(char));
     affMenuDialogue(reponse, curseur, ecran);
 
     while (continuer)
@@ -1438,84 +1734,69 @@ void eventDialogueSDL( Dialogue* dialogue, const Personnage* hero, const Personn
             case SDL_KEYDOWN:
             { if(event.key.state==SDL_PRESSED)
                 {
-                       if(event.key.keysym.sym==SDLK_RETURN)
+                    if(event.key.keysym.sym==SDLK_RETURN)
+                    {
+                        continuer=0;
+                    }
+                    else if(event.key.keysym.sym==SDLK_UP)
+                    {
+                        if(curseur>0)
                         {
-                            continuer=0;
+                            curseur--;
+                            affMenuDialogue(reponse, curseur, ecran);
                         }
-                       else if(event.key.keysym.sym==SDLK_UP)
+                    }
+                    else if(event.key.keysym.sym==SDLK_DOWN)
+                    {
+                        if(curseur<6)
                         {
-                            if(curseur>0)
-                            {
-                                curseur--;
-                                affMenuDialogue(reponse, curseur, ecran);
-                            }
+                            curseur++;
+                            affMenuDialogue(reponse, curseur, ecran);
                         }
-                        else if(event.key.keysym.sym==SDLK_DOWN)
+                    }
+                    else if(event.key.keysym.sym==SDLK_e)
+                    {
+                        switch(curseur)
                         {
-                            if(curseur<6)
-                            {
-                                curseur++;
-                                affMenuDialogue(reponse, curseur, ecran);
-                            }
-                        }
-                        else if(event.key.keysym.sym==SDLK_e)
-                        {
-                            switch(curseur)
-                            {
-                                case 0: obtenirInfo(dialogue, reponse);
-                                        affDialogue( reponse, ecran);
-                                        while (continuer)
-                                        {
-                                            SDL_WaitEvent(&event);
-                                            switch(event.type)
-                                            {case SDL_KEYDOWN:
-                                                { if(event.key.state==SDL_PRESSED)
-                                                    {
-                                                        if(event.key.keysym.sym==SDLK_e)
-                                                        {
-                                                        continuer=0;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                break;
+                            case 0: obtenirInfo(dialogue, reponse);
+                                    affDialogue( reponse, ecran);
+                                    while (continuer)
+                                    {
+                                        SDL_WaitEvent(&event);
+                                        switch(event.type)
+                                        {case SDL_KEYDOWN:
+                                            { if(event.key.state==SDL_PRESSED)
+                                                {if(event.key.keysym.sym==SDLK_e)
+                                                    {continuer=0;
+                                                    }}}}
+                                    }
+                            break;
 
-                                case 1: eventSoudoyerSDL( dialogue, reponse, ecran);
-                                        affDialogue( reponse, ecran);
-                                        while (continuer)
-                                        {
-                                            SDL_WaitEvent(&event);
-                                            switch(event.type)
-                                            {case SDL_KEYDOWN:
-                                                { if(event.key.state==SDL_PRESSED)
-                                                    {
-                                                        if(event.key.keysym.sym==SDLK_e)
-                                                        {
-                                                        continuer=0;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
+                            case 1: eventSoudoyerSDL( dialogue, reponse, ecran);
+                                    affDialogue( reponse, ecran);
+                                    while (continuer)
+                                    {
+                                        SDL_WaitEvent(&event);
+                                        switch(event.type)
+                                        {case SDL_KEYDOWN:
+                                            { if(event.key.state==SDL_PRESSED)
+                                                {if(event.key.keysym.sym==SDLK_e)
+                                                    {continuer=0;
+                                                    }}}}
+                                    }
                                 break;
 
                                 case 2: menacer( dialogue, reponse);
-                                         affDialogue( reponse, ecran);
-                                         while (continuer)
+                                        affDialogue( reponse, ecran);
+                                        while (continuer)
                                         {
                                             SDL_WaitEvent(&event);
                                             switch(event.type)
                                             {case SDL_KEYDOWN:
                                                 { if(event.key.state==SDL_PRESSED)
-                                                    {
-                                                        if(event.key.keysym.sym==SDLK_e)
-                                                        {
-                                                        continuer=0;
-                                                        }
-                                                    }
-                                                }
-                                            }
+                                                    {if(event.key.keysym.sym==SDLK_e)
+                                                        {continuer=0;
+                                                        }}}}
                                         }
                                 break;
 
@@ -1527,41 +1808,18 @@ void eventDialogueSDL( Dialogue* dialogue, const Personnage* hero, const Personn
                                             switch(event.type)
                                             {case SDL_KEYDOWN:
                                                 { if(event.key.state==SDL_PRESSED)
-                                                    {
-                                                        if(event.key.keysym.sym==SDLK_e)
-                                                        {
-                                                        continuer=0;
-                                                        }
-                                                    }
-                                                }
-                                            }
+                                                    {if(event.key.keysym.sym==SDLK_e)
+                                                        {continuer=0;
+                                                        }}}}
                                         }
                                 break;
 
-                                case 4: eventAcheterSDL(dialogue, reponse, hero, pnjs, ennemis, ter, ecran);
-
+                                case 4: eventAcheterSDL(dialogue, reponse, ecran);
+                                        continuer = 0;
                                 break;
 
-                                case 5: // vendre( dialogue, Objet* objet, reponse, ecran);
-                                break;
-
-                                case 6: parlerQuete(dialogue, reponse);
-                                        affDialogue( reponse, ecran);
-                                         while (continuer)
-                                        {
-                                            SDL_WaitEvent(&event);
-                                            switch(event.type)
-                                            {case SDL_KEYDOWN:
-                                                { if(event.key.state==SDL_PRESSED)
-                                                    {
-                                                        if(event.key.keysym.sym==SDLK_e)
-                                                        {
-                                                        continuer=0;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
+                                case 5: eventVendreSDL( dialogue, reponse, ecran);
+                                        continuer = 0;
                                 break;
 
                                 default :
@@ -1580,7 +1838,6 @@ void eventDialogueSDL( Dialogue* dialogue, const Personnage* hero, const Personn
             break;
         }
     }
-        free(reponse);
 }
 
 void editerCarte ()

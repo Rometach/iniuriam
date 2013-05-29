@@ -100,6 +100,12 @@ void eventInventaireSDL(Personnage* hero, SDL_Surface* ecran);
 void eventProfilSDL(Personnage* hero, SDL_Surface* ecran);
 
 /**
+* \brief Preconditions : hero, ecran initalisé et remplis
+* <br /> Postconditions : gère les évements du journa de qetes
+*/
+void eventJournalSDL(Personnage* hero, Mission* mission, SDL_Surface* ecran);
+
+/**
 * \brief Preconditions : ter et ecran initalisé et remplis
 * <br /> Postconditions : gère les évenements de l'éditeur de carte
 */
@@ -109,13 +115,25 @@ void eventEditeurSDL(Terrain* ter, SDL_Surface* ecran);
 * \brief Preconditions : hero, pnj, ter et ecran initalisé et remplis
 * <br /> Postconditions : gère les évenements en jeu
 */
-void eventJeuSDL(Personnage* hero, Personnage* pnj, Personnage* ennemi, Terrain* ter, Dialogue* dialogue, SDL_Surface* ecran);
+void eventJeuSDL(Personnage* hero, Personnage* pnj, Personnage* ennemi, Mission* mission, Terrain* ter, Dialogue* dialogue, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : hero, pnj et ecran initalisé et remplis
 * <br /> Postconditions : gère les évenements du dialogue
 */
-void eventDialogueSDL( Dialogue* dialogue, const Personnage* hero, const Personnage* pnjs, const Personnage* ennemis, Terrain* ter, SDL_Surface*ecran);
+void eventDialogueSDL( Dialogue* dialogue, const Personnage* hero, const Personnage* pnjs, const Personnage* ennemis, char repondre[400], Terrain* ter, SDL_Surface*ecran);
+
+/**
+* \brief Preconditions : dialogue, reponse et ecran initialisés
+* <br /> Postconditions : gère les évenements de l'achat
+*/
+void eventAcheterSDL(Dialogue* dialogue, char* reponse, SDL_Surface* ecran);
+
+/**
+* \brief Preconditions : dialogue, reponse et ecran initialisés
+* <br /> Postconditions : gère les évenements de la vente
+*/
+void eventVendreSDL(Dialogue* dialogue, char* reponse, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : hero, ennemi, ter et ecran initialisés

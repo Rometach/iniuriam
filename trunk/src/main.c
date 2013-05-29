@@ -17,6 +17,49 @@
 
 int main (int argc, char **argv)
 {
+Dialogue dialogue;
+
+    Terrain terrain;
+    SDL_Surface* ecran = NULL;
+    Personnage hero;
+    Personnage pnj;
+    Personnage ennemi;
+    SDL_Init(SDL_INIT_VIDEO);
+    terInit(&terrain);
+    persoInit(&hero);
+    persoInit(&pnj);
+    persoInit(&ennemi);
+    dialogueInit(&dialogue, &hero, &pnj);
+    Objet *tabObjets=NULL;
+    Mission tutoriel;
+    missionInit(&tutoriel);
+    missionDefinir(&tutoriel, 1, tabObjets);
+
+    initialiserTousLesObjets(&tabObjets);
+
+    srand(time(NULL));
+    nouveauPerso (&hero, "Toromis", 1, 1, 1, 1, 0, 100, tabObjets);
+    nouveauPerso (&ennemi, "Mechant", 2, 1, 2, 1, 0, 100, tabObjets);
+    nouveauPerso (&pnj, "Babar", 1, 1, 1, 1, 0, 100, tabObjets);
+
+    ecran = SDL_SetVideoMode(TAILLE_FENETRE, TAILLE_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
+    SDL_WM_SetCaption("Iniuriam", NULL);
+
+    terCharger(&terrain, "data/Cartes/save.map");
+    hero.avatar=SDL_LoadBMP("data/Chipsets/perso.bmp");
+    pnj.avatar=SDL_LoadBMP("data/Chipsets/pnj.bmp");
+    ennemi.avatar=SDL_LoadBMP("data/Chipsets/pnj.bmp");
+
+    setPersoPosX(&ennemi, TILE_LARGEUR*5);
+    setPersoPosY(&ennemi, TILE_HAUTEUR*0);
+
+    eventJeuSDL(&hero, &pnj, &ennemi, &tutoriel, &terrain, &dialogue, ecran);
+
+    persoLibere(&ennemi);
+    persoLibere (&hero);
+    libererTousLesObjets(&tabObjets);
+    terLibere(&terrain);
+    SDL_Quit();
     /*FMOD_SYSTEM *system;
     FMOD_SOUND *musique;
 
@@ -28,13 +71,13 @@ int main (int argc, char **argv)
     FMOD_Sound_SetLoopCount(musique, -1);
     FMOD_System_PlaySound(system, FMOD_CHANNEL_FREE, musique, 0, NULL);*/
 
-    mainMenu();
+//    mainMenu();
     /*FMOD_Sound_Release(musique);
     FMOD_System_Close(system);
     FMOD_System_Release(system);*/
     return 0;
-/*
-    Personnage *liste;
+
+  /*  Personnage *liste;
     Objet *tab=NULL;
     int i,j,type=1;
     char arene [TAILLE_MAX][TAILLE_MAX],ligne [TAILLE_MAX+2];
