@@ -46,9 +46,9 @@ Dialogue dialogue;
     SDL_WM_SetCaption("Iniuriam", NULL);
 
     terCharger(&terrain, "data/Cartes/save.map");
-    hero.avatar=SDL_LoadBMP("data/Chipsets/perso.bmp");
-    pnj.avatar=SDL_LoadBMP("data/Chipsets/pnj.bmp");
-    ennemi.avatar=SDL_LoadBMP("data/Chipsets/pnj.bmp");
+    hero.avatar=SDL_LoadBMP("data/Chipsets/pnj.bmp");
+    pnj.avatar=SDL_LoadBMP("data/Media/cyborg.bmp");
+    ennemi.avatar=SDL_LoadBMP("data/Media/humain.bmp");
 
     setPersoPosX(&ennemi, TILE_LARGEUR*5);
     setPersoPosY(&ennemi, TILE_HAUTEUR*0);
@@ -57,6 +57,7 @@ Dialogue dialogue;
 
     persoLibere(&ennemi);
     persoLibere (&hero);
+    persoLibere(&pnj);
     libererTousLesObjets(&tabObjets);
     terLibere(&terrain);
     SDL_Quit();

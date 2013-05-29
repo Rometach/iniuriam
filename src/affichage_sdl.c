@@ -1179,10 +1179,10 @@ void eventCombatSDL(Personnage* hero, Personnage* ennemi, Terrain* ter, SDL_Surf
     groupe=(Combattant*)malloc(4*sizeof(Combattant));
 
     initCombat(liste,4,groupe,arene);
-    groupe[0].avatar=SDL_LoadBMP("data/Chipsets/perso.bmp");
-    groupe[1].avatar=SDL_LoadBMP("data/Chipsets/pnj.bmp");
-    groupe[3].avatar=SDL_LoadBMP("data/Chipsets/perso.bmp");
-    groupe[2].avatar=SDL_LoadBMP("data/Chipsets/pnj.bmp");
+    groupe[0].avatar=SDL_LoadBMP("data/Media/humain.bmp");
+    groupe[1].avatar=SDL_LoadBMP("data/Media/cyborg.bmp");
+    groupe[3].avatar=SDL_LoadBMP("data/Media/humain.bmp");
+    groupe[2].avatar=SDL_LoadBMP("data/Media/cyborg.bmp");
 
     affCombat(ter, groupe,4, arene, ecran);
 
@@ -1220,6 +1220,7 @@ void eventTourJoueurSDL(Combattant* groupe, int i, int nbCombattant, char arene 
     int j;
     SDL_Event event;
     Objet* armeChoisie=NULL;
+    int nbDeplacement = 5;
 
      while (continuer)
                 {
@@ -1230,32 +1231,20 @@ void eventTourJoueurSDL(Combattant* groupe, int i, int nbCombattant, char arene 
                     { if(event.key.state==SDL_PRESSED)
                         {
                             if(event.key.keysym.sym==SDLK_RIGHT)    /** Deplacement vers la droite*/
-                            {   if(arene[groupe[i].posY][groupe[i].posX+1]==1)
-                                {   groupe[i].posX+=1;
-                                    arene[groupe[i].posY][groupe[i].posX]=4;
-                                    arene[groupe[i].posY][groupe[i].posX-1]=1;
-                                }
+                            {
+                                nbDeplacement = deplaceCombDroite(groupe, nbDeplacement, arene);
                             }
                             else if(event.key.keysym.sym==SDLK_LEFT)    /** Deplacement vers la gauche*/
-                            {   if(arene[groupe[i].posY][groupe[i].posX-1]==1)
-                                {   groupe[i].posX-=1;
-                                    arene[groupe[i].posY][groupe[i].posX]=4;
-                                    arene[groupe[i].posY][groupe[i].posX+1]=1;
-                                }
+                            {
+                                nbDeplacement = deplaceCombGauche(groupe, nbDeplacement, arene);
                             }
                             else if(event.key.keysym.sym==SDLK_DOWN)    /** Deplacement vers le bas*/
-                            {   if(arene[groupe[i].posY+1][groupe[i].posX]==1)
-                                {   groupe[i].posY+=1;
-                                    arene[groupe[i].posY][groupe[i].posX]=4;
-                                    arene[groupe[i].posY-1][groupe[i].posX]=1;
-                                }
+                            {
+                                nbDeplacement = deplaceCombBas(groupe, nbDeplacement, arene);
                             }
                             else if(event.key.keysym.sym==SDLK_UP)  /** Déplacement vers le haut */
-                            {   if(arene[groupe[i].posY-1][groupe[i].posX]==1)
-                                {   groupe[i].posY-=1;
-                                    arene[groupe[i].posY][groupe[i].posX]=4;
-                                    arene[groupe[i].posY+1][groupe[i].posX]=1;
-                                }
+                            {
+                                nbDeplacement = deplaceCombHaut( groupe, nbDeplacement, arene);
                             }
                             else if(event.key.keysym.sym==SDLK_a)
                             {
@@ -1345,9 +1334,11 @@ void eventJeuSDL(Personnage* hero, Personnage* pnjs, Personnage* ennemis, Missio
                         if( ((hero->posX+TILE_LARGEUR)==ennemis->posX && hero->posY==ennemis->posY)
                            || ((hero->posX-TILE_LARGEUR)==ennemis->posX && hero->posY==ennemis->posY)
                            || ((hero->posY+TILE_HAUTEUR)==ennemis->posY && hero->posX==ennemis->posX)
-                           || ((hero->posY-TILE_HAUTEUR)==ennemis->posY && hero->posX==ennemis->posX) )
+                           || ((hero->posY-TILE_HAUTEUR)==ennemis->posY && hero->posX==ennemis->posX))
                         {
+                            printf("Plop \n");
                             eventCombatSDL(hero, ennemis, ter, ecran);
+                            printf("Plop? \n");
                         }
                     }
                     else if(event.key.keysym.sym==SDLK_i) /** Touche d'inventaire*/

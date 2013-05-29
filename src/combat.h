@@ -263,6 +263,31 @@ void afficherPortee (char arene[TAILLE_MAX][TAILLE_MAX],Combattant* perso, int p
 
 void effacerPortee (char arene[TAILLE_MAX][TAILLE_MAX],Combattant* perso, int portee);
 
+
+/**
+* \brief Preconditions : combattant, nbDeplacement, arene initialisé
+* <br /> Postconditions : teste si la case est accesible et si on a encore des déplacements, puis déplacement le personnage d'une case vers la droite
+*/
+int deplaceCombDroite( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX][TAILLE_MAX]);
+
+/**
+* \brief Preconditions : combattant, nbDeplacement, arene initialisé
+* <br /> Postconditions : teste si la case est accesible et si on a encore des déplacements, puis déplacement le personnage d'une case vers la gauche
+*/
+int deplaceCombGauche( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX][TAILLE_MAX]);
+
+/**
+* \brief Preconditions : combattant, nbDeplacement, arene initialisé
+* <br /> Postconditions : teste si la case est accesible et si on a encore des déplacements, puis déplacement le personnage d'une case vers le bas
+*/
+int deplaceCombBas( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX][TAILLE_MAX]);
+
+/**
+* \brief Preconditions : combattant, nbDeplacement, arene initialisé
+* <br /> Postconditions : teste si la case est accesible et si on a encore des déplacements, puis déplacement le personnage d'une case vers le haut
+*/
+int deplaceCombHaut( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX][TAILLE_MAX]);
+
 int mainCombat();
 
 #endif

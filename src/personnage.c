@@ -21,8 +21,8 @@ void persoInit (Personnage* perso)
     perso->charisme=0;
     perso->ptDeVie=0;
 
-    perso->posX=1;
-    perso->posY=1;
+    perso->posX=0;
+    perso->posY=0;
 }
 
 
@@ -118,8 +118,8 @@ void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char fac
     }
     else printf ("Impossible d'ouvrir le fichier Carrieres.txt\n");
 
-    perso->posX=1;
-    perso->posY=1;
+    perso->posX=0;
+    perso->posY=0;
 
     /*Initialiser SDL_Surface*/
 }

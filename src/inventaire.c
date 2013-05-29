@@ -68,19 +68,25 @@ void enleverObjetInventaire (Inventaire* inventaire, Objet* obj)
 
     while ((i<inventaire->nbObjet)&&(inventaire->st[i].objet->type!=obj->type)) i++;
     assert(i!=inventaire->nbObjet);
-    if (getStockQuantite((inventaire->st)+i)>1)
+    if(getStockQuantite((inventaire->st)+1)>0)
     {
         incrementerStock((inventaire->st)+i,-1);
-    }
-    else
+/*    if (getStockQuantite((inventaire->st)+i)>1)
     {
-        for(j=i;j<inventaire->nbObjet-1;j++)
+
+    }
+    else*/
+        if(getStockQuantite((inventaire->st)+i)==0)
         {
-            copieStock((inventaire->st)+j,(inventaire->st)+j+1);
+            for(j=i;j<inventaire->nbObjet-1;j++)
+            {
+                copieStock((inventaire->st)+j,(inventaire->st)+j+1);
+            }
+            stockLibere((inventaire->st)+(inventaire->nbObjet-1));
+            inventaire->nbObjet--;
         }
-        stockLibere((inventaire->st)+(inventaire->nbObjet));
-        incrementerStock((inventaire->st)+i,-1);
     }
+
 }
 
 void copieInventaire (Inventaire* inventaire1, Inventaire* inventaire2)

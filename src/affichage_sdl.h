@@ -7,6 +7,7 @@
 #include <SDL/SDL_ttf.h>
 #include <assert.h>
 
+#include "deplacement.h"
 #include "constante.h"
 #include "combat.h"
 #include "parole.h"
