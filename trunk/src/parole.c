@@ -235,7 +235,7 @@ char acheter(Dialogue* dialogue, Objet* objet, char* rep)
 
     if(estObjDansInv(&inv,objet))
     {
-        printf ("Essayer de marchander ? (y=oui n=non)\n");
+       /* printf ("Essayer de marchander ? (y=oui n=non)\n");
         c=getchar();
         switch (c)
         {
@@ -243,7 +243,7 @@ char acheter(Dialogue* dialogue, Objet* objet, char* rep)
                 marchander(dialogue,&valeur);
             break;
             default: break;
-        }
+        }*/
         if ((getPersoArgent(dialogue->perso1))>=valeur)
             {
                 bonus=chercherCompetence(getPersoCapacite2(dialogue->perso1),5);
@@ -281,11 +281,11 @@ char vendre(Dialogue* dialogue, Objet* objet, char* rep)
     char c;
     int bonus=0,valeur=getObjetValeur(objet);
     Inventaire inv;
-    getPersoInventaire(dialogue->perso2,&inv);
+    getPersoInventaire(dialogue->perso1,&inv);
 
     if(estObjDansInv(&inv,objet))
     {
-        printf ("Essayer de marchander ? (y=oui n=non)\n");
+      /*  printf ("Essayer de marchander ? (y=oui n=non)\n");
         c=getchar();
         switch (c)
         {
@@ -293,7 +293,7 @@ char vendre(Dialogue* dialogue, Objet* objet, char* rep)
                 marchander(dialogue,&valeur);
             break;
             default: break;
-        }
+        }*/
         if ((getPersoArgent(dialogue->perso2))>=valeur)
             {
                 bonus=chercherCompetence(getPersoCapacite2(dialogue->perso1),5);

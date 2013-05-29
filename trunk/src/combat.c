@@ -769,6 +769,54 @@ void effacerPortee (char arene[TAILLE_MAX][TAILLE_MAX],Combattant* perso, int po
     }
 }
 
+int deplaceCombDroite( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX][TAILLE_MAX])
+{
+    if(arene[combattant->posY][combattant->posX+1]==1 && nbDeplacement>0)
+    {   combattant->posX+=1;
+        arene[combattant->posY][combattant->posX]=4;
+        arene[combattant->posY][combattant->posX-1]=1;
+        nbDeplacement--;
+        return nbDeplacement;
+    }
+    return nbDeplacement;
+}
+
+int deplaceCombGauche( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX][TAILLE_MAX])
+{
+    if(arene[combattant->posY][combattant->posX-1]==1 && nbDeplacement>0)
+    {   combattant->posX-=1;
+        arene[combattant->posY][combattant->posX]=4;
+        arene[combattant->posY][combattant->posX+1]=1;
+        nbDeplacement--;
+        return nbDeplacement;
+    }
+    return nbDeplacement;
+}
+
+int deplaceCombBas( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX][TAILLE_MAX])
+{
+    if(arene[combattant->posY+1][combattant->posX]==1 && nbDeplacement>0)
+    {   combattant->posY+=1;
+        arene[combattant->posY][combattant->posX]=4;
+        arene[combattant->posY-1][combattant->posX]=1;
+        nbDeplacement--;
+        return nbDeplacement;
+    }
+    return nbDeplacement;
+}
+
+int deplaceCombHaut( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX][TAILLE_MAX])
+{
+    if(arene[combattant->posY-1][combattant->posX]==1 && nbDeplacement>0)
+    {   combattant->posY-=1;
+        arene[combattant->posY][combattant->posX]=4;
+        arene[combattant->posY+1][combattant->posX]=1;
+        nbDeplacement--;
+        return nbDeplacement;
+    }
+    return nbDeplacement;
+}
+
 int mainCombat ()
 {
     Personnage liste[4];
