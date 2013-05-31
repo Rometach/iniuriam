@@ -29,7 +29,8 @@ void nouveauPerso (Personnage *perso, const char nom[], const char race, const c
 {
     int i=0, j,k;
     FILE* fCarr,*fRace;
-    Competence* compTampon;
+    Competence competenceTampon[5];
+    char caractereTampon;
     char ligne [TAILLE_MAX_FICHIER],tampon[2];
 
     assert (strlen(nom)<30);
@@ -99,21 +100,30 @@ void nouveauPerso (Personnage *perso, const char nom[], const char race, const c
     assert(fCarr= fopen("data/Carrieres.txt", "r"));
     if (fCarr!=NULL)
     {
-        while (i<carriere+3)
+        while (i<carriere+2)
         {
             fgets(ligne,TAILLE_MAX_FICHIER,fCarr);
             i++;
         }
-        i= (int)(strchr (ligne, '/')-ligne);
-        j= (int)(strchr (ligne,'!')-ligne);
-        compTampon=(Competence*)malloc(((j-i-1)/2)*sizeof(Competence));
-        for (k=i; k+1<j;k+=2)
+
+        caractereTampon = ' ';
+
+        while (caractereTampon != '/')
         {
-            compInit (compTampon+(k-i)/2,ligne[k+2]-'0', experience);
-            ajouterCompetenceCapacite (&(perso->capacite), compTampon+(k-i)/2,experience);
+            fscanf(fCarr, "%c", &caractereTampon);
         }
+
+        for(i=0;i<5;i++)
+        {
+            fscanf(fCarr, "\t%d", &j);
+            if(j!=0)
+            {
+                compInit (&competenceTampon[i], j, experience);
+                ajouterCompetenceCapacite (&(perso->capacite), &competenceTampon[i], experience);
+            }
+        }
+
         fclose(fCarr);
-        free(compTampon);
     }
     else printf ("Impossible d'ouvrir le fichier Carrieres.txt\n");
 
