@@ -1,17 +1,26 @@
 Ce fichier contient l'ensemble des missions jouables dans Iniuriam.
 
 Nom		Ensemble des sous-missions+coordonnées
+Test1
+1 0 0 0 4 Babar
+
+Test2
+4 0 0 1 7 .
+
+Test3
+5 10 21 0 0 . 
+
 Tutoriel1
-2 14 14 0 4 Babar
+2 14 14 0 13 Babar
 
 Tutoriel2
-1 15 15 0 7 .
+1 15 15 0 16 .
 
 Tutoriel3
-6 0 0 0 10 Willy Mays
+6 0 0 0 19 Willy Mays
 
 Tutoriel4
-1 18 18 0 13 Le super vilain
+1 18 18 0 22 Le super vilain
 
 Tutoriel5
 1 0 0 0 0 Babar

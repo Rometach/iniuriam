@@ -41,7 +41,7 @@ void compInit (Competence * comp, char type, int experience)
     }
 }
 
-void getAction (Competence *comp, char* action)
+void getAction (const Competence *comp, char* action)
 {
     strcpy (action, comp->action);
 }
@@ -87,7 +87,7 @@ void compExp (Competence *comp, int experience)
     comp->experience+=experience;
 }
 
-void copieCompetence(Competence *comp1, Competence *comp2)
+void copieCompetence(Competence *comp1, const Competence *comp2)
 {
     strcpy(comp1->action,comp2->action);
     comp1->type=comp2->type;

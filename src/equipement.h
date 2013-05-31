@@ -32,85 +32,85 @@ void equiInit(Equipement* equi);
 * \brief Preconditions : equi est initialisé
 * <br /> Postconditions : fixe l'objet équipé à la tête dans equi à tete
 */
-void setEquiTete(Equipement* equi, Objet* tete);
+void setEquiTete(Equipement* equi, const Objet* tete);
 
 /**
 * \brief Preconditions : equi est initialisé
 * <br /> Postconditions : fixe l'objet équipé au torse dans equi à torse
 */
-void setEquiTorse(Equipement* equi, Objet* torse);
+void setEquiTorse(Equipement* equi, const Objet* torse);
 
 /**
 * \brief Preconditions : equi est initialisé
 * <br /> Postconditions : fixe l'objet équipé aux jambes dans equi à bas
 */
-void setEquiBas(Equipement* equi, Objet* bas);
+void setEquiBas(Equipement* equi, const Objet* bas);
 
 /**
 * \brief Preconditions : equi est initialisé
 * <br /> Postconditions : fixe l'objet équipé aux mains dans equi à mains
 */
-void setEquiMains(Equipement* equi, Objet* mains);
+void setEquiMains(Equipement* equi, const Objet* mains);
 
 /**
 * \brief Preconditions : equi est initialisé
 * <br /> Postconditions : fixe l'objet équipé aux pieds dans equi à pieds
 */
-void setEquiPieds(Equipement* equi, Objet* pieds);
+void setEquiPieds(Equipement* equi, const Objet* pieds);
 
 /**
 * \brief Preconditions : equi est initialisé
 * <br /> Postconditions : fixe l'objet équipé à la main gauche dans equi à bouclier
 */
-void setMainGauche(Equipement* equi, Objet* bouclier);
+void setMainGauche(Equipement* equi, const Objet* bouclier);
 
 /**
 * \brief Preconditions : equi est initialisé, 0<=i<3
 * <br /> Postconditions : fixe le ième objet équipé à la main droite dans equi à arme
 */
-void setMainDroite(Equipement* equi, Objet* arme,int i);
+void setMainDroite(Equipement* equi, const Objet* arme, const int i);
 
 /**
 * \brief Preconditions : equi est initialisé
 * <br /> Postconditions : retourne l'objet équipé à la tête dans equi
 */
-Objet* getEquiTete(Equipement* equi);
+Objet* getEquiTete(const Equipement* equi);
 
 /**
 * \brief Preconditions : equi est initialisé
 * <br /> Postconditions : retourne l'objet équipé au torse dans equi
 */
-Objet* getEquiTorse(Equipement* equi);
+Objet* getEquiTorse(const Equipement* equi);
 
 /**
 * \brief Preconditions : equi est initialisé
 * <br /> Postconditions : retourne l'objet équipé aux jambes dans equi
 */
-Objet* getEquiBas(Equipement* equi);
+Objet* getEquiBas(const Equipement* equi);
 
 /**
 * \brief Preconditions : equi est initialisé
 * <br /> Postconditions : retourne l'objet équipé aux mains dans equi
 */
-Objet* getEquiMains(Equipement* equi);
+Objet* getEquiMains(const Equipement* equi);
 
 /**
 * \brief Preconditions : equi est initialisé
 * <br /> Postconditions : retourne l'objet équipé aux pieds dans equi
 */
-Objet* getEquiPieds(Equipement* equi);
+Objet* getEquiPieds(const Equipement* equi);
 
 /**
 * \brief Preconditions : equi est initialisé
 * <br /> Postconditions : retourne l'objet équipé à la main gauche dans equi
 */
-Objet* getEquiMainGauche(Equipement* equi);
+Objet* getEquiMainGauche(const Equipement* equi);
 
 /**
 * \brief Preconditions : equi est initialisé,0<=i<3
 * <br /> Postconditions : retourne le ième objet équipé à la main droite dans equi
 */
-Objet* getEquiMainDroite(Equipement* equi,int i);
+Objet* getEquiMainDroite(const Equipement* equi, const int i);
 
 /**
 * \brief Preconditions : equi1 est initialisé,mais pas equi2

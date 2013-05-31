@@ -30,13 +30,13 @@ typedef struct
 * \brief Preconditions : comp n'a pas déjà été initialisée ; 0<type<30
 * <br /> Postconditions : comp est initialisée avec les paramètres de son type et son expérience : action et bonus combat
 */
-void compInit (Competence *comp, char type, int experience);
+void compInit (Competence *comp, const char type, const int experience);
 
 /**
 * \brief Preconditions : comp est initialisée
-* <br /> Postconditions : retourne l'action correspondant à la compétence comp
+* <br /> Postconditions : copie dans action l'action correspondant à la compétence comp
 */
-void getAction (Competence *comp, char* action);
+void getAction (const Competence *comp, char* action);
 
 /**
 * \brief Preconditions : comp est initialisée
@@ -84,13 +84,13 @@ char getBonuschar(const Competence *comp);
 * \brief Preconditions : comp est initialisée
 * <br /> Postconditions : la valeur experience est ajoutee au champ experience de comp
 */
-void compExp (Competence *comp, int experience);
+void compExp (Competence *comp, const int experience);
 
 /**
 * \brief Preconditions : comp2 est initialisée, pas comp1 (sauf si on veut écraser)
 * <br /> Postconditions : comp2 est copiée dans comp1 (qui est ainsi initialisée)
 */
-void copieCompetence(Competence *comp1, Competence *comp2);
+void copieCompetence(Competence *comp1, const Competence *comp2);
 
 /**
 * \brief Preconditions : /

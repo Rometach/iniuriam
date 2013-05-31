@@ -21,7 +21,7 @@ void CapaciteLibere (Capacite* capacite)
 }
 
 /* En mode tableau dynamique*/
-void ajouterCompetenceCapacite (Capacite* capacite, Competence* comp,int exp)
+void ajouterCompetenceCapacite (Capacite* capacite, const Competence* comp, const int exp)
 {
     int i;
     int compAcquise=0;
@@ -55,7 +55,7 @@ void ajouterCompetenceCapacite (Capacite* capacite, Competence* comp,int exp)
     }
 }
 
-void copieCapacite(Capacite* capacite1, Capacite* capacite2)
+void copieCapacite(const Capacite* capacite1, Capacite* capacite2)
 {
     int i;
 
@@ -71,7 +71,7 @@ void copieCapacite(Capacite* capacite1, Capacite* capacite2)
     }
 }
 
-int chercherCompetence (Capacite* capacite, int type)
+int chercherCompetence (const Capacite* capacite, const int type)
 {
     int i;
     for (i=0; i<capacite->nbCompetence;i++)
@@ -81,17 +81,17 @@ int chercherCompetence (Capacite* capacite, int type)
     return -1;
 }
 
-Competence* getCompetence (Capacite* capacite, int i)
+Competence* getCompetence (const Capacite* capacite, const int i)
 {
     return &(capacite->comp[i]);
 }
 
-int getCapaciteQuantite(Capacite* capacite)
+int getCapaciteQuantite(const Capacite* capacite)
 {
     return capacite->quantite;
 }
 
-int getCapaciteNbCompetence(Capacite* capacite)
+int getCapaciteNbCompetence(const Capacite* capacite)
 {
     return capacite->nbCompetence;
 }

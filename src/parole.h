@@ -25,19 +25,19 @@ typedef struct
 * \brief Preconditions : dialogue n'est pas initialisé
 * <br /> Postconditions : dialogue est initialisé avec les personnages perso1 et perso2
 */
-void dialogueInit (Dialogue* dialogue, Personnage* perso1, Personnage* perso2);
+void dialogueInit (Dialogue* dialogue, const Personnage* perso1, const Personnage* perso2);
 
 /**
 * \brief Preconditions : dialogue est initialisé
 * <br /> Postconditions : l'humeur de dialogue est modifiée pour correspondre à hum ; retourne la valeur courante de l'humeur
 */
-char setDialogueHumeur (Dialogue* dialogue, int hum);
+char setDialogueHumeur (Dialogue* dialogue, const int hum);
 
 /**
 * \brief Preconditions : question est une chaîne de caractères présente dans le fichier ; reponse a une longueur d'au moins TAILLE_MAX_DIAL
 * <br /> Postconditions : une réponse correspondant à question est copiée dans réponse
 */
-void setReponse (char* question, char* reponse);
+void setReponse (const char* question, char* reponse);
 
 /**
 * \brief Preconditions : dialogue est initialisé, info a une longueur d'au moins TAILLE_MAX_DIAL
@@ -89,7 +89,7 @@ void marchander (Dialogue* dialogue, int* valeur);
 *                          copie dans rep la reponse retournée ;
 *                          retourne la valeur courante de l'humeur
 */
-char acheter(Dialogue* dialogue, Objet* objet, char* rep);
+char acheter(Dialogue* dialogue, const Objet* objet, char* rep);
 
 /**
 * \brief Preconditions : dialogue est initialisé, objet est dans l'inventaire du joueur, rep a une longueur d'au moins TAILLE_MAX_DIAL
@@ -97,7 +97,7 @@ char acheter(Dialogue* dialogue, Objet* objet, char* rep);
 *                          copie dans rep la reponse retournée ;
 *                          retourne la valeur courante de l'humeur
 */
-char vendre(Dialogue* dialogue, Objet* objet, char* rep);
+char vendre(Dialogue* dialogue, const Objet* objet, char* rep);
 
 
 int mainParole ();

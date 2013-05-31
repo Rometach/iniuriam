@@ -41,74 +41,86 @@ void missionInit (Mission* mission);
                          l correspond à la ligne où est écrite la mission dans le fichier Missions.txt
 * <br /> Postconditions : mission est une vraie mission avec des objectifs bien définis
 */
-void missionDefinir (Mission* mission, int l, Objet* tabObjets);
+void missionDefinir (Mission* mission, const int l, const Objet* tabObjets);
 
 /**
 * \brief Preconditions : mission est initialisée et définie
 * <br /> Postconditions : mission est considérée comme accomplie
 */
-void missionAccomplir (Mission* mission, Objet* tabObjets);
+void missionAccomplir (Mission* mission, const Objet* tabObjets);
 
+
+/**
+* \brief Preconditions : mission est initialisée et définie ; nom est une chaine de longueur >=50
+* <br /> Postconditions : copie dans nom l'intitulé de mission
+*/
+void getMissionNom(char* nom, const Mission* mission);
+
+/**
+* \brief Preconditions : mission est initialisée et définie ; nom est une chaine de longueur >=30
+* <br /> Postconditions : copie dans nom le nom du personnage éventuellement ciblé par mission
+*/
+void getMissionNomPerso(char* nomPerso, const Mission* mission);
 
 /**
 * \brief Preconditions : mission est initialisée et définie
 * <br /> Postconditions : retourne le type de mission
 */
-char getMissionType(Mission* mission);
+char getMissionType(const Mission* mission);
 
 /**
 * \brief Preconditions : mission est initialisée et définie
 * <br /> Postconditions : retourne l'adresse de l'objet éventuellement ciblé par la mission
 */
-Objet* getMissionObjet(Mission* mission);
+Objet* getMissionObjet(const Mission* mission);
 
 /**
 * \brief Preconditions : mission est initialisée et définie
 * <br /> Postconditions : retourne 1 si perso est concerné par la mission, 0 sinon
 */
-char estPersoMission(Mission* mission, Personnage* perso);
+char estPersoMission(const Mission* mission, const Personnage* perso);
 
 /**
 * \brief Preconditions : mission est initialisée et définie
 * <br /> Postconditions : retourne 1 si le lieu de coordoonnées posX et posY est ciblé par la mission, 0 sinon
 */
-char estLieuMission(Mission* mission, int posX, int posY);
+char estLieuMission(const Mission* mission, const int posX, const int posY);
 
 /**
 * \brief Preconditions : mission est initialisée et définie
 * <br /> Postconditions : retourne 1 si l'objet obj est concerné par la mission, 0 sinon
 */
-char estObjetMission(Mission* mission, Objet* obj);
+char estObjetMission(const Mission* mission, const Objet* obj);
 
 /**
 * \brief Preconditions : mission est initialisée et définie
 * <br /> Postconditions : retourne 1 si la mission est de parler à perso, 0 sinon
 */
-char testMissionParlerA(Mission* mission, Personnage* perso);
+char testMissionParlerA(const Mission* mission, const Personnage* perso);
 
 /**
 * \brief Preconditions : mission est initialisée et définie
 * <br /> Postconditions : retourne 1 si la mission est de faire parler perso, 0 sinon
 */
-char testMissionFaireParler(Mission* mission, Personnage* perso);
+char testMissionFaireParler(const Mission* mission, const Personnage* perso);
 
 /**
 * \brief Preconditions : mission est initialisée et définie
 * <br /> Postconditions : retourne 1 si la mission est de tuer perso, 0 sinon
 */
-char testMissionTuer(Mission* mission, Personnage* perso);
+char testMissionTuer(const Mission* mission, const Personnage* perso);
 
 /**
 * \brief Preconditions : mission est initialisée et définie
 * <br /> Postconditions : retourne 1 si la mission est d'obtenir l'objet obj, 0 sinon
 */
-char testMissionObtenir(Mission* mission, Objet* obj);
+char testMissionObtenir(const Mission* mission, const Objet* obj);
 
 /**
 * \brief Preconditions : mission est initialisée et définie
 * <br /> Postconditions : retourne 1 si la mission est d'aller au lieu de coordonnées (posX,posY), 0 sinon
 */
-char testMissionAllerA(Mission* mission, int posX, int posY);
+char testMissionAllerA(const Mission* mission, const int posX, const int posY);
 
 
 /**

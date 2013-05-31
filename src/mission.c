@@ -14,7 +14,7 @@ void missionInit (Mission* mission)
 }
 
 
-void missionDefinir (Mission* mission, int l, Objet* tabObjets)
+void missionDefinir (Mission* mission, const int l, const Objet* tabObjets)
 {
     int i;
     char nomPerso[30];
@@ -30,20 +30,19 @@ void missionDefinir (Mission* mission, int l, Objet* tabObjets)
         fgets(ligne,TAILLE_MAX_FICHIER,fMission);
     }
 
-    printf("\n%s\n",ligne);
-
     strcpy(mission->nom,ligne);
     strcat(mission->nom,"\0");
+
     fscanf(fMission,"%c %d %d %d %d %s",&mission->type, &mission->posXCible, &mission->posYCible, &nbObj, &mission->suite, nomPerso);
     mission->type=(char)atoi(&mission->type);
+    if(nbObj!=0) {mission->objCible=&(tabObjets[nbObj]);}
+    else {mission->objCible=NULL;}
     strcpy(mission->nomPerso,nomPerso);
-
-    printf("Type : %d \nnomPerso : %s \nposX: %d \nposY : %d \nObjetNombre : %d \nSuite : %d\n\n",mission->type, nomPerso, mission->posXCible, mission->posYCible, nbObj, mission->suite);
 }
 
 
 
-void missionAccomplir (Mission* mission, Objet* tabObjets)
+void missionAccomplir (Mission* mission, const Objet* tabObjets)
 {
     if ((mission->suite)!=0)
     {
@@ -57,19 +56,31 @@ void missionAccomplir (Mission* mission, Objet* tabObjets)
 
 
 
-char getMissionType(Mission* mission)
+void getMissionNom(char* nom, const Mission* mission)
+{
+    strcpy(nom, mission->nom);
+}
+
+
+void getMissionNomPerso(char* nom, const Mission* mission)
+{
+    strcpy(nom, mission->nomPerso);
+}
+
+
+char getMissionType(const Mission* mission)
 {
     return mission->type;
 }
 
 
-Objet* getMissionObjet(Mission* mission)
+Objet* getMissionObjet(const Mission* mission)
 {
     return mission->objCible;
 }
 
 
-char estPersoMission(Mission* mission, Personnage* perso)
+char estPersoMission(const Mission* mission, const Personnage* perso)
 {
     char nom[30];
     getPersoNom(nom,perso);
@@ -77,7 +88,7 @@ char estPersoMission(Mission* mission, Personnage* perso)
 }
 
 
-char estLieuMission(Mission* mission, int posX, int posY)
+char estLieuMission(const Mission* mission, const int posX, const int posY)
 {
     return (((mission->posXCible)==(posX))&&((mission->posYCible)==(posY)));
     /*Ici une proposition de code au cas où on souhaiterait simplement s'assurer que (posX,posY)
@@ -92,13 +103,13 @@ char estLieuMission(Mission* mission, int posX, int posY)
 }
 
 
-char estObjetMission(Mission* mission, Objet* obj)
+char estObjetMission(const Mission* mission, const Objet* obj)
 {
     return (mission->objCible==obj);
 }
 
 
-char testMissionParlerA(Mission* mission, Personnage* perso)
+char testMissionParlerA(const Mission* mission, const Personnage* perso)
 {
     char nom[30];
     getPersoNom(nom,perso);
@@ -107,7 +118,7 @@ char testMissionParlerA(Mission* mission, Personnage* perso)
 }
 
 
-char testMissionFaireParler(Mission* mission, Personnage* perso)
+char testMissionFaireParler(const Mission* mission, const Personnage* perso)
 {
     char nom[30];
     getPersoNom(nom,perso);
@@ -116,7 +127,7 @@ char testMissionFaireParler(Mission* mission, Personnage* perso)
 }
 
 
-char testMissionTuer(Mission* mission, Personnage* perso)
+char testMissionTuer(const Mission* mission, const Personnage* perso)
 {
     char nom[30];
     getPersoNom(nom,perso);
@@ -125,13 +136,13 @@ char testMissionTuer(Mission* mission, Personnage* perso)
 }
 
 
-char testMissionObtenir(Mission* mission, Objet* obj)
+char testMissionObtenir(const Mission* mission, const Objet* obj)
 {
     return ((mission->type==4)&&(mission->objCible==obj));
 }
 
 
-char testMissionAllerA(Mission* mission, int posX, int posY)
+char testMissionAllerA(const Mission* mission, const int posX, const int posY)
 {
     return ((mission->type==5)&&(mission->posXCible==posX)&&(mission->posYCible==posY));
 
@@ -152,23 +163,31 @@ char testMissionAllerA(Mission* mission, int posX, int posY)
 
 int mainMission()
 {
-    int i;
+    int i, j;
+    char nom[50], nomPerso[30], nomObjet[30];
     Mission mission;
     Objet* tabObj;
+    Personnage perso;
 
     srand(time(NULL));
     initialiserTousLesObjets(&tabObj);
+    nouveauPerso (&perso, "Babar", 1, 1, 1, 1, 0, 100, tabObj);
 
-    for(i=0;i<100;i++)
+    for(i=0;i<1;i++)
     {
         missionInit(&mission);
         missionDefinir(&mission, 1, tabObj);
-        missionAccomplir(&mission, tabObj);
-        missionAccomplir(&mission, tabObj);
-        missionAccomplir(&mission, tabObj);
-        missionAccomplir(&mission, tabObj);
-        missionAccomplir(&mission, tabObj);
-        missionAccomplir(&mission, tabObj);
+
+        for(j=0;j<3;j++)
+        {
+            getMissionNom(nom, &mission);
+            getMissionNomPerso(nomPerso, &mission);
+            if (getMissionObjet(&mission)!=NULL) {getObjetNom(nomObjet, getMissionObjet(&mission));}
+            else {strcpy(nomObjet, "Pas d'Objet !");}
+
+            printf("Mission : %sType : %d\nPosCiblee : %d %d\nObjet : %s\nSuite : %d\nPersoCible : %s\n\n", nom, getMissionType(&mission), mission.posXCible, mission.posYCible, nomObjet, mission.suite, nomPerso);
+            missionAccomplir(&mission, tabObj);
+        }
     }
 
     return 0;

@@ -16,73 +16,73 @@ void equiInit(Equipement* equi)
     for (i=0;i<3;i++) equi->armeDroite[i]=NULL;
 }
 
-void setEquiTete(Equipement* equi, Objet* tete)
+void setEquiTete(Equipement* equi, const Objet* tete)
 {
     equi->tete=tete;
 }
 
-void setEquiTorse(Equipement* equi, Objet* torse)
+void setEquiTorse(Equipement* equi, const Objet* torse)
 {
     equi->torse=torse;
 }
 
-void setEquiBas(Equipement* equi, Objet* bas)
+void setEquiBas(Equipement* equi, const Objet* bas)
 {
     equi->bas=bas;
 }
 
-void setEquiMains(Equipement* equi, Objet* mains)
+void setEquiMains(Equipement* equi, const Objet* mains)
 {
     equi->mains=mains;
 }
 
-void setEquiPieds(Equipement* equi, Objet* pieds)
+void setEquiPieds(Equipement* equi, const Objet* pieds)
 {
     equi->pieds=pieds;
 }
 
-void setMainGauche(Equipement* equi, Objet* bouclier)
+void setMainGauche(Equipement* equi, const Objet* bouclier)
 {
     equi->armeGauche=bouclier;
 }
 
-void setMainDroite(Equipement* equi, Objet* arme,int i)
+void setMainDroite(Equipement* equi, const Objet* arme, const int i)
 {
     assert (i>=0&&i<3);
     equi->armeDroite[i]=arme;
 }
 
-Objet* getEquiTete(Equipement* equi)
+Objet* getEquiTete(const Equipement* equi)
 {
     return equi->tete;
 }
 
-Objet* getEquiTorse(Equipement* equi)
+Objet* getEquiTorse(const Equipement* equi)
 {
     return equi->torse;
 }
 
-Objet* getEquiBas(Equipement* equi)
+Objet* getEquiBas(const Equipement* equi)
 {
     return equi->bas;
 }
 
-Objet* getEquiMains(Equipement* equi)
+Objet* getEquiMains(const Equipement* equi)
 {
     return equi->mains;
 }
 
-Objet* getEquiPieds(Equipement* equi)
+Objet* getEquiPieds(const Equipement* equi)
 {
     return equi->pieds;
 }
 
-Objet* getEquiMainGauche(Equipement* equi)
+Objet* getEquiMainGauche(const Equipement* equi)
 {
     return equi->armeGauche;
 }
 
-Objet* getEquiMainDroite(Equipement* equi, int i)
+Objet* getEquiMainDroite(const Equipement* equi, const int i)
 {
     assert (i>=0&&i<3);
     return equi->armeDroite[i];
