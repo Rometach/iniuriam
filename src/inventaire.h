@@ -13,9 +13,9 @@
 
 typedef struct
 {
-    Stock* st;
-    int nbObjet;
-    int capacite;
+    Stock* st;      /**Tableau (dynamique) de Stocks*/
+    int nbObjet;    /**Nombre de cases utilisées du tableau*/
+    int capacite;   /**Nombre de cases disponibles*/
 } Inventaire;
 
 /**

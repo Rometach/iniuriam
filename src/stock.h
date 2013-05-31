@@ -13,8 +13,8 @@
 
 typedef struct
 {
-    Objet *objet;
-    int quantite;
+    Objet *objet;   /**Adresse de l'objet*/
+    int quantite;   /**Quantite d'objet...*/
 
 } Stock;
 

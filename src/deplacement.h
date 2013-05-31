@@ -83,7 +83,7 @@ void reinitTunnel (int x, int y, char tab [TAILLE_MAX][TAILLE_MAX]);
 * <br /> Postconditions : retourne le minimum de droite, gauche, haut et bas. L'ordre des paramètres détermine les priorités en cas d'égalité.
 *                         si l'un des paramètres est nul il n'est pas pris en compte
 */
-char quatresChemins (char droite, char haut, char bas, char gauche);
+char quatreChemins (char droite, char haut, char bas, char gauche);
 
 /**
 * \brief Preconditions : 0<=x<TAILLE_MAX, 0<=y<TAILLE_MAX, 0<=z<TAILLE_MAX, 0<=t<TAILLE_MAX

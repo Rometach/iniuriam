@@ -14,29 +14,30 @@
 
 typedef struct
 {
-    char nom [30];
-    char type;
-    char utilite;     /*1 arme
-                        2 armure
-                        3 potion, nourriture
-                        4 objet quête
-                        5 autre
-                       */
-    char portee;      /*valable pour arme, potion (à voir)
-                        armure : correspond à la partie du corps protégée
-                        objet quête :
-                       */
-    char degats;      /*valable pour arme,armure
-                        potion : correspond au type de potion (soin, poison...)
-                        objet quête :
-                       */
-    char protection;  /*valable pour arme,armure, potion (pts de vie récupérés)
-                        objet quête :
-                       */
-    char description [150];
-    int valeur;
+    char nom [30];          /**Nom de l'objet*/
+    char type;              /**Correspond au numéro de ligne où est décrit l'objet dans Objets.txt*/
 
-    SDL_Surface* icon;
+    char utilite;           /**1 arme
+                            2 : armure
+                            3 : potion, nourriture
+                            4 : objet quête
+                            5 : autre*/
+
+    char portee;                /**valable pour arme, potion (à voir)
+                                armure : correspond à la partie du corps protégée
+                                objet quête :*/
+
+    char degats;                /**valable pour arme, armure
+                                potion : correspond au type de potion (soin, poison...)
+                                objet quête :*/
+
+    char protection;            /**valable pour arme, armure, potion (points de vie récupérés)
+                                objet quête :*/
+
+    char description [150];     /**Descriptif de l'objet*/
+    int valeur;                 /**Combien l'objet coûte*/
+
+    SDL_Surface* icon;          /**Icône de l'objet (dépend seulement de utilite)*/
 } Objet;
 
 /**

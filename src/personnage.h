@@ -17,43 +17,44 @@
 
 typedef struct
 {
-    char nom [30];
-    char race;/*0 : inconnu
-                1 : humain
-                2 : cyborg
-                3 : sicaris
-                4 : medarsins
-                */
-    char sexe;/*0 : inconnu
-                1 : homme
-                2 : femme*/
-    char faction;/*0 : inconnu
-                1 : Sistéen
-                2 : Heredian
-                3 : Marchand
-                */
-    char carriere;
-    int argent;
-    int experience;
-    int niveau;
+    char nom [30];      /**Le nom du personnage*/
+    char race;          /**0 : inconnu
+                        1 : humain
+                        2 : cyborg
+                        3 : sicaris
+                        4 : medarsins*/
 
-    Capacite capacite;
+    char sexe;          /**0 : inconnu
+                        1 : homme
+                        2 : femme*/
 
-    char attaque;
-    char defense;
-    char intelligence;
-    char agilite;
-    char charisme;
-    int ptDeVie;
+    char faction;       /**0 : inconnu
+                        1 : Sistéen
+                        2 : Heredian
+                        3 : Marchand*/
 
-    int posX;
-    int posY;
+    char carriere;      /**Correspond à la ligne où est décrite la carrière du personnage dans Carrieres.txt*/
+    int argent;         /**Solde courant du porte-monnaie*/
+    int experience;     /**Valeur d'expérience actuellement engrangée par le personnage*/
+    int niveau;         /**Fonction (logarithmique) de l'expérience*/
 
-    Inventaire inventaire;
+    Capacite capacite;  /**Capacité (liste de Compétences) du Personnage*/
 
-    Equipement equipement;
+    char attaque;       /**Statistique du Personnage en attaque*/
+    char defense;       /**Statistique du Personnage en défense*/
+    char intelligence;  /**Statistique du Personnage en intelligence*/
+    char agilite;       /**Statistique du Personnage en agilité*/
+    char charisme;      /**Statistique du Personnage en charisme*/
+    int ptDeVie;        /**Niveau actuel de santé du Personnage*/
 
-	SDL_Surface* avatar;
+    int posX;           /**Position en X actuelle du Personnage*/
+    int posY;           /**Position en Y actuelle du Personnage*/
+
+    Inventaire inventaire;  /**Inventaire (liste de Stocks) du Personnage*/
+
+    Equipement equipement;  /**Décrit les différentes armes/armures équipées*/
+
+	SDL_Surface* avatar;    /**Icône du Personnage*/
 
 } Personnage;
 

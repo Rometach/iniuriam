@@ -20,16 +20,16 @@ typedef struct
 {
     Personnage* perso;
     char camp;
-    int ordre; /*Correspond à la position du combattant dans l'ordre de passage au début du combat
+    int ordre; /**Correspond à la position du combattant dans l'ordre de passage au début du combat
                  Est calculé grâce à l'agilité du personnage associé*/
     int posX;
     int posY;
-    char orientation; /*Correspond à l'orientation du regard du combattant sur le terrain :
+    char orientation; /**Correspond à l'orientation du regard du combattant sur le terrain :
                         1 vers la gauche
                         2 vers le haut
-                        3 vers la bas
-                        4 vers le droite*/
-    char derniereAction;    /*Correspond à la dernière action effectuée :
+                        3 vers le bas
+                        4 vers la droite**/
+    char derniereAction;    /**Correspond à la dernière action effectuée :
                             0 inconnu
                             1 attaque standard
                             2 attaque brutale
@@ -37,7 +37,7 @@ typedef struct
                             4 feinte
                             5 visée
                             6 préparation de parade*/
-    char arene [TAILLE_MAX][TAILLE_MAX];
+    char arene [TAILLE_MAX][TAILLE_MAX];    /**L'arene du combat*/
     SDL_Surface* avatar;
 } Combattant;
 

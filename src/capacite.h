@@ -14,9 +14,9 @@
 
 typedef struct
 {
-    Competence *comp;
-    int nbCompetence;
-    int quantite;
+    Competence *comp;   /**Un tableau (dynamique) de compétences*/
+    int nbCompetence;   /**Le nombre de cases utilisées du tableau*/
+    int quantite;       /**Le nombre de cases disponibles*/
 } Capacite;
 
 
