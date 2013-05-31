@@ -53,7 +53,7 @@ Dialogue dialogue;
     setPersoPosX(&ennemi, TILE_LARGEUR*5);
     setPersoPosY(&ennemi, TILE_HAUTEUR*0);
 
-    eventJeuSDL(&hero, &pnj, &ennemi, &tutoriel, &terrain, &dialogue, ecran);
+    eventJeuSDL(&hero, &pnj, &ennemi, &tutoriel, tabObjets, &terrain, &dialogue, ecran);
 
     persoLibere(&ennemi);
     persoLibere (&hero);

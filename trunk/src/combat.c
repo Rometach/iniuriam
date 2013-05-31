@@ -293,8 +293,6 @@ void copieCombattant (Combattant* comb1, Combattant* comb2)
     copieTab2D(comb1->arene,comb2->arene);
 }
 
-
-
 int testNbCombattant (Combattant* groupe, int l, char arene [TAILLE_MAX][TAILLE_MAX])
 {
     Combattant* tampon;
@@ -679,7 +677,7 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MA
         {
             /*Si l'IA a repéré un ennemi mais que celui-ci n'est plus visible,
               elle se rapproche du dernier endroit où elle a vu la cible et regarde après chaque déplacement si un ennemi est en vue*/
-            while (deplacementsRestants-1)
+            while (deplacementsRestants>=1)
             {
                 coord=seRapprocher(groupe[j].arene,groupe[j].posX,groupe[j].posY,1,&(groupe[j].orientation));
                 i=coord%TAILLE_MAX;
@@ -732,12 +730,18 @@ void combat (Personnage* liste, int l, char arene [TAILLE_MAX][TAILLE_MAX])
 
 char estAPortee (char arene[TAILLE_MAX][TAILLE_MAX],Combattant* attaquant, Combattant* defenseur,int portee)
 {
-    int rayon;
+   /* int rayon;
     if (estDansChampDeVision(arene,attaquant->posX,attaquant->posY,defenseur->posX,defenseur->posY,0))
     {
         rayon=(int)sqrt(pow((defenseur->posX-attaquant->posX),2)+pow((defenseur->posY-attaquant->posY),2));
         if (rayon<=portee) return 1;
+    }*/
+    if(((int)fabs(attaquant->posX-defenseur->posX)<=portee) && ((int)fabs(attaquant->posY-defenseur->posY)<=portee))
+    {
+        return 1;
     }
+
+
     return 0;
 }
 

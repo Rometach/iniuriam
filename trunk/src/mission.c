@@ -166,10 +166,6 @@ char testMissionAllerA(const Mission* mission, const int posX, const int posY)
     */
 }
 
-
-
-
-
 int mainMission()
 {
     int i, j;

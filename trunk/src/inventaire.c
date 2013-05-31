@@ -71,11 +71,6 @@ void enleverObjetInventaire (Inventaire* inventaire, const Objet* obj)
     if(getStockQuantite((inventaire->st)+1)>0)
     {
         incrementerStock((inventaire->st)+i,-1);
-/*    if (getStockQuantite((inventaire->st)+i)>1)
-    {
-
-    }
-    else*/
         if(getStockQuantite((inventaire->st)+i)==0)
         {
             for(j=i;j<inventaire->nbObjet-1;j++)
@@ -116,7 +111,6 @@ void afficherInventaire (const Inventaire* inventaire)
     }
     printf("NbObjet=%d \n Capacite=%d\n\n", inventaire->nbObjet, inventaire->capacite);
 }
-
 
 char estObjDansInv (const Inventaire* inventaire, const Objet* obj)
 {

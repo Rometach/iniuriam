@@ -491,6 +491,7 @@ char chemin (int x,int y, int z, int t, char tab[TAILLE_MAX][TAILLE_MAX])
         }
     return n;
 }
+
 int seRapprocher(char tab[TAILLE_MAX][TAILLE_MAX], int a, int b, int nb,char* orientation)
 {
     int i=nb,j=0,x=a,y=b;

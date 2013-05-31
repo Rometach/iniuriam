@@ -43,7 +43,7 @@ void setReponse (const char* question, char* reponse);
 * \brief Preconditions : dialogue est initialisé, info a une longueur d'au moins TAILLE_MAX_DIAL
 * <br /> Postconditions : copie dans info l'information (éventuellement la réponse négative) retournée ; retourne la valeur courante de l'humeur
 */
-char obtenirInfo(Dialogue* dialogue, char* info);
+char obtenirInfo(Dialogue* dialogue, char* info, Mission* mission, Objet* tabObjets);
 
 /**
 * \brief Preconditions : dialogue est initialisé, info a une longueur d'au moins TAILLE_MAX_DIAL

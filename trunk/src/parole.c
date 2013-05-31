@@ -69,7 +69,7 @@ void setReponse (const char* question, char* reponse)
     }
 }
 
-char obtenirInfo(Dialogue* dialogue, char* info)
+char obtenirInfo(Dialogue* dialogue, char* info, Mission* mission, Objet* tabObjets)
 {
     int test, bonus=0;
     char nomPNJ[30];
@@ -87,6 +87,10 @@ char obtenirInfo(Dialogue* dialogue, char* info)
         strcat(nomPNJ," Info\n");
         setReponse(nomPNJ, info);
         ajouterCompetencePerso (dialogue->perso1,2,2);
+        if(testMissionFaireParler( mission, dialogue->perso2))
+        {
+            missionAccomplir (mission ,tabObjets);
+        }
     }
     else
     {
@@ -228,7 +232,7 @@ void marchander (Dialogue* dialogue, int* valeur)
 
 char acheter(Dialogue* dialogue, Objet* objet, char* rep)
 {
-    /*char c;*/
+//    char c;
     int bonus=0,valeur=getObjetValeur(objet);
     Inventaire inv;
     getPersoInventaire(dialogue->perso2,&inv);
@@ -278,7 +282,7 @@ char acheter(Dialogue* dialogue, Objet* objet, char* rep)
 
 char vendre(Dialogue* dialogue, Objet* objet, char* rep)
 {
-    /*char c;*/
+//    char c;
     int bonus=0,valeur=getObjetValeur(objet);
     Inventaire inv;
     getPersoInventaire(dialogue->perso1,&inv);
