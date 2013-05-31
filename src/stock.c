@@ -32,7 +32,7 @@ int getStockQuantite(const Stock* stock)
     return stock->quantite;
 }
 
-void setStockObjet (Stock *st, const Objet* obj)
+void setStockObjet (Stock *st, Objet* obj)
 {
     st->objet=obj;
 }
