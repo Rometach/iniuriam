@@ -41,13 +41,13 @@ void missionInit (Mission* mission);
                          l correspond à la ligne où est écrite la mission dans le fichier Missions.txt
 * <br /> Postconditions : mission est une vraie mission avec des objectifs bien définis
 */
-void missionDefinir (Mission* mission, const int l, const Objet* tabObjets);
+void missionDefinir (Mission* mission, const int l, Objet* tabObjets);
 
 /**
 * \brief Preconditions : mission est initialisée et définie
 * <br /> Postconditions : mission est considérée comme accomplie
 */
-void missionAccomplir (Mission* mission, const Objet* tabObjets);
+void missionAccomplir (Mission* mission, Objet* tabObjets);
 
 
 /**

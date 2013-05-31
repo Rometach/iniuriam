@@ -8,7 +8,7 @@
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
 
-void dialogueInit (Dialogue* dialogue, const Personnage* perso1, const Personnage* perso2)
+void dialogueInit (Dialogue* dialogue, Personnage* perso1, Personnage* perso2)
 {
     dialogue->perso1=perso1;
     dialogue->perso2=perso2;
@@ -228,7 +228,7 @@ void marchander (Dialogue* dialogue, int* valeur)
 
 char acheter(Dialogue* dialogue, const Objet* objet, char* rep)
 {
-    char c;
+    /*char c;*/
     int bonus=0,valeur=getObjetValeur(objet);
     Inventaire inv;
     getPersoInventaire(dialogue->perso2,&inv);
@@ -278,7 +278,7 @@ char acheter(Dialogue* dialogue, const Objet* objet, char* rep)
 
 char vendre(Dialogue* dialogue, const Objet* objet, char* rep)
 {
-    char c;
+    /*char c;*/
     int bonus=0,valeur=getObjetValeur(objet);
     Inventaire inv;
     getPersoInventaire(dialogue->perso1,&inv);

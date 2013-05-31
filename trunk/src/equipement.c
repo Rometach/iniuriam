@@ -16,37 +16,37 @@ void equiInit(Equipement* equi)
     for (i=0;i<3;i++) equi->armeDroite[i]=NULL;
 }
 
-void setEquiTete(Equipement* equi, const Objet* tete)
+void setEquiTete(Equipement* equi,Objet* tete)
 {
     equi->tete=tete;
 }
 
-void setEquiTorse(Equipement* equi, const Objet* torse)
+void setEquiTorse(Equipement* equi, Objet* torse)
 {
     equi->torse=torse;
 }
 
-void setEquiBas(Equipement* equi, const Objet* bas)
+void setEquiBas(Equipement* equi, Objet* bas)
 {
     equi->bas=bas;
 }
 
-void setEquiMains(Equipement* equi, const Objet* mains)
+void setEquiMains(Equipement* equi, Objet* mains)
 {
     equi->mains=mains;
 }
 
-void setEquiPieds(Equipement* equi, const Objet* pieds)
+void setEquiPieds(Equipement* equi, Objet* pieds)
 {
     equi->pieds=pieds;
 }
 
-void setMainGauche(Equipement* equi, const Objet* bouclier)
+void setMainGauche(Equipement* equi, Objet* bouclier)
 {
     equi->armeGauche=bouclier;
 }
 
-void setMainDroite(Equipement* equi, const Objet* arme, const int i)
+void setMainDroite(Equipement* equi, Objet* arme, const int i)
 {
     assert (i>=0&&i<3);
     equi->armeDroite[i]=arme;

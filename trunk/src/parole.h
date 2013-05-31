@@ -25,7 +25,7 @@ typedef struct
 * \brief Preconditions : dialogue n'est pas initialisé
 * <br /> Postconditions : dialogue est initialisé avec les personnages perso1 et perso2
 */
-void dialogueInit (Dialogue* dialogue, const Personnage* perso1, const Personnage* perso2);
+void dialogueInit (Dialogue* dialogue, Personnage* perso1, Personnage* perso2);
 
 /**
 * \brief Preconditions : dialogue est initialisé

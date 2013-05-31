@@ -25,7 +25,6 @@ void persoInit (Personnage* perso)
     perso->posY=0;
 }
 
-
 void nouveauPerso (Personnage *perso, const char nom[], const char race, const char sexe, const char faction, const char carriere, const int experience, const int argent, const Objet* tab)
 {
     int i=0, j,k;
@@ -302,7 +301,7 @@ void getSexeNom(char* chaine,const char sexe)
     }
 }
 
-char getPersoFaction(Personnage *perso)
+char getPersoFaction(const Personnage *perso)
 {
     return perso->faction;
 }
@@ -419,7 +418,7 @@ void getPersoInventaire(const Personnage *perso, Inventaire* inv)
     copieInventaire(inv,&perso->inventaire);
 }
 
-Inventaire* getPersoInventaire2(const Personnage *perso)
+Inventaire* getPersoInventaire2(Personnage *perso)
 {
     return &(perso->inventaire);
 }
@@ -437,12 +436,12 @@ void getPersoCapacite(const Personnage *perso, Capacite* s)
     }
 }
 
-Capacite* getPersoCapacite2(const Personnage *perso)
+Capacite* getPersoCapacite2(Personnage *perso)
 {
     return &perso->capacite;
 }
 
-Equipement* getPersoEquipement(const Personnage *perso)
+Equipement* getPersoEquipement(Personnage *perso)
 {
     return &perso->equipement;
 }
@@ -516,7 +515,7 @@ void persoUtiliseObjet (Personnage *perso, Objet *obj, Personnage* cible)
     }
 }
 
-void copiePerso (const Personnage* perso1, Personnage* perso2)
+void copiePerso (Personnage* perso1, Personnage* perso2)
 {
     strcpy(perso2->nom,perso1->nom);
     perso2->race=perso1->race;
