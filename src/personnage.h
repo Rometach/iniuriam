@@ -87,6 +87,12 @@ void chargerPerso (Personnage* perso,char nom[50],char race,char sexe,char facti
 int getNbPNJ();
 
 /**
+* \brief Preconditions : /
+* <br /> Postconditions : retourne le nombre de carrieres dans Carrieres.txt
+*/
+int getNbCarriere();
+
+/**
 * \brief Preconditions : perso n'est pas initialisé ou initialisé à vide, l<=getNbPNJ()
                         tab contient tous les objets du jeu
 * <br /> Postconditions : perso est initialisé avec les paramètres du l-ième PNJ du fichier PNJ.txt
@@ -112,6 +118,12 @@ void getPersoNom(char* maChaine, Personnage *perso);
 char getPersoRace(Personnage *perso);
 
 /**
+* \brief Preconditions : /
+* <br /> Postconditions : copie le nom associé à race dans chaine
+*/
+void getRaceNom(char* chaine,char race);
+
+/**
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : retourne la faction du perso
 */
@@ -128,6 +140,12 @@ void getPersoFactionNom(char* chaine, Personnage *perso);
 * <br /> Postconditions : retourne le sexe du perso
 */
 char getPersoSexe(Personnage *perso);
+
+/**
+* \brief Preconditions : /
+* <br /> Postconditions : copie le nom associé à sexe dans chaine
+*/
+void getSexeNom(char* chaine,char sexe);
 
 /**
 * \brief Preconditions : perso est initialisé

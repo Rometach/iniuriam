@@ -112,4 +112,10 @@ Objet* getEquiMainGauche(Equipement* equi);
 */
 Objet* getEquiMainDroite(Equipement* equi,int i);
 
+/**
+* \brief Preconditions : equi1 est initialisé,mais pas equi2
+* <br /> Postconditions : copie equi1 dans equi2
+*/
+void copieEquipement (Equipement* equi1, Equipement* equi2);
+
 #endif
