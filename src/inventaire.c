@@ -28,7 +28,7 @@ void inventaireLibere (Inventaire* inventaire)
     inventaire->capacite=0;
 }
 
-void ajouterObjetInventaire (Inventaire* inventaire, const Objet* obj)
+void ajouterObjetInventaire (Inventaire* inventaire, Objet* obj)
 {
     int i;
     char ajoute=0;

@@ -25,7 +25,7 @@ void persoInit (Personnage* perso)
     perso->posY=0;
 }
 
-void nouveauPerso (Personnage *perso, const char nom[], const char race, const char sexe, const char faction, const char carriere, const int experience, const int argent, const Objet* tab)
+void nouveauPerso (Personnage *perso, const char nom[], const char race, const char sexe, const char faction, const char carriere, const int experience, const int argent, Objet* tab)
 {
     int i=0, j,k;
     FILE* fCarr,*fRace;
@@ -212,7 +212,7 @@ int getNbCarriere()
     return max-3;
 }
 
-void persoInitPNJ(Personnage *perso, const int l, const Objet* tab)
+void persoInitPNJ(Personnage *perso, const int l, Objet* tab)
 {
     FILE* fPNJ;
     char ligne [TAILLE_MAX_FICHIER];
@@ -468,7 +468,7 @@ int getPersoNiveau (Personnage* perso)
     return 1+perso->experience/10;
 }
 
-void ajouterInventaire (Personnage *perso, const Objet *obj)
+void ajouterInventaire (Personnage *perso, Objet *obj)
 {
     ajouterObjetInventaire(&perso->inventaire, obj);
 }

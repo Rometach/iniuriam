@@ -89,7 +89,7 @@ void marchander (Dialogue* dialogue, int* valeur);
 *                          copie dans rep la reponse retournée ;
 *                          retourne la valeur courante de l'humeur
 */
-char acheter(Dialogue* dialogue, const Objet* objet, char* rep);
+char acheter(Dialogue* dialogue, Objet* objet, char* rep);
 
 /**
 * \brief Preconditions : dialogue est initialisé, objet est dans l'inventaire du joueur, rep a une longueur d'au moins TAILLE_MAX_DIAL
@@ -97,7 +97,7 @@ char acheter(Dialogue* dialogue, const Objet* objet, char* rep);
 *                          copie dans rep la reponse retournée ;
 *                          retourne la valeur courante de l'humeur
 */
-char vendre(Dialogue* dialogue, const Objet* objet, char* rep);
+char vendre(Dialogue* dialogue, Objet* objet, char* rep);
 
 
 int mainParole ();

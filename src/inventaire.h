@@ -34,7 +34,7 @@ void inventaireLibere (Inventaire* inventaire);
 * \brief Preconditions : inventaire est initialisé
 * <br /> Postconditions : l'objet obj est ajouté dans inventaire
 */
-void ajouterObjetInventaire (Inventaire* inventaire, const Objet* obj);
+void ajouterObjetInventaire (Inventaire* inventaire, Objet* obj);
 
 
 /**

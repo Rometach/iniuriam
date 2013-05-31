@@ -5,7 +5,7 @@
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
 
-void stockInit (Stock *st, const Objet* obj)
+void stockInit (Stock *st, Objet* obj)
 {
     st->objet=obj;
     st->quantite=1;

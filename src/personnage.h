@@ -70,7 +70,7 @@ void persoInit (Personnage* perso);
                         les autres paramètres respectent les critères imposés par la structure
 * <br /> Postconditions : perso est initialisé et ses paramètres nom, race, sexe, carriere, et expérience sont fournis
 */
-void nouveauPerso(Personnage *perso, const char nom[], const char race, const char sexe, const char faction, const char carriere, const int experience, const int argent, const Objet* tab);
+void nouveauPerso(Personnage *perso, const char nom[], const char race, const char sexe, const char faction, const char carriere, const int experience, const int argent, Objet* tab);
 
 /**
 * \brief Preconditions : perso n'est pas initialisé ou initialisé à vide
@@ -97,7 +97,7 @@ int getNbCarriere();
                         tab contient tous les objets du jeu
 * <br /> Postconditions : perso est initialisé avec les paramètres du l-ième PNJ du fichier PNJ.txt
 */
-void persoInitPNJ(Personnage *perso, const int l, const Objet* tab);
+void persoInitPNJ(Personnage *perso, const int l, Objet* tab);
 
 /**
 * \brief Preconditions : perso est initialisé
@@ -277,7 +277,7 @@ void addPersoPtDeVie(Personnage *perso, const int pdv);
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : 1 obj est ajouté à l'inventaire de perso
 */
-void ajouterInventaire (Personnage *perso, const Objet *obj);
+void ajouterInventaire (Personnage *perso, Objet *obj);
 
 /**
 * \brief Preconditions : perso est initialisé, obj est dans l'inventaire de perso
