@@ -40,106 +40,106 @@ typedef struct
 } Objet;
 
 /**
-* \brief Preconditions : obj n'a pas déjà été initialisé, type <= au nombre max d'objet de Objets.txt
+* \brief Preconditions : obj n'a pas déjà été initialisé, 0 <= type <= au nombre max d'objet de Objets.txt
 * <br /> Postconditions : obj est initialisé avec les paramètres de son type : nom, utilite, portee, degats, protection, description et valeur
 */
-void objInit (Objet *obj, char type);
+void objInit (Objet *obj, const char type);
 
 /**
 * \brief Preconditions : obj est initialisé
 * <br /> Postconditions : retourne le type d'obj
 */
-char getObjetType(Objet *obj);
+char getObjetType(const Objet *obj);
 
 /**
 * \brief Preconditions : obj est initialisé
 * <br /> Postconditions : retourne l'utilité d'obj
 */
-char getObjetUtilite(Objet *obj);
+char getObjetUtilite(const Objet *obj);
 
 /**
 * \brief Preconditions : obj est initialisé
-* <br /> Postconditions : retourne l'utilité d'obj
+* <br /> Postconditions : copie dans utilite l'utilité d'obj
 */
-char* getObjetUtiliteNom(Objet *obj);
+void getObjetUtiliteNom(char* utilite, const Objet *obj);
 
 /**
 * \brief Preconditions : obj est initialisé
 * <br /> Postconditions : retourne la portée d'obj
 */
-char getObjetPortee(Objet *obj);
+char getObjetPortee(const Objet *obj);
 
 /**
 * \brief Preconditions : obj est initialisé
 * <br /> Postconditions : retourne la valeur de dégâts d'obj
 */
-char getObjetDegats(Objet *obj);
+char getObjetDegats(const Objet *obj);
 
 /**
 * \brief Preconditions : obj est initialisé
 * <br /> Postconditions : retourne la valeur de protection d'obj
 */
-char getObjetProtection(Objet *obj);
+char getObjetProtection(const Objet *obj);
 
 /**
 * \brief Preconditions : obj est initialisé
 * <br /> Postconditions : retourne la valeur (prix) d'obj
 */
-int getObjetValeur(Objet *obj);
+int getObjetValeur(const Objet *obj);
 
 /**
-* \brief Preconditions : obj est initialisé
+* \brief Preconditions : obj est initialisé ; nom est une chaine de longueur >=30
 * <br /> Postconditions : retourne le nom d'obj
 */
-char* getObjetNom(Objet *obj);
+void getObjetNom(char* nom, const Objet *obj);
 
 /**
-* \brief Preconditions : obj est initialisé
-* <br /> Postconditions : retourne la description d'obj
+* \brief Preconditions : obj est initialisé, description est une chaine de longueur >=150
+* <br /> Postconditions : copie dans description la description d'obj
 */
-char* getObjetDescription(Objet *obj);
+void getObjetDescription(char* description, const Objet *obj);
 
 /**
-* \brief Preconditions : /
+* \brief Preconditions : nom est une chaine de longueur <30
 * <br /> Postconditions : change le nom d'obj pour nom
 */
-void setObjetNom(Objet* obj,char* nom);
+void setObjetNom(Objet* obj, const char* nom);
 
 /**
 * \brief Preconditions : /
 * <br /> Postconditions : change la portée d'obj pour portee
 */
-void setObjetPortee(Objet* obj,int portee);
+void setObjetPortee(Objet* obj, const int portee);
 
 /**
 * \brief Preconditions : /
 * <br /> Postconditions : change les degats d'obj pour degats
 */
-void setObjetDegats(Objet* obj,int degats);
+void setObjetDegats(Objet* obj, const int degats);
 
 /**
 * \brief Preconditions : /
 * <br /> Postconditions : change la protection d'obj pour protection
 */
-void setObjetProtection(Objet* obj,int protection);
+void setObjetProtection(Objet* obj, const int protection);
 
 /**
 * \brief Preconditions : /
 * <br /> Postconditions : change l'utilité d'obj pour utilite
 */
-void setObjetUtilite(Objet* obj,int utilite);
+void setObjetUtilite(Objet* obj, const int utilite);
 
 /**
 * \brief Preconditions : /
 * <br /> Postconditions : change la valeur d'obj pour valeur
 */
-void setObjetValeur(Objet* obj,int valeur);
+void setObjetValeur(Objet* obj, const int valeur);
 
 /**
-* \brief Preconditions : /
+* \brief Preconditions : nom est une chaine de longueur <150
 * <br /> Postconditions : change la description d'obj pour description
 */
-void setObjetDescription(Objet* obj,char* description);
+void setObjetDescription(Objet* obj, const char* description);
 
 /**
 * \brief Preconditions : /
@@ -163,8 +163,12 @@ void libererTousLesObjets(Objet** tabObj);
 * \brief Preconditions : obj est initialisé
 * <br /> Postconditions : affiche les caractéristiques d'obj dans la console
 */
-void afficherObjet(Objet* obj);
+void afficherObjet(const Objet* obj);
 
-void copierFichier ();
+/**
+* \brief Preconditions : fichier1 et fichier2 sont des noms de fichiers accessibles au programme
+* <br /> Postconditions : copie le contenu de fichier2 dans fichier1
+*/
+void copierFichier (char* fichier1, const char* fichier2);
 
 #endif

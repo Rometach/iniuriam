@@ -70,15 +70,15 @@ void persoInit (Personnage* perso);
                         les autres paramètres respectent les critères imposés par la structure
 * <br /> Postconditions : perso est initialisé et ses paramètres nom, race, sexe, carriere, et expérience sont fournis
 */
-void nouveauPerso(Personnage *perso, char nom[], char race, char sexe, char faction, char carriere, int experience, int argent, Objet* tab);
+void nouveauPerso(Personnage *perso, const char nom[], const char race, const char sexe, const char faction, const char carriere, const int experience, const int argent, const Objet* tab);
 
 /**
 * \brief Preconditions : perso n'est pas initialisé ou initialisé à vide
                          tous les paramètres respectent les critères imposés par la structure
 * <br /> Postconditions : perso est initialisé avec tous les paramètres de sa structure.
 */
-void chargerPerso (Personnage* perso,char nom[50],char race,char sexe,char faction,char carriere,int experience,int argent,char attaque,char defense,char intelligence,
-                   char agilite,char charisme,int ptDeVie,int posX,int posY,Competence* liste,int nbCompetence,int* inventaire,int nbObjet,int armure[5],int arme[3]);
+void chargerPerso (Personnage* perso, const char nom[50], const char race, const char sexe, const char faction, const char carriere, const int experience, const int argent, const char attaque, const char defense, const char intelligence,
+                   const char agilite, const char charisme, const int ptDeVie, const int posX, const int posY, const Competence* liste, const int nbCompetence, const int* inventaire, const int nbObjet, const int armure[5], const int arme[3]);
 
 /**
 * \brief Preconditions : /
@@ -97,7 +97,7 @@ int getNbCarriere();
                         tab contient tous les objets du jeu
 * <br /> Postconditions : perso est initialisé avec les paramètres du l-ième PNJ du fichier PNJ.txt
 */
-void persoInitPNJ(Personnage *perso, int l, Objet* tab);
+void persoInitPNJ(Personnage *perso, const int l, const Objet* tab);
 
 /**
 * \brief Preconditions : perso est initialisé
@@ -109,13 +109,13 @@ void persoLibere (Personnage *perso);
 * \brief Preconditions : perso est initialisé, maChaine a une longueur >= 30
 * <br /> Postconditions : copie le nom de perso dans maChaine
 */
-void getPersoNom(char* maChaine, Personnage *perso);
+void getPersoNom(char* maChaine, const Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : retourne la race du perso
 */
-char getPersoRace(Personnage *perso);
+char getPersoRace(const Personnage *perso);
 
 /**
 * \brief Preconditions : /
@@ -127,19 +127,19 @@ void getRaceNom(char* chaine,char race);
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : retourne la faction du perso
 */
-char getPersoFaction(Personnage *perso);
+char getPersoFaction(const Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : copie le nom de la faction de perso dans chaine
 */
-void getPersoFactionNom(char* chaine, Personnage *perso);
+void getPersoFactionNom(char* chaine, const Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : retourne le sexe du perso
 */
-char getPersoSexe(Personnage *perso);
+char getPersoSexe(const Personnage *perso);
 
 /**
 * \brief Preconditions : /
@@ -151,145 +151,145 @@ void getSexeNom(char* chaine,char sexe);
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : retourne la carriere du perso
 */
-char getPersoCarriere(Personnage *perso);
+char getPersoCarriere(const Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé
-* <br /> Postconditions : retourne le nom de la carriere dans s
+* <br /> Postconditions : copie le nom de la carriere carriere dans s
 */
-void getCarriereNom(char carriere, char* s);
+void getCarriereNom(const char carriere, char* s);
 
 /**
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : retourne l'argent du perso
 */
-int getPersoArgent(Personnage *perso);
+int getPersoArgent(const const Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : retourne l'experience du perso
 */
-int getPersoExperience(Personnage *perso);
+int getPersoExperience(const Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : retourne l'attaque du perso
 */
-char getPersoAttaque(Personnage *perso);
+char getPersoAttaque(const Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : retourne la defense du perso
 */
-char getPersoDefense(Personnage *perso);
+char getPersoDefense(const Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : retourne l'intelligence du perso
 */
-char getPersoIntelligence(Personnage *perso);
+char getPersoIntelligence(const Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : retourne l'agilite du perso
 */
-char getPersoAgilite(Personnage *perso);
+char getPersoAgilite(const Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : retourne le charsime du perso
 */
-char getPersoCharisme(Personnage *perso);
+char getPersoCharisme(const Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : retourne les points de vie du perso
 */
-int getPersoPtDeVie(Personnage *perso);
-
-/**
-* \brief Preconditions : perso est initialisé
-* <br /> Postconditions : change la position en X du perso
-*/
-void setPersoPosX(Personnage *perso, int x);
+int getPersoPtDeVie(const Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : récupère la position en X du perso
 */
-int getPersoPosX(Personnage *perso);
-
-/**
-* \brief Preconditions : perso est initialisé
-* <br /> Postconditions : change la position en Y du perso
-*/
-void setPersoPosY(Personnage *perso, int y);
+int getPersoPosX(const Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : récupère la position en Y du perso
 */
-int getPersoPosY(Personnage *perso);
+
+int getPersoPosY(const Personnage *perso);
+/**
+* \brief Preconditions : perso est initialisé
+* <br /> Postconditions : change la position en X du perso
+*/
+void setPersoPosX(Personnage *perso, const int x);
+
+/**
+* \brief Preconditions : perso est initialisé
+* <br /> Postconditions : change la position en Y du perso
+*/
+void setPersoPosY(Personnage *perso, const int y);
 
 /**
 * \brief Preconditions : perso est initialisé mais pas inv
 * <br /> Postconditions : copie l'inventaire du perso dans inv
 */
-void getPersoInventaire(Personnage *perso, Inventaire* inv);
+void getPersoInventaire(const Personnage *perso, Inventaire* inv);
 
 /**
 * \brief Preconditions : perso est initialisé
-* <br /> Postconditions : retourne l'inventaire du perso
+* <br /> Postconditions : retourne l'adresse de l'inventaire du perso
 */
-Inventaire* getPersoInventaire2(Personnage *perso);
+Inventaire* getPersoInventaire2(const Personnage *perso);
 
 /**
 * \brief Preconditions : perso et s sont initialisés
 * <br /> Postconditions : retourne l'ensemble des capacite du perso dans s
 */
-void getPersoCapacite(Personnage *perso, Capacite* s);
+void getPersoCapacite(const Personnage *perso, Capacite* s);
 
 /**
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : retourne l'adresse de la Capacite de perso
 */
-Capacite* getPersoCapacite2(Personnage *perso);
+Capacite* getPersoCapacite2(const Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : retourne l'adresse de l'Equipement de perso
 */
-Equipement* getPersoEquipement(Personnage *perso);
+Equipement* getPersoEquipement(const Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : fixe la somme d'argent du perso
 */
-void setPersoArgent(Personnage *perso, int somme);
+void setPersoArgent(Personnage *perso, const int somme);
 
 /**
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : ajoute pdv aux points de vie de perso
 */
-void addPersoPtDeVie(Personnage *perso, int pdv);
+void addPersoPtDeVie(Personnage *perso, const int pdv);
 
 /**
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : 1 obj est ajouté à l'inventaire de perso
 */
-void ajouterInventaire (Personnage *perso, Objet *obj);
+void ajouterInventaire (Personnage *perso, const Objet *obj);
 
 /**
 * \brief Preconditions : perso est initialisé, obj est dans l'inventaire de perso
 * <br /> Postconditions : 1 obj est retiré de l'inventaire de perso
 */
-void soustraireInventaire (Personnage *perso,Objet *obj);
+void soustraireInventaire (Personnage *perso, const Objet *obj);
 
 /**
 * \brief Preconditions : perso est initialisé, type >0
 * <br /> Postconditions : ajoute la compétence associée à type (avec l'expérience exp) à perso
 */
-void ajouterCompetencePerso (Personnage *perso, int type, int exp);
+void ajouterCompetencePerso (Personnage *perso, const int type, const int exp);
 
 /**
 * \brief Preconditions : perso est initialisé, obj est dans l'inventaire de perso
@@ -302,20 +302,20 @@ void persoUtiliseObjet (Personnage *perso, Objet *obj, Personnage* cible);
 * \brief Preconditions : perso1 est initialisé, mais pas perso2
 * <br /> Postconditions : le contenu de perso1 est copié dans perso2
 */
-void copiePerso (Personnage* perso1, Personnage* perso2);
+void copiePerso (const Personnage* perso1, Personnage* perso2);
 
 /**
 * \brief Preconditions : perso est initialisé, obj appartient à l'inventaire de perso, 0<=i<3
 * <br /> Postconditions : obj est équipé (à la ième place s'il s'agit d'une arme)
 */
-void equiper (Personnage* perso,Objet* obj,int i);
+void equiper (Personnage* perso, Objet* obj, const int i);
 
 /**
 * \brief Preconditions : tabPNJ n'est pas initialisé
                         tabObjets contient tous les objets
 * <br /> Postconditions : initialise tous les PNJ dans tabPNJ
 */
-void initialiserTousLesPNJ(Personnage** tabPNJ, Objet* tabObjets);
+void initialiserTousLesPNJ(Personnage** tabPNJ, const Objet* tabObjets);
 
 /**
 * \brief Preconditions : tabPNJ est initialisé
@@ -327,7 +327,7 @@ void libererTousLesPNJ(Personnage** tabPNJ);
 * \brief Preconditions : experience>=0
 * <br /> Postconditions : retourne le niveau lié à experience
 */
-int calculNiveau(int experience);
+int calculNiveau(const int experience);
 
 
 /**

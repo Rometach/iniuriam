@@ -32,56 +32,56 @@ void inventaireLibere (Inventaire* inventaire);
 
 /**
 * \brief Preconditions : inventaire est initialisé
-* <br /> Postconditions : st est ajouté dans inventaire
+* <br /> Postconditions : l'objet obj est ajouté dans inventaire
 */
-void ajouterObjetInventaire (Inventaire* inventaire, Objet* obj);
+void ajouterObjetInventaire (Inventaire* inventaire, const Objet* obj);
 
 
 /**
-* \brief Preconditions : inventaire est initialisé, st fait partie de inventaire
-* <br /> Postconditions : 1 stock est ôté de inventaire
+* \brief Preconditions : inventaire est initialisé, obj fait partie d'inventaire
+* <br /> Postconditions : 1 occurence d'obj est ôtée d'inventaire
 */
-void enleverObjetInventaire (Inventaire* inventaire, Objet* obj);
+void enleverObjetInventaire (Inventaire* inventaire, const Objet* obj);
 
 /**
 * \brief Preconditions : inventaire2 est initialisé mais pas inventaire1
 * <br /> Postconditions : inventaire2 est recopié dans inventaire1
 */
-void copieInventaire (Inventaire* inventaire1, Inventaire* inventaire2);
+void copieInventaire (Inventaire* inventaire1, const Inventaire* inventaire2);
 
 
 /**
 * \brief Preconditions : inventaire est initialisé
 * <br /> Postconditions : affiche le contenu de l'inventaire
 */
-void afficherInventaire (Inventaire* inventaire);
+void afficherInventaire (const Inventaire* inventaire);
 
 
 /**
 * \brief Preconditions : inventaire est initialisé
-* <br /> Postconditions : retourne 0 si obj n'est pas dans inv, et 1 sinon
+* <br /> Postconditions : retourne 0 si obj n'est pas dans inventaire, et 1 si oui
 */
-char estObjDansInv (Inventaire* inventaire, Objet* obj);
+char estObjDansInv (const Inventaire* inventaire, const Objet* obj);
 
 
 /**
 * \brief Preconditions : inventaire est initialisé
-* <br /> Postconditions : retourne le ième tableau de Stocks de inventaire
+* <br /> Postconditions : retourne le l'adresse du ième Stock d'inventaire
 */
-Stock* getInventaireStock (Inventaire* inventaire, int i);
+Stock* getInventaireStock (const Inventaire* inventaire, const int i);
 
 
 /**
 * \brief Preconditions : inventaire est initialisé
-* <br /> Postconditions : retourne le nombre d'objets de inventaire
+* <br /> Postconditions : retourne le nombre d'objets d'inventaire
 */
-int getInventaireNbObjets (Inventaire* inventaire);
+int getInventaireNbObjets (const Inventaire* inventaire);
 
 
 /**
 * \brief Preconditions : inventaire est initialisé
-* <br /> Postconditions : retourne la capacité de inventaire
+* <br /> Postconditions : retourne la capacité d'inventaire
 */
-int getInventaireCapacite (Inventaire* inventaire);
+int getInventaireCapacite (const Inventaire* inventaire);
 
 #endif

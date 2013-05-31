@@ -5,7 +5,7 @@
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
 
-void objInit (Objet *obj, char type)
+void objInit (Objet *obj, const char type)
 {
     int i,j;
     FILE* fObjet= fopen("data/Objets.txt", "r");
@@ -72,109 +72,109 @@ void objInit (Objet *obj, char type)
     fclose (fObjet);
 }
 
-char getObjetType(Objet *obj)
+char getObjetType(const Objet *obj)
 {
 	return obj->type;
 }
 
-char getObjetUtilite(Objet *obj)
+char getObjetUtilite(const Objet *obj)
 {
 	return obj->utilite;
 }
 
-char* getObjetUtiliteNom (Objet *obj)
+void getObjetUtiliteNom (char* utilite, const Objet *obj)
 {
     switch (obj->utilite)
     {
         case 1 :
-            return "Arme";
+            strcpy(utilite, "Arme");
         break;
         case 2 :
-            return "Armure";
+            strcpy(utilite, "Armure");
         break;
         case 3 :
-            return "Potion ou nourriture";
+            strcpy(utilite, "Potion ou nourriture");
         break;
         case 4 :
-            return "Objet de quete";
+            strcpy(utilite, "Objet de quete");
         break;
         case 5 :
-            return "Autre";
+            strcpy(utilite, "Autre");
         break;
         default :
-            return "Indefini";
+            strcpy(utilite, "Indefini");
         break;
     }
 }
 
-char getObjetPortee(Objet *obj)
+char getObjetPortee(const Objet *obj)
 {
 	return obj->portee;
 }
 
 
-char getObjetDegats(Objet *obj)
+char getObjetDegats(const Objet *obj)
 {
 	return obj->degats;
 }
 
 
-char getObjetProtection(Objet *obj)
+char getObjetProtection(const Objet *obj)
 {
 	return obj->protection;
 }
 
 
-int getObjetValeur(Objet *obj)
+int getObjetValeur(const Objet *obj)
 {
 	return obj->valeur;
 }
 
 
-char* getObjetNom(Objet *obj)
+void getObjetNom(char* nom, const Objet *obj)
 {
-	return obj->nom;
+	strcpy(nom, obj->nom);
 }
 
 
-char* getObjetDescription(Objet *obj)
+void getObjetDescription(char* description, const Objet *obj)
 {
-	return obj->description;
+	strcpy(description, obj->description);
 }
 
-void setObjetNom(Objet* obj,char* nom)
+void setObjetNom(Objet* obj, const char* nom)
 {
     assert (strlen(nom)<30);
     strcpy (obj->nom,nom);
 }
 
-void setObjetPortee(Objet* obj,int portee)
+void setObjetPortee(Objet* obj, const int portee)
 {
     obj->portee=portee;
 }
 
-void setObjetDegats(Objet* obj,int degats)
+void setObjetDegats(Objet* obj, const int degats)
 {
     obj->degats=degats;
 }
 
-void setObjetProtection(Objet* obj,int protection)
+void setObjetProtection(Objet* obj, const int protection)
 {
     obj->protection=protection;
 }
 
-void setObjetUtilite(Objet* obj,int utilite)
+void setObjetUtilite(Objet* obj,const int utilite)
 {
     if(utilite<=0||utilite>5) obj->utilite=6;
     else obj->utilite=utilite;
 }
 
-void setObjetValeur(Objet* obj,int valeur)
+void setObjetValeur(Objet* obj,const int valeur)
 {
     obj->valeur=valeur;
 }
 
-void setObjetDescription(Objet* obj,char* description)
+void setObjetDescription(Objet* obj, const char* description)
 {
     assert (strlen(description)<100);
     strcpy(obj->description,description);
@@ -219,7 +219,8 @@ void libererTousLesObjets(Objet** tabObj)
     free(*tabObj);
 }
 
-void copierFichier (char* fichier1, char* fichier2)
+
+void copierFichier (char* fichier1, const char* fichier2)
 {
     FILE* fSource= fopen(fichier1, "r");
     FILE* fDest= fopen(fichier2, "w+");
@@ -235,7 +236,7 @@ void copierFichier (char* fichier1, char* fichier2)
 }
 
 
-void afficherObjet(Objet* obj)
+void afficherObjet(const Objet* obj)
 {
     printf("\nObjet %s :\nType %d\nUtilite %d\nPortee %d\nDegats %d\nProtection %d\nValeur %d\n%s\n\n", obj->nom, obj->type, obj->utilite, obj->portee, obj->degats, obj->protection, obj->valeur, obj->description);
 }

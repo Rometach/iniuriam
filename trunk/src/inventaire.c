@@ -28,7 +28,7 @@ void inventaireLibere (Inventaire* inventaire)
     inventaire->capacite=0;
 }
 
-void ajouterObjetInventaire (Inventaire* inventaire, Objet* obj)
+void ajouterObjetInventaire (Inventaire* inventaire, const Objet* obj)
 {
     int i;
     char ajoute=0;
@@ -56,12 +56,12 @@ void ajouterObjetInventaire (Inventaire* inventaire, Objet* obj)
             inventaire->st=tampon;
             inventaire->capacite*=2;
         }
-        stockInit(&(inventaire->st[inventaire->nbObjet]),obj);
+        stockInit(&(inventaire->st[inventaire->nbObjet]), obj);
         inventaire->nbObjet++;
     }
 }
 
-void enleverObjetInventaire (Inventaire* inventaire, Objet* obj)
+void enleverObjetInventaire (Inventaire* inventaire, const Objet* obj)
 {
     int i, j;
     i=0;
@@ -89,7 +89,7 @@ void enleverObjetInventaire (Inventaire* inventaire, Objet* obj)
 
 }
 
-void copieInventaire (Inventaire* inventaire1, Inventaire* inventaire2)
+void copieInventaire (Inventaire* inventaire1, const Inventaire* inventaire2)
 {
     int i;
     inventaire1->st=(Stock*)malloc((inventaire2->capacite)*sizeof(Stock));
@@ -102,19 +102,23 @@ void copieInventaire (Inventaire* inventaire1, Inventaire* inventaire2)
     inventaire1->capacite=inventaire2->capacite;
 }
 
-void afficherInventaire (Inventaire* inventaire)
+void afficherInventaire (const Inventaire* inventaire)
 {
     int i;
+    char nom[30], description[150];
     printf("\nInventaire :\n");
     for(i=0;i<inventaire->nbObjet;i++)
     {
-        printf("i=%d  %s (%d) : %s\n", i, getObjetNom(getStockObjet(&(inventaire->st[i]))), getStockQuantite(&(inventaire->st[i])), getObjetDescription(getStockObjet(&(inventaire->st[i]))));
+        getObjetNom(nom, getStockObjet(&(inventaire->st[i])));
+        getObjetDescription(description, getStockObjet(&(inventaire->st[i])));
+
+        printf("i=%d  %s (%d) : %s\n", i, nom, getStockQuantite(&(inventaire->st[i])), description);
     }
     printf("NbObjet=%d \n Capacite=%d\n\n", inventaire->nbObjet, inventaire->capacite);
 }
 
 
-char estObjDansInv (Inventaire* inventaire, Objet* obj)
+char estObjDansInv (const Inventaire* inventaire, const Objet* obj)
 {
     int i;
 
@@ -126,17 +130,17 @@ char estObjDansInv (Inventaire* inventaire, Objet* obj)
     return 0;
 }
 
-Stock* getInventaireStock (Inventaire* inventaire,int i)
+Stock* getInventaireStock (const Inventaire* inventaire, const int i)
 {
     return &(inventaire->st[i]);
 }
 
-int getInventaireNbObjets (Inventaire* inventaire)
+int getInventaireNbObjets (const Inventaire* inventaire)
 {
     return inventaire->nbObjet;
 }
 
-int getInventaireCapacite (Inventaire* inventaire)
+int getInventaireCapacite (const Inventaire* inventaire)
 {
     return inventaire->capacite;
 }

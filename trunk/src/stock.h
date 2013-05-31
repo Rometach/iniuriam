@@ -22,7 +22,7 @@ typedef struct
 * \brief Preconditions : st n'a pas déjà été initialisé, obj est initialisé
 * <br /> Postconditions : st est initialisé avec l'objet obj
 */
-void stockInit (Stock *st, Objet* obj);
+void stockInit (Stock *st, const Objet* obj);
 
 /**
 * \brief Preconditions : st est initialisé
@@ -34,30 +34,30 @@ void stockLibere (Stock *st);
 * \brief Preconditions : st est initialisé
 * <br /> Postconditions : la quantité d'objets dans st est augmentée de n
 */
-void incrementerStock(Stock *st, int n);
+void incrementerStock(Stock *st, const int n);
 
 /**
 * \brief Preconditions : st est initialisé
 * <br /> Postconditions : retourne l'adresse de l'objet enregistré dans st
 */
-Objet* getStockObjet(Stock *st);
+Objet* getStockObjet(const Stock *st);
 
 /**
 * \brief Preconditions : st est initialisé
 * <br /> Postconditions : retourne la quantite d'objet de st
 */
-int getStockQuantite(Stock* stock);
+int getStockQuantite(const Stock* stock);
 
 /**
 * \brief Preconditions : st et obj sont initialisés
 * <br /> Postconditions : initialise l'objet de st
 */
-void setStockObjet (Stock *st, Objet* obj);
+void setStockObjet (Stock *st, const Objet* obj);
 
 /**
 * \brief Preconditions : st2 est initialisé, pas st1
 * <br /> Postconditions : copie st2 dans st1
 */
-void copieStock (Stock *st1, Stock *st2);
+void copieStock (Stock *st1, const Stock *st2);
 
 #endif
