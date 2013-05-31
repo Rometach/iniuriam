@@ -26,7 +26,7 @@ void persoInit (Personnage* perso)
 }
 
 
-void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char faction, char carriere, int experience,int argent, Objet* tab)
+void nouveauPerso (Personnage *perso, const char nom[], const char race, const char sexe, const char faction, const char carriere, const int experience, const int argent, const Objet* tab)
 {
     int i=0, j,k;
     FILE* fCarr,*fRace;
@@ -124,8 +124,8 @@ void nouveauPerso (Personnage *perso, char nom[], char race, char sexe, char fac
     /*Initialiser SDL_Surface*/
 }
 
-void chargerPerso (Personnage* perso,char nom[50],char race,char sexe, char faction, char carriere, int experience, int argent, char attaque,char defense, char intelligence,
-                   char agilite, char charisme,int ptDeVie,int posX,int posY,Competence* liste, int nbCompetence,int* inventaire,int nbObjet,int armure[5],int arme[3])
+void chargerPerso (Personnage* perso, const char nom[50], const char race, const char sexe, const char faction, const char carriere, const int experience, const int argent, const char attaque, const char defense, const char intelligence,
+                   const char agilite, const char charisme, const int ptDeVie, const int posX, const int posY, const Competence* liste, const int nbCompetence, const int* inventaire, const int nbObjet, const int armure[5], const int arme[3])
 {
     int i;
     Objet tampon;
@@ -213,7 +213,7 @@ int getNbCarriere()
     return max-3;
 }
 
-void persoInitPNJ(Personnage *perso, int l, Objet* tab)
+void persoInitPNJ(Personnage *perso, const int l, const Objet* tab)
 {
     FILE* fPNJ;
     char ligne [TAILLE_MAX_FICHIER];
@@ -248,13 +248,13 @@ void persoLibere (Personnage *perso)
 }
 
 
-void getPersoNom(char* maChaine, Personnage *perso)
+void getPersoNom(char* maChaine, const Personnage *perso)
 {
     strcpy(maChaine,perso->nom);  /* Courageux, rajoutez un assert */
 }
 
 
-char getPersoRace(Personnage *perso)
+char getPersoRace(const Personnage *perso)
 {
     return perso->race;
 }
@@ -281,12 +281,12 @@ void getRaceNom(char* chaine, char race)
     }
 }
 
-char getPersoSexe(Personnage *perso)
+char getPersoSexe(const Personnage *perso)
 {
     return perso->sexe;
 }
 
-void getSexeNom(char* chaine,char sexe)
+void getSexeNom(char* chaine,const char sexe)
 {
     switch (sexe)
     {
@@ -308,7 +308,7 @@ char getPersoFaction(Personnage *perso)
 }
 
 
-void getPersoFactionNom(char* chaine, Personnage *perso)
+void getPersoFactionNom(char* chaine, const Personnage *perso)
 {
     switch(perso->faction)
     {
@@ -324,12 +324,13 @@ void getPersoFactionNom(char* chaine, Personnage *perso)
 }
 
 
-char getPersoCarriere(Personnage *perso)
+char getPersoCarriere(const Personnage *perso)
 {
     return perso->carriere;
 }
 
-void getCarriereNom(char carriere, char* s)
+
+void getCarriereNom(const char carriere, char* s)
 {
     int i;
     FILE* fCarr= fopen("data/Carrieres.txt", "r");
@@ -352,78 +353,78 @@ void getCarriereNom(char carriere, char* s)
 }
 
 
-int getPersoArgent(Personnage *perso)
+int getPersoArgent(const Personnage *perso)
 {
     return perso->argent;
 }
 
 
-int getPersoExperience(Personnage *perso)
+int getPersoExperience(const Personnage *perso)
 {
     return perso->experience;
 }
 
-char getPersoAttaque(Personnage *perso)
+char getPersoAttaque(const Personnage *perso)
 {
     return perso->attaque;
 }
 
-char getPersoDefense(Personnage *perso)
+char getPersoDefense(const Personnage *perso)
 {
     return perso->defense;
 }
 
-char getPersoIntelligence(Personnage *perso)
+char getPersoIntelligence(const Personnage *perso)
 {
     return perso->intelligence;
 }
 
-char getPersoAgilite(Personnage *perso)
+char getPersoAgilite(const Personnage *perso)
 {
     return perso->agilite;
 }
 
-char getPersoCharisme(Personnage *perso)
+char getPersoCharisme(const Personnage *perso)
 {
     return perso->charisme;
 }
 
-int getPersoPtDeVie(Personnage *perso)
+int getPersoPtDeVie(const Personnage *perso)
 {
     return perso->ptDeVie;
 }
 
-void setPersoPosX(Personnage *perso, int x)
-{
-    perso->posX=x;
-}
-
-int getPersoPosX(Personnage *perso)
+int getPersoPosX(const Personnage *perso)
 {
     return perso->posX;
 }
 
-void setPersoPosY(Personnage *perso, int y)
-{
-    perso->posY=y;
-}
-
-int getPersoPosY(Personnage *perso)
+int getPersoPosY(const Personnage *perso)
 {
     return perso->posY;
 }
 
-void getPersoInventaire(Personnage *perso, Inventaire* inv)
+void setPersoPosX(Personnage *perso, const int x)
+{
+    perso->posX=x;
+}
+
+void setPersoPosY(Personnage *perso, const int y)
+{
+    perso->posY=y;
+}
+
+void getPersoInventaire(const Personnage *perso, Inventaire* inv)
 {
     copieInventaire(inv,&perso->inventaire);
 }
 
-Inventaire* getPersoInventaire2(Personnage *perso)
+Inventaire* getPersoInventaire2(const Personnage *perso)
 {
     return &(perso->inventaire);
 }
 
-void getPersoCapacite(Personnage *perso, Capacite* s)
+void getPersoCapacite(const Personnage *perso, Capacite* s)
 {
     int i;
     free (s->comp);
@@ -436,29 +437,29 @@ void getPersoCapacite(Personnage *perso, Capacite* s)
     }
 }
 
-Capacite* getPersoCapacite2(Personnage *perso)
+Capacite* getPersoCapacite2(const Personnage *perso)
 {
     return &perso->capacite;
 }
 
-Equipement* getPersoEquipement(Personnage *perso)
+Equipement* getPersoEquipement(const Personnage *perso)
 {
     return &perso->equipement;
 }
 
 
-void setPersoArgent(Personnage *perso, int somme)
+void setPersoArgent(Personnage *perso, const int somme)
 {
     perso->argent=somme;
 }
 
 
-void addPersoPtDeVie(Personnage *perso, int pdv)
+void addPersoPtDeVie(Personnage *perso, const int pdv)
 {
     perso->ptDeVie+=pdv;
 }
 
-void addPersoExperience(Personnage *perso, int exp)
+void addPersoExperience(Personnage *perso, const int exp)
 {
     perso->experience+=exp;
 }
@@ -468,17 +469,17 @@ int getPersoNiveau (Personnage* perso)
     return 1+perso->experience/10;
 }
 
-void ajouterInventaire (Personnage *perso, Objet *obj)
+void ajouterInventaire (Personnage *perso, const Objet *obj)
 {
     ajouterObjetInventaire(&perso->inventaire, obj);
 }
 
-void soustraireInventaire (Personnage *perso, Objet *obj)
+void soustraireInventaire (Personnage *perso, const Objet *obj)
 {
     enleverObjetInventaire(&(perso->inventaire),obj);
 }
 
-void ajouterCompetencePerso (Personnage *perso, int type,int exp)
+void ajouterCompetencePerso (Personnage *perso, const int type, const int exp)
 {
     assert(type>0);
     Competence* compTampon;
@@ -515,7 +516,7 @@ void persoUtiliseObjet (Personnage *perso, Objet *obj, Personnage* cible)
     }
 }
 
-void copiePerso (Personnage* perso1, Personnage* perso2)
+void copiePerso (const Personnage* perso1, Personnage* perso2)
 {
     strcpy(perso2->nom,perso1->nom);
     perso2->race=perso1->race;
@@ -544,7 +545,7 @@ void copiePerso (Personnage* perso1, Personnage* perso2)
     /*Initialiser SDL_Surface*/
 }
 
-void equiper (Personnage* perso, Objet* obj,int i)
+void equiper (Personnage* perso, Objet* obj, const int i)
 {
     switch(getObjetUtilite(obj))
     {
@@ -588,7 +589,7 @@ void equiper (Personnage* perso, Objet* obj,int i)
 
 
 
-void initialiserTousLesPNJ(Personnage** tabPNJ, Objet* tabObjets)
+void initialiserTousLesPNJ(Personnage** tabPNJ, const Objet* tabObjets)
 {
     int i;
     int max = getNbPNJ();
@@ -608,7 +609,7 @@ void libererTousLesPNJ(Personnage** tabPNJ)
 }
 
 
-int calculNiveau (int experience)
+int calculNiveau (const int experience)
 {
     assert (experience>=0);
     return (int)log(experience+1);
