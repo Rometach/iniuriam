@@ -588,7 +588,7 @@ void equiper (Personnage* perso, Objet* obj, const int i)
 
 
 
-void initialiserTousLesPNJ(Personnage** tabPNJ, const Objet* tabObjets)
+void initialiserTousLesPNJ(Personnage** tabPNJ, Objet* tabObjets)
 {
     int i;
     int max = getNbPNJ();

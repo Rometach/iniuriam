@@ -315,7 +315,7 @@ void equiper (Personnage* perso, Objet* obj, const int i);
                         tabObjets contient tous les objets
 * <br /> Postconditions : initialise tous les PNJ dans tabPNJ
 */
-void initialiserTousLesPNJ(Personnage** tabPNJ, const Objet* tabObjets);
+void initialiserTousLesPNJ(Personnage** tabPNJ, Objet* tabObjets);
 
 /**
 * \brief Preconditions : tabPNJ est initialisé

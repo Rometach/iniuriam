@@ -52,7 +52,7 @@ int getStockQuantite(const Stock* stock);
 * \brief Preconditions : st et obj sont initialisés
 * <br /> Postconditions : initialise l'objet de st
 */
-void setStockObjet (Stock *st, const Objet* obj);
+void setStockObjet (Stock *st, Objet* obj);
 
 /**
 * \brief Preconditions : st2 est initialisé, pas st1
