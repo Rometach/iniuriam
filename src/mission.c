@@ -50,8 +50,8 @@ void missionAccomplir (Mission* mission, Objet* tabObjets)
     }
     else
     {
-        missionInit(mission); /*La mission est réinitialisée avec des champs vides*/
         printf("La mission \"%s\" est finie...\n", mission->nom);
+        missionInit(mission); /*La mission est réinitialisée avec des champs vides*/
     }
 }
 
@@ -183,7 +183,7 @@ int mainMission()
         missionInit(&mission);
         missionDefinir(&mission, 1, tabObj);
 
-        for(j=0;j<3;j++)
+        for(j=0;j<5;j++)
         {
             getMissionNom(nom, &mission);
             getMissionNomPerso(nomPerso, &mission);
@@ -191,6 +191,13 @@ int mainMission()
             else {strcpy(nomObjet, "Pas d'Objet !");}
 
             printf("Mission : %sType : %d\nPosCiblee : %d %d\nObjet : %s\nSuite : %d\nPersoCible : %s\n\n", nom, getMissionType(&mission), mission.posXCible, mission.posYCible, nomObjet, mission.suite, nomPerso);
+
+            printf("Faut-il parler a Babar ? %d\n", testMissionParlerA(&mission, &perso));
+            printf("Faut-il faire parler Babar ? %d\n",testMissionFaireParler(&mission, &perso));
+            printf("Faut-il tuer Babar ? %d\n",testMissionTuer(&mission, &perso));
+            printf("Faut-il obtenir un Fleuret laser ? %d\n", testMissionObtenir(&mission, &tabObj[1]));
+            printf("Faut-il aller en 10, 21 ? %d\n", testMissionAllerA(&mission, 10, 21));
+
             missionAccomplir(&mission, tabObj);
         }
     }
