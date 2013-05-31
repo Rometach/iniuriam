@@ -8,7 +8,7 @@ void missionInit (Mission* mission)
     strcpy(mission->nom,"");
     mission->posXCible=-1;
     mission->posXCible=-1;
-    strcpy(mission->nomPerso,"");
+    strcpy(mission->nomPerso,".");
     mission->objCible=NULL;
     mission->suite=0;
 }
@@ -50,6 +50,7 @@ void missionAccomplir (Mission* mission, Objet* tabObjets)
     }
     else
     {
+        missionInit(mission); /*La mission est réinitialisée avec des champs vides*/
         printf("La mission \"%s\" est finie...\n", mission->nom);
     }
 }
@@ -84,7 +85,15 @@ char estPersoMission(const Mission* mission, const Personnage* perso)
 {
     char nom[30];
     getPersoNom(nom,perso);
-    return 1-strcmp(mission->nomPerso,nom);
+
+    if(strcmp(mission->nomPerso,nom)==0)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 

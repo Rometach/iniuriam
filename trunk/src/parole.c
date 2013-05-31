@@ -226,7 +226,7 @@ void marchander (Dialogue* dialogue, int* valeur)
     *valeur+=(int)((*valeur)*(bonusIn-bonusCh)/10);
 }
 
-char acheter(Dialogue* dialogue, const Objet* objet, char* rep)
+char acheter(Dialogue* dialogue, Objet* objet, char* rep)
 {
     /*char c;*/
     int bonus=0,valeur=getObjetValeur(objet);
@@ -276,7 +276,7 @@ char acheter(Dialogue* dialogue, const Objet* objet, char* rep)
     return(dialogue->humeur);
 }
 
-char vendre(Dialogue* dialogue, const Objet* objet, char* rep)
+char vendre(Dialogue* dialogue, Objet* objet, char* rep)
 {
     /*char c;*/
     int bonus=0,valeur=getObjetValeur(objet);
