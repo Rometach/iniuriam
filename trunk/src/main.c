@@ -17,9 +17,6 @@
 
 int main (int argc, char **argv)
 {
-    mainMission();
-    return 0;
-
     Dialogue dialogue;
 
     Terrain terrain;
@@ -42,7 +39,9 @@ int main (int argc, char **argv)
 
     srand(time(NULL));
     nouveauPerso (&hero, "Toromis", 1, 1, 1, 1, 0, 100, tabObjets);
+
     nouveauPerso (&ennemi, "Mechant", 2, 1, 2, 1, 0, 100, tabObjets);
+
     nouveauPerso (&pnj, "Babar", 1, 1, 1, 1, 0, 100, tabObjets);
 
     ecran = SDL_SetVideoMode(TAILLE_FENETRE, TAILLE_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
