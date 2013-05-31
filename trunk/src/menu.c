@@ -11,11 +11,11 @@ void partieInit (Partie* jeu,char nom[50], Personnage* liste, int nbJoueur,char 
 
     assert (nbJoueur<5&&nbJoueur>0);
 
-    jeu->joueur=(Personnage**)malloc(nbJoueur*sizeof(Personnage*));
+    jeu->joueur=(Personnage*)malloc(nbJoueur*sizeof(Personnage));
     strcpy(jeu->nom,nom);
     for (i=0;i<nbJoueur;i++)
     {
-        jeu->joueur[i]=&liste[i];
+        copiePerso(&liste[i],&jeu->joueur[i]);
     }
     jeu->nbJoueur=nbJoueur;
     for (i=0;i<nbMission;i++)
@@ -33,7 +33,12 @@ void partieLibere (Partie* jeu)
     jeu->nbMission=0;
 }
 
-Personnage** getPartieJoueurs (Partie* jeu)
+void getPartieNom (Partie* jeu,char nom[50])
+{
+    strcpy(nom,jeu->nom);
+}
+
+Personnage* getPartieJoueurs (Partie* jeu)
 {
     return jeu->joueur;
 }
@@ -41,7 +46,7 @@ Personnage** getPartieJoueurs (Partie* jeu)
 Personnage* getPartieJoueurI (Partie* jeu, int i)
 {
     assert (i>=0&&i<4);
-    return jeu->joueur[i];
+    return &jeu->joueur[i];
 }
 
 int getPartieNbJoueur (Partie* jeu)
@@ -99,7 +104,7 @@ void supprimerPartie (char nom [50])
 
 void sauverPartie (char nom [50],Partie* jeu)
 {
-    int i=1,j;
+    int i=1,j,max;
     FILE* fPartie,*fTampon;
     char ligne[TAILLE_MAX_FICHIER], tampon [150];
     fPartie= fopen("data/Sauvegardes.txt", "r");
@@ -124,39 +129,43 @@ void sauverPartie (char nom [50],Partie* jeu)
     for (i=0;i<jeu->nbJoueur;i++)
     {
         fprintf(fTampon,"\n\n");
-        getPersoNom(tampon,jeu->joueur[i]);
-        fprintf(fTampon,"%s\n%d %d %d ",tampon,getPersoRace(jeu->joueur[i]),getPersoSexe(jeu->joueur[i]),getPersoFaction(jeu->joueur[i]));
-        fprintf(fTampon,"%d %d %d %d %d %d %d %d %d %d %d\n",getPersoCarriere(jeu->joueur[i]),getPersoExperience(jeu->joueur[i]),
-                getPersoArgent(jeu->joueur[i]),getPersoAttaque(jeu->joueur[i]),getPersoDefense(jeu->joueur[i]),getPersoIntelligence(jeu->joueur[i]),
-                getPersoAgilite(jeu->joueur[i]),getPersoCharisme(jeu->joueur[i]),getPersoPtDeVie(jeu->joueur[i]),getPersoPosX(jeu->joueur[i]),getPersoPosY(jeu->joueur[i]));
+        getPersoNom(tampon,&jeu->joueur[i]);
+        fprintf(fTampon,"%s\n%d %d %d ",tampon,getPersoRace(&jeu->joueur[i]),getPersoSexe(&jeu->joueur[i]),getPersoFaction(&jeu->joueur[i]));
+        fprintf(fTampon,"%d %d %d %d %d %d %d %d %d %d %d\n",getPersoCarriere(&jeu->joueur[i]),getPersoExperience(&jeu->joueur[i]),
+                getPersoArgent(&jeu->joueur[i]),getPersoAttaque(&jeu->joueur[i]),getPersoDefense(&jeu->joueur[i]),getPersoIntelligence(&jeu->joueur[i]),
+                getPersoAgilite(&jeu->joueur[i]),getPersoCharisme(&jeu->joueur[i]),getPersoPtDeVie(&jeu->joueur[i]),getPersoPosX(&jeu->joueur[i]),getPersoPosY(&jeu->joueur[i]));
 
-        for (j=0;j<getCapaciteNbCompetence(getPersoCapacite2(jeu->joueur[i]));j++)
+        max=getCapaciteNbCompetence(getPersoCapacite2(&jeu->joueur[i]));
+        for (j=0;j<max;j++)
         {
-            fprintf(fTampon,"%d %d/",getType(getCompetence(getPersoCapacite2(jeu->joueur[i]),j)),getExperience(getCompetence(getPersoCapacite2(jeu->joueur[i]),j)));
+            fprintf(fTampon,"%d %d/",getType(getCompetence(getPersoCapacite2(&jeu->joueur[i]),j)),getExperience(getCompetence(getPersoCapacite2(&jeu->joueur[i]),j)));
         }
+        if(max==0)fprintf(fTampon,"/");
         fprintf(fTampon,"/\n");
 
-        for (j=0;j<getInventaireNbObjets(getPersoInventaire2(jeu->joueur[i]));j++)
+        max=getInventaireNbObjets(getPersoInventaire2(&jeu->joueur[i]));
+        for (j=0;j<max;j++)
         {
-            fprintf(fTampon," %d/",getObjetType(getStockObjet(getInventaireStock(getPersoInventaire2(jeu->joueur[i]),j))));
+            fprintf(fTampon," %d/",getObjetType(getStockObjet(getInventaireStock(getPersoInventaire2(&jeu->joueur[i]),j))));
         }
         fseek(fTampon,SEEK_CUR,-1);
+        if (max==0)fprintf(fTampon,"/");
         fprintf(fTampon,"/\n");
 
-        if (getEquiTete(getPersoEquipement(jeu->joueur[i]))!=NULL)fprintf(fTampon,"%d ",getObjetType(getEquiTete(getPersoEquipement(jeu->joueur[i]))));
+        if (getEquiTete(getPersoEquipement(&jeu->joueur[i]))!=NULL)fprintf(fTampon,"%d ",getObjetType(getEquiTete(getPersoEquipement(&jeu->joueur[i]))));
         else fprintf(fTampon,"0 ");
-        if (getEquiTorse(getPersoEquipement(jeu->joueur[i]))!=NULL) fprintf(fTampon,"%d ",getObjetType(getEquiTorse(getPersoEquipement(jeu->joueur[i]))));
+        if (getEquiTorse(getPersoEquipement(&jeu->joueur[i]))!=NULL) fprintf(fTampon,"%d ",getObjetType(getEquiTorse(getPersoEquipement(&jeu->joueur[i]))));
         else fprintf(fTampon,"0 ");
-        if (getEquiBas(getPersoEquipement(jeu->joueur[i]))!=NULL) fprintf(fTampon,"%d ",getObjetType(getEquiBas(getPersoEquipement(jeu->joueur[i]))));
+        if (getEquiBas(getPersoEquipement(&jeu->joueur[i]))!=NULL) fprintf(fTampon,"%d ",getObjetType(getEquiBas(getPersoEquipement(&jeu->joueur[i]))));
         else fprintf(fTampon,"0 ");
-        if (getEquiMains(getPersoEquipement(jeu->joueur[i]))!=NULL)fprintf(fTampon,"%d ",getObjetType(getEquiMains(getPersoEquipement(jeu->joueur[i]))));
+        if (getEquiMains(getPersoEquipement(&jeu->joueur[i]))!=NULL)fprintf(fTampon,"%d ",getObjetType(getEquiMains(getPersoEquipement(&jeu->joueur[i]))));
         else fprintf(fTampon,"0 ");
-        if (getEquiPieds(getPersoEquipement(jeu->joueur[i]))!=NULL)fprintf(fTampon,"%d ",getObjetType(getEquiPieds(getPersoEquipement(jeu->joueur[i]))));
-        if (getEquiMainGauche(getPersoEquipement(jeu->joueur[i]))!=NULL)fprintf(fTampon,"%d ",getObjetType(getEquiMainGauche(getPersoEquipement(jeu->joueur[i]))));
+        if (getEquiPieds(getPersoEquipement(&jeu->joueur[i]))!=NULL)fprintf(fTampon,"%d ",getObjetType(getEquiPieds(getPersoEquipement(&jeu->joueur[i]))));
+        if (getEquiMainGauche(getPersoEquipement(&jeu->joueur[i]))!=NULL)fprintf(fTampon,"%d ",getObjetType(getEquiMainGauche(getPersoEquipement(&jeu->joueur[i]))));
         else fprintf(fTampon,"0 ");
         for (j=0;j<3;j++)
         {
-            if (getEquiMainDroite(getPersoEquipement(jeu->joueur[i]),j)!=NULL)fprintf(fTampon,"%d ",getObjetType(getEquiMainDroite(getPersoEquipement(jeu->joueur[i]),j)));
+            if (getEquiMainDroite(getPersoEquipement(&jeu->joueur[i]),j)!=NULL)fprintf(fTampon,"%d ",getObjetType(getEquiMainDroite(getPersoEquipement(&jeu->joueur[i]),j)));
             else fprintf(fTampon,"0 ");
         }
     }
@@ -168,6 +177,7 @@ void sauverPartie (char nom [50],Partie* jeu)
     }
 
     for (i=0;i<jeu->nbMission;i++) fprintf(fTampon,"%s/",jeu->missionsAccomplies[i]);
+    if (jeu->nbMission==0)fprintf(fTampon,"/");
     fprintf(fTampon,"/\n");
 
     fprintf(fTampon,"%s\n",jeu->missionActuelle);
@@ -186,14 +196,14 @@ void chargerPartie (char nom [50],Partie* jeu)
     int i=1,j,k,nb,max1,max2,exp;
     FILE* fPartie;
     char ligne1[TAILLE_MAX_FICHIER],tampon[50],entier[9],type;
-    Personnage* groupe;
-
     char race,sexe,faction,carriere;
     int experience,argent,ptDeVie, posX, posY,attaque,defense,intelligence,agilite,charisme;
     int armure[5],arme[3];
     int* inventaire;
     Competence* liste;
 
+
+    free (jeu->joueur);
     fPartie= fopen("data/Sauvegardes.txt", "r");
     do
     {
@@ -207,7 +217,7 @@ void chargerPartie (char nom [50],Partie* jeu)
     ligne1[strlen(ligne1)-3]='\0';
     strcpy(jeu->nom,ligne1);
     assert (nb<5&&nb>0);
-    groupe=(Personnage*)malloc(nb*sizeof(Personnage));
+    jeu->joueur=(Personnage*)malloc(nb*sizeof(Personnage));
     fgets (ligne1,TAILLE_MAX_FICHIER,fPartie);
     for (i=0;i<nb;i++)
     {
@@ -270,17 +280,27 @@ void chargerPartie (char nom [50],Partie* jeu)
             j++;
         }
         fscanf(fPartie,"%d %d %d %d %d %d %d %d\n",&armure[0],&armure[1],&armure[2],&armure[3],&armure[4],&arme[0],&arme[1],&arme[2]);
-        /*Misssions ...*/
-        fgets (ligne1,TAILLE_MAX_FICHIER,fPartie);
-        chargerPerso(&groupe[i],tampon,race,sexe,faction,carriere,experience,argent,attaque,defense,intelligence,agilite,charisme,ptDeVie,posX,posY,liste,max1,inventaire,max2,armure,arme);
+        chargerPerso(&jeu->joueur[i],tampon,race,sexe,faction,carriere,experience,argent,attaque,defense,intelligence,agilite,charisme,ptDeVie,posX,posY,liste,max1,inventaire,max2,armure,arme);
         free (inventaire);
         free (liste);
     }
-    for (i=0;i<nb;i++)
+    fgets (ligne1,TAILLE_MAX_FICHIER,fPartie);
+    j=1;
+    k=0;
+    nb=0;
+    while (ligne1[j-1]!='/'||ligne1[j]!='/')
     {
-        persoLibere(&groupe[i]);
+        j=strchr(ligne1+nb,'/')-ligne1;
+        strncpy(jeu->missionsAccomplies[k],ligne1+nb,j-nb);
+        jeu->missionsAccomplies[k][j-nb]='\0';
+        k++;
+        j++;
+        nb=j;
+        jeu->nbMission++;
     }
-    free (groupe);
+    fgets (ligne1,TAILLE_MAX_FICHIER,fPartie);
+    ligne1[strlen(ligne1)-1]='\0';
+    strcpy(jeu->missionActuelle,ligne1);
     fclose(fPartie);
 }
 
@@ -308,7 +328,7 @@ char eventMenu()
                         continuer=0;
                     break;
                     case SDLK_LEFT:
-                        action=2;
+                        action=4;
                         continuer=0;
                     break;
                     case SDLK_DOWN:
@@ -316,11 +336,11 @@ char eventMenu()
                         continuer=0;
                     break;
                     case SDLK_RIGHT:
-                        action=3;
+                        action=5;
                         continuer=0;
                     break;
                     case SDLK_RETURN:
-                        action=5;
+                        action=6;
                         continuer=0;
                     default:
                     break;
@@ -336,28 +356,629 @@ char eventMenu()
     return action;
 }
 
-void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
+int afficherPage (SDL_Surface *ecran,TTF_Font *police, char texte_SDL[10][150],int nb,int choix,int position)
 {
-    char action=6,selection=0,type=1,lettre;
-    int nb=0,choix=0,decalage=0,taille,i,j,valeur;
+    int i,j,decalage=0,taille,valeur;
+    char chaine1[50],chaine2[50];
+    SDL_Surface *cadre=NULL,**rectangle=NULL,*texte=NULL;
+    SDL_Rect position_rect;
+    SDL_Color couleur_texte= {255, 255, 255},couleur_rect= {10, 10, 10};
+
+    assert(position);
+
+    rectangle=(SDL_Surface**)malloc(nb*sizeof(SDL_Surface*));
+    for (i=0;i<nb;i++)/*Page visible*/
+    {
+        if (i==choix) /*Affichage du cadre*/
+        {
+            cadre = SDL_CreateRGBSurface(SDL_HWSURFACE, 310, 60, 32, 0, 0, 0, 0);
+            SDL_FillRect(cadre, NULL, SDL_MapRGB(ecran->format, 255, 0, 0));
+            position_rect.x=TAILLE_FENETRE/position-155;
+            position_rect.y=TAILLE_FENETRE/3-5+(50+(100/nb))*i+50*(decalage);
+            SDL_BlitSurface(cadre, NULL, ecran, &position_rect);
+            SDL_FreeSurface(cadre);
+        }
+
+        taille=0;
+        position_rect.x=TAILLE_FENETRE/position-150;
+        position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*i+50*(decalage);
+        if (strlen(texte_SDL[i])>18)
+        {
+            strcpy(chaine1,texte_SDL[i]);
+            while (strlen(chaine1)>=18)
+            {
+                taille++;
+                j=17;
+                while (j>=1&&chaine1[j]!=' ') j--;
+                if (j!=0)
+                {
+                    valeur=j;
+                    strncpy(chaine2,chaine1,valeur);
+                    chaine2[valeur]='\0';
+                }
+                else
+                {
+                    strncpy(chaine2,chaine1,17);
+                    chaine2[17]='-';
+                    chaine2[18]='\0';
+
+                }
+                if (i==choix) /*Affichage d'un cadre suplémentaire*/
+                {
+                    cadre = SDL_CreateRGBSurface(SDL_HWSURFACE, 310, 60, 32, 0, 0, 0, 0);
+                    SDL_FillRect(cadre, NULL, SDL_MapRGB(ecran->format, 255, 0, 0));
+                    position_rect.x=TAILLE_FENETRE/position-155;
+                    position_rect.y=TAILLE_FENETRE/3-5+(50+(100/nb))*i+50*(decalage+taille);
+                    SDL_BlitSurface(cadre, NULL, ecran, &position_rect);
+                    SDL_FreeSurface(cadre);
+                    position_rect.x+=5;
+                    position_rect.y-=45;
+                }
+
+                rectangle[i]= SDL_CreateRGBSurface(SDL_HWSURFACE, 300, 50, 32, 0, 0, 0, 0);
+                SDL_FillRect(rectangle[i], NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
+                SDL_BlitSurface(rectangle[i], NULL, ecran, &position_rect);
+                SDL_FreeSurface(rectangle[i]);
+
+                position_rect.x+= 25;
+                texte=TTF_RenderText_Shaded(police, chaine2, couleur_texte,couleur_rect);
+                SDL_BlitSurface(texte, NULL, ecran, &position_rect);
+                SDL_FreeSurface(texte);
+                position_rect.x-= 25;
+                position_rect.y+=50;
+                for (j=0;j<strlen(texte_SDL[i])-valeur+1;j++)
+                {
+                    chaine1[j]=chaine1[valeur+j];
+                }
+            }
+            strcpy(texte_SDL[i],chaine1);
+            decalage+=taille;
+        }
+        rectangle[i]= SDL_CreateRGBSurface(SDL_HWSURFACE, 300, 50, 32, 0, 0, 0, 0);
+        SDL_FillRect(rectangle[i], NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
+
+        position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*i+50*(decalage);
+        SDL_BlitSurface(rectangle[i], NULL, ecran, &position_rect);
+        SDL_FreeSurface(rectangle[i]);
+
+        position_rect.x+= 25;
+        position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*i+50*(decalage);
+        texte=TTF_RenderText_Shaded(police, texte_SDL[i], couleur_texte,couleur_rect);
+        SDL_BlitSurface(texte, NULL, ecran, &position_rect);
+        SDL_FreeSurface(texte);
+    }
+    return decalage;
+}
+
+char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu)
+{
+    char action=8,type=1,j;
+    int choix=0,nb,i,selection,decalage=2;
+    char texte_SDL [10][150],chaine1[50],tampon[150],caractere[2];
+    SDL_Surface *rectangle,*texte,*images,*fond;
+    SDL_Rect position;
+    SDL_Color couleur_texte= {255, 255, 255},couleur_rect= {10, 10, 10};
+    Objet *tab=NULL;
+    initialiserTousLesObjets(&tab);
+
+    char nom[50]="",nom_perso[50]="",race=0,sexe=0,carriere=0;
+    Personnage groupe [4];
+    for (i=0;i<4;i++) persoInit(&groupe[i]);
+
+    while (action!=0&&action!=7)
+    {
+        SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 6, 29, 38));
+
+        fond = IMG_Load("data/Media/menu.jpg");
+        position.x=0;
+        position.y=0;
+        SDL_BlitSurface(fond, NULL, ecran, &position);
+        SDL_FreeSurface(fond);
+
+        rectangle = SDL_CreateRGBSurface(SDL_HWSURFACE, 400, 100, 32, 0, 0, 0, 0);
+        SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
+        position.x=TAILLE_FENETRE/2-200;
+        position.y=TAILLE_FENETRE/20;
+        SDL_BlitSurface(rectangle, NULL, ecran, &position);
+        SDL_FreeSurface(rectangle);
+
+        switch(action)
+        {
+            case 1:/*Echap*/
+                if (type==1)
+                {
+                    action=7;
+                    type=0;
+                }
+                if (type==6||(type==2&&j==0))
+                {
+                    type=3;
+                    choix=0;
+                }
+                if (type>3&&type<6)
+                {
+                    type--;
+                    choix=0;
+                }
+                else
+                {
+                    type=1;
+                    choix=0;
+                }
+            break;
+            case 2:/*Touche Flèche haut*/
+                choix--;
+            break;
+            case 3:/*Touche Flèche bas*/
+                choix++;
+            break;
+            case 4:/*Touche Flèche gauche*/
+
+            break;
+            case 5:/*Touche Flèche droite*/
+
+            break;
+            case 6:/*Touche Entrée*/
+                switch(type)
+                {
+                    case 1:/*Nouvelle partie*/
+                        if(choix==0) /*Nom Partie*/
+                        {
+                            type=2;
+                            selection=4;
+                            strcpy(chaine1,"Nom du Groupe");
+                            j=1;
+                        }
+                        else if (choix==nb-2)/*Valider*/
+                        {
+                            getPersoNom(nom_perso,&groupe[0]);
+                            if (strlen(nom)&&strlen(nom_perso)) type=7;
+                        }
+                        else if (choix==nb-1)/*Return*/
+                        {
+                            action=7;
+                            type=0;
+                        }
+                        else/*Perso*/
+                        {
+                            type=3;
+                            selection=choix-1;
+                            caractere[0]='0'+choix;
+                        }
+                        if (selection<4)
+                        {
+                            getPersoNom(nom_perso,&groupe[selection]);
+                            race=getPersoRace(&groupe[selection]);
+                            sexe=getPersoSexe(&groupe[selection]);
+                            carriere=getPersoCarriere(&groupe[selection]);
+                        }
+                        choix=0;
+                    break;
+                    case 2:/*scanf*/
+                        if (j)
+                        {
+                            choix=0;
+                            type=1;
+                            strncpy(nom,tampon,strlen(tampon));
+                            nom[strlen(tampon)]='\0';
+                        }
+                        else
+                        {
+                            choix=0;
+                            type=3;
+                            strncpy(nom_perso,tampon,strlen(tampon));
+                            nom_perso[strlen(tampon)]='\0';
+                        }
+                    break;
+                    case 3:/*Création perso*/
+                        switch(choix)
+                        {
+                            case 0:/*Modif nom*/
+                                type=2;
+                                choix=0;
+                                j=0;
+                                strcpy(chaine1,"Nom du joueur");
+                            break;
+                            case 1:/*Modif Race et Sexe*/
+                                type=4;
+                                choix=0;
+                            break;
+                            case 2:/*Modif Carriere*/
+                                type=6;
+                                choix=0;
+                            break;
+                            case 3:/*Valider*/
+                                if (strlen(nom_perso)&&race&&sexe&&carriere)/*L'utilisateur a tout rempli*/
+                                {
+                                    nouveauPerso(&groupe[selection],nom_perso,race,sexe,0,carriere,0,100,tab);
+                                    choix=selection+1;
+                                    type=1;
+                                }
+                            break;
+                            case 4: /*Annuler*/
+                                type=1;
+                                choix=0;
+                            default:
+                            break;
+                        }
+                    break;
+                    case 4:/*Choix Race*/
+                        if (choix!=4)
+                        {
+                            race=choix+1;
+                            type=5;
+                        }
+                        else type=3;
+                        choix=0;
+                    break;
+                    case 5:/*Choix Sexe*/
+                        if (choix!=3)
+                        {
+                            sexe=choix+1;
+                            type=3;
+                        }
+                        else type=4;
+                        choix=0;
+                    break;
+                    case 6:/*Choix Carriere*/
+                        carriere=choix+1;
+                        type=3;
+                        choix=0;
+                    break;
+                    default:
+                    break;
+                }
+            default:
+            break;
+        }
+
+        switch (type)
+        {
+            case 1:/*Nouvelle Partie*/
+                nb=3;
+                decalage=2;
+                strcpy(chaine1,"Nouvelle Partie");
+                if(strlen(nom)==0) strcpy(texte_SDL[0],"Nom de votre groupe");
+                else strcpy(texte_SDL[0],nom);
+                do
+                {
+                    getPersoNom(nom_perso,&groupe[nb-3]);
+                    if (strlen(nom_perso)) strcpy(texte_SDL[nb-2],nom_perso);
+                    nb++;
+                }
+                while (strlen(nom_perso)&&nb<=8);
+                if (nb<8)strcpy(texte_SDL[nb-3],"Ajouter Joueur");
+                strcpy(texte_SDL[nb-2],"Valider");
+                strcpy(texte_SDL[nb-1],"Annuler");
+            break;
+            case 2:/*scanf*/
+                nb=0;
+            break;
+            case 3:/*Création perso*/
+                nb=5;
+                decalage=2;
+                strcpy(chaine1,"Joueur ");
+                strcat(chaine1,caractere);
+                if(strlen(nom_perso)==0) strcpy(texte_SDL[0],"Nom");
+                else strcpy(texte_SDL[0],nom_perso);
+                if(race==0)strcpy(texte_SDL[1],"Race et Sexe");
+                else
+                {
+                    getRaceNom(texte_SDL[1],race);
+                    strcat(texte_SDL[1]," ");
+                    getSexeNom(tampon,sexe);
+                    strcat(texte_SDL[1],tampon);
+                }
+                if (carriere==0)strcpy(texte_SDL[2],"Carriere");
+                else getCarriereNom(carriere,texte_SDL[2]);
+                strcpy(texte_SDL[3],"Valider");
+                strcpy(texte_SDL[4],"Annuler");
+            break;
+            case 4:/*Choix de la race*/
+                strcpy(chaine1,"Race du joueur");
+                nb=5;
+                decalage=4;
+                strcpy(texte_SDL[0],"Humains");
+                strcpy(texte_SDL[1],"Cyborgs");
+                strcpy(texte_SDL[2],"Sicaris");
+                strcpy(texte_SDL[3],"Medarsins");
+                strcpy(texte_SDL[4],"Annuler");
+                switch(choix)
+                {
+                    case 0: images=IMG_Load("data/Media/human man.jpg");break;
+                    case 1: images=IMG_Load("data/Media/cyborg man.jpg");break;
+                    case 2: images=IMG_Load("data/Media/sicari man.jpg");break;
+                    case 3: images=IMG_Load("data/Media/medarsin man.jpg");break;
+                    default:break;
+                }
+                position.x=TAILLE_FENETRE/1.5;
+                position.y=0;
+                SDL_BlitSurface(images, NULL, ecran, &position);
+                SDL_FreeSurface(images);
+            break;
+            case 5:/*Choix du sexe*/
+                strcpy(chaine1,"Sexe du joueur");
+                nb=3;
+                decalage=4;
+                strcpy(texte_SDL[0],"Masculin");
+                strcpy(texte_SDL[1],"Feminin");
+                strcpy(texte_SDL[2],"Annuler");
+
+                switch(race)
+                {
+                    case 0: strcpy(tampon,"data/Media/human ");break;
+                    case 1: strcpy(tampon,"data/Media/cyborg ");break;
+                    case 2: strcpy(tampon,"data/Media/sicari ");break;
+                    case 3: strcpy(tampon,"data/Media/medarsin ");break;
+                    default:break;
+                }
+                if (choix==0) strcat(tampon,"man.jpg");
+                else if(choix==1) strcat(tampon,"woman.jpg");
+                images=IMG_Load(tampon);
+                position.x=TAILLE_FENETRE/1.5;
+                position.y=0;
+                SDL_BlitSurface(images, NULL, ecran, &position);
+                SDL_FreeSurface(images);
+            break;
+            case 6:/*Choix de carriere*/
+                strcpy(chaine1,"Carriere");
+                nb=getNbCarriere();
+                decalage=2;
+                for (i=0;i<nb;i++)
+                {
+                    getCarriereNom(i+1,texte_SDL[i]);
+                }
+            break;
+            default:
+            break;
+        }
+
+        texte = TTF_RenderText_Shaded(police, chaine1, couleur_texte,couleur_rect);
+        position.x=TAILLE_FENETRE/2-100;
+        position.y=TAILLE_FENETRE/20+25;
+        SDL_BlitSurface(texte, NULL, ecran, &position);
+        SDL_FreeSurface(texte);
+
+        if (choix<0) choix=nb-1;/*aller à la dernière page et au dernier choix*/
+        else if (choix>nb-1) choix=0;/*aller à la première page et au premier choix*/
+
+        if (nb) afficherPage (ecran,police,texte_SDL,nb,choix,decalage);
+
+        SDL_Flip(ecran);
+        if (action&&action!=7&&nb) action=eventMenu();
+
+        else if (nb==0)/*scanf*/
+        {
+            scanfSDL(tampon,ecran,50,&action,police,0);
+            if (action!=0)action=6;
+        }
+    }
+    return action;
+}
+
+char afficherOptions(SDL_Surface *ecran,TTF_Font *police,FMOD_SYSTEM *system,FMOD_SOUND *musique)
+{
+    char action=8,type=1;
+    int choix=0,nb, choix_son=10,choix_musique=0,decalage;
+
+    FMOD_CHANNELGROUP *canal;
+    float  volume=0.0;
+    FMOD_System_GetMasterChannelGroup(system, &canal);
+
+    char texte_SDL [5][150],chaine1[50]="Options",chaine2[50];
+    SDL_Surface **rectangle,*curseur,*texte,*fond;
+    SDL_Rect position,position_curs;
+    SDL_Color couleur_texte= {255, 255, 255},couleur_rect= {10, 10, 10};
+
+    char chanson[2][100]={"GRAMATIK-Muy tranquilo.mp3","GRAMATIK-Just Jammin'.mp3"};
+
+    while (action!=0&&action!=7)
+    {
+        SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 6, 29, 38));
+
+        fond = IMG_Load("data/Media/menu.jpg");
+        position.x=0;
+        position.y=0;
+        SDL_BlitSurface(fond, NULL, ecran, &position);
+        SDL_FreeSurface(fond);
+
+        rectangle=(SDL_Surface**)malloc(sizeof(SDL_Surface*));
+        rectangle[0] = SDL_CreateRGBSurface(SDL_HWSURFACE, 400, 100, 32, 0, 0, 0, 0);
+        SDL_FillRect(rectangle[0], NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
+        position.x=TAILLE_FENETRE/2-200;
+        position.y=TAILLE_FENETRE/20;
+        SDL_BlitSurface(rectangle[0], NULL, ecran, &position);
+        SDL_FreeSurface(rectangle[0]);
+        free(rectangle);
+        switch (action)
+        {
+            case 1:/*Echap*/
+                if (type==1)
+                {
+                    action=7;
+                    type=0;
+                }
+                else
+                {
+                    type=1;
+                    choix=0;
+                    strcpy(chaine1,"Options");
+                }
+            break;
+            case 2:/*Touche Flèche haut*/
+                choix--;
+            break;
+            case 3:/*Touche Flèche bas*/
+                choix++;
+            break;
+            case 4:/*Touche Flèche gauche*/
+                if (type==2)
+                {
+                    if (choix==0)
+                    {
+                        choix_musique--;
+                        if (choix_musique<0)choix_musique=0;
+                        strcpy(chaine2,"data/Media/");
+                        strcat(chaine2,chanson[choix_musique]);
+                        FMOD_System_CreateSound(system, chaine2, FMOD_SOFTWARE | FMOD_2D | FMOD_CREATESTREAM, 0, &musique);
+                        FMOD_System_PlaySound(system, FMOD_CHANNEL_FREE, musique, 0, NULL);
+                    }
+                    else if (choix==1)
+                    {
+                        choix_son--;
+                        if (choix_son<0)choix_son=0;
+                        volume=(float)choix_son/10;
+                        FMOD_ChannelGroup_SetVolume(canal,volume);
+                    }
+                }
+            break;
+            case 5:/*Touche Flèche droite*/
+                if (type==2)
+                {
+                    if (choix==0)
+                    {
+                        choix_musique++;
+                        if (choix_musique>1)choix_musique=1;
+                        strcpy(chaine2,"data/Media/");
+                        strcat(chaine2,chanson[choix_musique]);
+                        FMOD_System_CreateStream(system, chaine2, FMOD_SOFTWARE | FMOD_2D | FMOD_CREATESTREAM, 0, &musique);
+                        FMOD_System_PlaySound(system, FMOD_CHANNEL_FREE, musique, 0, NULL);
+
+                    }
+                    else if (choix==1)
+                    {
+                        choix_son++;
+                        if (choix_son>10)choix_son=10;
+                        volume=(float)choix_son/10;
+                        FMOD_ChannelGroup_SetVolume(canal,volume);
+                    }
+                }
+            break;
+            case 6:/*Touche Entrée*/
+                switch(type)
+                {
+                    case 1:/*Options*/
+                        switch (choix)
+                        {
+                            case 0:/*Audio*/
+                                type=2;
+                                choix=0;
+                                strcpy(chaine1,"Audio");
+                            break;
+                            case 1:/*Credits*/
+                                type=3;
+                                strcpy(chaine1,"Credits");
+                            break;
+                            case 2:/*Return*/
+                                action=7;
+                                type=0;
+                            break;
+                        }
+                    break;
+                    case 2:/*Audio*/
+                        if (choix==2)
+                        {
+                            type=1;
+                            choix=0;
+                            strcpy(chaine1,"Options");
+                        }
+                    break;
+                    case 3:/*Credits*/
+                        type=1;
+                        choix=0;
+                        strcpy(chaine1,"Options");
+                    break;
+                    default:
+                    break;
+                }
+            default:
+            break;
+        }
+
+        texte = TTF_RenderText_Shaded(police, chaine1, couleur_texte,couleur_rect);
+        position.x=TAILLE_FENETRE/2-100;
+        position.y=TAILLE_FENETRE/20+25;
+        SDL_BlitSurface(texte, NULL, ecran, &position);
+        SDL_FreeSurface(texte);
+
+        switch (type)
+        {
+            case 1:/*Options*/
+                nb=3;
+                strcpy(texte_SDL[0],"Audio");
+                strcpy(texte_SDL[1],"Credits");
+                strcpy(texte_SDL[2],"Retour");
+            break;
+            case 2:/*Audio*/
+                nb=3;
+                strcpy(texte_SDL[0],"Musique : ");
+                strcat (texte_SDL[0],chanson[choix_musique]);
+                strcpy(texte_SDL[1],"");
+                strcpy(texte_SDL[2],"Retour");
+            break;
+            case 3:/*Credits*/
+                nb=0;
+            break;
+            default:
+            break;
+        }
+
+        if (choix<0) choix=nb-1;/*aller à la dernière page et au dernier choix*/
+        else if (choix>nb-1) choix=0;/*aller à la première page et au premier choix*/
+
+        decalage=afficherPage (ecran,police,texte_SDL,nb,choix,2);
+
+        if (type==2)/*Affichage du curseur*/
+        {
+            curseur = SDL_CreateRGBSurface(SDL_HWSURFACE, 30, 50, 32, 0, 0, 0, 0);
+            SDL_FillRect(curseur, NULL, SDL_MapRGB(ecran->format, 255, 255, 255));
+            position_curs.x=TAILLE_FENETRE/2-150+choix_son*30/1.1;
+            position_curs.y=TAILLE_FENETRE/3+(50+(100/nb)+50*decalage);
+            SDL_BlitSurface(curseur, NULL, ecran, &position_curs);
+            SDL_FreeSurface(curseur);
+        }
+        SDL_Flip(ecran);
+        if (action&&action!=7) action=eventMenu();
+    }
+    return action;
+}
+
+char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
+{
+    char action=8,selection=0,type=1,lettre;
+    int nb=0,choix=0,i,j,valeur;
     char ligne[TAILLE_MAX_FICHIER], chaine1 [150], chaine2[150],tampon[50];
     char texte_SDL [10][150];
     FILE *fPartie;
+    FMOD_SYSTEM *system;
+    FMOD_SOUND *musique;
 
-    SDL_Surface *titre=NULL,*nom=NULL, **rectangle=NULL,*texte=NULL, *cadre=NULL,*sauvegarde=NULL;
-    SDL_Rect position,position_rect;
+    FMOD_System_Create(&system);
+    FMOD_System_Init(system, 1, FMOD_INIT_NORMAL, NULL);
+    FMOD_System_CreateStream(system, "data/Media/GRAMATIK-Muy tranquilo.mp3", FMOD_SOFTWARE | FMOD_2D | FMOD_CREATESTREAM, 0, &musique);
+    FMOD_Sound_SetLoopCount(musique, -1);
+    FMOD_System_PlaySound(system, FMOD_CHANNEL_FREE, musique, 0, NULL);
+
+    SDL_Surface *nom=NULL, *rectangle=NULL,*cadre,*texte=NULL, *sauvegarde=NULL,*fond=NULL;
+    SDL_Rect position;
     SDL_Color couleur_texte= {255, 255, 255},couleur_rect= {10, 10, 10};
 
-    while (action)
+    while (action!=0&&action!=9)
     {
-        titre = SDL_CreateRGBSurface(SDL_HWSURFACE, 400, 100, 32, 0, 0, 0, 0);
         SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 6, 29, 38));
-        SDL_FillRect(titre, NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
+        fond = IMG_Load("data/Media/menu.jpg");
+        position.x=0;
+        position.y=0;
+        SDL_BlitSurface(fond, NULL, ecran, &position);
+        SDL_FreeSurface(fond);
 
+        rectangle = SDL_CreateRGBSurface(SDL_HWSURFACE, 400, 100, 32, 0, 0, 0, 0);
+        SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
         position.x=TAILLE_FENETRE/2-200;
         position.y=TAILLE_FENETRE/20;
-        SDL_BlitSurface(titre, NULL, ecran, &position);
-        SDL_FreeSurface(titre);
+        SDL_BlitSurface(rectangle, NULL, ecran, &position);
+        SDL_FreeSurface(rectangle);
+
         nb=0;
         switch (action)
         {
@@ -366,6 +987,10 @@ void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                 {
                     switch (type)
                     {
+                        case 1:/*Menu pause*/
+                            action=9;
+                            type=0;
+                        break;
                         case 5:/*Retour menu précédent*/
                             switch (selection)
                             {
@@ -429,13 +1054,19 @@ void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                 }
 
             break;
-            case 2:/*Touche Flèche haut/gauche*/
+            case 2:/*Touche Flèche haut*/
                 choix--;
             break;
-            case 3:/*Touche Flèche bas/droite*/
+            case 3:/*Touche Flèche bas*/
                 choix++;
             break;
-            case 5:/*Touche Entrée*/
+            case 4:/*Touche Flèche gauche*/
+                choix--;
+            break;
+            case 5:/*Touche Flèche droite*/
+                choix++;
+            break;
+            case 6:/*Touche Entrée*/
                 if (jeu) /*Menu pause*/
                 {
                     switch (type)
@@ -444,7 +1075,7 @@ void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                             switch (choix)
                             {
                                 case 0:/*Retour jeu*/
-                                    action=0;
+                                    action=9;
                                     type=0;
                                 break;
                                 case 1:/*Sauver Partie*/
@@ -499,6 +1130,7 @@ void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                             }
                         break;
                         case 4:/*Options*/
+                            type=4;
                         break;
                         case 5:/*Actions partie*/
                             if (choix==2||((choix==1)&&(strcmp(chaine1,"(Vide)")==0)))
@@ -514,7 +1146,7 @@ void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                                 {
                                     chargerPartie(chaine2,partie);
                                     choix=0;
-                                    action=0;
+                                    action=9;
                                     type=0;
                                 }
                                 else
@@ -590,13 +1222,20 @@ void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                                 choix=0;
                             }
                         break;
-                        case 4:/*Option*/
+                        case 4:/*Options*/
+                            type=4;
                         break;
                         case 5:/*Actions partie*/
-                            if (choix==0)
+                            if (choix==0&&(strcmp(chaine1,"(Vide)")==0))/*Nouvelle partie*/
                             {
-                                type=7;
+                                action=nouvellePartie ( ecran, police, partie);
                                 choix=0;
+                            }
+                            else if(choix==0)/*Charger partie*/
+                            {
+                                chargerPartie(chaine2,partie);
+                                action=9;
+                                type=0;
                             }
                             if (choix==3||((choix==1)&&(strcmp(chaine1,"(Vide)")==0)))
                             {
@@ -665,8 +1304,6 @@ void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                 position.y=TAILLE_FENETRE/20+25;
                 SDL_BlitSurface(nom, NULL, ecran, &position);
                 SDL_FreeSurface(nom);
-
-                rectangle=(SDL_Surface**)malloc(nb*sizeof(SDL_Surface*));
             break;
             case 2:/*Menu parties*/
                 nb=4;
@@ -680,11 +1317,11 @@ void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                 strcpy(texte_SDL[1],"Sauvegarde B");
                 strcpy(texte_SDL[2],"Sauvegarde C");
                 strcpy(texte_SDL[3],"Retour");
-
-                rectangle=(SDL_Surface**)malloc(nb*sizeof(SDL_Surface*));
             break;
             case 4:/*Options*/
-                /*Crédits ...*/
+                nb=0;
+                action=afficherOptions(ecran,police,system,musique);
+                type=1;
             break;
             case 5:/*Actions partie*/
                 nb=3;
@@ -702,8 +1339,8 @@ void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                 position.y=TAILLE_FENETRE/20+25;
                 SDL_BlitSurface(nom, NULL, ecran, &position);
                 SDL_FreeSurface(nom);
-                SDL_Flip(ecran);
-                getchar();
+                /*SDL_Flip(ecran);
+                getchar();*/
 
                 fgets (chaine1,TAILLE_MAX_FICHIER,fPartie);
                 valeur=chaine1[strlen(chaine1)-2]-'0';
@@ -789,29 +1426,28 @@ void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                     choix=0;
                 }
 
-                rectangle=(SDL_Surface**)malloc(nb*sizeof(SDL_Surface*));
                 for (i=0;i<nb;i++)/*Page visible*/
                 {
                     if (i==choix) /*Affichage du cadre*/
                     {
                         cadre = SDL_CreateRGBSurface(SDL_HWSURFACE, 160, 60, 32, 0, 0, 0, 0);
                         SDL_FillRect(cadre, NULL, SDL_MapRGB(ecran->format, 255, 0, 0));
-                        position_rect.x=TAILLE_FENETRE/(nb+6)+(180)*i;
-                        position_rect.y=TAILLE_FENETRE/2+195;
-                        SDL_BlitSurface(cadre, NULL, ecran, &position_rect);
+                        position.x=TAILLE_FENETRE/(nb+6)+(180)*i;
+                        position.y=TAILLE_FENETRE/2+195;
+                        SDL_BlitSurface(cadre, NULL, ecran, &position);
                         SDL_FreeSurface(cadre);
                     }
-                    rectangle[i]= SDL_CreateRGBSurface(SDL_HWSURFACE, 150, 50, 32, 0, 0, 0, 0);
-                    SDL_FillRect(rectangle[i], NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
+                    rectangle= SDL_CreateRGBSurface(SDL_HWSURFACE, 150, 50, 32, 0, 0, 0, 0);
+                    SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
 
-                    position_rect.x=TAILLE_FENETRE/(nb+6)+(180)*i+5;
-                    position_rect.y=TAILLE_FENETRE/2+200;
-                    SDL_BlitSurface(rectangle[i], NULL, ecran, &position_rect);
-                    SDL_FreeSurface(rectangle[i]);
+                    position.x=TAILLE_FENETRE/(nb+6)+(180)*i+5;
+                    position.y=TAILLE_FENETRE/2+200;
+                    SDL_BlitSurface(rectangle, NULL, ecran, &position);
+                    SDL_FreeSurface(rectangle);
 
-                    position_rect.x+= 25;
+                    position.x+= 25;
                     texte=TTF_RenderText_Shaded(police, texte_SDL[i], couleur_texte,couleur_rect);
-                    SDL_BlitSurface(texte, NULL, ecran, &position_rect);
+                    SDL_BlitSurface(texte, NULL, ecran, &position);
                     SDL_FreeSurface(texte);
                 }
             break;
@@ -826,15 +1462,6 @@ void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
 
                 strcpy(texte_SDL[0],"Oui");
                 strcpy(texte_SDL[1],"Non");
-
-                rectangle=(SDL_Surface**)malloc(2*sizeof(SDL_Surface*));
-            break;
-            case 7:/*Nouvelle Partie*/
-                nom = TTF_RenderText_Shaded(police,"Nouvelle partie", couleur_texte,couleur_rect);
-                position.x=TAILLE_FENETRE/2-100;
-                position.y=TAILLE_FENETRE/20+25;
-                SDL_BlitSurface(nom, NULL, ecran, &position);
-                SDL_FreeSurface(nom);
             break;
             default:
             break;
@@ -848,121 +1475,32 @@ void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
         {
             choix=0;
         }
-        else if (choix==9)/*avancer d'une page*/
-        {
-        }
-        else if (choix==0)/*reculer d'une page*/
-        {
-        }
 
-        /*if (nb==0) Cas où on a besoin d'un scanf
-        {
-            rectangle=(SDL_Surface**)malloc(sizeof(SDL_Surface*));
-            *rectangle= SDL_CreateRGBSurface(SDL_HWSURFACE, 500, 50, 32, 0, 0, 0, 0);
-            SDL_FillRect(*rectangle, NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
-            position_rect.x=TAILLE_FENETRE/2-250;
-            position_rect.y=TAILLE_FENETRE/3+200;
-            SDL_BlitSurface(*rectangle, NULL, ecran, &position_rect);
-            SDL_FreeSurface(*rectangle);
-            free (rectangle);
-        }*/
-        decalage=0;
         if (type!=5)
         {
-            for (i=0;i<nb;i++)/*Page visible*/
-            {
-                if (i==choix) /*Affichage du cadre*/
-                {
-                    cadre = SDL_CreateRGBSurface(SDL_HWSURFACE, 310, 60, 32, 0, 0, 0, 0);
-                    SDL_FillRect(cadre, NULL, SDL_MapRGB(ecran->format, 255, 0, 0));
-                    position_rect.x=TAILLE_FENETRE/2-155;
-                    position_rect.y=TAILLE_FENETRE/3-5+(50+(100/nb))*i+50*(decalage);
-                    SDL_BlitSurface(cadre, NULL, ecran, &position_rect);
-                    SDL_FreeSurface(cadre);
-                }
-
-                taille=0;
-                position_rect.x=TAILLE_FENETRE/2-150;
-                position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*i+50*(decalage);
-                if (strlen(texte_SDL[i])>18)
-                {
-                    strcpy(chaine1,texte_SDL[i]);
-                    while (strlen(chaine1)>=18)
-                    {
-                        taille++;
-                        j=17;
-                        while (j>=1&&chaine1[j]!=' ') j--;
-                        if (j!=0)
-                        {
-                            valeur=j;
-                            strncpy(chaine2,chaine1,valeur);
-                            chaine2[valeur]='\0';
-                        }
-                        else
-                        {
-                            strncpy(chaine2,chaine1,17);
-                            chaine2[17]='-';
-                            chaine2[18]='\0';
-
-                        }
-                        if (i==choix) /*Affichage d'un cadre suplémentaire*/
-                        {
-                            cadre = SDL_CreateRGBSurface(SDL_HWSURFACE, 310, 60, 32, 0, 0, 0, 0);
-                            SDL_FillRect(cadre, NULL, SDL_MapRGB(ecran->format, 255, 0, 0));
-                            position_rect.x=TAILLE_FENETRE/2-155;
-                            position_rect.y=TAILLE_FENETRE/3-5+(50+(100/nb))*i+50*(decalage+taille);
-                            SDL_BlitSurface(cadre, NULL, ecran, &position_rect);
-                            SDL_FreeSurface(cadre);
-                            position_rect.x+=5;
-                            position_rect.y-=45;
-                        }
-
-                        rectangle[i]= SDL_CreateRGBSurface(SDL_HWSURFACE, 300, 50, 32, 0, 0, 0, 0);
-                        SDL_FillRect(rectangle[i], NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
-                        SDL_BlitSurface(rectangle[i], NULL, ecran, &position_rect);
-                        SDL_FreeSurface(rectangle[i]);
-
-                        position_rect.x+= 25;
-                        texte=TTF_RenderText_Shaded(police, chaine2, couleur_texte,couleur_rect);
-                        SDL_BlitSurface(texte, NULL, ecran, &position_rect);
-                        SDL_FreeSurface(texte);
-                        position_rect.x-= 25;
-                        position_rect.y+=50;
-                        for (j=0;j<strlen(texte_SDL[i])-valeur+1;j++)
-                        {
-                            chaine1[j]=chaine1[valeur+j];
-                        }
-                    }
-                    strcpy(texte_SDL[i],chaine1);
-                    decalage+=taille;
-                }
-                rectangle[i]= SDL_CreateRGBSurface(SDL_HWSURFACE, 300, 50, 32, 0, 0, 0, 0);
-                SDL_FillRect(rectangle[i], NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
-
-                position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*i+50*(decalage);
-                SDL_BlitSurface(rectangle[i], NULL, ecran, &position_rect);
-                SDL_FreeSurface(rectangle[i]);
-
-                position_rect.x+= 25;
-                position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*i+50*(decalage);
-                texte=TTF_RenderText_Shaded(police, texte_SDL[i], couleur_texte,couleur_rect);
-                SDL_BlitSurface(texte, NULL, ecran, &position_rect);
-                SDL_FreeSurface(texte);
-            }
+            afficherPage (ecran,police,texte_SDL,nb,choix,2);
         }
 
         SDL_Flip(ecran);
-        if (action)
+        if (action==7)
+        {
+            action=8;
+        }
+        else if (action&&action!=7&&action!=9)
         {
             action=eventMenu();
-            free (rectangle);
         }
     }
+    FMOD_Sound_Release(musique);
+    FMOD_System_Close(system);
+    FMOD_System_Release(system);
+    return action;
 }
 
 int mainMenu ()
 {
     int i;
+    char nom [50],c;
     Partie jeu;
     Personnage liste[4];
     Objet *tab=NULL;
@@ -977,20 +1515,42 @@ int mainMenu ()
     nouveauPerso (&liste[1], "Rometach", 2, 1, 1, 1, 0, 100,tab);
     nouveauPerso (&liste[2], "Toromis", 3, 1, 1, 1, 0, 100,tab);
     nouveauPerso (&liste[3], "Babar", 4, 1, 1, 1, 0, 100,tab);
-
     partieInit(&jeu,"The A company",liste, 4, NULL,0,"");
-
-    police = TTF_OpenFont("data/Jester.ttf", 30);
-    ecran=SDL_SetVideoMode(TAILLE_FENETRE, TAILLE_FENETRE_OBJET, 32, SDL_HWSURFACE);
-    SDL_WM_SetCaption("Iniuriam",NULL);
-    afficherMenu(ecran,0,police,NULL);/*Affichage de l'écran principal*/
-
-    partieLibere (&jeu);
-    free (tab);
     for (i=0; i<4;i++)
     {
         persoLibere(&liste[i]);
     }
+
+    police = TTF_OpenFont("data/Jester.ttf", 30);
+    ecran=SDL_SetVideoMode(TAILLE_FENETRE, TAILLE_FENETRE_OBJET, 32, SDL_HWSURFACE);
+    SDL_WM_SetCaption("Iniuriam",NULL);
+
+    c=afficherMenu(ecran,0,police,&jeu);/*Affichage de l'écran principal*/
+
+    if (c)
+    {
+        printf("Retour au jeu\n");
+    }
+    else printf("Quitter le jeu\n");
+
+    getPartieNom(&jeu,nom);
+
+    printf("\n%s\n\n%d Joueur(s) :\n",nom,getPartieNbJoueur(&jeu));
+    for (i=0;i<4;i++)
+    {
+        getPersoNom(nom,getPartieJoueurI(&jeu,i));
+        printf("%s\n",nom);
+    }
+    printf("\n");
+    for (i=0;i<getPartieNbMission(&jeu);i++)
+    {
+        getPartieMissionAccomplie(&jeu,i,nom);
+        printf("%s\n",nom);
+    }
+    getPartieMissionActuelle(&jeu,nom);
+    printf("%s\n",nom);
+    partieLibere (&jeu);
+    free (tab);
     SDL_FreeSurface(ecran);
     TTF_CloseFont(police);
     TTF_Quit();

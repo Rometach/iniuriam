@@ -198,7 +198,20 @@ int getNbPNJ()
     return ((max-3)/3);
 }
 
+int getNbCarriere()
+{
+    int max=0;
+    FILE* fCarr;
+    char ligne[TAILLE_MAX_FICHIER];
+    assert(fCarr=fopen("data/Carrieres.txt","r"));
+    if (fCarr!=NULL)
+    {
+        while (fgets(ligne,TAILLE_MAX_FICHIER,fCarr)!=NULL) max++;
+    }
+    fclose(fCarr);
 
+    return max-3;
+}
 
 void persoInitPNJ(Personnage *perso, int l, Objet* tab)
 {
@@ -246,10 +259,47 @@ char getPersoRace(Personnage *perso)
     return perso->race;
 }
 
+void getRaceNom(char* chaine, char race)
+{
+    switch(race)
+    {
+        case 1 :
+            strcpy(chaine,"Humain");
+        break;
+        case 2 :
+            strcpy(chaine,"Cyborg");
+        break;
+        case 3 :
+            strcpy(chaine,"Sicari");
+        break;
+        case 4 :
+            strcpy(chaine,"Medarsin");
+        break;
+        default :
+            strcpy(chaine,"Non défini");
+        break;
+    }
+}
 
 char getPersoSexe(Personnage *perso)
 {
     return perso->sexe;
+}
+
+void getSexeNom(char* chaine,char sexe)
+{
+    switch (sexe)
+    {
+        case 1:
+            strcpy(chaine,"Masculin");
+        break;
+        case 2:
+            strcpy(chaine,"Feminin");
+        break;
+        default:
+            strcpy(chaine,"Indefini");
+        break;
+    }
 }
 
 char getPersoFaction(Personnage *perso)
@@ -279,7 +329,6 @@ char getPersoCarriere(Personnage *perso)
     return perso->carriere;
 }
 
-
 void getCarriereNom(char carriere, char* s)
 {
     int i;
@@ -293,6 +342,7 @@ void getCarriereNom(char carriere, char* s)
         }
     i= strchr (ligne, '/')-ligne;
     strncpy(s,ligne,i);
+    s[i]='\0';
     fclose(fCarr);
     }
     else
@@ -475,6 +525,7 @@ void copiePerso (Personnage* perso1, Personnage* perso2)
     perso2->argent=perso1->argent;
     perso2->experience=perso1->experience;
 
+    CapaciteInit (&perso2->capacite);
     copieCapacite(&perso1->capacite,&perso2->capacite);
 
     perso2->attaque=perso1->attaque;
@@ -486,8 +537,10 @@ void copiePerso (Personnage* perso1, Personnage* perso2)
 
     perso2->posX=perso1->posX;
     perso2->posY=perso1->posY;
-    copieInventaire(&perso2->inventaire,&perso1->inventaire);
 
+    inventaireInit(&perso2->inventaire);
+    copieInventaire(&perso2->inventaire,&perso1->inventaire);
+    copieEquipement(&perso1->equipement,&perso2->equipement);
     /*Initialiser SDL_Surface*/
 }
 

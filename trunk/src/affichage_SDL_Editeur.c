@@ -224,7 +224,7 @@ char eventEditeurObjet()
 void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
 {
     char action,selection,type=1;
-    int i,j,nb,choix=0,objet=1,valeur,max,decalage=0,taille;
+    int i,j,nb,choix=0,objet=1,valeur,max,decalage=0,taille, haut=0,bas=9,page;
     char ligne[TAILLE_MAX_FICHIER],tampon[TAILLE_MAX_FICHIER], chaine1 [150], chaine2[150];
     char* fin;
     char ok=0;
@@ -402,10 +402,6 @@ void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
             case 1:/*Menu Principal*/
                 nb=4;
                 nom = TTF_RenderText_Shaded(police, "Editeur d'Objet", couleur_texte,couleur_rect);
-                position.x=TAILLE_FENETRE/2-100;
-                position.y=TAILLE_FENETRE/20+25;
-                SDL_BlitSurface(nom, NULL, ecran, &position);
-                SDL_FreeSurface(nom);
 
                 strcpy(texte_SDL[0],"Ajouter un objet");
                 strcpy(texte_SDL[1],"Modifier un objet");
@@ -493,20 +489,12 @@ void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
                 }
                 sprintf(ligne,"Entrez %s de l'objet.",chaine1);
                 nom = TTF_RenderText_Shaded(police,ligne, couleur_texte,couleur_rect);
-                position.x=TAILLE_FENETRE/2-100;
-                position.y=TAILLE_FENETRE/20+25;
-                SDL_BlitSurface(nom, NULL, ecran, &position);
-                SDL_FreeSurface(nom);
             break;
             case 3:/*Modifier Objet*/
                 nb=max-4;
                 initialiserTousLesObjets (&tab);
 
                 nom = TTF_RenderText_Shaded(police, "Modifier un objet", couleur_texte,couleur_rect);
-                position.x=TAILLE_FENETRE/2-100;
-                position.y=TAILLE_FENETRE/20+25;
-                SDL_BlitSurface(nom, NULL, ecran, &position);
-                SDL_FreeSurface(nom);
 
                 for (i=0;i<max-4;i++)
                 {
@@ -523,10 +511,6 @@ void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
                 initialiserTousLesObjets (&tab);
 
                 nom = TTF_RenderText_Shaded(police, "Supprimer un objet", couleur_texte,couleur_rect);
-                position.x=TAILLE_FENETRE/2-100;
-                position.y=TAILLE_FENETRE/20+25;
-                SDL_BlitSurface(nom, NULL, ecran, &position);
-                SDL_FreeSurface(nom);
 
                 for (i=0;i<max-4;i++)
                 {
@@ -542,10 +526,6 @@ void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
 
                 sprintf(ligne,"%s %s ?",chaine1,chaine2);
                 nom = TTF_RenderText_Shaded(police,ligne, couleur_texte,couleur_rect);
-                position.x=TAILLE_FENETRE/2-100;
-                position.y=TAILLE_FENETRE/20+25;
-                SDL_BlitSurface(nom, NULL, ecran, &position);
-                SDL_FreeSurface(nom);
 
                 strcpy(texte_SDL[0],"Oui");
                 strcpy(texte_SDL[1],"Non");
@@ -555,11 +535,6 @@ void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
             case 6:/*Choix du paramètre à modifier*/
                 nb=8;
                 nom = TTF_RenderText_Shaded(police,"Votre Objet", couleur_texte,couleur_rect);
-                position.x=TAILLE_FENETRE/2-100;
-                position.y=TAILLE_FENETRE/20+25;
-                SDL_BlitSurface(nom, NULL, ecran, &position);
-                SDL_FreeSurface(nom);
-
                 tab=(Objet*)malloc(sizeof(Objet));
                 objInit(tab,objet);
 
@@ -682,30 +657,43 @@ void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
 
                 sprintf(ligne,"Modifier %s de l'objet.",chaine1);
                 nom = TTF_RenderText_Shaded(police,ligne, couleur_texte,couleur_rect);
-                position.x=TAILLE_FENETRE/2-100;
-                position.y=TAILLE_FENETRE/20+25;
-                SDL_BlitSurface(nom, NULL, ecran, &position);
-                SDL_FreeSurface(nom);
             break;
             default:
             break;
         }
+        if (action)
+        {
+            position.x=TAILLE_FENETRE/2-100;
+            position.y=TAILLE_FENETRE/20+25;
+            SDL_BlitSurface(nom, NULL, ecran, &position);
+            SDL_FreeSurface(nom);
+        }
         if (nb==0) choix=0;
+        else if (choix==0||choix>nb-1)/*aller à la première page et au premier choix*/
+        {
+            choix=0;
+            haut=0;
+            bas=8;
+        }
         else if (choix<0)/*aller à la dernière page et au dernier choix*/
         {
             choix=nb-1;
+            haut=nb-2;
+            bas=nb;
         }
-        else if (choix>nb-1)/*aller à la première page et au premier choix*/
+        else if (choix>bas-1)/*avancer d'une page*/
         {
-            choix=0;
-        }
-        else if (choix==9)/*avancer d'une page*/
-        {
+            valeur=(int)strlen(texte_SDL[haut])/19;
+            if ((int)strlen(texte_SDL[choix])/19>=valeur) haut+=(int)1+strlen(texte_SDL[choix])/19-valeur;
+            else haut++;
 
+            if(valeur>(int)strlen(texte_SDL[choix])/19) bas+=1+valeur;
+            else bas+=(int)1+strlen(texte_SDL[choix])/19;
         }
-        else if (choix==0)/*reculer d'une page*/
+        else if (choix<haut)/*reculer d'une page*/
         {
-
+            haut--;
+            /*bas--;*/
         }
 
         if (nb==0) /*Cas où on a besoin d'un scanf*/
@@ -719,22 +707,29 @@ void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
             SDL_FreeSurface(*rectangle);
             free (rectangle);
         }
+
+        if (nb>4)page=maxi(haut,0);
+        else
+        {
+            haut =0;
+            page =0;
+        }
         decalage=0;
-        for (i=0;i<nb;i++)/*Page visible*/
+        for (i=page;i<min(bas,nb);i++)/*Page visible*/
         {
             if (i==choix) /*Affichage du cadre*/
             {
                 cadre = SDL_CreateRGBSurface(SDL_HWSURFACE, 310, 60, 32, 0, 0, 0, 0);
                 SDL_FillRect(cadre, NULL, SDL_MapRGB(ecran->format, 255, 0, 0));
                 position_rect.x=TAILLE_FENETRE/2-155;
-                position_rect.y=TAILLE_FENETRE/3-5+(50+(100/nb))*i+50*(decalage);
+                position_rect.y=TAILLE_FENETRE/3-5+(50+(100/nb))*(i-haut)+50*(decalage);
                 SDL_BlitSurface(cadre, NULL, ecran, &position_rect);
                 SDL_FreeSurface(cadre);
             }
 
             taille=0;
             position_rect.x=TAILLE_FENETRE/2-150;
-            position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*i+50*(decalage);
+            position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*(i-haut)+50*(decalage);
             if (strlen(texte_SDL[i])>18)
             {
                 strcpy(chaine1,texte_SDL[i]);
@@ -761,7 +756,7 @@ void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
                         cadre = SDL_CreateRGBSurface(SDL_HWSURFACE, 310, 60, 32, 0, 0, 0, 0);
                         SDL_FillRect(cadre, NULL, SDL_MapRGB(ecran->format, 255, 0, 0));
                         position_rect.x=TAILLE_FENETRE/2-155;
-                        position_rect.y=TAILLE_FENETRE/3-5+(50+(100/nb))*i+50*(decalage+taille);
+                        position_rect.y=TAILLE_FENETRE/3-5+(50+(100/nb))*(i-haut)+50*(decalage+taille);
                         SDL_BlitSurface(cadre, NULL, ecran, &position_rect);
                         SDL_FreeSurface(cadre);
                         position_rect.x+=5;
@@ -790,17 +785,18 @@ void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
             rectangle[i]= SDL_CreateRGBSurface(SDL_HWSURFACE, 300, 50, 32, 0, 0, 0, 0);
             SDL_FillRect(rectangle[i], NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
 
-            position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*i+50*(decalage);
+            position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*(i-haut)+50*(decalage);
             SDL_BlitSurface(rectangle[i], NULL, ecran, &position_rect);
             SDL_FreeSurface(rectangle[i]);
 
             position_rect.x+= 25;
-            position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*i+50*(decalage);
+            position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*(i-haut)+50*(decalage);
             texte=TTF_RenderText_Shaded(police, texte_SDL[i], couleur_texte,couleur_rect);
             SDL_BlitSurface(texte, NULL, ecran, &position_rect);
             SDL_FreeSurface(texte);
+            if (page+decalage<haut+9)page++;
         }
-
+        bas=page;
         SDL_Flip(ecran);
         if (nb==0&&action)/*Besoin d'un scanf*/
         {

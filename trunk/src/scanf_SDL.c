@@ -335,10 +335,10 @@ char eventScanf (SDL_Surface* ecran,char chiffre)
 void scanfSDL (char* chaine,SDL_Surface* ecran, int longueur, char * action,TTF_Font *police,char chiffre)
 {
     char continuer=1;
-    char caractere[2];
-    int i=0;
+    char caractere[2],chaine1[150],chaine2[18];
+    int i=0,j,valeur;
     SDL_Surface *texte=NULL,*rectangle;
-    SDL_Rect position,position_rect;
+    SDL_Rect position;
     SDL_Color couleur_texte= {255, 255, 255},couleur_rect= {10, 10, 10};
 
     caractere[1]='\0';
@@ -346,13 +346,17 @@ void scanfSDL (char* chaine,SDL_Surface* ecran, int longueur, char * action,TTF_
 
     position.x=TAILLE_FENETRE/2-250;
     position.y=TAILLE_FENETRE/3+200;
-
-    position_rect.x=TAILLE_FENETRE/2-250;
-    position_rect.y=TAILLE_FENETRE/3+200;
+    rectangle= SDL_CreateRGBSurface(SDL_HWSURFACE, 500, 50, 32, 0, 0, 0, 0);
+    SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
+    SDL_BlitSurface(rectangle, NULL, ecran, &position);
+    SDL_FreeSurface(rectangle);
+    SDL_Flip(ecran);
 
     while (continuer)
     {
         caractere[0]=eventScanf(ecran,chiffre);
+        position.x=TAILLE_FENETRE/2-250;
+        position.y=TAILLE_FENETRE/3+200;
         switch (caractere[0])
         {
             case 0: /*SDL_QUIT*/
@@ -367,21 +371,20 @@ void scanfSDL (char* chaine,SDL_Surface* ecran, int longueur, char * action,TTF_
                 if (i>0)
                 {
                     i--;
-
-                    rectangle= SDL_CreateRGBSurface(SDL_HWSURFACE, 500, 50, 32, 0, 0, 0, 0);
-                    SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
-                    SDL_BlitSurface(rectangle, NULL, ecran, &position_rect);
-                    SDL_FreeSurface(rectangle);
-
                     chaine[i]='\0';
-                    texte=TTF_RenderText_Shaded(police, chaine, couleur_texte,couleur_rect);
-                    SDL_BlitSurface(texte, NULL, ecran, &position);
-                    SDL_FreeSurface(texte);
-                    SDL_Flip(ecran);
+                    if (strlen(chaine)%38==0)
+                    {
+                        position.y+=(strlen(chaine)/38)*50;
+                        rectangle= SDL_CreateRGBSurface(SDL_HWSURFACE, 500, 50, 32, 0, 0, 0, 0);
+                        SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
+                        SDL_BlitSurface(rectangle, NULL, ecran, &position);
+                        SDL_FreeSurface(rectangle);
+                        position.y=TAILLE_FENETRE/3+200;
+                    }
                 }
             break;
             case 3:/*Entrée*/
-                if (strlen(chaine)!=0)
+                if (i!=0)
                 {
                     *action=2;
                     continuer=0;
@@ -391,19 +394,56 @@ void scanfSDL (char* chaine,SDL_Surface* ecran, int longueur, char * action,TTF_
                 if (i<longueur)
                 {
                     i++;
-
-                    rectangle= SDL_CreateRGBSurface(SDL_HWSURFACE, 500, 50, 32, 0, 0, 0, 0);
-                    SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
-                    SDL_BlitSurface(rectangle, NULL, ecran, &position_rect);
-                    SDL_FreeSurface(rectangle);
-
                     strcat (chaine,caractere);
-                    texte=TTF_RenderText_Shaded(police, chaine, couleur_texte,couleur_rect);
-                    SDL_BlitSurface(texte, NULL, ecran, &position);
-                    SDL_FreeSurface(texte);
-                    SDL_Flip(ecran);
                 }
             break;
         }
+
+        strcpy(chaine1,chaine);
+
+        if (i>38)
+        {
+            while (strlen(chaine1)>=38)
+            {
+                j=37;
+                while (j>=1&&chaine1[j]!=' ') j--;
+                if (j!=0)
+                {
+                    valeur=j;
+                    strncpy(chaine2,chaine1,valeur);
+                    chaine2[valeur]='\0';
+                }
+                else
+                {
+                    strncpy(chaine2,chaine1,17);
+                    chaine2[17]='-';
+                    chaine2[18]='\0';
+                }
+                rectangle= SDL_CreateRGBSurface(SDL_HWSURFACE, 500, 50, 32, 0, 0, 0, 0);
+                SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
+                SDL_BlitSurface(rectangle, NULL, ecran, &position);
+                SDL_FreeSurface(rectangle);
+
+                texte=TTF_RenderText_Shaded(police, chaine2, couleur_texte,couleur_rect);
+                SDL_BlitSurface(texte, NULL, ecran, &position);
+                SDL_FreeSurface(texte);
+                position.y+=50;
+                j=0;
+                while(chaine1[j]!='\0')
+                {
+                    chaine1[j]=chaine1[valeur+j];
+                    j++;
+                }
+            }
+        }
+        rectangle= SDL_CreateRGBSurface(SDL_HWSURFACE, 500, 50, 32, 0, 0, 0, 0);
+        SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
+        SDL_BlitSurface(rectangle, NULL, ecran, &position);
+        SDL_FreeSurface(rectangle);
+
+        texte=TTF_RenderText_Shaded(police, chaine1, couleur_texte,couleur_rect);
+        SDL_BlitSurface(texte, NULL, ecran, &position);
+        SDL_FreeSurface(texte);
+        SDL_Flip(ecran);
     }
 }

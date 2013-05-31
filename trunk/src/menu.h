@@ -7,7 +7,7 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
 #include <SDL/SDL_image.h>
-
+#include <FMOD/fmod.h>
 
 #include "constante.h"
 #include "scanf_SDL.h"
@@ -17,7 +17,7 @@
 typedef struct
 {
     char nom [50];
-    Personnage** joueur;
+    Personnage* joueur;
     int nbJoueur;
     char missionsAccomplies [30][50];
     int nbMission;
@@ -39,9 +39,15 @@ void partieLibere (Partie* jeu);
 
 /**
 * \brief Preconditions : jeu est initialisé.
+* <br /> Postconditions : retourne le nombre de joueur de jeu.
+*/
+void getPartieNom (Partie* jeu,char nom[50]);
+
+/**
+* \brief Preconditions : jeu est initialisé.
 * <br /> Postconditions : retourne la liste des joueurs de jeu.
 */
-Personnage** getPartieJoueurs (Partie* jeu);
+Personnage* getPartieJoueurs (Partie* jeu);
 
 /**
 * \brief Preconditions : jeu est initialisé,0<=i<4.
@@ -82,8 +88,9 @@ char eventMenu();
 /**
 * \brief Preconditions : police et ecran sont initalisés.
 * <br /> Postconditions : affiche les différentes pages du menu principal et du menu pause d'Iniuriam, selon le type.
+*                         retourne 0 si l'utilisateur quitte le jeu ou SDL, 9 sinon.
 */
-void afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie);
+char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie);
 
 int mainMenu();
 #endif

@@ -16,6 +16,7 @@
 
 #define TAILLE_MAX_FICHIER 800
 #define TAILLE_MAX 20
+
 #define NB_DEPLACEMENTS 5
 #define CHAMP_DE_VISION 30
 

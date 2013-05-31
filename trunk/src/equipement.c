@@ -87,3 +87,16 @@ Objet* getEquiMainDroite(Equipement* equi, int i)
     assert (i>=0&&i<3);
     return equi->armeDroite[i];
 }
+
+void copieEquipement (Equipement* equi1, Equipement* equi2)
+{
+    equiInit(equi2);
+    if (equi1->tete!=NULL)equi2->tete=equi1->tete;
+    if (equi1->torse!=NULL)equi2->torse=equi1->torse;
+    if (equi1->bas!=NULL)equi2->bas=equi1->bas;
+    if (equi1->pieds!=NULL)equi2->pieds=equi1->pieds;
+    if (equi1->armeGauche!=NULL)equi2->armeGauche=equi1->armeGauche;
+    if (equi1->armeDroite[0]!=NULL)equi2->armeDroite[0]=equi1->armeDroite[0];
+    if (equi1->armeDroite[1]!=NULL)equi2->armeDroite[1]=equi1->armeDroite[1];
+    if (equi1->armeDroite[2]!=NULL)equi2->armeDroite[2]=equi1->armeDroite[2];
+}

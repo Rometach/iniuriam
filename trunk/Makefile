@@ -1,77 +1,24 @@
+CC=gcc
+CFLAGS= -Wall -ansi -ggdb -I libs/include
+LDFLAGS=`sdl-config --cflags --libs` -lSDL_ttf -lSDL_image -lfmodex -L libs/lib/
+
+SRC= src/objet.c src/stock.c src/equipement.c src/inventaire.c src/competence.c src/capacite.c src/personnage.c src/tile.c src/terrain.c src/scanf_SDL.c src/affichage_sdl.c src/parole.c src/deplacement.c src/combat.c src/mission.c src/menu.c src/main.c
+OBJ= $(notdir $(SRC:.c=.o))
+
+SRC2= src/objet_Editeur.c src/competence.c src/perso_Editeur.c src/tile.c src/terrain.c src/scanf_SDL.c src/affichage_SDL_Editeur.c src/mission.c src/main_Editeur.c
+OBJ2= $(notdir $(SRC2:.c=.o))
+
+
 all: Iniuriam Editeur
 
-OPT = -Wall -ansi -pedantic -ggdb
-SDL=`sdl-config --cflags --libs` -lSDL_ttf -lSDL_image
-FMOD= -lfmodex
+Iniuriam: $(OBJ)
+	$(CC) -o bin/$@ $(addprefix obj/, $^) $(LDFLAGS)
 
-Iniuriam: main.o menu.o scanf_SDL.o mission.o personnage.o equipement.o inventaire.o stock.o objet.o capacite.o competence.o
-	gcc bin/main.o bin/menu.o bin/scanf_SDL.o bin/mission.o bin/personnage.o  bin/equipement.o bin/inventaire.o bin/stock.o bin/objet.o bin/capacite.o bin/competence.o $(SDL) -o bin/Iniuriam
+Editeur: $(OBJ2)
+	$(CC) -o bin/$@ $(addprefix obj/, $^) $(LDFLAGS)
 
-Editeur: main_Editeur.o affichage_SDL_Editeur.o objet_Editeur.o scanf_SDL.o terrain.o tile.o
-	gcc bin/main_Editeur.o bin/affichage_SDL_Editeur.o bin/objet_Editeur.o bin/scanf_SDL.o bin/terrain.o bin/tile.o $(SDL) -o bin/Editeur
-
-main_Editeur.o: src/affichage_SDL_Editeur.h src/main_Editeur.c
-	gcc -c $(OPT) $(SDL) -o bin/main_Editeur.o src/main_Editeur.c
-
-affichage_SDL_Editeur.o: src/terrain.h src/objet_Editeur.h src/scanf_SDL.h src/affichage_SDL_Editeur.c 
-	gcc -c $(OPT) $(SDL) -o bin/affichage_SDL_Editeur.o src/affichage_SDL_Editeur.c
-
-objet_Editeur.o: src/objet_Editeur.h src/objet_Editeur.c
-	gcc -c $(OPT) -o bin/objet_Editeur.o src/objet_Editeur.c
-
-main.o: src/menu.h src/main.c 
-	gcc -c $(OPT) -o bin/main.o src/main.c
-
-menu.o: src/menu.h src/scanf_SDL.h src/mission.h src/personnage.h src/menu.c
-	gcc -c $(OPT) -o bin/menu.o src/menu.c
-
-scanf_SDL.o: src/scanf_SDL.h src/scanf_SDL.c
-	gcc -c $(OPT) -o bin/scanf_SDL.o src/scanf_SDL.c
-
-mission.o: src/mission.h src/personnage.h src/mission.c
-	gcc -c $(OPT) -o bin/mission.o src/mission.c
-
-combat.o: src/personnage.h src/terrain.h src/deplacement.h src/combat.h src/combat.c
-	gcc -c $(OPT) -o bin/combat.o src/combat.c
-
-deplacement.o: src/deplacement.h src/deplacement.c
-	gcc -c $(OPT) -o bin/deplacement.o src/deplacement.c
-
-parole.o: src/affichage_sdl.h src/personnage.h src/parole.h src/parole.c
-	gcc -c $(OPT) -o bin/parole.o src/parole.c
-
-affichage_sdl.o: src/terrain.h src/tile.h src/affichage_sdl.c
-	gcc -c $(OPT) $(SDL) -o bin/affichage_sdl.o src/affichage_sdl.c
-
-terrain.o: src/tile.h src/terrain.h src/terrain.c
-	gcc -c $(OPT) $(SDL) -o bin/terrain.o src/terrain.c
-
-tile.o: src/tile.h src/tile.c
-	gcc -c $(OPT) -o bin/tile.o src/tile.c
-
-personnage.o: src/personnage.h src/inventaire.h src/equipement.h src/capacite.h src/personnage.c
-	gcc -c $(OPT) $(SDL) -o bin/personnage.o src/personnage.c
-
-capacite.o: src/capacite.h src/competence.h src/capacite.c
-	gcc -c $(OPT) -o bin/capacite.o src/capacite.c
-
-competence.o: src/competence.h src/competence.c
-	gcc -c $(OPT) -o bin/competence.o src/competence.c
-
-inventaire.o: src/inventaire.h src/stock.h src/inventaire.c
-	gcc -c $(OPT) -o bin/inventaire.o src/inventaire.c
-
-equipement.o: src/equipement.h src/objet.h src/equipement.c
-	gcc -c $(OPT) -o bin/equipement.o src/equipement.c
-
-stock.o: src/stock.h src/objet.h src/stock.c
-	gcc -c $(OPT) -o bin/stock.o src/stock.c
-
-objet.o: src/objet.h src/objet.c
-	gcc -c $(OPT) -o bin/objet.o src/objet.c
+%.o: src/%.c 
+	@$(CC) -c -o obj/$@ $(CFLAGS) $<
 
 clean:
-	rm -rf bin/*.o bin/Iniuriam bin/Editeur
-
-
-
+	@rm -rf obj/*.o bin/Iniuriam bin/Editeur

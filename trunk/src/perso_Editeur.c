@@ -176,7 +176,7 @@ void initialiserTousLesPNJ(Personnage** tabPNJ)
     int i;
     int max = getNbPNJ();
 
-    //*tabPNJ=(Personnage*)malloc(max*sizeof(Personnage));
+    /* *tabPNJ=(Personnage*)malloc(max*sizeof(Personnage));*/
         for(i=1;i<max-4;i++)
         {
             /*STILL TO BE DONE*/
