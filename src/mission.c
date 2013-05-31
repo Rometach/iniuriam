@@ -14,7 +14,7 @@ void missionInit (Mission* mission)
 }
 
 
-void missionDefinir (Mission* mission, const int l, const Objet* tabObjets)
+void missionDefinir (Mission* mission, const int l, Objet* tabObjets)
 {
     int i;
     char nomPerso[30];
@@ -42,7 +42,7 @@ void missionDefinir (Mission* mission, const int l, const Objet* tabObjets)
 
 
 
-void missionAccomplir (Mission* mission, const Objet* tabObjets)
+void missionAccomplir (Mission* mission, Objet* tabObjets)
 {
     if ((mission->suite)!=0)
     {

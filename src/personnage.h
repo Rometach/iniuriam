@@ -241,7 +241,7 @@ void getPersoInventaire(const Personnage *perso, Inventaire* inv);
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : retourne l'adresse de l'inventaire du perso
 */
-Inventaire* getPersoInventaire2(const Personnage *perso);
+Inventaire* getPersoInventaire2(Personnage *perso);
 
 /**
 * \brief Preconditions : perso et s sont initialisés
@@ -253,13 +253,13 @@ void getPersoCapacite(const Personnage *perso, Capacite* s);
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : retourne l'adresse de la Capacite de perso
 */
-Capacite* getPersoCapacite2(const Personnage *perso);
+Capacite* getPersoCapacite2(Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé
 * <br /> Postconditions : retourne l'adresse de l'Equipement de perso
 */
-Equipement* getPersoEquipement(const Personnage *perso);
+Equipement* getPersoEquipement(Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé
@@ -302,7 +302,7 @@ void persoUtiliseObjet (Personnage *perso, Objet *obj, Personnage* cible);
 * \brief Preconditions : perso1 est initialisé, mais pas perso2
 * <br /> Postconditions : le contenu de perso1 est copié dans perso2
 */
-void copiePerso (const Personnage* perso1, Personnage* perso2);
+void copiePerso (Personnage* perso1, Personnage* perso2);
 
 /**
 * \brief Preconditions : perso est initialisé, obj appartient à l'inventaire de perso, 0<=i<3
