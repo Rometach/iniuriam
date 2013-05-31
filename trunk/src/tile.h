@@ -4,9 +4,9 @@
 
 typedef struct
 {
-    unsigned int posX;
-    unsigned int posY;
-    char collision;
+    unsigned int posX;      /**Coordonnée en X*/
+    unsigned int posY;      /**Coordonnée en Y*/
+    char collision;         /**0 si la case est accseeible, 1 si elle ne l'est pas*/
 
 } Tile;
 

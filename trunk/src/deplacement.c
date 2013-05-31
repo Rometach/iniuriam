@@ -193,7 +193,7 @@ void reinitTunnel (int x, int y, char tab [TAILLE_MAX][TAILLE_MAX])
     else if (tab[x][y+1]==9)tab[x][y+1]=7;
 }
 
-char quatresChemins (char droite, char haut, char bas, char gauche)
+char quatreChemins (char droite, char haut, char bas, char gauche)
 {
     char i=0,j=0;
 
@@ -336,7 +336,7 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
             gauche=deplacementIA(x,y-j,z,t,tab);
             reinitTunnel(x,y,tab);
         }
-        switch (quatresChemins(droite,bas,haut,gauche))
+        switch (quatreChemins(droite,bas,haut,gauche))
         {
             case 1: tab[x][y]=2;
                     return 1+droite;
@@ -390,7 +390,7 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
             gauche=deplacementIA(x,y-1,z,t,tab);
             reinitTunnel(x,y,tab);
         }
-        switch (quatresChemins(bas,droite,haut,gauche))
+        switch (quatreChemins(bas,droite,haut,gauche))
         {
             case 1: tab[x][y]=2;
                     return 1+bas;
@@ -433,7 +433,7 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
             gauche=deplacementIA(x,y-j,z,t,tab);
             reinitTunnel(x,y,tab);
         }
-        switch (quatresChemins(bas,haut, gauche,0))
+        switch (quatreChemins(bas,haut, gauche,0))
         {
             case 1: tab[x][y]=2;
                     return 1+bas;

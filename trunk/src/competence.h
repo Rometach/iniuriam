@@ -14,14 +14,14 @@
 
 typedef struct
 {
-    char action [30];
-    char type;
-    int experience;
-    char bonusatt;
-    char bonusdef;
-    char bonusint;
-    char bonusagi;
-    char bonuschar;
+    char action [30];   /**Description de ce à quoi sert la Compétence*/
+    char type;          /**Correspond à la ligne où est décrite la Compétence dans Competence.txt*/
+    int experience;     /**L'expérience associée à cette Compétence, qui augmente à chaque fois qu'on l'utilise*/
+    char bonusatt;      /**Bonus d'attaque accordé par la Compétence*/
+    char bonusdef;      /**Bonus de défenseaccordé par la Compétence*/
+    char bonusint;      /**Bonus d'intelligence accordé par la Compétence*/
+    char bonusagi;      /**Bonus d'agilité accordé par la Compétence*/
+    char bonuschar;     /**Bonus de charisme accordé par la Compétence*/
 }Competence;
 
 

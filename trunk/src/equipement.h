@@ -12,13 +12,13 @@
 
 typedef struct
 {
-    Objet* tete;
-    Objet* torse;
-    Objet* bas;
-    Objet* mains;
-    Objet* pieds;
-    Objet* armeGauche;
-    Objet* armeDroite [3];
+    Objet* tete;            /**Adresse de l'armure équipée à la tête*/
+    Objet* torse;           /**Adresse de l'armure équipée au torse*/
+    Objet* bas;             /**Adresse de l'armure équipée aux jambes*/
+    Objet* mains;           /**Adresse de l'armure équipée aux mains*/
+    Objet* pieds;           /**Adresse de l'armure équipée aux pieds*/
+    Objet* armeGauche;      /**Adresse de l'arme équipée à la main gauche*/
+    Objet* armeDroite [3];  /**Tableau de 3 adresses d'armes équipées à la main droite*/
 
 } Equipement;
 

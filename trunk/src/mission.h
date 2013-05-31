@@ -10,22 +10,22 @@
 
 typedef struct
 {
-    char nom[50];
+    char nom[50];       /**Intitulé de la mission*/
 
-    char type;  /*1 : Parler à un personnage
-                  2 : Faire parler (obtenir des infos d') un personnage
-                  3 : Tuer un personnage
-                  4 : Obtenir un objet
-                  5 : Se rendre à un certain endroit
-                  6 :*/
+    char type;          /**1 : Parler à un personnage
+                          2 : Faire parler (obtenir des infos d') un personnage
+                          3 : Tuer un personnage
+                          4 : Obtenir un objet
+                          5 : Se rendre à un certain endroit
+                          6 :*/
 
-    int posXCible;
-    int posYCible;
-    char nomPerso[30];
-    Objet* objCible;
+    int posXCible;      /**Si on doit se rendre à un lieu, sa coordonnée en X*/
+    int posYCible;      /**Si on doit se rendre à un lieu, sa coordonnée en Y*/
+    char nomPerso[30];  /**Si la mission concerne un PNJ, son nom*/
+    Objet* objCible;    /**Si la mission concerne un objet, son adresse*/
 
-    int suite;     /*0 si la mission est la dernière d'une quête
-                    correspond sinon au numéro de ligne de la mission suivante dans Missions.txt*/
+    int suite;     /**0 si la mission est la dernière d'une quête
+                    correspond sinon au numéro de ligne de la mission suivante dans Missions.txt**/
 }Mission;
 
 

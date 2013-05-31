@@ -16,9 +16,9 @@
 
 typedef struct
 {
-    Personnage* perso1;     /*Le joueur*/
-    Personnage* perso2;     /*Le PNJ*/
-    char humeur;            /*entre 0 et 100*/
+    Personnage* perso1;     /**Le joueur*/
+    Personnage* perso2;     /**Le PNJ*/
+    char humeur;            /**Varie entre 0 et 100*/
 } Dialogue;
 
 /**
