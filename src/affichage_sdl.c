@@ -1202,7 +1202,6 @@ void eventCombatSDL(Personnage* hero, Personnage* ennemi, Terrain* ter, SDL_Surf
                 printf("Fin du tour IA \n");
                 nb=testNbCombattant(groupe,nb,arene);
                 afficherTab2D(arene);
-                printf("Sortie du tour IA \n");
                 /*getchar();*/
             }
             affCombat(ter, groupe,4, arene, ecran);
@@ -1220,6 +1219,7 @@ void eventTourJoueurSDL(Combattant* groupe, int i, int nbCombattant, char arene 
     int j;
     SDL_Event event;
     Objet* armeChoisie=NULL;
+    armeChoisie=getEquiMainDroite(&groupe[i].perso->equipement,1);
     int nbDeplacement = 5;
 
      while (continuer)
@@ -1246,22 +1246,26 @@ void eventTourJoueurSDL(Combattant* groupe, int i, int nbCombattant, char arene 
                             {
                                 nbDeplacement = deplaceCombHaut( groupe, nbDeplacement, arene);
                             }
-                            else if(event.key.keysym.sym==SDLK_a)
+                            else if(event.key.keysym.sym==SDLK_a)  /** choisir son arme */
                             {
                                 choix=eventArmesEquiSDL(&groupe[i], choix, ecran);
                                 armeChoisie = getEquiMainDroite(&groupe[i].perso->equipement, choix);
                             }
-                            else if(event.key.keysym.sym==SDLK_c)
+                            else if(event.key.keysym.sym==SDLK_c)   /** attaquer */
                             {
                                 for(j=0; j<nbCombattant; j++)
                                 {
                                     if(groupe[i].camp != groupe[j].camp)
                                     {
                                         printf("%s! \n", groupe[j].perso->nom);
-                                        if(estAPortee (arene ,&groupe[i], &groupe[j], armeChoisie->portee))
+                                        if(estAPortee(arene ,&groupe[i], &groupe[j], armeChoisie->portee))
                                         {
                                             printf("Attaque! \n");
                                             eventAttaqueSDL(&groupe[i], &groupe[j], armeChoisie, arene, ecran);
+                                            continuer=0;
+                                        }
+                                        else if (nbDeplacement==0 && estAPortee(arene ,&groupe[i], &groupe[j], armeChoisie->portee)==0)
+                                        {
                                             continuer=0;
                                         }
                                     }
@@ -1276,7 +1280,7 @@ void eventTourJoueurSDL(Combattant* groupe, int i, int nbCombattant, char arene 
                 }
 }
 
-void eventJeuSDL(Personnage* hero, Personnage* pnjs, Personnage* ennemis, Mission* mission, Terrain* ter, Dialogue* dialogue, SDL_Surface* ecran)
+void eventJeuSDL(Personnage* hero, Personnage* pnjs, Personnage* ennemis, Mission* mission, Objet* tabObjets, Terrain* ter, Dialogue* dialogue, SDL_Surface* ecran)
 {
     int continuer = 1;
     SDL_Event event;
@@ -1286,6 +1290,7 @@ void eventJeuSDL(Personnage* hero, Personnage* pnjs, Personnage* ennemis, Missio
     affPerso(hero, pnjs, ennemis, ecran);
     while (continuer)
     {
+        int continuerMission = 1;
         SDL_WaitEvent(&event);
         switch(event.type)
         {
@@ -1318,27 +1323,26 @@ void eventJeuSDL(Personnage* hero, Personnage* pnjs, Personnage* ennemis, Missio
                             if(testMissionParlerA(mission, pnjs))
                             {   parlerQuete(dialogue, reponse);
                                 affDialogue( reponse, ecran);
-                                while (continuer)
+                                missionAccomplir (mission,tabObjets);
+                                while (continuerMission)
                                 {
                                     SDL_WaitEvent(&event);
                                     switch(event.type)
                                     {case SDL_KEYDOWN:
                                         { if(event.key.state==SDL_PRESSED)
                                             {if(event.key.keysym.sym==SDLK_e)
-                                                {continuer=0;
+                                                {continuerMission=0;
                                                 }}}}
                                 }
                             }
-                            eventDialogueSDL(dialogue, hero, pnjs, ennemis, reponse, ter, ecran);
-                        }
+                            eventDialogueSDL(dialogue, hero, pnjs, ennemis, reponse, mission, tabObjets, ter, ecran);
+                    }
                         if( ((hero->posX+TILE_LARGEUR)==ennemis->posX && hero->posY==ennemis->posY)
                            || ((hero->posX-TILE_LARGEUR)==ennemis->posX && hero->posY==ennemis->posY)
                            || ((hero->posY+TILE_HAUTEUR)==ennemis->posY && hero->posX==ennemis->posX)
                            || ((hero->posY-TILE_HAUTEUR)==ennemis->posY && hero->posX==ennemis->posX))
                         {
-                            printf("Plop \n");
                             eventCombatSDL(hero, ennemis, ter, ecran);
-                            printf("Plop? \n");
                         }
                     }
                     else if(event.key.keysym.sym==SDLK_i) /** Touche d'inventaire*/
@@ -1711,7 +1715,7 @@ void eventSoudoyerSDL( Dialogue* dialogue, char* rep, SDL_Surface* ecran)
 
 }
 
-void eventDialogueSDL( Dialogue* dialogue, const Personnage* hero, const Personnage* pnjs, const Personnage* ennemis, char reponse[400], Terrain* ter, SDL_Surface*ecran)
+void eventDialogueSDL( Dialogue* dialogue, const Personnage* hero, const Personnage* pnjs, const Personnage* ennemis, char reponse[400], Mission* mission, Objet* tabObjets, Terrain* ter, SDL_Surface*ecran)
 {   int continuer = 1;
     SDL_Event event;
     int curseur = 0;
@@ -1749,7 +1753,7 @@ void eventDialogueSDL( Dialogue* dialogue, const Personnage* hero, const Personn
                     {
                         switch(curseur)
                         {
-                            case 0: obtenirInfo(dialogue, reponse);
+                            case 0: obtenirInfo(dialogue, reponse, mission, tabObjets);
                                     affDialogue( reponse, ecran);
                                     while (continuer)
                                     {
