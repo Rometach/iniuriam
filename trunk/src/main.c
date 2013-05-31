@@ -17,7 +17,10 @@
 
 int main (int argc, char **argv)
 {
-Dialogue dialogue;
+    mainMission();
+    return 0;
+
+    Dialogue dialogue;
 
     Terrain terrain;
     SDL_Surface* ecran = NULL;
