@@ -130,8 +130,8 @@ void nouveauPerso (Personnage *perso, const char nom[], const char race, const c
     }
     else printf ("Impossible d'ouvrir le fichier Carrieres.txt\n");
 
-    perso->posX=0;
-    perso->posY=0;
+    perso->posX=1*TILE_LARGEUR;
+    perso->posY=1*TILE_HAUTEUR;
 
     /*Initialiser SDL_Surface*/
 }

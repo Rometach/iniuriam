@@ -18,18 +18,6 @@
 
 /**
 * \brief Preconditions : ter et ecran initalisé et remplis
-* <br /> Postconditions : affiche le chipset
-*/
-void affChipset(Terrain* ter, SDL_Surface* ecran);
-
-/**
-* \brief Preconditions : ter et ecran initalisé et remplis
-* <br /> Postconditions : affiche l'editeur de carte
-*/
-void affEditeur(Terrain* ter, SDL_Surface* ecran);
-
-/**
-* \brief Preconditions : ter et ecran initalisé et remplis
 * <br /> Postconditions : affiche la carte
 */
 void affCarte(const Terrain* ter, SDL_Surface* ecran);
@@ -107,12 +95,6 @@ void eventProfilSDL(Personnage* hero, SDL_Surface* ecran);
 void eventJournalSDL(Personnage* hero, Mission* mission, SDL_Surface* ecran);
 
 /**
-* \brief Preconditions : ter et ecran initalisé et remplis
-* <br /> Postconditions : gère les évenements de l'éditeur de carte
-*/
-void eventEditeurSDL(Terrain* ter, SDL_Surface* ecran);
-
-/**
 * \brief Preconditions : hero, pnj, ter et ecran initalisé et remplis
 * <br /> Postconditions : gère les évenements en jeu
 */
@@ -147,13 +129,5 @@ int eventCombatSDL(Personnage* hero, Personnage* ennemi, Terrain* ter, SDL_Surfa
 * <br /> Postconditions : gère les évenements lors du tour de combat du joueur
 */
 void eventTourJoueurSDL(Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L], Terrain* ter, SDL_Surface* ecran);
-
-void eventTourIASDL(Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L]);
-
-/**
-* \brief Preconditions :
-* <br /> Postconditions : permet d'éditer, de sauver et de charger des cartes
-*/
-void editerCarte ();
 
 #endif

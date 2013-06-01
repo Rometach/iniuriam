@@ -268,7 +268,6 @@ void afficherPortee (char arene[TAILLE_MAX_H][TAILLE_MAX_L],Combattant* perso, i
 
 void effacerPortee (char arene[TAILLE_MAX_H][TAILLE_MAX_L],Combattant* perso, int portee);
 
-
 /**
 * \brief Preconditions : combattant, nbDeplacement, arene initialisé
 * <br /> Postconditions : teste si la case est accesible et si on a encore des déplacements, puis déplacement le personnage d'une case vers la droite
@@ -292,10 +291,6 @@ int deplaceCombBas( Combattant* combattant, int nbDeplacement, char arene[TAILLE
 * <br /> Postconditions : teste si la case est accesible et si on a encore des déplacements, puis déplacement le personnage d'une case vers le haut
 */
 int deplaceCombHaut( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX_H][TAILLE_MAX_L]);
-
-int seRapprocherC(Combattant* combattant, int nb, char arene[TAILLE_MAX_H][TAILLE_MAX_L]);
-
-int sEloignerC(Combattant* combattant, int nb, char arene[TAILLE_MAX_H][TAILLE_MAX_L]);
 
 
 int mainCombat();

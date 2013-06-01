@@ -528,110 +528,6 @@ void preparerParade (Combattant* attaquant)
     attaquant->derniereAction=6;
 }
 
-int seRapprocherC(Combattant* combattant, int nb, char arene[TAILLE_MAX_H][TAILLE_MAX_L])
-{
-    int i=nb,j=0;
-    afficherTab2D(combattant->arene);
-    while (i>0)
-    {
-        j=chercher2(combattant->arene,combattant->posY,combattant->posX,j);
-        arene[combattant->posY][combattant->posX]=1;
-        switch (j)
-        {
-            case 1:
-                combattant->posX--;
-            break;
-            case 2:
-                combattant->posY--;
-            break;
-            case 3:
-                 combattant->posY++;
-            break;
-            case 4:
-                 combattant->posX++;
-            break;
-            default:
-                combattant->arene[combattant->posY][combattant->posX]=4;
-                return 0;
-            break;
-        }
-        i--;
-    }
-    arene[combattant->posY][combattant->posX]=4;
-    combattant->orientation=chercher2(combattant->arene,combattant->posY,combattant->posX,j); /*Oriente l'IA vers la case suivante*/
-    return 1;
-}
-
-int sEloignerC(Combattant* combattant, int nb, char arene[TAILLE_MAX_H][TAILLE_MAX_L])
-{
-    int i=nb,j=0,x=combattant->posY,y=combattant->posX;
-    while (i>0)
-    {   arene[combattant->posY][combattant->posX]=1;
-        switch (chercher2(combattant->arene,x,y,j))
-        {
-            case 1:
-                if (deplacerCaseLigne(y+1,combattant->arene[x]))
-                {
-                    j=4;
-                    arene[combattant->posY][combattant->posX]=2;
-                    combattant->posX++;
-                }
-                else
-                {
-                    arene[combattant->posY][combattant->posX]=4;
-                    return 0;
-                }
-            break;
-            case 2:
-                if (deplacerCaseLigne(y, combattant->arene[x+1]))
-                {
-                    j=3;
-                    arene[combattant->posY][combattant->posX]=2;
-                    combattant->posY++;
-                }
-                else
-                {
-                    arene[combattant->posY][combattant->posX]=4;
-                    return 0;
-                }
-            break;
-            case 3:
-                if (deplacerCaseLigne(y, combattant->arene[x-1]))
-                {
-                    j=2;
-                    arene[combattant->posY][combattant->posX]=2;
-                    combattant->posY--;
-                }
-                else
-                {
-                    arene[combattant->posY][combattant->posX]=4;
-                    return 0;
-                }
-            break;
-            case 4:
-                if (deplacerCaseLigne(y-1, combattant->arene[x]))
-                {
-                    j=1;
-                    arene[combattant->posY][combattant->posX]=2;
-                    combattant->posX--;
-                }
-                else
-                {
-                     arene[combattant->posY][combattant->posX]=4;
-                    return 0;
-                }
-            break;
-            default:
-                 combattant->arene[x][y]=4;
-                return 0;
-            break;
-        }arene[combattant->posY][combattant->posX]=4;
-        // combattant->arene[x][y]=2;
-        i--;
-    }
-    return 1;
-}
-
 void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L])
 {
     int i, cible=j, arme=0, coord, rayon;
@@ -683,7 +579,9 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_
             portee=getObjetPortee(getEquiMainDroite(getPersoEquipement(groupe[j].perso),arme-1));
             while (portee<rayon&&tampon) /*L'IA doit se rapprocher pour être juste à portée de la cible*/
             {
-                coord=seRapprocherC(&groupe[j],1, arene); /* changement avec code principale */
+                arene[groupe[j].posY][groupe[j].posX]=1;
+                coord=seRapprocher(groupe[j].arene, &groupe[j].posY, &groupe[j].posX, 1, &groupe[j].orientation); /* changement avec code principale */
+                arene[groupe[j].posY][groupe[j].posX]=4;
                 if(coord)
                 {
                     deplacementsRestants--;
@@ -697,7 +595,9 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_
             }
             if (portee-5>rayon) /*L'IA doit s'écarter pour être à la portée de la cible si possible*/
             {
-                coord=sEloignerC(&groupe[j], min(NB_DEPLACEMENTS,portee-5-rayon), arene);
+                arene[groupe[j].posY][groupe[j].posX]=1;
+                coord=sEloigner(groupe[j].arene, &groupe[j].posY, &groupe[j].posX, min(NB_DEPLACEMENTS,portee-5-rayon), &groupe[j].orientation);
+                arene[groupe[j].posY][groupe[j].posX]=4;
                 if (coord)
                 {
                     deplacementsRestants-=min(NB_DEPLACEMENTS,portee-5-rayon);
@@ -723,7 +623,9 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_
                     tampon=1;
                     while (portee<rayon&&tampon) /*L'IA doit se rapprocher pour être à portée de la cible avec sa nouvelle arme*/
                    {
-                        coord=seRapprocherC(&groupe[j],1, arene);
+                       	arene[groupe[j].posY][groupe[j].posX]=1;
+                        coord=seRapprocher(groupe[j].arene, &groupe[j].posY, &groupe[j].posX,1, &groupe[j].orientation);
+                        arene[groupe[j].posY][groupe[j].posX]=4;
                         if (coord)
                         {
                             deplacementsRestants--;
@@ -759,12 +661,10 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_
         {
             /*L'IA est trop loin de la cible pour pouvoir l'attaquer
               elle se rapproche donc pour attaquer la cible qu'elle a vue*/
-            coord=seRapprocherC(&groupe[j],NB_DEPLACEMENTS, arene);
-
-            if (coord)
-            {
-            }
-            else printf("Impossible de se rapprocher \n");
+            arene[groupe[j].posY][groupe[j].posX]=1;
+            coord=seRapprocher(groupe[j].arene, &groupe[j].posY, &groupe[j].posX,NB_DEPLACEMENTS, &groupe[j].orientation);
+            arene[groupe[j].posY][groupe[j].posX]=4;
+            if (!coord)  printf("Impossible de se rapprocher \n");
         }
     }
    /* else

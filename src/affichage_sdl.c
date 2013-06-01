@@ -5,70 +5,6 @@
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
 
-void affChipset(Terrain* ter, SDL_Surface* ecran)
-{
-    SDL_Rect position;
-    SDL_Rect tile;
-    unsigned int i;
-    position.x = 0;
-    position.y = 0;
-
-    for(i=ter->defilY;i<getNbrTile(ter); i++)
-       {
-            tile.w=TILE_LARGEUR;
-            tile.h=TILE_HAUTEUR;
-
-            tile.x=getPosX(ter->tabChipset[i]);
-            tile.y=getPosY(ter->tabChipset[i]);
-
-            SDL_BlitSurface(ter->chipset, &tile, ecran, &position);
-
-            position.w=4;
-            position.h=4;
-            SDL_FillRect(SDL_GetVideoSurface(),&position,
-                         ((getCollision(ter->tabChipset[i]))==0)?
-                         SDL_MapRGB(SDL_GetVideoSurface()->format,255,0,0)
-                         : SDL_MapRGB(SDL_GetVideoSurface()->format,0,255,0));
-
-            position.x+= TILE_LARGEUR;
-
-            if(position.x>=ter->decalageX*TILE_LARGEUR)
-            {
-                position.y+= TILE_HAUTEUR;
-                position.x=0;
-           }
-        }
-            SDL_Flip(ecran);
-}
-
-void affEditeur(Terrain* ter, SDL_Surface* ecran)
-{
-    SDL_Rect position;
-    SDL_Rect tile;
-    unsigned int i;
-
-    affChipset(ter, ecran);
-    position.x = (ter->decalageX+1)*TILE_LARGEUR;
-    position.y = 0;
-    tile.w=TILE_LARGEUR;
-    tile.h=TILE_HAUTEUR;
-
-     for(i=0; i<CARTE_LARGEUR*CARTE_HAUTEUR; i++)
-     {
-            tile.x=getPosX(ter->tabChipset[ter->carte[i]]);
-            tile.y=getPosY(ter->tabChipset[ter->carte[i]]);
-            SDL_BlitSurface(ter->chipset, &tile, ecran, &position);
-
-            position.x+= TILE_LARGEUR;
-            if(position.x>(CARTE_LARGEUR+ter->decalageX)*TILE_LARGEUR)
-            {
-                position.y+= TILE_HAUTEUR;
-                position.x=(ter->decalageX+1)*TILE_LARGEUR;
-            }
-    }
-    SDL_Flip(ecran);
-}
-
 void affCarte(const Terrain* ter, SDL_Surface* ecran)
 {
     SDL_Rect position;
@@ -169,7 +105,6 @@ void affCombat(Terrain* ter, Combattant* groupe, int l, char arene[TAILLE_MAX_H]
     sprintf(texte, "Vie: %d", groupe[3].perso->ptDeVie );
     texteCadre = TTF_RenderText_Solid(police, texte, color);
     SDL_BlitSurface(texteCadre, NULL, ecran, &position);
-
 
     SDL_Flip(ecran);
 }
@@ -278,52 +213,14 @@ void affProfil(Personnage* perso, SDL_Surface* ecran)
     SDL_BlitSurface(quantite, NULL, ecran,&position);
 
     position.y+= 25;
-    switch(perso->race)
-    {
-        case 1:
-        quantite = TTF_RenderText_Solid(police,  "Race: humain", colorNoir);
-        SDL_BlitSurface(quantite, NULL, ecran,&position);
-        break;
-
-        case 2:
-        quantite = TTF_RenderText_Solid(police,  "Race: cyborg", colorNoir);
-        SDL_BlitSurface(quantite, NULL, ecran,&position);
-        break;
-
-        case 3:
-        quantite = TTF_RenderText_Solid(police,  "Race: sicaris", colorNoir);
-        SDL_BlitSurface(quantite, NULL, ecran,&position);
-        break;
-
-        case 4:
-        quantite = TTF_RenderText_Solid(police,  "Race: medarsin", colorNoir);
-        SDL_BlitSurface(quantite, NULL, ecran,&position);
-        break;
-
-        default:
-        quantite = TTF_RenderText_Solid(police,  "Race: inconnu", colorNoir);
-        SDL_BlitSurface(quantite, NULL, ecran,&position);
-        break;
-    }
+    getRaceNom(info, getPersoRace(perso));
+    quantite = TTF_RenderText_Solid(police, info, colorNoir);
+    SDL_BlitSurface(quantite, NULL, ecran,&position);
 
     position.y+= 25;
-    switch(perso->sexe)
-    {
-        case 1:
-        quantite = TTF_RenderText_Solid(police,  "Sexe: homme", colorNoir);
-        SDL_BlitSurface(quantite, NULL, ecran,&position);
-        break;
-
-        case 2:
-        quantite = TTF_RenderText_Solid(police,  "Sexe: femme", colorNoir);
-        SDL_BlitSurface(quantite, NULL, ecran,&position);
-        break;
-
-        default:
-        quantite = TTF_RenderText_Solid(police,  "Sexe: inconnu", colorNoir);
-        SDL_BlitSurface(quantite, NULL, ecran,&position);
-        break;
-    }
+    getSexeNom(info, getPersoSexe(perso));
+    quantite = TTF_RenderText_Solid(police, info, colorNoir);
+    SDL_BlitSurface(quantite, NULL, ecran,&position);
 
     position.y+= 25;
     switch(perso->faction)
@@ -350,7 +247,7 @@ void affProfil(Personnage* perso, SDL_Surface* ecran)
     }
 
     position.y+= 25;
-    switch(perso->carriere)
+    switch(getPersoCarriere(perso))
     {
         case 1:
         quantite = TTF_RenderText_Solid(police,  "Carriere: Plombier", colorNoir);
@@ -1088,77 +985,6 @@ int eventArmesEquiSDL(Combattant* combattant,int choix, SDL_Surface* ecran)
     return choix;
 }
 
-void eventEditeurSDL(Terrain* ter, SDL_Surface* ecran )
-{
-    int i;
-    int continuer = 1;
-    SDL_Event event;
-
-    affEditeur(ter, ecran);
-
-    while (continuer)
-    {
-        SDL_WaitEvent(&event);
-        switch(event.type)
-        {
-            case SDL_KEYDOWN:
-            { if(event.key.state==SDL_PRESSED)
-                {
-                 if(event.key.keysym.sym==SDLK_PAGEUP)  /** Défilement du chipset vers le haut */
-                    {
-                       if(ter->defilY>0){ ter->defilY-=ter->decalageX;}
-                    }
-                    else if(event.key.keysym.sym==SDLK_PAGEDOWN)    /** Défilement du chipset vers le bas */
-                    {
-                        if(ter->defilY<ter->nbrTileChipset-TAILLE_FENETRE_H/TILE_HAUTEUR){ter->defilY+=ter->decalageX;}
-                    }
-                    else if(event.key.keysym.sym==SDLK_s) /** Sauvegarde de la carte */
-                    {
-                        terSauvegarde(ter, "data/Cartes/save.map", "data/Chipsets/desertChipset.bmp");
-                    }
-                    else if(event.key.keysym.sym==SDLK_l) /** Chargement de la carte */
-                    {   terLibere(ter);
-                        terInit(ter);
-                        terCharger(ter, "data/Cartes/save.map");
-                    }
-                }
-            }
-            break;
-
-            case SDL_MOUSEBUTTONDOWN:
-             if(event.button.button==SDL_BUTTON_LEFT)
-            {
-                if(event.button.x<ter->decalageX*TILE_LARGEUR)
-                {   ter->tileSel=((event.button.y/TILE_HAUTEUR)*(ter->decalageX)+event.button.x/TILE_LARGEUR+ter->defilY)%ter->nbrTileChipset;
-                    if(ter->tileSel>=ter->nbrTileChipset) ter->tileSel=ter->nbrTileChipset-1;
-                }
-                else if(event.button.x>ter->decalageX*TILE_LARGEUR)
-                {
-                   i=((event.button.y/TILE_HAUTEUR)*CARTE_LARGEUR+event.button.x/TILE_LARGEUR-ter->decalageX-1);
-
-                    if(i>=CARTE_LARGEUR*CARTE_HAUTEUR) i=CARTE_LARGEUR*CARTE_HAUTEUR-1;
-                    setCarte(ter, i, ter->tileSel);
-                }
-            }
-
-            else if(event.button.button==SDL_BUTTON_RIGHT)
-            {
-                if(event.button.x<ter->decalageX*TILE_LARGEUR)
-                {
-                    i=(event.button.y/TILE_HAUTEUR)*(ter->decalageX)+event.button.x/TILE_LARGEUR+ter->defilY;
-                   setCollision(&ter->tabChipset[i], (ter->tabChipset[i].collision+1)%2);
-                }
-            }
-            break;
-
-            case SDL_QUIT:
-                continuer = 0;
-            break;
-        }
-        affEditeur(ter, ecran);
-    }
-}
-
 int eventCombatSDL(Personnage* hero, Personnage* ennemi, Terrain* ter, SDL_Surface* ecran)
 {
     Personnage* liste;
@@ -1174,8 +1000,8 @@ int eventCombatSDL(Personnage* hero, Personnage* ennemi, Terrain* ter, SDL_Surfa
 
     liste[0]=*hero;
     liste[1]=*ennemi;
-    nouveauPerso (&liste[3], "MechantII", 2, 1, 2, 1, 0, 100, tabObjets);
-    nouveauPerso (&liste[2], "Allie", 1, 1, 1, 1, 0, 100, tabObjets);
+    nouveauPerso (&liste[3], "MechantII", 1, 1, 1, 1, 0, 100, tabObjets);
+    nouveauPerso (&liste[2], "Allie", 2, 1, 2, 1, 0, 100, tabObjets);
 
     areneInit(ter, arene);
     int i, nb=4;
@@ -1202,7 +1028,8 @@ int eventCombatSDL(Personnage* hero, Personnage* ennemi, Terrain* ter, SDL_Surfa
             else
             {
                 printf("Debut du tour IA \n");
-                eventTourIASDL(groupe,i,nb,arene);
+                tourIA(groupe,i,nb,arene);
+                afficherTab2D(arene);
                 printf("Fin du tour IA \n");
                 nb=testNbCombattant(groupe,nb,arene);
                 /*getchar();*/
@@ -1332,143 +1159,6 @@ void eventTourJoueurSDL(Combattant* groupe, int i, int nbCombattant, char arene 
                         break;
                     }
                 }
-}
-
-void eventTourIASDL(Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L])
-{
-    int i, cible=j, arme=0, coord, rayon;
-    char distance=100, degats=0, tampon, arene2[TAILLE_MAX_H][TAILLE_MAX_L], deplacementsRestants=NB_DEPLACEMENTS, portee;
-    for (i=0;i<l;i++)
-    {
-        /*Cherche les ennemis dans le champ de vision de l'IA*/
-        if ((i!=j)&&(groupe[j].camp!=groupe[i].camp)/*&&(estDansChampDeVision(arene,groupe[j].posX,groupe[j].posY,groupe[i].posX,groupe[i].posY,groupe[j].orientation)!=0)*/)
-        {
-            copieTab2D(arene,arene2);
-            tampon=chemin(groupe[j].posY,groupe[j].posX,groupe[i].posY,groupe[i].posX,arene2);
-            /*Cherche un chemin menant à la cible*/
-            if (tampon!=0)
-            {
-                if (tampon<=distance)/*Compare les distances qui séparent l'IA des ennemis pour attaquer le plus proche*/
-                {
-                    copieTab2D (arene2,groupe[j].arene);
-                    distance=tampon;
-                    /*Correspond à la distance en case à parcourir pour atteindre la cible*/
-                    cible=i;
-                    rayon=(int)(sqrt(pow(groupe[j].posX-groupe[i].posX,2)+pow(groupe[j].posY-groupe[i].posY,2)));
-                    /*Correspond à la distance exacte entre l'IA et la cible*/
-                }
-            }
-        }
-    }
-    if (cible!=j) /*Si l'IA a une cible*/
-    {
-        for (i=0;i<3;i++)
-        {
-            if (getEquiMainDroite(getPersoEquipement(groupe[j].perso),i)!=NULL)
-            {
-                portee=getObjetPortee(getEquiMainDroite(getPersoEquipement(groupe[j].perso),i));
-                if ((rayon>=portee-NB_DEPLACEMENTS-5)&&(rayon<=portee+NB_DEPLACEMENTS))
-                {
-                    tampon=getObjetDegats(getEquiMainDroite(getPersoEquipement(groupe[j].perso),i));
-                    /*Cherche l'arme équipée infligeant le plus de dégats et dont la portée est suffisante pour toucher la cible*/
-                    if (tampon>degats)
-                    {
-                        arme=i+1;
-                        degats=tampon;
-                    }
-                }
-            }
-        }
-        if (arme!=0) /*Si l'IA est à portée de la cible en comptant ses déplacements*/
-        {
-            tampon=1;
-            portee=getObjetPortee(getEquiMainDroite(getPersoEquipement(groupe[j].perso),arme-1));
-            while (portee<rayon&&tampon) /*L'IA doit se rapprocher pour être juste à portée de la cible*/
-            {
-                coord=seRapprocherC(&groupe[j],1, arene);
-                if(coord)
-                {
-                    arene[groupe[j].posY][groupe[j].posX]=1;
-                    arene[groupe[j].posY][groupe[j].posX]=4;
-                    deplacementsRestants--;
-                    rayon=(int)(sqrt(pow(groupe[j].posX-groupe[cible].posX,2)+pow(groupe[j].posY-groupe[cible].posY,2)));
-                }
-                else
-                {
-                    printf("Impossible de se rapprocher plus\n");
-                    tampon=0;
-                }
-            }
-           /* if (portee-5>rayon)*/ /*L'IA doit s'écarter pour être à la portée de la cible si possible*/
-          /*  {
-                coord=sEloignerC(&groupe[j], min(NB_DEPLACEMENTS,portee-5-rayon), arene);
-                if (coord)
-                {
-                    arene[groupe[j].posY][groupe[j].posX]=1;
-                    arene[groupe[j].posY][groupe[j].posX]=4;
-                    deplacementsRestants-=min(NB_DEPLACEMENTS,portee-5-rayon);
-                    rayon+=5;
-                }
-                else
-                {*/
-                    /*L'IA est trop proche de sa cible pour se servir de sa meilleure arme et elle ne peut pas s'écarter.
-                      Elle cherche dans son équipement l'arme ayant la plus petite portée.
-                      Par défaut toutes les IA sont équipées au moins d'une arme de corps à corps (portee=1)*/
-                    /*for (i=0;i<3;i++)
-                    {
-                        if (getEquiMainDroite(getPersoEquipement(groupe[j].perso),i)!=NULL)
-                        {
-                            tampon=getObjetPortee(getEquiMainDroite(getPersoEquipement(groupe[j].perso),i));
-                            if (tampon<portee)
-                            {
-                                portee=tampon;
-                                degats=getObjetDegats(getEquiMainDroite(getPersoEquipement(groupe[j].perso),i));
-                            }
-                        }
-                    }
-                    tampon=1;
-                    while (portee<rayon&&tampon)*/ /*L'IA doit se rapprocher pour être à portée de la cible avec sa nouvelle arme*/
-                 /*  {
-                        coord=seRapprocherC(&groupe[j],1, arene);
-                        if (coord)
-                        {
-                            arene[groupe[j].posY][groupe[j].posX]=1;
-                            arene[groupe[j].posY][groupe[j].posX]=4;
-                            deplacementsRestants--;
-                            rayon=(int)(sqrt(pow(groupe[j].posX-groupe[cible].posX,2)+pow(groupe[j].posY-groupe[cible].posY,2)));
-                        }
-                        else
-                        {
-                            printf("Impossible de se rapprocher plus\n");
-                            tampon=0;
-                        }
-                    }
-                }*/
-            }
-            if (rayon<=portee) /*L'IA est à portée de la cible*/
-            {
-                        if (rayon>1)
-                        {
-                            attaquer(&groupe[j], &groupe[cible],degats,0,0,0,0,14,0);
-                            /*L'IA attaque le joueur à distance*/
-                        }
-                        else
-                        {
-                            attaquer(&groupe[j], &groupe[cible],degats,0,0,0,0,15,1);
-                            /*L'IA attaque le joueur au corps à corps*/
-                        }
-
-                        if (getPersoPtDeVie(groupe[cible].perso)<=0) copieTab2D(arene,groupe[j].arene);
-                        /*Réinitialise l'arene de l'IA lorsque sa cible meure*/
-            }
-//        }
-        else
-        {     /*L'IA est trop loin de la cible pour pouvoir l'attaquer
-              elle se rapproche donc pour attaquer la cible qu'elle a vue*/
-            coord=seRapprocherC(&groupe[j],NB_DEPLACEMENTS,arene);
-            if(coord==0) printf("Impossible de se rapprocher \n");
-        }
-    }
 }
 
 void eventJeuSDL(Personnage* hero, Personnage* pnjs, Personnage* ennemis, Mission* mission, Objet* tabObjets, Terrain* ter, Dialogue* dialogue, SDL_Surface* ecran)
@@ -2028,23 +1718,4 @@ void eventDialogueSDL( Dialogue* dialogue, const Personnage* hero, const Personn
             break;
         }
     }
-}
-
-void editerCarte ()
-{
-    Terrain terrain;
-    SDL_Surface* ecran = NULL;
-    SDL_Init(SDL_INIT_VIDEO);
-
-    terInit(&terrain);
-    terRemplirStruct(&terrain);
-
-    ecran = SDL_SetVideoMode(TAILLE_FENETRE_L+32*terrain.decalageX, TAILLE_FENETRE_H, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
-    SDL_WM_SetCaption("Iniuriam", NULL);
-
-
-    eventEditeurSDL(&terrain, ecran);
-
-    terLibere(&terrain);
-    SDL_Quit();
 }
