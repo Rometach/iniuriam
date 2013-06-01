@@ -361,7 +361,7 @@ char eventMenu()
     return action;
 }
 
-int afficherPage (SDL_Surface *ecran,TTF_Font *police, char texte_SDL[10][150],int nb,int choix,int position)
+int afficherPage (SDL_Surface *ecran,TTF_Font *police, char texte_SDL[10][150],int nb,int choix,int position,int* haut,int* bas,int* page)
 {
     int i,j,decalage=0,taille,valeur;
     char chaine1[50],chaine2[50];
@@ -371,21 +371,27 @@ int afficherPage (SDL_Surface *ecran,TTF_Font *police, char texte_SDL[10][150],i
 
     assert(position);
 
-    for (i=0;i<nb;i++)/*Page visible*/
+    if (nb>5)*page=max(*haut,0);
+    else
+    {
+        *haut=0;
+        *page=0;
+    }
+    for (i=*page;i<min(nb,(*bas));i++)/*Page visible*/
     {
         if (i==choix) /*Affichage du cadre*/
         {
             cadre = SDL_CreateRGBSurface(SDL_HWSURFACE, 310, 60, 32, 0, 0, 0, 0);
             SDL_FillRect(cadre, NULL, SDL_MapRGB(ecran->format, 255, 0, 0));
             position_rect.x=TAILLE_FENETRE_L/position-155;
-            position_rect.y=TAILLE_FENETRE_H/3-5+(50+(100/nb))*i+50*(decalage);
+            position_rect.y=TAILLE_FENETRE_H/3-5+(50+(100/nb))*(i-*haut)+50*(decalage);
             SDL_BlitSurface(cadre, NULL, ecran, &position_rect);
             SDL_FreeSurface(cadre);
         }
 
         taille=0;
         position_rect.x=TAILLE_FENETRE_L/position-150;
-        position_rect.y=TAILLE_FENETRE_H/3+(50+(100/nb))*i+50*(decalage);
+        position_rect.y=TAILLE_FENETRE_H/3+(50+(100/nb))*(i-*haut)+50*(decalage);
         if (strlen(texte_SDL[i])>18)
         {
             strcpy(chaine1,texte_SDL[i]);
@@ -412,7 +418,7 @@ int afficherPage (SDL_Surface *ecran,TTF_Font *police, char texte_SDL[10][150],i
                     cadre = SDL_CreateRGBSurface(SDL_HWSURFACE, 310, 60, 32, 0, 0, 0, 0);
                     SDL_FillRect(cadre, NULL, SDL_MapRGB(ecran->format, 255, 0, 0));
                     position_rect.x=TAILLE_FENETRE_L/position-155;
-                    position_rect.y=TAILLE_FENETRE_H/3-5+(50+(100/nb))*i+50*(decalage+taille);
+                    position_rect.y=TAILLE_FENETRE_H/3-5+(50+(100/nb))*(i-*haut)+50*(decalage+taille);
                     SDL_BlitSurface(cadre, NULL, ecran, &position_rect);
                     SDL_FreeSurface(cadre);
                     position_rect.x+=5;
@@ -441,35 +447,41 @@ int afficherPage (SDL_Surface *ecran,TTF_Font *police, char texte_SDL[10][150],i
         rectangle= SDL_CreateRGBSurface(SDL_HWSURFACE, 300, 50, 32, 0, 0, 0, 0);
         SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
 
-        position_rect.y=TAILLE_FENETRE_H/3+(50+(100/nb))*i+50*(decalage);
+        position_rect.y=TAILLE_FENETRE_H/3+(50+(100/nb))*(i-*haut)+50*(decalage);
         SDL_BlitSurface(rectangle, NULL, ecran, &position_rect);
         SDL_FreeSurface(rectangle);
 
         position_rect.x+= 25;
-        position_rect.y=TAILLE_FENETRE_H/3+(50+(100/nb))*i+50*(decalage);
+        position_rect.y=TAILLE_FENETRE_H/3+(50+(100/nb))*(i-*haut)+50*(decalage);
         texte=TTF_RenderText_Shaded(police, texte_SDL[i], couleur_texte,couleur_rect);
         SDL_BlitSurface(texte, NULL, ecran, &position_rect);
         SDL_FreeSurface(texte);
+        if (*page+decalage<*haut+7)(*page)++;
     }
+    *bas=*page;
     return decalage;
 }
 
-char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu)
+char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu,char* sauvegarde)
 {
     char action=8,type=1,j;
-    int choix=0,nb,i,selection,decalage=2;
-    char texte_SDL [10][150],chaine1[50],tampon[150],caractere[2];
+    int choix=0,nb,i,selection,decalage=2, haut=0,bas=9,page,valeur;
     SDL_Surface *rectangle,*texte,*images,*fond;
     SDL_Rect position;
     SDL_Color couleur_texte= {255, 255, 255},couleur_rect= {10, 10, 10};
     Objet *tab=NULL;
+
+    nb=getNbCarriere();
+    char texte_SDL [nb][150],chaine1[50],tampon[150],caractere[2];
+
     initialiserTousLesObjets(&tab);
+    caractere[1]='\0';
 
     char nom[50]="",nom_perso[50]="",race=0,sexe=0,carriere=0;
     Personnage groupe [4];
     for (i=0;i<4;i++) persoInit(&groupe[i]);
 
-    while (action!=0&&action!=7)
+    while (action!=0&&action!=7&&action!=9)
     {
         SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 6, 29, 38));
 
@@ -498,9 +510,11 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu)
                 {
                     type=3;
                     choix=0;
+                    bas=6;
                 }
                 if (type>3&&type<6)
                 {
+                    bas=6;
                     type--;
                     choix=0;
                 }
@@ -517,10 +531,10 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu)
                 choix++;
             break;
             case 4:/*Touche Flèche gauche*/
-
+                choix--;
             break;
             case 5:/*Touche Flèche droite*/
-
+                choix++;
             break;
             case 6:/*Touche Entrée*/
                 switch(type)
@@ -536,16 +550,22 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu)
                         else if (choix==nb-2)/*Valider*/
                         {
                             getPersoNom(nom_perso,&groupe[0]);
-                            if (strlen(nom)&&strlen(nom_perso)) type=7;
+                            if (strlen(nom)&&strlen(nom_perso))
+                            {
+                                type=7;
+                                valeur=nb-3;
+                            }
                         }
                         else if (choix==nb-1)/*Return*/
                         {
                             action=7;
                             type=0;
+                            selection=4;
                         }
                         else/*Perso*/
                         {
                             type=3;
+                            bas=6;
                             selection=choix-1;
                             caractere[0]='0'+choix;
                         }
@@ -570,6 +590,7 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu)
                         {
                             choix=0;
                             type=3;
+                            bas=6;
                             strncpy(nom_perso,tampon,strlen(tampon));
                             nom_perso[strlen(tampon)]='\0';
                         }
@@ -590,13 +611,25 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu)
                             case 2:/*Modif Carriere*/
                                 type=6;
                                 choix=0;
+                                bas=8;
                             break;
                             case 3:/*Valider*/
                                 if (strlen(nom_perso)&&race&&sexe&&carriere)/*L'utilisateur a tout rempli*/
                                 {
-                                    nouveauPerso(&groupe[selection],nom_perso,race,sexe,0,carriere,0,100,tab);
-                                    choix=selection+1;
-                                    type=1;
+                                    j=1;
+                                    for (i=0;i<4;i++)
+                                    {
+                                        getPersoNom(tampon,&groupe[i]);
+                                        if (i!=selection&&strcmp(nom_perso,tampon)==0)j=0;
+                                    }
+                                    if(j)
+                                    {
+                                        persoLibere(&groupe[selection]);
+                                        nouveauPerso(&groupe[selection],nom_perso,race,sexe,0,carriere,0,100,tab);
+                                        choix=selection+1;
+                                        type=1;
+                                    }
+
                                 }
                             break;
                             case 4: /*Annuler*/
@@ -612,7 +645,11 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu)
                             race=choix+1;
                             type=5;
                         }
-                        else type=3;
+                        else
+                        {
+                            type=3;
+                            bas=6;
+                        }
                         choix=0;
                     break;
                     case 5:/*Choix Sexe*/
@@ -620,6 +657,7 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu)
                         {
                             sexe=choix+1;
                             type=3;
+                            bas=6;
                         }
                         else type=4;
                         choix=0;
@@ -627,7 +665,18 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu)
                     case 6:/*Choix Carriere*/
                         carriere=choix+1;
                         type=3;
+                        bas=6;
                         choix=0;
+                    break;
+                    case 7:/*Choix Faction*/
+                        action=9;
+                        type=0;
+                        for (i=0;i<valeur;i++)
+                        {
+                            setPersoFaction(&groupe[i],choix+1);
+                        }
+                        partieInit(jeu,nom,groupe,valeur,NULL,0,"Tutoriel");
+                        sauverPartie(sauvegarde,jeu);
                     break;
                     default:
                     break;
@@ -650,8 +699,9 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu)
                     if (strlen(nom_perso)) strcpy(texte_SDL[nb-2],nom_perso);
                     nb++;
                 }
-                while (strlen(nom_perso)&&nb<=8);
-                if (nb<8)strcpy(texte_SDL[nb-3],"Ajouter Joueur");
+                while (strlen(nom_perso)&&nb<=7);
+                if (nb==8)nb--;
+                else if (nb<8)strcpy(texte_SDL[nb-3],"Ajouter Joueur");
                 strcpy(texte_SDL[nb-2],"Valider");
                 strcpy(texte_SDL[nb-1],"Annuler");
             break;
@@ -660,6 +710,7 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu)
             break;
             case 3:/*Création perso*/
                 nb=5;
+                bas=nb+1;
                 decalage=2;
                 strcpy(chaine1,"Joueur ");
                 strcat(chaine1,caractere);
@@ -681,6 +732,7 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu)
             case 4:/*Choix de la race*/
                 strcpy(chaine1,"Race du joueur");
                 nb=5;
+                bas=nb+1;
                 decalage=4;
                 strcpy(texte_SDL[0],"Humains");
                 strcpy(texte_SDL[1],"Cyborgs");
@@ -703,6 +755,7 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu)
             case 5:/*Choix du sexe*/
                 strcpy(chaine1,"Sexe du joueur");
                 nb=3;
+                bas=nb+1;
                 decalage=4;
                 strcpy(texte_SDL[0],"Masculin");
                 strcpy(texte_SDL[1],"Feminin");
@@ -733,6 +786,14 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu)
                     getCarriereNom(i+1,texte_SDL[i]);
                 }
             break;
+            case 7:/*Choix de faction*/
+                strcpy(chaine1,"Faction");
+                nb=3;
+                bas=nb+1;
+                strcpy(texte_SDL[0],"Siste");
+                strcpy(texte_SDL[1],"Heredia");
+                strcpy(texte_SDL[2],"Annuler");
+                decalage=2;
             default:
             break;
         }
@@ -743,13 +804,36 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu)
         SDL_BlitSurface(texte, NULL, ecran, &position);
         SDL_FreeSurface(texte);
 
-        if (choix<0) choix=nb-1;/*aller à la dernière page et au dernier choix*/
-        else if (choix>nb-1) choix=0;/*aller à la première page et au premier choix*/
+        if (choix<0)/*aller à la dernière page et au dernier choix*/
+        {
+            choix=nb-1;
+            haut=nb-2;
+            bas=nb;
+        }
+        else if (choix>nb-1)/*aller à la première page et au premier choix*/
+        {
+            choix=0;
+            haut=0;
+            bas=8;
+        }
+        else if (choix>bas-1)/*avancer d'une page*/
+        {
+            valeur=(int)strlen(texte_SDL[haut])/19;
+            if ((int)strlen(texte_SDL[choix])/19>=valeur) haut+=(int)1+strlen(texte_SDL[choix])/19-valeur;
+            else haut++;
 
-        if (nb) afficherPage (ecran,police,texte_SDL,nb,choix,decalage);
+            if(valeur>(int)strlen(texte_SDL[choix])/19) bas+=1+valeur;
+            else bas+=(int)1+strlen(texte_SDL[choix])/19;
+        }
+        else if (choix<haut)/*reculer d'une page*/
+        {
+            haut--;
+            /*bas--;*/
+        }
+        if (nb) afficherPage (ecran,police,texte_SDL,nb,choix,decalage,&haut,&bas,&page);
 
         SDL_Flip(ecran);
-        if (action&&action!=7&&nb) action=eventMenu();
+        if (action&&action!=7&&action!=9&&nb) action=eventMenu();
 
         else if (nb==0)/*scanf*/
         {
@@ -757,24 +841,29 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu)
             if (action!=0)action=6;
         }
     }
+    for (i=0;i<4;i++)
+    {
+        persoLibere(&groupe[i]);
+    }
+    libererTousLesObjets(&tab);
     return action;
 }
 
 char afficherOptions(SDL_Surface *ecran,TTF_Font *police,FMOD_SYSTEM *system,FMOD_SOUND *musique)
 {
     char action=8,type=1;
-    int choix=0,nb, choix_son=10,choix_musique=0,decalage;
+    int choix=0,nb, choix_son=10,choix_musique=0,decalage,haut=0,page=0;
 
     FMOD_CHANNELGROUP *canal;
     float  volume=0.0;
     FMOD_System_GetMasterChannelGroup(system, &canal);
 
     char texte_SDL [5][150],chaine1[50]="Options",chaine2[50];
-    SDL_Surface **rectangle,*curseur,*texte,*fond;
+    SDL_Surface **rectangle,*curseur,*texte,*fond,*son;
     SDL_Rect position,position_curs;
     SDL_Color couleur_texte= {255, 255, 255},couleur_rect= {10, 10, 10};
 
-    char chanson[2][100]={"GRAMATIK-Muy tranquilo.mp3","GRAMATIK-Just Jammin'.mp3"};
+    char chanson[3][100]={"GRAMATIK-Muy tranquilo.mp3","GRAMATIK-Just Jammin'.mp3","GRAMATIK-The swing of justice.mp3"};
 
     while (action!=0&&action!=7)
     {
@@ -842,7 +931,7 @@ char afficherOptions(SDL_Surface *ecran,TTF_Font *police,FMOD_SYSTEM *system,FMO
                     if (choix==0)
                     {
                         choix_musique++;
-                        if (choix_musique>1)choix_musique=1;
+                        if (choix_musique>2)choix_musique=2;
                         strcpy(chaine2,"data/Media/");
                         strcat(chaine2,chanson[choix_musique]);
                         FMOD_System_CreateStream(system, chaine2, FMOD_SOFTWARE | FMOD_2D | FMOD_CREATESTREAM, 0, &musique);
@@ -919,6 +1008,7 @@ char afficherOptions(SDL_Surface *ecran,TTF_Font *police,FMOD_SYSTEM *system,FMO
                 strcat (texte_SDL[0],chanson[choix_musique]);
                 strcpy(texte_SDL[1],"");
                 strcpy(texte_SDL[2],"Retour");
+
             break;
             case 3:/*Credits*/
                 nb=0;
@@ -930,17 +1020,28 @@ char afficherOptions(SDL_Surface *ecran,TTF_Font *police,FMOD_SYSTEM *system,FMO
         if (choix<0) choix=nb-1;/*aller à la dernière page et au dernier choix*/
         else if (choix>nb-1) choix=0;/*aller à la première page et au premier choix*/
 
-        decalage=afficherPage (ecran,police,texte_SDL,nb,choix,2);
+        decalage=afficherPage (ecran,police,texte_SDL,nb,choix,2,&haut,&nb,&page);
 
-        if (type==2)/*Affichage du curseur*/
+        if (type==2)
         {
+            /*Affichage du curseur*/
             curseur = SDL_CreateRGBSurface(SDL_HWSURFACE, 30, 50, 32, 0, 0, 0, 0);
             SDL_FillRect(curseur, NULL, SDL_MapRGB(ecran->format, 255, 255, 255));
             position_curs.x=TAILLE_FENETRE_L/2-150+choix_son*30/1.1;
             position_curs.y=TAILLE_FENETRE_H/3+(50+(100/nb)+50*decalage);
             SDL_BlitSurface(curseur, NULL, ecran, &position_curs);
             SDL_FreeSurface(curseur);
+
+            /*Affichage du volume*/
+            if (volume==0)son = IMG_Load("data/Media/volume-mute.jpg");
+            else if (volume>0&&volume<0.34)son = IMG_Load("data/Media/volume-mute.jpg");
+            else if (volume>=0.34&&volume<0.8)son = IMG_Load("data/Media/volume-mute.jpg");
+            else son = IMG_Load("data/Media/volume-high.jpg");
+            position.x=TAILLE_FENETRE_L/2-170;
+            SDL_BlitSurface(son, NULL, ecran, &position);
+            SDL_FreeSurface(son);
         }
+
         SDL_Flip(ecran);
         if (action&&action!=7) action=eventMenu();
     }
@@ -950,7 +1051,7 @@ char afficherOptions(SDL_Surface *ecran,TTF_Font *police,FMOD_SYSTEM *system,FMO
 char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
 {
     char action=8,selection=0,type=1,lettre;
-    int nb=0,choix=0,i,j,valeur;
+    int nb=0,choix=0,i,j,valeur,page=0,haut=0;
     char ligne[TAILLE_MAX_FICHIER], chaine1 [150], chaine2[150],tampon[50];
     char texte_SDL [10][150];
     FILE *fPartie;
@@ -1232,7 +1333,7 @@ char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                         case 5:/*Actions partie*/
                             if (choix==0&&(strcmp(chaine1,"(Vide)")==0))/*Nouvelle partie*/
                             {
-                                action=nouvellePartie ( ecran, police, partie);
+                                action=nouvellePartie (ecran, police, partie,chaine2);
                                 choix=0;
                             }
                             else if(choix==0)/*Charger partie*/
@@ -1479,7 +1580,7 @@ char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
 
         if (type!=5)
         {
-            afficherPage (ecran,police,texte_SDL,nb,choix,2);
+            afficherPage (ecran,police,texte_SDL,nb,choix,2,&haut,&nb,&page);
         }
 
         SDL_Flip(ecran);
@@ -1505,27 +1606,27 @@ int mainMenu ()
     Partie jeu;
     Personnage liste[4];
     Objet *tab=NULL;
-    SDL_Surface* ecran = NULL;
+    /*SDL_Surface* ecran = NULL;
     TTF_Font *police = NULL;
 
     SDL_Init(SDL_INIT_VIDEO);
-    TTF_Init();
+    TTF_Init();*/
     initialiserTousLesObjets(&tab);
 
     nouveauPerso (&liste[0], "Kylaste", 1, 0, 1, 1, 0, 100,tab);
-    nouveauPerso (&liste[1], "Rometach", 2, 1, 1, 1, 0, 100,tab);
+    /*nouveauPerso (&liste[1], "Rometach", 2, 1, 1, 1, 0, 100,tab);
     nouveauPerso (&liste[2], "Toromis", 2, 1, 1, 1, 0, 100,tab);
-    nouveauPerso (&liste[3], "Babar", 1, 1, 1, 1, 0, 100,tab);
-    partieInit(&jeu,"The A company",liste, 4, NULL,0,"");
-    for (i=0; i<4;i++)
+    nouveauPerso (&liste[3], "Babar", 1, 1, 1, 1, 0, 100,tab);*/
+    partieInit(&jeu,"The A company",liste, 1, NULL,0,"");
+    for (i=0; i<1;i++)
     {
         persoLibere(&liste[i]);
     }
-    police = TTF_OpenFont("data/Jester.ttf", 30);
+    /*police = TTF_OpenFont("data/Jester.ttf", 30);
     ecran=SDL_SetVideoMode(TAILLE_FENETRE_L, TAILLE_FENETRE_H, 32, SDL_HWSURFACE);
-    SDL_WM_SetCaption("Iniuriam",NULL);
+    SDL_WM_SetCaption("Iniuriam",NULL);*/
 
-    c=afficherMenu(ecran,0,police,&jeu);/*Affichage de l'écran principal*/
+    /*c=afficherMenu(ecran,0,police,&jeu);Affichage de l'écran principal*/
 
     if (c)
     {
@@ -1533,7 +1634,7 @@ int mainMenu ()
     }
     else printf("Quitter le jeu\n");
 
-    getPartieNom(&jeu,nom);
+    /*getPartieNom(&jeu,nom);
 
     printf("\n%s\n\n%d Joueur(s) :\n",nom,getPartieNbJoueur(&jeu));
     for (i=0;i<4;i++)
@@ -1548,14 +1649,14 @@ int mainMenu ()
         printf("%s\n",nom);
     }
     getPartieMissionActuelle(&jeu,nom);
-    printf("%s\n",nom);
+    printf("%s\n",nom);*/
 
 
     partieLibere (&jeu);
     libererTousLesObjets(&tab);
-    SDL_FreeSurface(ecran);
+    /*SDL_FreeSurface(ecran);
     TTF_CloseFont(police);
     TTF_Quit();
-    SDL_Quit();
+    SDL_Quit();*/
     return 0;
 }

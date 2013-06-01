@@ -13,6 +13,7 @@
 #include "scanf_SDL.h"
 #include "personnage.h"
 #include "mission.h"
+#include "deplacement.h"
 
 typedef struct
 {

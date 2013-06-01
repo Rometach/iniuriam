@@ -626,7 +626,7 @@ int sEloignerC(Combattant* combattant, int nb, char arene[TAILLE_MAX_H][TAILLE_M
                 return 0;
             break;
         }arene[combattant->posY][combattant->posX]=4;
-        // combattant->arene[x][y]=2;
+        /* combattant->arene[x][y]=2;*/
         i--;
     }
     return 1;
@@ -765,7 +765,7 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_
             {
             }
             else printf("Impossible de se rapprocher \n");
-//        }
+/*        }*/
     }
    /* else
     {

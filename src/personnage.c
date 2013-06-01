@@ -23,6 +23,9 @@ void persoInit (Personnage* perso)
 
     perso->posX=0;
     perso->posY=0;
+    inventaireInit(&(perso->inventaire));
+    equiInit(&perso->equipement);
+    capaciteInit(&(perso->capacite));
 }
 
 void nouveauPerso (Personnage *perso, const char nom[], const char race, const char sexe, const char faction, const char carriere, const int experience, const int argent, Objet* tab)
@@ -95,7 +98,7 @@ void nouveauPerso (Personnage *perso, const char nom[], const char race, const c
 
     i=0;
 
-    CapaciteInit(&(perso->capacite));
+    capaciteInit(&(perso->capacite));
 
     assert(fCarr= fopen("data/Carrieres.txt", "r"));
     if (fCarr!=NULL)
@@ -155,7 +158,7 @@ void chargerPerso (Personnage* perso, const char nom[50], const char race, const
     perso->ptDeVie=ptDeVie;
     perso->posX=posX;
     perso->posY=posY;
-    CapaciteInit(&(perso->capacite));
+    capaciteInit(&(perso->capacite));
     for (i=0;i<nbCompetence;i++)
     {
         ajouterCompetenceCapacite (&(perso->capacite), &liste[i],liste[i].experience);
@@ -248,12 +251,10 @@ void persoInitPNJ(Personnage *perso, const int l, Objet* tab)
 
 }
 
-
-
 void persoLibere (Personnage *perso)
 {
     inventaireLibere(&perso->inventaire);
-    CapaciteLibere(&perso->capacite);
+    capaciteLibere(&perso->capacite);
     /*SDL_FreeSurface(perso->avatar);*/
 }
 
@@ -317,6 +318,10 @@ char getPersoFaction(const Personnage *perso)
     return perso->faction;
 }
 
+void setPersoFaction(Personnage *perso, const char faction)
+{
+    perso->faction=faction;
+}
 
 void getPersoFactionNom(char* chaine, const Personnage *perso)
 {
@@ -536,7 +541,7 @@ void copiePerso (Personnage* perso1, Personnage* perso2)
     perso2->argent=perso1->argent;
     perso2->experience=perso1->experience;
 
-    CapaciteInit (&perso2->capacite);
+    capaciteInit (&perso2->capacite);
     copieCapacite(&perso1->capacite,&perso2->capacite);
 
     perso2->attaque=perso1->attaque;
