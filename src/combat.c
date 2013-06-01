@@ -531,7 +531,7 @@ void preparerParade (Combattant* attaquant)
 int seRapprocherC(Combattant* combattant, int nb, char arene[TAILLE_MAX_H][TAILLE_MAX_L])
 {
     int i=nb,j=0;
-
+    afficherTab2D(combattant->arene);
     while (i>0)
     {
         j=chercher2(combattant->arene,combattant->posY,combattant->posX,j);
@@ -626,7 +626,7 @@ int sEloignerC(Combattant* combattant, int nb, char arene[TAILLE_MAX_H][TAILLE_M
                 return 0;
             break;
         }arene[combattant->posY][combattant->posX]=4;
-        /* combattant->arene[x][y]=2;*/
+        // combattant->arene[x][y]=2;
         i--;
     }
     return 1;
@@ -695,8 +695,8 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_
                     tampon=0;
                 }
             }
-            /*if (portee-5>rayon)*/ /*L'IA doit s'écarter pour être à la portée de la cible si possible*/
-            /*{
+            if (portee-5>rayon) /*L'IA doit s'écarter pour être à la portée de la cible si possible*/
+            {
                 coord=sEloignerC(&groupe[j], min(NB_DEPLACEMENTS,portee-5-rayon), arene);
                 if (coord)
                 {
@@ -704,11 +704,11 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_
                     rayon+=5;
                 }
                 else
-                {*/
+                {
                     /*L'IA est trop proche de sa cible pour se servir de sa meilleure arme et elle ne peut pas s'écarter.
                       Elle cherche dans son équipement l'arme ayant la plus petite portée.
                       Par défaut toutes les IA sont équipées au moins d'une arme de corps à corps (portee=1)*/
-                   /* for (i=0;i<3;i++)
+                    for (i=0;i<3;i++)
                     {
                         if (getEquiMainDroite(getPersoEquipement(groupe[j].perso),i)!=NULL)
                         {
@@ -721,8 +721,8 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_
                         }
                     }
                     tampon=1;
-                    while (portee<rayon&&tampon)*/ /*L'IA doit se rapprocher pour être à portée de la cible avec sa nouvelle arme*/
-                 /*  {
+                    while (portee<rayon&&tampon) /*L'IA doit se rapprocher pour être à portée de la cible avec sa nouvelle arme*/
+                   {
                         coord=seRapprocherC(&groupe[j],1, arene);
                         if (coord)
                         {
@@ -734,7 +734,7 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_
                             printf("Impossible de se rapprocher plus\n");
                             tampon=0;
                         }
-                    }*/
+                    }
                 }
             }
             if (rayon<=portee) /*L'IA est à portée de la cible*/
@@ -754,7 +754,7 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_
                         /*Réinitialise l'arene de l'IA lorsque sa cible meure*/
                         testMort(&groupe[cible], arene);
             }
-      /*  }*/
+        }
         else
         {
             /*L'IA est trop loin de la cible pour pouvoir l'attaquer
@@ -765,7 +765,7 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_
             {
             }
             else printf("Impossible de se rapprocher \n");
-/*        }*/
+        }
     }
    /* else
     {
