@@ -48,6 +48,12 @@ void objInit (Objet *obj, const char type);
 
 /**
 * \brief Preconditions : obj est initialisé
+* <br /> Postconditions : obj est libéré
+*/
+void objLibere (Objet* obj);
+
+/**
+* \brief Preconditions : obj est initialisé
 * <br /> Postconditions : retourne le type d'obj
 */
 char getObjetType(const Objet *obj);

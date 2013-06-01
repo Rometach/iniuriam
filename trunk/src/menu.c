@@ -28,6 +28,11 @@ void partieInit (Partie* jeu,char nom[50], Personnage* liste, int nbJoueur,char 
 
 void partieLibere (Partie* jeu)
 {
+    int i;
+    for (i=0;i<jeu->nbJoueur;i++)
+    {
+        persoLibere (&jeu->joueur[i]);
+    }
     free (jeu->joueur);
     jeu->nbJoueur=0;
     jeu->nbMission=0;
@@ -360,13 +365,12 @@ int afficherPage (SDL_Surface *ecran,TTF_Font *police, char texte_SDL[10][150],i
 {
     int i,j,decalage=0,taille,valeur;
     char chaine1[50],chaine2[50];
-    SDL_Surface *cadre=NULL,**rectangle=NULL,*texte=NULL;
+    SDL_Surface *cadre=NULL,*rectangle=NULL,*texte=NULL;
     SDL_Rect position_rect;
     SDL_Color couleur_texte= {255, 255, 255},couleur_rect= {10, 10, 10};
 
     assert(position);
 
-    rectangle=(SDL_Surface**)malloc(nb*sizeof(SDL_Surface*));
     for (i=0;i<nb;i++)/*Page visible*/
     {
         if (i==choix) /*Affichage du cadre*/
@@ -415,10 +419,10 @@ int afficherPage (SDL_Surface *ecran,TTF_Font *police, char texte_SDL[10][150],i
                     position_rect.y-=45;
                 }
 
-                rectangle[i]= SDL_CreateRGBSurface(SDL_HWSURFACE, 300, 50, 32, 0, 0, 0, 0);
-                SDL_FillRect(rectangle[i], NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
-                SDL_BlitSurface(rectangle[i], NULL, ecran, &position_rect);
-                SDL_FreeSurface(rectangle[i]);
+                rectangle= SDL_CreateRGBSurface(SDL_HWSURFACE, 300, 50, 32, 0, 0, 0, 0);
+                SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
+                SDL_BlitSurface(rectangle, NULL, ecran, &position_rect);
+                SDL_FreeSurface(rectangle);
 
                 position_rect.x+= 25;
                 texte=TTF_RenderText_Shaded(police, chaine2, couleur_texte,couleur_rect);
@@ -434,12 +438,12 @@ int afficherPage (SDL_Surface *ecran,TTF_Font *police, char texte_SDL[10][150],i
             strcpy(texte_SDL[i],chaine1);
             decalage+=taille;
         }
-        rectangle[i]= SDL_CreateRGBSurface(SDL_HWSURFACE, 300, 50, 32, 0, 0, 0, 0);
-        SDL_FillRect(rectangle[i], NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
+        rectangle= SDL_CreateRGBSurface(SDL_HWSURFACE, 300, 50, 32, 0, 0, 0, 0);
+        SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
 
         position_rect.y=TAILLE_FENETRE_H/3+(50+(100/nb))*i+50*(decalage);
-        SDL_BlitSurface(rectangle[i], NULL, ecran, &position_rect);
-        SDL_FreeSurface(rectangle[i]);
+        SDL_BlitSurface(rectangle, NULL, ecran, &position_rect);
+        SDL_FreeSurface(rectangle);
 
         position_rect.x+= 25;
         position_rect.y=TAILLE_FENETRE_H/3+(50+(100/nb))*i+50*(decalage);
@@ -1339,8 +1343,6 @@ char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                 position.y=TAILLE_FENETRE_H/20+25;
                 SDL_BlitSurface(nom, NULL, ecran, &position);
                 SDL_FreeSurface(nom);
-                /*SDL_Flip(ecran);
-                getchar();*/
 
                 fgets (chaine1,TAILLE_MAX_FICHIER,fPartie);
                 valeur=chaine1[strlen(chaine1)-2]-'0';
@@ -1389,7 +1391,6 @@ char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                 position.x=TAILLE_FENETRE_L/2-200;
                 position.y+=145;
                 SDL_BlitSurface(sauvegarde, NULL, ecran, &position);
-
                 SDL_FreeSurface(sauvegarde);
                 /*Nom de la sauvegarde*/
                 nom = TTF_RenderText_Shaded(police, chaine1, couleur_texte,couleur_rect);
@@ -1500,7 +1501,7 @@ char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
 int mainMenu ()
 {
     int i;
-    char nom [50],c;
+    char nom [50],c=0;
     Partie jeu;
     Personnage liste[4];
     Objet *tab=NULL;
@@ -1513,14 +1514,13 @@ int mainMenu ()
 
     nouveauPerso (&liste[0], "Kylaste", 1, 0, 1, 1, 0, 100,tab);
     nouveauPerso (&liste[1], "Rometach", 2, 1, 1, 1, 0, 100,tab);
-    nouveauPerso (&liste[2], "Toromis", 3, 1, 1, 1, 0, 100,tab);
-    nouveauPerso (&liste[3], "Babar", 4, 1, 1, 1, 0, 100,tab);
+    nouveauPerso (&liste[2], "Toromis", 2, 1, 1, 1, 0, 100,tab);
+    nouveauPerso (&liste[3], "Babar", 1, 1, 1, 1, 0, 100,tab);
     partieInit(&jeu,"The A company",liste, 4, NULL,0,"");
     for (i=0; i<4;i++)
     {
         persoLibere(&liste[i]);
     }
-
     police = TTF_OpenFont("data/Jester.ttf", 30);
     ecran=SDL_SetVideoMode(TAILLE_FENETRE_L, TAILLE_FENETRE_H, 32, SDL_HWSURFACE);
     SDL_WM_SetCaption("Iniuriam",NULL);
@@ -1549,8 +1549,10 @@ int mainMenu ()
     }
     getPartieMissionActuelle(&jeu,nom);
     printf("%s\n",nom);
+
+
     partieLibere (&jeu);
-    free (tab);
+    libererTousLesObjets(&tab);
     SDL_FreeSurface(ecran);
     TTF_CloseFont(police);
     TTF_Quit();

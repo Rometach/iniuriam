@@ -13,6 +13,7 @@ void stockInit (Stock *st, Objet* obj)
 
 void stockLibere (Stock *st)
 {
+    /*objLibere(st->objet);*/
     st->objet=NULL;
     st->quantite=0;
 }
@@ -47,6 +48,7 @@ int mainStock ()
 {
     Objet obj;
     objInit(&obj, 1);
+    objLibere(&obj);
     printf ("No problem \n");
     return 0;
 }
