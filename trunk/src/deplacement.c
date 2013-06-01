@@ -97,10 +97,10 @@ void afficherTab2D (char tab[TAILLE_MAX_H][TAILLE_MAX_L])
 
 char chercher2 (char tab[TAILLE_MAX_H][TAILLE_MAX_L],int x, int y,char i)
 {
-    if (tab[x][y-1]==2) return 1; /* 2 à gauche*/
-    else if (tab[x-1][y]==2) return 2; /*2 en haut*/
-    else if (tab[x+1][y]==2) return 3;/*2 en bas*/
-    else if (tab[x][y+1]==2) return 4;/*2 à droite*/
+    if (tab[x][y-1]==3) return 1; /* 2 à gauche*/
+    else if (tab[x-1][y]==3) return 2; /*2 en haut*/
+    else if (tab[x+1][y]==3) return 3;/*2 en bas*/
+    else if (tab[x][y+1]==3) return 4;/*2 à droite*/
     else
     {
         switch (i)
@@ -510,10 +510,13 @@ char chemin (int x,int y, int z, int t, char tab[TAILLE_MAX_H][TAILLE_MAX_L])
 int seRapprocher(char tab[TAILLE_MAX_H][TAILLE_MAX_L], int* a, int* b, int nb,char* orientation)
 {
     int i=nb,j=0,x=*a,y=*b;
+    tab[x][y]=1;
+
     while (i>0)
     {
         tab[x][y]=1;
         j=chercher2(tab,x,y,j);
+
         switch (j)
         {
             case 1:
@@ -536,6 +539,7 @@ int seRapprocher(char tab[TAILLE_MAX_H][TAILLE_MAX_L], int* a, int* b, int nb,ch
         i--;
     }
     tab[x][y]=4;
+    *a=x; *b=y;
     *orientation=chercher2(tab,x,y,j); /*Oriente l'IA vers la case suivante*/
     return 1;
 }

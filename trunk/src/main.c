@@ -38,9 +38,9 @@ int main (int argc, char **argv)
 
 /*   mainMenu();*/
     srand(time(NULL));
-    nouveauPerso (&hero, "Toromis", 1, 1, 1, 1, 0, 100, tabObjets);
+    nouveauPerso (&hero, "Toromis", 1, 1, 2, 1, 0, 100, tabObjets);
 
-    nouveauPerso (&ennemi, "Mechant", 2, 1, 2, 1, 0, 100, tabObjets);
+    nouveauPerso (&ennemi, "Mechant", 1, 1, 1, 1, 0, 100, tabObjets);
 
     nouveauPerso (&pnj, "Babar", 1, 1, 1, 1, 0, 100, tabObjets);
 
@@ -53,7 +53,7 @@ int main (int argc, char **argv)
     ennemi.avatar=SDL_LoadBMP("data/Media/humain.bmp");
 
     setPersoPosX(&ennemi, TILE_LARGEUR*5);
-    setPersoPosY(&ennemi, TILE_HAUTEUR*0);
+    setPersoPosY(&ennemi, TILE_HAUTEUR*1);
 
     eventJeuSDL(&hero, &pnj, &ennemi, &tutoriel, tabObjets, &terrain, &dialogue, ecran);
 
