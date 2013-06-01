@@ -254,6 +254,7 @@ void persoLibere (Personnage *perso)
 {
     inventaireLibere(&perso->inventaire);
     CapaciteLibere(&perso->capacite);
+    /*SDL_FreeSurface(perso->avatar);*/
 }
 
 

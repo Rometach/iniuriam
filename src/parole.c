@@ -232,7 +232,7 @@ void marchander (Dialogue* dialogue, int* valeur)
 
 char acheter(Dialogue* dialogue, Objet* objet, char* rep)
 {
-//    char c;
+/*    char c;*/
     int bonus=0,valeur=getObjetValeur(objet);
     Inventaire inv;
     getPersoInventaire(dialogue->perso2,&inv);
@@ -282,7 +282,7 @@ char acheter(Dialogue* dialogue, Objet* objet, char* rep)
 
 char vendre(Dialogue* dialogue, Objet* objet, char* rep)
 {
-//    char c;
+/*    char c;*/
     int bonus=0,valeur=getObjetValeur(objet);
     Inventaire inv;
     getPersoInventaire(dialogue->perso1,&inv);

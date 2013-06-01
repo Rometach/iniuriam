@@ -72,6 +72,11 @@ void objInit (Objet *obj, const char type)
     fclose (fObjet);
 }
 
+void objLibere (Objet* obj)
+{
+    SDL_FreeSurface(obj->icon);
+}
+
 char getObjetType(const Objet *obj)
 {
 	return obj->type;
@@ -216,6 +221,12 @@ void initialiserTousLesObjets(Objet** tabObj)
 
 void libererTousLesObjets(Objet** tabObj)
 {
+    int i,max;
+    max=getNbObjet();
+    for (i=0;i<max-3;i++)
+    {
+        /*SDL_FreeSurface(((*tabObj)[i]).icon);*/
+    }
     free(*tabObj);
 }
 
