@@ -28,7 +28,7 @@ typedef struct
                         1 vers la gauche
                         2 vers le haut
                         3 vers le bas
-                        4 vers la droite**/
+                        4 vers la droite*/
     char derniereAction;    /**Correspond à la dernière action effectuée :
                             0 inconnu
                             1 attaque standard
@@ -37,7 +37,7 @@ typedef struct
                             4 feinte
                             5 visée
                             6 préparation de parade*/
-    char arene [TAILLE_MAX][TAILLE_MAX];    /**L'arene du combat*/
+    char arene [TAILLE_MAX_H][TAILLE_MAX_L];    /**L'arene du combat*/
     SDL_Surface* avatar;
 } Combattant;
 
@@ -46,7 +46,7 @@ typedef struct
 * \brief Preconditions : terrain est initialisé
 * <br /> Postconditions : initialise l'arene tab en fonction de terrain
 */
-void areneInit (Terrain* terrain, char tab[TAILLE_MAX][TAILLE_MAX]);
+void areneInit (Terrain* terrain, char tab[TAILLE_MAX_H][TAILLE_MAX_L]);
 
 
 /**
@@ -108,27 +108,27 @@ char getCombattantDerniereAction(Combattant* combattant);
 * \brief Preconditions : combattant est initialisé
 * <br /> Postconditions : copie l'arene de combattant dans arene
 */
-void getCombattantArene(Combattant* combattant, char arene[TAILLE_MAX][TAILLE_MAX]);
+void getCombattantArene(Combattant* combattant, char arene[TAILLE_MAX_H][TAILLE_MAX_L]);
 
 /**
 * \brief Preconditions : combattant est initialisé
 * <br /> Postconditions : positionne le combattant en commençant par la case la plus en haut à gauche si possible
 */
-void initPosGauche (Combattant* combattant, char arene[TAILLE_MAX][TAILLE_MAX]);
+void initPosGauche (Combattant* combattant, char arene[TAILLE_MAX_H][TAILLE_MAX_L]);
 
 
 /**
 * \brief Preconditions : combattant est initialisé
 * <br /> Postconditions : positionne le combattant en commençant par la case la plus en bas à droite si possible
 */
-void initPosDroite (Combattant* combattant, char arene[TAILLE_MAX][TAILLE_MAX]);
+void initPosDroite (Combattant* combattant, char arene[TAILLE_MAX_H][TAILLE_MAX_L]);
 
 
 /**
 * \brief Preconditions : les l combattants sont initialisés
 * <br /> Postconditions : positionne les l combattant de liste dans l'arene
 */
-void initPosCombattant (Combattant*liste, int l, char arene[TAILLE_MAX][TAILLE_MAX]);
+void initPosCombattant (Combattant*liste, int l, char arene[TAILLE_MAX_H][TAILLE_MAX_L]);
 
 
 /**
@@ -142,14 +142,14 @@ void ordreGroupe (Combattant* liste, int l);
 * \brief Preconditions : les l personnages sont initialisés
 * <br /> Postconditions : les l personnages de la liste deviennent des combattants et sont placés sur l'arene
 */
-void initCombat (Personnage* liste, int l, Combattant* groupe, char arene[TAILLE_MAX][TAILLE_MAX]);
+void initCombat (Personnage* liste, int l, Combattant* groupe, char arene[TAILLE_MAX_H][TAILLE_MAX_L]);
 
 
 /**
 * \brief Preconditions : 0<=x<TAILLE_MAX, 0<=x<TAILLE_MAX, 0<=x<TAILLE_MAX, 0<=x<TAILLE_MAX, 0<orientation<=4
 * <br /> Postconditions : renvoie 1 si les l membres du groupe sont dans le même camp, 0 sinon
 */
-char estDansChampDeVision (char arene[TAILLE_MAX][TAILLE_MAX], int x, int y, int z, int t,char orientation);
+char estDansChampDeVision (char arene[TAILLE_MAX_H][TAILLE_MAX_L], int x, int y, int z, int t,char orientation);
 
 
 /**
@@ -170,7 +170,7 @@ void copieCombattant (Combattant* comb1, Combattant* comb2);
 *                         l correspond au nombre de combattant
 *                         retourne le nombre de combattant restant
 */
-int testNbCombattant (Combattant* groupe, int l, char arene [TAILLE_MAX][TAILLE_MAX]);
+int testNbCombattant (Combattant* groupe, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L]);
 
 
 /**
@@ -233,60 +233,65 @@ void preparerParade (Combattant* attaquant);
 * \brief Preconditions : les l combattants de groupe sont initialisés,0<=j<l.
 * <br /> Postconditions : l'ordinateur execute le tour de l'IA dans le combat.
 */
-void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MAX]);
+void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L]);
 
 
 /**
 * \brief Preconditions : les l combattants de groupe sont initialisés,0<=j<l.
 * <br /> Postconditions : correspond au tour du joueur dans le combat.
 */
-void tourJoueur (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MAX]);
+void tourJoueur (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L]);
 
 
 /**
 * \brief Preconditions : les l personnages de liste sont initialisés
 * <br /> Postconditions : un combat s'engage entre les personnage jusqu'à ce que l'un des camp l'emporte.
 */
-void combat (Personnage* liste, int l, char arene [TAILLE_MAX][TAILLE_MAX]);
+void combat (Personnage* liste, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L]);
 
 /**
 * \brief Preconditions : arene,attaquant et defenseurs sont initialisés.
 * <br /> Postconditions : retourne 1 si le defenseur est à portee de l'attaquant, 0 sinon.
 */
-char estAPortee (char arene[TAILLE_MAX][TAILLE_MAX],Combattant* attaquant, Combattant* defenseur,int portee);
+char estAPortee (char arene[TAILLE_MAX_H][TAILLE_MAX_L],Combattant* attaquant, Combattant* defenseur,int portee);
 
 /**
 * \brief Preconditions : arene et perso sont initialisés.
 * <br /> Postconditions : affiche la portee de l'arme de perso.
 */
-void afficherPortee (char arene[TAILLE_MAX][TAILLE_MAX],Combattant* perso, int portee);
+void afficherPortee (char arene[TAILLE_MAX_H][TAILLE_MAX_L],Combattant* perso, int portee);
 
-void effacerPortee (char arene[TAILLE_MAX][TAILLE_MAX],Combattant* perso, int portee);
+void effacerPortee (char arene[TAILLE_MAX_H][TAILLE_MAX_L],Combattant* perso, int portee);
 
 
 /**
 * \brief Preconditions : combattant, nbDeplacement, arene initialisé
 * <br /> Postconditions : teste si la case est accesible et si on a encore des déplacements, puis déplacement le personnage d'une case vers la droite
 */
-int deplaceCombDroite( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX][TAILLE_MAX]);
+int deplaceCombDroite( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX_H][TAILLE_MAX_L]);
 
 /**
 * \brief Preconditions : combattant, nbDeplacement, arene initialisé
 * <br /> Postconditions : teste si la case est accesible et si on a encore des déplacements, puis déplacement le personnage d'une case vers la gauche
 */
-int deplaceCombGauche( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX][TAILLE_MAX]);
+int deplaceCombGauche( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX_H][TAILLE_MAX_L]);
 
 /**
 * \brief Preconditions : combattant, nbDeplacement, arene initialisé
 * <br /> Postconditions : teste si la case est accesible et si on a encore des déplacements, puis déplacement le personnage d'une case vers le bas
 */
-int deplaceCombBas( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX][TAILLE_MAX]);
+int deplaceCombBas( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX_H][TAILLE_MAX_L]);
 
 /**
 * \brief Preconditions : combattant, nbDeplacement, arene initialisé
 * <br /> Postconditions : teste si la case est accesible et si on a encore des déplacements, puis déplacement le personnage d'une case vers le haut
 */
-int deplaceCombHaut( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX][TAILLE_MAX]);
+int deplaceCombHaut( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX_H][TAILLE_MAX_L]);
+
+int seRapprocherC(Combattant* combattant, int nb, char arene[TAILLE_MAX_H][TAILLE_MAX_L]);
+
+int sEloignerC(Combattant* combattant, int nb, char arene[TAILLE_MAX_H][TAILLE_MAX_L]);
+
 
 int mainCombat();
 

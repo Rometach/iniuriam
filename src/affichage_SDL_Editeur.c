@@ -128,7 +128,7 @@ void eventEditeurSDL(Terrain* ter, SDL_Surface* ecran )
                     }
                     else if(event.key.keysym.sym==SDLK_PAGEDOWN)    /** Défilement du chipset vers le bas */
                     {
-                        if(ter->defilY<ter->nbrTileChipset-TAILLE_FENETRE/TILE_HAUTEUR){ter->defilY+=ter->decalageX;}
+                        if(ter->defilY<ter->nbrTileChipset-TAILLE_FENETRE_H/TILE_HAUTEUR){ter->defilY+=ter->decalageX;}
                     }
                     else if(event.key.keysym.sym==SDLK_s) /** Sauvegarde de la carte */
                     {
@@ -245,8 +245,8 @@ void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
         SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 6, 29, 38));
         SDL_FillRect(titre, NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
 
-        position.x=TAILLE_FENETRE/2-200;
-        position.y=TAILLE_FENETRE/20;
+        position.x=TAILLE_FENETRE_L/2-200;
+        position.y=TAILLE_FENETRE_H/20;
         SDL_BlitSurface(titre, NULL, ecran, &position);
         SDL_FreeSurface(titre);
         nb=0;
@@ -434,8 +434,8 @@ void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
                                 strcpy(texte_SDL[5],"6. Bouclier");
                                 for (i=0;i<6;i++)
                                 {
-                                    position_rect.x=TAILLE_FENETRE/2-250;
-                                    position_rect.y=TAILLE_FENETRE/4+40*i;
+                                    position_rect.x=TAILLE_FENETRE_L/2-250;
+                                    position_rect.y=TAILLE_FENETRE_H/4+40*i;
                                     texte=TTF_RenderText_Shaded(police, texte_SDL[i], couleur_texte,couleur_rect);
                                     SDL_BlitSurface(texte, NULL, ecran, &position_rect);
                                     SDL_FreeSurface(texte);
@@ -455,8 +455,8 @@ void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
                                 strcpy(texte_SDL[1],"2. Degats");
                                 for (i=0;i<2;i++)
                                 {
-                                    position_rect.x=TAILLE_FENETRE/2-250;
-                                    position_rect.y=TAILLE_FENETRE/4+40*i;
+                                    position_rect.x=TAILLE_FENETRE_L/2-250;
+                                    position_rect.y=TAILLE_FENETRE_H/4+40*i;
                                     texte=TTF_RenderText_Shaded(police, texte_SDL[i], couleur_texte,couleur_rect);
                                     SDL_BlitSurface(texte, NULL, ecran, &position_rect);
                                     SDL_FreeSurface(texte);
@@ -600,8 +600,8 @@ void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
                                 strcpy(texte_SDL[5],"6. Bouclier");
                                 for (i=0;i<6;i++)
                                 {
-                                    position_rect.x=TAILLE_FENETRE/2-250;
-                                    position_rect.y=TAILLE_FENETRE/4+40*i;
+                                    position_rect.x=TAILLE_FENETRE_L/2-250;
+                                    position_rect.y=TAILLE_FENETRE_H/4+40*i;
                                     texte=TTF_RenderText_Shaded(police, texte_SDL[i], couleur_texte,couleur_rect);
                                     SDL_BlitSurface(texte, NULL, ecran, &position_rect);
                                     SDL_FreeSurface(texte);
@@ -621,8 +621,8 @@ void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
                                 strcpy(texte_SDL[1],"2. Degats");
                                 for (i=0;i<2;i++)
                                 {
-                                    position_rect.x=TAILLE_FENETRE/2-250;
-                                    position_rect.y=TAILLE_FENETRE/4+40*i;
+                                    position_rect.x=TAILLE_FENETRE_L/2-250;
+                                    position_rect.y=TAILLE_FENETRE_H/4+40*i;
                                     texte=TTF_RenderText_Shaded(police, texte_SDL[i], couleur_texte,couleur_rect);
                                     SDL_BlitSurface(texte, NULL, ecran, &position_rect);
                                     SDL_FreeSurface(texte);
@@ -663,8 +663,8 @@ void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
         }
         if (action)
         {
-            position.x=TAILLE_FENETRE/2-100;
-            position.y=TAILLE_FENETRE/20+25;
+            position.x=TAILLE_FENETRE_L/2-100;
+            position.y=TAILLE_FENETRE_H/20+25;
             SDL_BlitSurface(nom, NULL, ecran, &position);
             SDL_FreeSurface(nom);
         }
@@ -696,18 +696,6 @@ void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
             /*bas--;*/
         }
 
-        if (nb==0) /*Cas où on a besoin d'un scanf*/
-        {
-            rectangle=(SDL_Surface**)malloc(sizeof(SDL_Surface*));
-            *rectangle= SDL_CreateRGBSurface(SDL_HWSURFACE, 500, 50, 32, 0, 0, 0, 0);
-            SDL_FillRect(*rectangle, NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
-            position_rect.x=TAILLE_FENETRE/2-250;
-            position_rect.y=TAILLE_FENETRE/3+200;
-            SDL_BlitSurface(*rectangle, NULL, ecran, &position_rect);
-            SDL_FreeSurface(*rectangle);
-            free (rectangle);
-        }
-
         if (nb>4)page=maxi(haut,0);
         else
         {
@@ -721,15 +709,15 @@ void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
             {
                 cadre = SDL_CreateRGBSurface(SDL_HWSURFACE, 310, 60, 32, 0, 0, 0, 0);
                 SDL_FillRect(cadre, NULL, SDL_MapRGB(ecran->format, 255, 0, 0));
-                position_rect.x=TAILLE_FENETRE/2-155;
-                position_rect.y=TAILLE_FENETRE/3-5+(50+(100/nb))*(i-haut)+50*(decalage);
+                position_rect.x=TAILLE_FENETRE_L/2-155;
+                position_rect.y=TAILLE_FENETRE_H/3-5+(50+(100/nb))*(i-haut)+50*(decalage);
                 SDL_BlitSurface(cadre, NULL, ecran, &position_rect);
                 SDL_FreeSurface(cadre);
             }
 
             taille=0;
-            position_rect.x=TAILLE_FENETRE/2-150;
-            position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*(i-haut)+50*(decalage);
+            position_rect.x=TAILLE_FENETRE_L/2-150;
+            position_rect.y=TAILLE_FENETRE_H/3+(50+(100/nb))*(i-haut)+50*(decalage);
             if (strlen(texte_SDL[i])>18)
             {
                 strcpy(chaine1,texte_SDL[i]);
@@ -755,8 +743,8 @@ void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
                     {
                         cadre = SDL_CreateRGBSurface(SDL_HWSURFACE, 310, 60, 32, 0, 0, 0, 0);
                         SDL_FillRect(cadre, NULL, SDL_MapRGB(ecran->format, 255, 0, 0));
-                        position_rect.x=TAILLE_FENETRE/2-155;
-                        position_rect.y=TAILLE_FENETRE/3-5+(50+(100/nb))*(i-haut)+50*(decalage+taille);
+                        position_rect.x=TAILLE_FENETRE_L/2-155;
+                        position_rect.y=TAILLE_FENETRE_H/3-5+(50+(100/nb))*(i-haut)+50*(decalage+taille);
                         SDL_BlitSurface(cadre, NULL, ecran, &position_rect);
                         SDL_FreeSurface(cadre);
                         position_rect.x+=5;
@@ -785,12 +773,12 @@ void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
             rectangle[i]= SDL_CreateRGBSurface(SDL_HWSURFACE, 300, 50, 32, 0, 0, 0, 0);
             SDL_FillRect(rectangle[i], NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
 
-            position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*(i-haut)+50*(decalage);
+            position_rect.y=TAILLE_FENETRE_H/3+(50+(100/nb))*(i-haut)+50*(decalage);
             SDL_BlitSurface(rectangle[i], NULL, ecran, &position_rect);
             SDL_FreeSurface(rectangle[i]);
 
             position_rect.x+= 25;
-            position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*(i-haut)+50*(decalage);
+            position_rect.y=TAILLE_FENETRE_H/3+(50+(100/nb))*(i-haut)+50*(decalage);
             texte=TTF_RenderText_Shaded(police, texte_SDL[i], couleur_texte,couleur_rect);
             SDL_BlitSurface(texte, NULL, ecran, &position_rect);
             SDL_FreeSurface(texte);
@@ -813,8 +801,8 @@ void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
                     strcpy(texte_SDL[4],"5. Autre");
                     for (i=0;i<5;i++)
                     {
-                        position_rect.x=TAILLE_FENETRE/2-250;
-                        position_rect.y=TAILLE_FENETRE/4+40*i;
+                        position_rect.x=TAILLE_FENETRE_L/2-250;
+                        position_rect.y=TAILLE_FENETRE_H/4+40*i;
                         texte=TTF_RenderText_Shaded(police, texte_SDL[i], couleur_texte,couleur_rect);
                         SDL_BlitSurface(texte, NULL, ecran, &position_rect);
                         SDL_FreeSurface(texte);
@@ -1115,7 +1103,7 @@ void editerObjet ()
     TTF_Init();
 
     police = TTF_OpenFont("data/Jester.ttf", 30);
-    ecran=SDL_SetVideoMode(TAILLE_FENETRE, TAILLE_FENETRE_OBJET, 32, SDL_HWSURFACE);
+    ecran=SDL_SetVideoMode(TAILLE_FENETRE_L, TAILLE_FENETRE_H, 32, SDL_HWSURFACE);
     SDL_WM_SetCaption("Editeur d'Objet", NULL);
     afficherEditeurObjet(ecran,police);/*Affichage de l'écran principal*/
     SDL_FreeSurface(ecran);
@@ -1133,7 +1121,7 @@ void editerCarte ()
     terInit(&terrain);
     terRemplirStruct(&terrain);
 
-    ecran = SDL_SetVideoMode(TAILLE_FENETRE+32*terrain.decalageX, TAILLE_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
+    ecran = SDL_SetVideoMode(TAILLE_FENETRE_L+TILE_LARGEUR*terrain.decalageX, TAILLE_FENETRE_H, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
     SDL_WM_SetCaption("Iniuriam", NULL);
 
 

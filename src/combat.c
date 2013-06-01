@@ -6,14 +6,14 @@
 */
 
 
-void areneInit (Terrain* terrain, char tab[TAILLE_MAX][TAILLE_MAX])
+void areneInit (Terrain* terrain, char tab[TAILLE_MAX_H][TAILLE_MAX_L])
 {
     int i,j;
-    for (i=0; i<TAILLE_MAX;i++)
+    for (i=0; i<TAILLE_MAX_H;i++)
     {
-        for (j=0;j<TAILLE_MAX;j++)
+        for (j=0;j<TAILLE_MAX_L;j++)
         {
-            tab[i][j]=getCollision(terrain->tabChipset[terrain->carte[i*TAILLE_MAX+j]]);
+            tab[i][j]=getCollision(terrain->tabChipset[terrain->carte[i*TAILLE_MAX_L+j]]);
         }
     }
 }
@@ -89,21 +89,21 @@ char getCombattantDerniereAction (Combattant* combattant)
     return combattant->derniereAction;
 }
 
-void getCombattantArene (Combattant* combattant, char arene[TAILLE_MAX][TAILLE_MAX])
+void getCombattantArene (Combattant* combattant, char arene[TAILLE_MAX_H][TAILLE_MAX_L])
 {
     copieTab2D(combattant->arene,arene);
 }
 
-void initPosGauche (Combattant* combattant, char arene[TAILLE_MAX][TAILLE_MAX])
+void initPosGauche (Combattant* combattant, char arene[TAILLE_MAX_H][TAILLE_MAX_L])
 {
     int i=1,j=1;
     char place=0;
-    while ((place==0)&&(i<TAILLE_MAX))
+    while ((place==0)&&(i<TAILLE_MAX_H))
     {
         j=1;
-        while ((place==0)&&(j<TAILLE_MAX))
+        while ((place==0)&&(j<TAILLE_MAX_L))
         {
-            if (deplacerCase(j,arene[i])!=0)
+            if (deplacerCaseLigne(j,arene[i])!=0)
             {
                 arene[i][j]=4;
                 combattant->posX=j;
@@ -124,16 +124,16 @@ void initPosGauche (Combattant* combattant, char arene[TAILLE_MAX][TAILLE_MAX])
 
 }
 
-void initPosDroite (Combattant* combattant, char arene[TAILLE_MAX][TAILLE_MAX])
+void initPosDroite (Combattant* combattant, char arene[TAILLE_MAX_H][TAILLE_MAX_L])
 {
-    int i=TAILLE_MAX-2,j=TAILLE_MAX-2;
+    int i=TAILLE_MAX_H-2,j=TAILLE_MAX_L-2;
     char place=0;
     while ((place==0)&&(i>0))
     {
-        j=TAILLE_MAX-2;
+        j=TAILLE_MAX_L-2;
         while ((place==0)&&(j>0))
         {
-            if (deplacerCase(j,arene[i])!=0)
+            if (deplacerCaseLigne(j,arene[i])!=0)
             {
                 arene[i][j]=4;
                 combattant->posX=j;
@@ -153,7 +153,7 @@ void initPosDroite (Combattant* combattant, char arene[TAILLE_MAX][TAILLE_MAX])
     }
 }
 
-void initPosCombattant (Combattant*liste, int l, char arene[TAILLE_MAX][TAILLE_MAX])
+void initPosCombattant (Combattant*liste, int l, char arene[TAILLE_MAX_H][TAILLE_MAX_L])
 {
     int i;
     for (i=0;i<l;i++)
@@ -178,14 +178,14 @@ void ordreGroupe (Combattant* liste, int l)
     }
 }
 
-void initCombat (Personnage* liste, int l, Combattant* groupe, char arene[TAILLE_MAX][TAILLE_MAX])
+void initCombat (Personnage* liste, int l, Combattant* groupe, char arene[TAILLE_MAX_H][TAILLE_MAX_L])
 {
     initCombattant(liste,l,groupe);
     initPosCombattant(groupe,l,arene);
     ordreGroupe(groupe,l);
 }
 
-char estDansChampDeVision (char arene[TAILLE_MAX][TAILLE_MAX], int x, int y, int z, int t,char orientation)
+/*char estDansChampDeVision (char arene[TAILLE_MAX_H][TAILLE_MAX_L], int x, int y, int z, int t,char orientation)
 {
     int i,j,a,b,c,d,rayon=30;
     char vu=0;
@@ -225,24 +225,24 @@ char estDansChampDeVision (char arene[TAILLE_MAX][TAILLE_MAX], int x, int y, int
         {
             for (j=c;j<d;j++)
             {
-                if ((int)sqrt(pow((j-y),2)+pow((i-x),2))<=rayon) /*Verifie que la case est bien dans le demi cercle de centre (x,y) et de rayon rayon*/
-                {
+                if ((int)sqrt(pow((j-y),2)+pow((i-x),2))<=rayon) *//*Verifie que la case est bien dans le demi cercle de centre (x,y) et de rayon rayon*/
+               /* {
                     if (i==z&&j==t) vu=1;
-                    else if (i==x&&j==y){} /*Case sur laquelle se trouve l'IA*/
-                    else if (deplacerCase(j,arene[i])==0)
+                    else if (i==x&&j==y){} *//*Case sur laquelle se trouve l'IA*/
+                   /* else if (deplacerCase(j,arene[i])==0)
                     {
                         if (i==x)
                         {
-                            if((x==z)&&(fabs(x-i)<fabs(x-z))) return 0;
+                            if((x==z)&&(fabs(x-i)<fabs(x-z))) return 0;*/
                             /*La case occulte el l'IA sont alignés selon l'axe des ordonnées
                               vérifie donc si la cible est sur le même axe et si la case occulte est entre l'IA et sa cible*/
-                        }
+                       /* }
                         else if (j==y)
                         {
-                            if ((y==t)&&(fabs(i-x)<fabs(i-z))) return 0;
+                            if ((y==t)&&(fabs(i-x)<fabs(i-z))) return 0;*/
                             /*La case occulte el l'IA sont alignés selon l'axe des abscisses
                               vérifie donc si la cible est sur le même axe et si la case occulte est entre l'IA et sa cible*/
-                        }
+                     /*   }
                         else if (x==z)
                         {
                             if((x==i)&&(fabs(x-i)<fabs(x-z))) return 0;
@@ -251,8 +251,8 @@ char estDansChampDeVision (char arene[TAILLE_MAX][TAILLE_MAX], int x, int y, int
                         {
                             if ((y==j)&&(fabs(i-x)<fabs(i-z))) return 0;
                         }
-                        else if ((int)((j-y)/(i-x))==(int)((y-t)/(x-z))) /*Vérifie si la case occulte, l'IA et la cible sont alignés et si la case occulte est entre l'IA et sa cible*/
-                        {
+                        else if ((int)((j-y)/(i-x))==(int)((y-t)/(x-z))) *//*Vérifie si la case occulte, l'IA et la cible sont alignés et si la case occulte est entre l'IA et sa cible*/
+                    /*  {
                             return 0;
                         }
                     }
@@ -266,7 +266,7 @@ char estDansChampDeVision (char arene[TAILLE_MAX][TAILLE_MAX], int x, int y, int
     }
     else return 0;
     return 0;
-}
+}*/
 
 char estLaFin (Combattant* groupe,int l)
 {
@@ -293,7 +293,7 @@ void copieCombattant (Combattant* comb1, Combattant* comb2)
     copieTab2D(comb1->arene,comb2->arene);
 }
 
-int testNbCombattant (Combattant* groupe, int l, char arene [TAILLE_MAX][TAILLE_MAX])
+int testNbCombattant (Combattant* groupe, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L])
 {
     Combattant* tampon;
     int i,j,n=l;
@@ -521,17 +521,121 @@ void preparerParade (Combattant* attaquant)
     attaquant->derniereAction=6;
 }
 
-void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MAX])
+int seRapprocherC(Combattant* combattant, int nb, char arene[TAILLE_MAX_H][TAILLE_MAX_L])
 {
-    int i, cible=j, arme=0,coord,rayon;
-    char distance=100, degats=0,tampon, arene2[TAILLE_MAX][TAILLE_MAX],deplacementsRestants=NB_DEPLACEMENTS, portee;
+    int i=nb,j=0;
+
+    while (i>0)
+    {
+        j=chercher2(combattant->arene,combattant->posY,combattant->posX,j);
+        arene[combattant->posY][combattant->posX]=1;
+        switch (j)
+        {
+            case 1:
+                combattant->posX--;
+            break;
+            case 2:
+                combattant->posY--;
+            break;
+            case 3:
+                 combattant->posY++;
+            break;
+            case 4:
+                 combattant->posX++;
+            break;
+            default:
+                combattant->arene[combattant->posY][combattant->posX]=4;
+                return 0;
+            break;
+        }
+        i--;
+    }
+    arene[combattant->posY][combattant->posX]=4;
+    combattant->orientation=chercher2(combattant->arene,combattant->posY,combattant->posX,j); /*Oriente l'IA vers la case suivante*/
+    return 1;
+}
+
+int sEloignerC(Combattant* combattant, int nb, char arene[TAILLE_MAX_H][TAILLE_MAX_L])
+{
+    int i=nb,j=0,x=combattant->posY,y=combattant->posX;
+    while (i>0)
+    {   arene[combattant->posY][combattant->posX]=1;
+        switch (chercher2(combattant->arene,x,y,j))
+        {
+            case 1:
+                if (deplacerCaseLigne(y+1,combattant->arene[x]))
+                {
+                    j=4;
+                    arene[combattant->posY][combattant->posX]=2;
+                    combattant->posX++;
+                }
+                else
+                {
+                    arene[combattant->posY][combattant->posX]=4;
+                    return 0;
+                }
+            break;
+            case 2:
+                if (deplacerCaseLigne(y, combattant->arene[x+1]))
+                {
+                    j=3;
+                    arene[combattant->posY][combattant->posX]=2;
+                    combattant->posY++;
+                }
+                else
+                {
+                    arene[combattant->posY][combattant->posX]=4;
+                    return 0;
+                }
+            break;
+            case 3:
+                if (deplacerCaseLigne(y, combattant->arene[x-1]))
+                {
+                    j=2;
+                    arene[combattant->posY][combattant->posX]=2;
+                    combattant->posY--;
+                }
+                else
+                {
+                    arene[combattant->posY][combattant->posX]=4;
+                    return 0;
+                }
+            break;
+            case 4:
+                if (deplacerCaseLigne(y-1, combattant->arene[x]))
+                {
+                    j=1;
+                    arene[combattant->posY][combattant->posX]=2;
+                    combattant->posX--;
+                }
+                else
+                {
+                     arene[combattant->posY][combattant->posX]=4;
+                    return 0;
+                }
+            break;
+            default:
+                 combattant->arene[x][y]=4;
+                return 0;
+            break;
+        }arene[combattant->posY][combattant->posX]=4;
+        // combattant->arene[x][y]=2;
+        i--;
+    }
+    return 1;
+}
+
+void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L])
+{
+    int i, cible=j, arme=0, coord, rayon;
+    char distance=100, degats=0, tampon, arene2[TAILLE_MAX_H][TAILLE_MAX_L], deplacementsRestants=NB_DEPLACEMENTS, portee;
     for (i=0;i<l;i++)
     {
         /*Cherche les ennemis dans le champ de vision de l'IA*/
-        if ((i!=j)&&(groupe[j].camp!=groupe[i].camp)&&(estDansChampDeVision(arene,groupe[j].posX,groupe[j].posY,groupe[i].posX,groupe[i].posY,groupe[j].orientation)!=0))
+        if ((i!=j)&&(groupe[j].camp!=groupe[i].camp)/*&&(estDansChampDeVision(arene,groupe[j].posX,groupe[j].posY,groupe[i].posX,groupe[i].posY,groupe[j].orientation)!=0)*/)
         {
             copieTab2D(arene,arene2);
-            tampon=chemin(groupe[j].posX,groupe[j].posY,groupe[i].posX,groupe[i].posY,arene2);
+            tampon=chemin(groupe[j].posY,groupe[j].posX,groupe[i].posY,groupe[i].posX,arene2);
             /*Cherche un chemin menant à la cible*/
             if (tampon!=0)
             {
@@ -566,19 +670,15 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MA
                 }
             }
         }
-        if (arme!=0) /*Si l'IA est à portée de la cible en comptant ses déplacements*/
+        if (arme!=0)  /*Si l'IA est à portée de la cible en comptant ses déplacements*/
         {
             tampon=1;
             portee=getObjetPortee(getEquiMainDroite(getPersoEquipement(groupe[j].perso),arme-1));
             while (portee<rayon&&tampon) /*L'IA doit se rapprocher pour être juste à portée de la cible*/
             {
-                coord=seRapprocher(groupe[j].arene,groupe[j].posX,groupe[j].posY,1,&(groupe[j].orientation));
-                if (coord)
+                coord=seRapprocherC(&groupe[j],1, arene); /* changement avec code principale */
+                if(coord)
                 {
-                    arene[groupe[j].posX][groupe[j].posY]=1;
-                    groupe[j].posY=coord%TAILLE_MAX;
-                    groupe[j].posX=(coord-coord%TAILLE_MAX)/TAILLE_MAX;
-                    arene[groupe[j].posX][groupe[j].posY]=4;
                     deplacementsRestants--;
                     rayon=(int)(sqrt(pow(groupe[j].posX-groupe[cible].posX,2)+pow(groupe[j].posY-groupe[cible].posY,2)));
                 }
@@ -588,24 +688,20 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MA
                     tampon=0;
                 }
             }
-            if (portee-5>rayon) /*L'IA doit s'écarter pour être à la portée de la cible si possible*/
-            {
-                coord=sEloigner(groupe[j].arene,groupe[j].posX,groupe[j].posY,min(NB_DEPLACEMENTS,portee-5-rayon),&(groupe[j].orientation));
+            /*if (portee-5>rayon)*/ /*L'IA doit s'écarter pour être à la portée de la cible si possible*/
+            /*{
+                coord=sEloignerC(&groupe[j], min(NB_DEPLACEMENTS,portee-5-rayon), arene);
                 if (coord)
                 {
-                    arene[groupe[j].posX][groupe[j].posY]=1;
-                    groupe[j].posY=coord%TAILLE_MAX;
-                    groupe[j].posX=(coord-coord%TAILLE_MAX)/TAILLE_MAX;
-                    arene[groupe[j].posX][groupe[j].posY]=4;
                     deplacementsRestants-=min(NB_DEPLACEMENTS,portee-5-rayon);
                     rayon+=5;
                 }
                 else
-                {
+                {*/
                     /*L'IA est trop proche de sa cible pour se servir de sa meilleure arme et elle ne peut pas s'écarter.
                       Elle cherche dans son équipement l'arme ayant la plus petite portée.
                       Par défaut toutes les IA sont équipées au moins d'une arme de corps à corps (portee=1)*/
-                    for (i=0;i<3;i++)
+                   /* for (i=0;i<3;i++)
                     {
                         if (getEquiMainDroite(getPersoEquipement(groupe[j].perso),i)!=NULL)
                         {
@@ -618,15 +714,11 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MA
                         }
                     }
                     tampon=1;
-                    while (portee<rayon&&tampon) /*L'IA doit se rapprocher pour être à portée de la cible avec sa nouvelle arme*/
-                    {
-                        coord=seRapprocher(groupe[j].arene,groupe[j].posX,groupe[j].posY,1,&(groupe[j].orientation));
+                    while (portee<rayon&&tampon)*/ /*L'IA doit se rapprocher pour être à portée de la cible avec sa nouvelle arme*/
+                 /*  {
+                        coord=seRapprocherC(&groupe[j],1, arene);
                         if (coord)
                         {
-                            arene[groupe[j].posX][groupe[j].posY]=1;
-                            groupe[j].posY=coord%TAILLE_MAX;
-                            groupe[j].posX=(coord-coord%TAILLE_MAX)/TAILLE_MAX;
-                            arene[groupe[j].posX][groupe[j].posY]=4;
                             deplacementsRestants--;
                             rayon=(int)(sqrt(pow(groupe[j].posX-groupe[cible].posX,2)+pow(groupe[j].posY-groupe[cible].posY,2)));
                         }
@@ -635,7 +727,7 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MA
                             printf("Impossible de se rapprocher plus\n");
                             tampon=0;
                         }
-                    }
+                    }*/
                 }
             }
             if (rayon<=portee) /*L'IA est à portée de la cible*/
@@ -654,39 +746,35 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MA
                         if (getPersoPtDeVie(groupe[cible].perso)<=0) copieTab2D(arene,groupe[j].arene);
                         /*Réinitialise l'arene de l'IA lorsque sa cible meure*/
             }
-        }
+      /*  }*/
         else
         {
             /*L'IA est trop loin de la cible pour pouvoir l'attaquer
               elle se rapproche donc pour attaquer la cible qu'elle a vue*/
-            coord=seRapprocher(groupe[j].arene,groupe[j].posX,groupe[j].posY,NB_DEPLACEMENTS,&(groupe[j].orientation));
+            coord=seRapprocherC(&groupe[j],NB_DEPLACEMENTS, arene);
 
             if (coord)
             {
-                arene[groupe[j].posX][groupe[j].posY]=1;
-                groupe[j].posY=coord%TAILLE_MAX;
-                groupe[j].posX=(coord-coord%TAILLE_MAX)/TAILLE_MAX;
-                arene[groupe[j].posX][groupe[j].posY]=4;
             }
             else printf("Impossible de se rapprocher \n");
-        }
+//        }
     }
-    else
+   /* else
     {
         if (estDifferentTab2D(groupe[j].arene,arene))
         {
-            /*Si l'IA a repéré un ennemi mais que celui-ci n'est plus visible,
+            *//*Si l'IA a repéré un ennemi mais que celui-ci n'est plus visible,
               elle se rapproche du dernier endroit où elle a vu la cible et regarde après chaque déplacement si un ennemi est en vue*/
-            while (deplacementsRestants>=1)
+            /*while (deplacementsRestants>=1)
             {
-                coord=seRapprocher(groupe[j].arene,groupe[j].posX,groupe[j].posY,1,&(groupe[j].orientation));
+                coord=seRapprocher(groupe[j].arene,&groupe[j].posY,&groupe[j].posX,1,&(groupe[j].orientation));
                 i=coord%TAILLE_MAX;
                 if (deplacerCase(i,arene[(coord-i)/TAILLE_MAX]))
                 {
-                    arene[groupe[j].posX][groupe[j].posY]=1;
+                    arene[groupe[j].posY][groupe[j].posX]=1;
                     groupe[j].posY=i;
                     groupe[j].posX=(coord-coord%TAILLE_MAX)/TAILLE_MAX;
-                    arene[groupe[j].posX][groupe[j].posY]=4;
+                    arene[groupe[j].posY][groupe[j].posX]=4;
                     deplacementsRestants--;
                 }
                 else
@@ -697,10 +785,10 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MA
             }
         }
         else printf("Aucune cible repérée\n");
-    }
+    }*/
 }
 
-void combat (Personnage* liste, int l, char arene [TAILLE_MAX][TAILLE_MAX])
+void combat (Personnage* liste, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L])
 {
     int i,nb=l;
     Combattant* groupe;
@@ -728,7 +816,7 @@ void combat (Personnage* liste, int l, char arene [TAILLE_MAX][TAILLE_MAX])
     free (groupe);
 }
 
-char estAPortee (char arene[TAILLE_MAX][TAILLE_MAX],Combattant* attaquant, Combattant* defenseur,int portee)
+char estAPortee (char arene[TAILLE_MAX_H][TAILLE_MAX_L],Combattant* attaquant, Combattant* defenseur,int portee)
 {
    /* int rayon;
     if (estDansChampDeVision(arene,attaquant->posX,attaquant->posY,defenseur->posX,defenseur->posY,0))
@@ -745,23 +833,23 @@ char estAPortee (char arene[TAILLE_MAX][TAILLE_MAX],Combattant* attaquant, Comba
     return 0;
 }
 
-void afficherPortee (char arene[TAILLE_MAX][TAILLE_MAX],Combattant* perso, int portee)
+void afficherPortee (char arene[TAILLE_MAX_H][TAILLE_MAX_L],Combattant* perso, int portee)
 {
     int i,j,rayon;
     for (i=-portee;i<portee;i++)
     {
         for(j=-portee;j<portee;j++)
         {
-            if (estDansChampDeVision(arene,perso->posX,perso->posY,i,j,0))
-            {
+           /* if (estDansChampDeVision(arene,perso->posX,perso->posY,i,j,0))
+            {*/
                 rayon=(int)sqrt(pow((i-perso->posX),2)+pow((j-perso->posY),2));
                 if (rayon<=portee&&perso->posX!=i&&perso->posY!=j) arene[i][j]=5;
-            }
+           /* }*/
         }
     }
 }
 
-void effacerPortee (char arene[TAILLE_MAX][TAILLE_MAX],Combattant* perso, int portee)
+void effacerPortee (char arene[TAILLE_MAX_H][TAILLE_MAX_L],Combattant* perso, int portee)
 {
     int i,j;
     for (i=-portee;i<portee;i++)
@@ -773,7 +861,7 @@ void effacerPortee (char arene[TAILLE_MAX][TAILLE_MAX],Combattant* perso, int po
     }
 }
 
-int deplaceCombDroite( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX][TAILLE_MAX])
+int deplaceCombDroite( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX_H][TAILLE_MAX_L])
 {
     if(arene[combattant->posY][combattant->posX+1]==1 && nbDeplacement>0)
     {   combattant->posX+=1;
@@ -785,7 +873,7 @@ int deplaceCombDroite( Combattant* combattant, int nbDeplacement, char arene[TAI
     return nbDeplacement;
 }
 
-int deplaceCombGauche( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX][TAILLE_MAX])
+int deplaceCombGauche( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX_H][TAILLE_MAX_L])
 {
     if(arene[combattant->posY][combattant->posX-1]==1 && nbDeplacement>0)
     {   combattant->posX-=1;
@@ -797,7 +885,7 @@ int deplaceCombGauche( Combattant* combattant, int nbDeplacement, char arene[TAI
     return nbDeplacement;
 }
 
-int deplaceCombBas( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX][TAILLE_MAX])
+int deplaceCombBas( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX_H][TAILLE_MAX_L])
 {
     if(arene[combattant->posY+1][combattant->posX]==1 && nbDeplacement>0)
     {   combattant->posY+=1;
@@ -809,7 +897,7 @@ int deplaceCombBas( Combattant* combattant, int nbDeplacement, char arene[TAILLE
     return nbDeplacement;
 }
 
-int deplaceCombHaut( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX][TAILLE_MAX])
+int deplaceCombHaut( Combattant* combattant, int nbDeplacement, char arene[TAILLE_MAX_H][TAILLE_MAX_L])
 {
     if(arene[combattant->posY-1][combattant->posX]==1 && nbDeplacement>0)
     {   combattant->posY-=1;
@@ -825,11 +913,13 @@ int mainCombat ()
 {
     Personnage liste[4];
     Objet *tab=NULL;
-    int i,j,type=1;
-    char arene [TAILLE_MAX][TAILLE_MAX],ligne [TAILLE_MAX+2];
+    char arene [TAILLE_MAX_H][TAILLE_MAX_L];
+    Terrain terrain;
+
+    terCharger(&terrain, "data/Cartes/save.map");
+    areneInit(&terrain, arene);
 
     srand(time(NULL));
-
     initialiserTousLesObjets(&tab);
 
     nouveauPerso (&liste[0], "Toromis", 1, 1, 1, 1, 0, 100,tab);
@@ -837,32 +927,9 @@ int mainCombat ()
     nouveauPerso (&liste[2], "Babar", 2, 1, 2, 1, 0, 100,tab);
     nouveauPerso (&liste[3], "BabarII", 2, 1, 2, 1, 0, 100,tab);
 
-    FILE* fTerr=fopen("data/Terrains.txt", "r");
+    afficherTab2D (arene);
+    combat (liste,4,arene);
 
-    if (fTerr!=NULL)
-    {
-        for (i=0; i<4;i++)
-        {
-            fgets(ligne,TAILLE_MAX+2,fTerr);
-        }
-        for (i=0;i<(TAILLE_MAX+2)*(type-1);i++)
-        {
-            fgets(ligne,TAILLE_MAX+2,fTerr);
-        }
-        for (i=0;i<TAILLE_MAX;i++)
-        {
-            fgets(ligne,TAILLE_MAX+2,fTerr);
-            for (j=0;j<TAILLE_MAX;j++)
-            {
-                arene[i][j]=ligne[j]-'0';
-            }
-        }
-        fclose (fTerr);
-
-        afficherTab2D (arene);
-        combat (liste,4,arene);
-
-    }
     persoLibere(&liste[0]);
     persoLibere(&liste[1]);
     persoLibere(&liste[2]);

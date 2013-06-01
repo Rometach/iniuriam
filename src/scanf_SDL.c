@@ -344,8 +344,8 @@ void scanfSDL (char* chaine,SDL_Surface* ecran, int longueur, char * action,TTF_
     caractere[1]='\0';
     strcpy(chaine,"");
 
-    position.x=TAILLE_FENETRE/2-250;
-    position.y=TAILLE_FENETRE/3+200;
+    position.x=TAILLE_FENETRE_L/2-250;
+    position.y=TAILLE_FENETRE_H/3+200;
     rectangle= SDL_CreateRGBSurface(SDL_HWSURFACE, 500, 50, 32, 0, 0, 0, 0);
     SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
     SDL_BlitSurface(rectangle, NULL, ecran, &position);
@@ -355,8 +355,8 @@ void scanfSDL (char* chaine,SDL_Surface* ecran, int longueur, char * action,TTF_
     while (continuer)
     {
         caractere[0]=eventScanf(ecran,chiffre);
-        position.x=TAILLE_FENETRE/2-250;
-        position.y=TAILLE_FENETRE/3+200;
+        position.x=TAILLE_FENETRE_L/2-250;
+        position.y=TAILLE_FENETRE_H/3+200;
         switch (caractere[0])
         {
             case 0: /*SDL_QUIT*/
@@ -379,7 +379,7 @@ void scanfSDL (char* chaine,SDL_Surface* ecran, int longueur, char * action,TTF_
                         SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
                         SDL_BlitSurface(rectangle, NULL, ecran, &position);
                         SDL_FreeSurface(rectangle);
-                        position.y=TAILLE_FENETRE/3+200;
+                        position.y=TAILLE_FENETRE_H/3+200;
                     }
                 }
             break;

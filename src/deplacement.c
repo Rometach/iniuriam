@@ -5,24 +5,24 @@
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
 
-void copieTab2D (char tab[TAILLE_MAX][TAILLE_MAX], char tab2 [TAILLE_MAX][TAILLE_MAX])
+void copieTab2D (char tab[TAILLE_MAX_H][TAILLE_MAX_L], char tab2 [TAILLE_MAX_H][TAILLE_MAX_L])
 {
     int i,j;
-    for (i=0;i<TAILLE_MAX;i++)
+    for (i=0;i<TAILLE_MAX_H;i++)
     {
-        for (j=0;j<TAILLE_MAX;j++)
+        for (j=0;j<TAILLE_MAX_L;j++)
         {
             tab2[i][j]=tab[i][j];
         }
     }
 }
 
-char estDifferentTab2D (char tab1 [TAILLE_MAX][TAILLE_MAX],char tab2 [TAILLE_MAX][TAILLE_MAX])
+char estDifferentTab2D (char tab1 [TAILLE_MAX_H][TAILLE_MAX_L],char tab2 [TAILLE_MAX_H][TAILLE_MAX_L])
 {
     int i,j;
-    for (i=0;i<TAILLE_MAX;i++)
+    for (i=0;i<TAILLE_MAX_H;i++)
     {
-        for(j=0;j<TAILLE_MAX;j++)
+        for(j=0;j<TAILLE_MAX_L;j++)
         {
             if (tab1[i][j]!=tab2[i][j]) return 1;
         }
@@ -30,25 +30,40 @@ char estDifferentTab2D (char tab1 [TAILLE_MAX][TAILLE_MAX],char tab2 [TAILLE_MAX
     return 0;
 }
 
-char deplacerCase (int y, char tab [TAILLE_MAX])
+char deplacerCaseColonne(int y, char tab [TAILLE_MAX_H])
 {
     if (tab [y]==0||tab [y]==2||tab[y]>=7||tab[y]==4) return 0;
     /*La case est occupée si il y a un perso dessus ou si il s'agit d'un mur,
      ou d'une case qui empêche le retour du personnage ou encore d'un chemin déjà emprunté par l'IA*/
-    else return 1;
+    return 1;
 }
 
-char testRetour (int x, char tab [TAILLE_MAX])
+char deplacerCaseLigne(int x, char tab [TAILLE_MAX_L])
+{
+    if (tab [x]==0||tab [x]==2||tab[x]>=7||tab[x]==4) return 0;
+    /*La case est occupée si il y a un perso dessus ou si il s'agit d'un mur,
+     ou d'une case qui empêche le retour du personnage ou encore d'un chemin déjà emprunté par l'IA*/
+    return 1;
+}
+
+char testRetourColonne(int y, char tab [TAILLE_MAX_H])
+{
+    if ((tab[y-1]>=7&&tab[y-2]>=7)||(tab[y+1]>=7&&tab[y+2]>=7)) return 0;
+    /*Vérifie si les cases qui entoure la case cible sont des cases empêchant le retour de l'IA*/
+    return 1;
+}
+
+char testRetourLigne(int x, char tab [TAILLE_MAX_L])
 {
     if ((tab[x-1]>=7&&tab[x-2]>=7)||(tab[x+1]>=7&&tab[x+2]>=7)) return 0;
     /*Vérifie si les cases qui entoure la case cible sont des cases empêchant le retour de l'IA*/
-    else return 1;
+    return 1;
 }
 
-void getColonne(int col, char tab[TAILLE_MAX][TAILLE_MAX], char*tamp)
+void getColonne(int col, char tab[TAILLE_MAX_H][TAILLE_MAX_L], char*tamp)
 {
     int i;
-    for(i=0;i<TAILLE_MAX; i++)
+    for(i=0;i<TAILLE_MAX_H; i++)
     {
         tamp[i] = tab[i][col];
     }
@@ -66,12 +81,12 @@ char max (char a, char b)
     else return a;
 }
 
-void afficherTab2D (char tab[TAILLE_MAX][TAILLE_MAX])
+void afficherTab2D (char tab[TAILLE_MAX_H][TAILLE_MAX_L])
 {
     int i,j;
-    for (i=0;i<TAILLE_MAX;i++)
+    for (i=0;i<TAILLE_MAX_H;i++)
     {
-        for (j=0;j<TAILLE_MAX;j++)
+        for (j=0;j<TAILLE_MAX_L;j++)
         {
             printf("%d",tab[i][j]);
         }
@@ -80,12 +95,12 @@ void afficherTab2D (char tab[TAILLE_MAX][TAILLE_MAX])
     printf("\n\n");
 }
 
-char chercher2 (char tab[TAILLE_MAX][TAILLE_MAX],int x, int y,char i)
+char chercher2 (char tab[TAILLE_MAX_H][TAILLE_MAX_L],int x, int y,char i)
 {
-    if (tab[x][y-1]==3) return 1; /* 2 à gauche*/
-    else if (tab[x-1][y]==3) return 2; /*2 en haut*/
-    else if (tab[x+1][y]==3) return 3;/*2 en bas*/
-    else if (tab[x][y+1]==3) return 4;/*2 à droite*/
+    if (tab[x][y-1]==2) return 1; /* 2 à gauche*/
+    else if (tab[x-1][y]==2) return 2; /*2 en haut*/
+    else if (tab[x+1][y]==2) return 3;/*2 en bas*/
+    else if (tab[x][y+1]==2) return 4;/*2 à droite*/
     else
     {
         switch (i)
@@ -120,56 +135,56 @@ char chercher2 (char tab[TAILLE_MAX][TAILLE_MAX],int x, int y,char i)
     return 0;
 }
 
-void tunnel (int x, int y, char tab [TAILLE_MAX][TAILLE_MAX], int i)
+void tunnel (int x, int y, char tab [TAILLE_MAX_H][TAILLE_MAX_L], int i)
 {
-    char tamp [TAILLE_MAX];
+    char tamp [TAILLE_MAX_H];
     getColonne(y, tab,tamp);
     switch (i)
     {
         case 0:/*Déplacement en bas*/
-            if (deplacerCase(y-1,tab[x])!=0&&tab [x][y-1]!=3) tab [x][y-1]=7;
+            if (deplacerCaseLigne(y-1,tab[x])!=0&&tab [x][y-1]!=3) tab [x][y-1]=7;
             else if (tab [x][y-1]==7) tab[x][y-1]=9;
 
-            if (deplacerCase(y+1,tab[x])!=0&&tab[x][y+1]!=3) tab[x][y+1]=7;
+            if (deplacerCaseLigne(y+1,tab[x])!=0&&tab[x][y+1]!=3) tab[x][y+1]=7;
             else if (tab[x][y+1]==7) tab[x][y+1]=9;
 
-            if (deplacerCase(x-1,tamp)!=0&&tab[x-1][y]!=3) tab[x-1][y]=7;
+            if (deplacerCaseColonne(x-1,tamp)!=0&&tab[x-1][y]!=3) tab[x-1][y]=7;
             else if (tab[x-1][y]==7) tab[x-1][y]=9;
 
             /*Bloque les cases à droite, à gauche et en haut du perso si elles sont accèssibles pour empêcher un retour en arrière*/
             break;
         case 1:/*Déplacement à droite*/
-            if (deplacerCase(y-1,tab[x])!=0&&tab [x][y-1]!=3) tab [x][y-1]=7;
+            if (deplacerCaseLigne(y-1,tab[x])!=0&&tab [x][y-1]!=3) tab [x][y-1]=7;
             else if (tab [x][y-1]==7) tab[x][y-1]=9;
 
-            if (deplacerCase(x-1,tamp)!=0&&tab[x-1][y]!=3) tab[x-1][y]=7;
+            if (deplacerCaseColonne(x-1,tamp)!=0&&tab[x-1][y]!=3) tab[x-1][y]=7;
             else if (tab[x-1][y]==7) tab[x-1][y]=9;
 
-            if (deplacerCase(x+1,tamp)!=0&&tab[x+1][y]!=3) tab[x+1][y]=7;
+            if (deplacerCaseColonne(x+1,tamp)!=0&&tab[x+1][y]!=3) tab[x+1][y]=7;
             else if (tab[x+1][y]==7) tab[x+1][y]=9;
 
             /*Bloque les cases à gauche, en haut et en bas du perso si elles sont accèssibles pour empêcher un retour en arrière*/
             break;
         case 2:/*Déplacement en haut*/
-            if (deplacerCase(y-1,tab[x])!=0&&tab [x][y-1]!=3) tab [x][y-1]=7;
+            if (deplacerCaseLigne(y-1,tab[x])!=0&&tab [x][y-1]!=3) tab [x][y-1]=7;
             else if (tab [x][y-1]==7) tab[x][y-1]=9;
 
-            if (deplacerCase(y+1,tab[x])!=0&&tab[x][y+1]!=3) tab[x][y+1]=7;
+            if (deplacerCaseLigne(y+1,tab[x])!=0&&tab[x][y+1]!=3) tab[x][y+1]=7;
             else if (tab[x][y+1]==7) tab[x][y+1]=9;
 
-            if (deplacerCase(x+1,tamp)!=0&&tab[x+1][y]!=3) tab[x+1][y]=7;
+            if (deplacerCaseColonne(x+1,tamp)!=0&&tab[x+1][y]!=3) tab[x+1][y]=7;
             else if (tab[x+1][y]==7) tab[x+1][y]=9;
 
             /*Bloque les cases à droite, à gauche et en bas du perso si elles sont accèssibles pour empêcher un retour en arrière*/
             break;
         case 3:/*Déplacement à gauche*/
-            if (deplacerCase(y+1,tab[x])!=0&&tab[x][y+1]!=3) tab[x][y+1]=7;
+            if (deplacerCaseLigne(y+1,tab[x])!=0&&tab[x][y+1]!=3) tab[x][y+1]=7;
             else if (tab[x][y+1]==7) tab[x][y+1]=9;
 
-            if (deplacerCase(x-1,tamp)!=0&&tab[x-1][y]!=3) tab[x-1][y]=7;
+            if (deplacerCaseColonne(x-1,tamp)!=0&&tab[x-1][y]!=3) tab[x-1][y]=7;
             else if (tab[x-1][y]==7) tab[x-1][y]=9;
 
-            if (deplacerCase(x+1,tamp)!=0&&tab[x+1][y]!=3) tab[x+1][y]=7;
+            if (deplacerCaseColonne(x+1,tamp)!=0&&tab[x+1][y]!=3) tab[x+1][y]=7;
             else if (tab[x+1][y]==7) tab[x+1][y]=9;
 
             /*Bloque les cases à droite, en haut et en bas du perso si elles sont accèssibles pour empêcher un retour en arrière*/
@@ -178,7 +193,7 @@ void tunnel (int x, int y, char tab [TAILLE_MAX][TAILLE_MAX], int i)
     }
 }
 
-void reinitTunnel (int x, int y, char tab [TAILLE_MAX][TAILLE_MAX])
+void reinitTunnel (int x, int y, char tab [TAILLE_MAX_H][TAILLE_MAX_L])
 {
     if (tab[x-1][y]==7)tab[x-1][y]=1;
     else if (tab[x-1][y]==9)tab[x-1][y]=7;
@@ -283,9 +298,9 @@ char quatreChemins (char droite, char haut, char bas, char gauche)
     return 0;
 }
 
-char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX])
+char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX_H][TAILLE_MAX_L])
 {
-    char tamp [TAILLE_MAX], droite=0, gauche=0, haut=0, bas=0;
+    char tamp [TAILLE_MAX_H], droite=0, gauche=0, haut=0, bas=0;
     getColonne(y,tab,tamp);
     int i=1,j=1;
     if (y>t) j=-1;
@@ -304,7 +319,7 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
         tab[x][y]=3;
         return 1;
     }
-    else if ((j!=0)&&(deplacerCase(y+j,tab[x])!=0)) /*test de déplacement à droite/gauche de l'IA en fonction de j*/
+    else if ((j!=0)&&(deplacerCaseLigne(y+j,tab[x])!=0)) /*test de déplacement à droite/gauche de l'IA en fonction de j*/
     {
         tunnel (x,y,tab,(j+4)%4);
         droite=deplacementIA (x,y+j,z,t,tab);
@@ -315,14 +330,14 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
             return 2;
         }
 
-        if (deplacerCase(x+i,tamp)!=0) /*test de déplacement en bas/haut de l'IA en fonction de i*/
+        if (deplacerCaseColonne(x+i,tamp)!=0) /*test de déplacement en bas/haut de l'IA en fonction de i*/
         {
             tunnel (x,y,tab,(i+3)%4);
             bas=deplacementIA(x+i,y,z,t,tab);
             reinitTunnel(x,y,tab);
         }
 
-        if (deplacerCase(x-i,tamp)!=0&&(testRetour(y,tab[x-i])!=0)) /*test de déplacement en haut/bas de l'IA en fonction de i*/
+        if (deplacerCaseColonne(x-i,tamp)!=0&&(testRetourLigne(y,tab[x-i])!=0)) /*test de déplacement en haut/bas de l'IA en fonction de i*/
         {
             tunnel (x,y,tab,(-i+3)%4);
             haut=deplacementIA(x-i,y,z,t,tab);
@@ -330,7 +345,7 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
         }
 
         getColonne(y-j,tab,tamp);
-        if ((deplacerCase(y-j,tab[x])!=0)&&(testRetour(x,tamp)!=0)) /*test de déplacement à gauche/droite de l'IA en fonction de j*/
+        if ((deplacerCaseLigne(y-j,tab[x])!=0)&&(testRetourColonne(x,tamp)!=0)) /*test de déplacement à gauche/droite de l'IA en fonction de j*/
         {
             tunnel (x,y,tab,(-j+4)%4);
             gauche=deplacementIA(x,y-j,z,t,tab);
@@ -357,7 +372,7 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
     }
     else if (j==0) /*L'IA est aligné avec la colonne de la destination*/
     {
-        if (deplacerCase(x+i,tamp)!=0) /*test de déplacement en bas/haut de l'IA en fonction de i*/
+        if (deplacerCaseColonne(x+i,tamp)!=0) /*test de déplacement en bas/haut de l'IA en fonction de i*/
         {
             tunnel (x,y,tab,(i+3)%4);
             bas=deplacementIA(x+i,y,z,t,tab);
@@ -369,14 +384,14 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
             }
         }
 
-        if (deplacerCase(y+1,tab[x])!=0) /*test de déplacement à droite de l'IA*/
+        if (deplacerCaseLigne(y+1,tab[x])!=0) /*test de déplacement à droite de l'IA*/
         {
             tunnel (x,y,tab,1);
             droite=deplacementIA (x,y+1,z,t,tab);
             reinitTunnel(x,y,tab);
         }
 
-        if (deplacerCase(x-i,tamp)!=0&&(testRetour(y,tab[x-i])!=0)) /*test de déplacement en haut/bas de l'IA en fonction de i*/
+        if (deplacerCaseColonne(x-i,tamp)!=0&&(testRetourLigne(y,tab[x-i])!=0)) /*test de déplacement en haut/bas de l'IA en fonction de i*/
         {
             tunnel (x,y,tab,(-i+3)%4);
             haut=deplacementIA(x-i,y,z,t,tab);
@@ -384,7 +399,7 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
         }
 
         getColonne(y-1,tab,tamp);
-        if ((deplacerCase(y-1,tab[x])!=0)&&(testRetour(x,tamp)!=0)) /*test de déplacement à gauche de l'IA*/
+        if ((deplacerCaseLigne(y-1,tab[x])!=0)&&(testRetourColonne(x,tamp)!=0)) /*test de déplacement à gauche de l'IA*/
         {
             tunnel (x,y,tab,3);
             gauche=deplacementIA(x,y-1,z,t,tab);
@@ -412,14 +427,14 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
     else /*L'IA est alignée par rapport à l'axe des X ou le déplacement vers la case suivante est impossible*/
     {
         if (i==0) i=1;
-        if (deplacerCase(x+i,tamp)!=0&&(testRetour(y,tab[x+i])!=0)) /*test de déplacement à droite de l'IA*/
+        if (deplacerCaseColonne(x+i,tamp)!=0&&(testRetourLigne(y,tab[x+i])!=0)) /*test de déplacement à droite de l'IA*/
         {
             tunnel (x,y,tab,(i+3)%4);
             bas=deplacementIA(x+i,y,z,t,tab);
             reinitTunnel(x,y,tab);
         }
 
-        if ((deplacerCase(x-i,tamp)!=0)&&(testRetour(y,tab[x-i])!=0)) /*test de déplacement à gauche de l'IA*/
+        if ((deplacerCaseColonne(x-i,tamp)!=0)&&(testRetourLigne(y,tab[x-i])!=0)) /*test de déplacement à gauche de l'IA*/
         {
             tunnel (x,y,tab,(-i+3)%4);
             haut=deplacementIA(x-i,y,z,t,tab);
@@ -427,7 +442,7 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
         }
 
         getColonne(y-j,tab,tamp);
-        if (deplacerCase(y-j,tab[x])!=0&&(testRetour(x,tamp)!=0)) /*test de déplacement en haut/bas de l'IA en fonction de i*/
+        if (deplacerCaseLigne(y-j,tab[x])!=0&&(testRetourColonne(x,tamp)!=0)) /*test de déplacement en haut/bas de l'IA en fonction de i*/
         {
             tunnel (x,y,tab,(-j+4)%4);
             gauche=deplacementIA(x,y-j,z,t,tab);
@@ -452,9 +467,9 @@ char deplacementIA (int x, int y, int z, int t, char tab [TAILLE_MAX][TAILLE_MAX
     return 0;
 }
 
-char chemin (int x,int y, int z, int t, char tab[TAILLE_MAX][TAILLE_MAX])
+char chemin (int x,int y, int z, int t, char tab[TAILLE_MAX_H][TAILLE_MAX_L])
 {
-    char tab2 [TAILLE_MAX][TAILLE_MAX];
+    char tab2 [TAILLE_MAX_H][TAILLE_MAX_L];
     int i,j,n;
 
         tab[x][y]=3;
@@ -492,9 +507,9 @@ char chemin (int x,int y, int z, int t, char tab[TAILLE_MAX][TAILLE_MAX])
     return n;
 }
 
-int seRapprocher(char tab[TAILLE_MAX][TAILLE_MAX], int a, int b, int nb,char* orientation)
+int seRapprocher(char tab[TAILLE_MAX_H][TAILLE_MAX_L], int* a, int* b, int nb,char* orientation)
 {
-    int i=nb,j=0,x=a,y=b;
+    int i=nb,j=0,x=*a,y=*b;
     while (i>0)
     {
         tab[x][y]=1;
@@ -522,18 +537,18 @@ int seRapprocher(char tab[TAILLE_MAX][TAILLE_MAX], int a, int b, int nb,char* or
     }
     tab[x][y]=4;
     *orientation=chercher2(tab,x,y,j); /*Oriente l'IA vers la case suivante*/
-    return x*TAILLE_MAX+y;
+    return 1;
 }
 
-int sEloigner(char tab[TAILLE_MAX][TAILLE_MAX], int a, int b, int nb, char* orientation)
+int sEloigner(char tab[TAILLE_MAX_H][TAILLE_MAX_L], int* a, int* b, int nb, char* orientation)
 {
-    int i=nb,j=0,x=a,y=b;
+    int i=nb,j=0,x=*a,y=*b;
     while (i>0)
     {
         switch (chercher2(tab,x,y,j))
         {
             case 1:
-                if (deplacerCase(y+1,tab[x]))
+                if (deplacerCaseLigne(y+1,tab[x]))
                 {
                     j=4;
                     tab[x][y]=2;
@@ -546,7 +561,7 @@ int sEloigner(char tab[TAILLE_MAX][TAILLE_MAX], int a, int b, int nb, char* orie
                 }
             break;
             case 2:
-                if (deplacerCase(y,tab[x+1]))
+                if (deplacerCaseLigne(y,tab[x+1]))
                 {
                     j=3;
                     tab[x][y]=2;
@@ -559,7 +574,7 @@ int sEloigner(char tab[TAILLE_MAX][TAILLE_MAX], int a, int b, int nb, char* orie
                 }
             break;
             case 3:
-                if (deplacerCase(y,tab[x-1]))
+                if (deplacerCaseLigne(y,tab[x-1]))
                 {
                     j=2;
                     tab[x][y]=2;
@@ -572,7 +587,7 @@ int sEloigner(char tab[TAILLE_MAX][TAILLE_MAX], int a, int b, int nb, char* orie
                 }
             break;
             case 4:
-                if (deplacerCase(y-1,tab[x]))
+                if (deplacerCaseLigne(y-1,tab[x]))
                 {
                     j=1;
                     tab[x][y]=2;
@@ -592,12 +607,12 @@ int sEloigner(char tab[TAILLE_MAX][TAILLE_MAX], int a, int b, int nb, char* orie
         tab[x][y]=2;
         i--;
     }
-    return x*TAILLE_MAX+y;
+    return 1;
 }
 
-int mainDeplacement ()
+/*int mainDeplacement ()
 {
-    char tab [TAILLE_MAX][TAILLE_MAX], ligne [TAILLE_MAX+2];
+    char tab [20][20], ligne [22];
     FILE* fTerr=fopen("data/Terrains.txt", "r");
     int i,j;
     int type=2;
@@ -605,16 +620,16 @@ int mainDeplacement ()
     {
         for (i=0; i<4;i++)
         {
-            fgets(ligne,TAILLE_MAX+2,fTerr);
+            fgets(ligne,22,fTerr);
         }
-        for (i=0;i<(TAILLE_MAX+2)*(type-1);i++)
+        for (i=0;i<(22)*(type-1);i++)
         {
-            fgets(ligne,TAILLE_MAX+2,fTerr);
+            fgets(ligne,22,fTerr);
         }
-        for (i=0;i<TAILLE_MAX;i++)
+        for (i=0;i<20;i++)
         {
-            fgets(ligne,TAILLE_MAX+2,fTerr);
-            for (j=0;j<TAILLE_MAX;j++)
+            fgets(ligne,22,fTerr);
+            for (j=0;j<20;j++)
             {
                 tab[i][j]=ligne[j]-'0';
             }
@@ -628,4 +643,4 @@ int mainDeplacement ()
     else printf ("\nImpossible d'ouvrir le fichier Terrains.txt\n");
 
     return 0;
-}
+}*/
