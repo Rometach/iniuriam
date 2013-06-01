@@ -140,7 +140,7 @@ void eventVendreSDL(Dialogue* dialogue, char* reponse, SDL_Surface* ecran);
 * \brief Preconditions : hero, ennemi, ter et ecran initialisés
 * <br /> Postconditions : gère les évenements lors du combat
 */
-void eventCombatSDL(Personnage* hero, Personnage* ennemi, Terrain* ter, SDL_Surface* ecran);
+int eventCombatSDL(Personnage* hero, Personnage* ennemi, Terrain* ter, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions :groupe, j, l et arene sont initialisés

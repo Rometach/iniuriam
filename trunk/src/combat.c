@@ -319,24 +319,24 @@ int testNbCombattant (Combattant* groupe, int l, char arene [TAILLE_MAX_H][TAILL
             }
             copieCombattant(tampon,&groupe[n]); /*le mort est placé a la fin du tableau de combattant*/
             free (tampon);
-            arene[groupe[n].posX][groupe[n].posY]=1; /*le mort est retiré de l'arene*/
+            arene[groupe[n].posY][groupe[n].posX]=1; /*le mort est retiré de l'arene*/
 
         }
     }
     return n;
 }
 
-int attaquer (Personnage* attaquant, Personnage* defenseur, int degats, int bonusA, int bonusD, int bonusAg, int bonusEsc, int type, char distance)
+int attaquer (Combattant* attaquant, Combattant* defenseur, int degats, int bonusA, int bonusD, int bonusAg, int bonusEsc, int type, char distance)
 {
     int testA, testD=0;
     int deg=0;
     Equipement* armure;
-    if (distance) testA=getPersoAttaque(attaquant)+bonusAg-rand()%100;/*Si l'attaque est au corps à corps le test d'attaque porte sur l'attaque de l'attaquant*/
-    else testA=getPersoAgilite(attaquant)+bonusAg-rand()%100;/*Si l'attaque est à distance le test d'attaque porte sur l'agilite de l'attaquant*/
+    if (distance) testA=getPersoAttaque(attaquant->perso)+bonusAg-rand()%100;/*Si l'attaque est au corps à corps le test d'attaque porte sur l'attaque de l'attaquant*/
+    else testA=getPersoAgilite(attaquant->perso)+bonusAg-rand()%100;/*Si l'attaque est à distance le test d'attaque porte sur l'agilite de l'attaquant*/
 
     if (testA>=0)
     {
-        armure=getPersoEquipement(attaquant); /*la défense augmente si le personnage porte des pièces d'armure*/
+        armure=getPersoEquipement(attaquant->perso); /*la défense augmente si le personnage porte des pièces d'armure*/
         if (armure->tete!=NULL)testD+=getObjetProtection(armure->tete);
         if (armure->torse!=NULL)testD+=getObjetProtection(armure->torse);
         if (armure->bas!=NULL)testD+=getObjetProtection(armure->bas);
@@ -344,31 +344,31 @@ int attaquer (Personnage* attaquant, Personnage* defenseur, int degats, int bonu
         if (armure->mains!=NULL)testD+=getObjetProtection(armure->mains);
         if (armure->armeGauche!=NULL)testD+=getObjetProtection(armure->armeGauche);
 
-        testD+=getPersoDefense(defenseur)+bonusD+bonusEsc-rand()%100;
+        testD+=getPersoDefense(defenseur->perso)+bonusD+bonusEsc-rand()%100;
 
         testA=testA-max(testD,0)+bonusA;
         if(testA>=30)
         {
             printf("Coup critique\n");
-            ajouterCompetencePerso (attaquant,type,4);
+            ajouterCompetencePerso (attaquant->perso,type,4);
             deg=4*degats;
         }
         else if(testA>=20)
         {
             printf("Coup qui fait mal\n");
-            ajouterCompetencePerso (attaquant,type,3);
+            ajouterCompetencePerso (attaquant->perso,type,3);
             deg=3*degats;
         }
         else if(testA>=10)
         {
             printf("Beigne\n");
-            ajouterCompetencePerso (attaquant,type,2);
+            ajouterCompetencePerso (attaquant->perso,type,2);
             deg=2*degats;
         }
         else if(testA>=0)
         {
             printf("Touche, mais de justesse\n");
-            ajouterCompetencePerso (attaquant,type,1);
+            ajouterCompetencePerso (attaquant->perso,type,1);
             deg=degats;
         }
         else
@@ -380,9 +380,20 @@ int attaquer (Personnage* attaquant, Personnage* defenseur, int degats, int bonu
     {
         printf("Rate.\n");
     }
-    addPersoPtDeVie(defenseur, -deg);
-    printf("%d\n",getPersoPtDeVie(defenseur));
+    addPersoPtDeVie(defenseur->perso, -deg);
+    printf("%d\n",getPersoPtDeVie(defenseur->perso));
+
     return deg;
+}
+
+void testMort(Combattant* defenseur, char arene[TAILLE_MAX_H][TAILLE_MAX_L])
+{
+     if(getPersoPtDeVie(defenseur->perso)<=0)
+        {
+            defenseur->perso->avatar=SDL_LoadBMP("data/Media/rip.bmp");
+            defenseur->arene[defenseur->posY][defenseur->posX]=1;
+            arene[defenseur->posY][defenseur->posX]=1;
+        }
 }
 
 void verifierDerniereAction (Combattant* defenseur,int* bonusDef,int* bonusEsc)
@@ -462,12 +473,11 @@ void attaqueBrutale(Combattant* attaquant, Combattant* defenseur, int degat,char
     verifierDerniereAction(defenseur,&bonusDef,&bonusEsc);
 
     i=chercherCompetence(getPersoCapacite2(attaquant->perso),16); /*Cherche si l'attaquant a de l'expérience dans l'attaque brutale*/
-    if (i<0) deg=attaquer (attaquant->perso,defenseur->perso,degat,0,bonusDef,0,bonusEsc,16,type);
-    else deg=attaquer (attaquant->perso,defenseur->perso,degat,getBonusatt(getCompetence(getPersoCapacite2(attaquant->perso),i)),bonusDef,0,bonusEsc,16,type);
+    if (i<0) deg=attaquer (attaquant,defenseur,degat,0,bonusDef,0,bonusEsc,16,type);
+    else deg=attaquer (attaquant,defenseur,degat,getBonusatt(getCompetence(getPersoCapacite2(attaquant->perso),i)),bonusDef,0,bonusEsc,16,type);
     /*L'attaquant bénificie d'un bonus d'attaque en fonction de son expérience dans l'attaque brutale*/
 
     ajouterCompetenceAttaque(attaquant,defenseur,(int)deg/degat,type);
-
     attaquant->derniereAction=2;
 }
 
@@ -477,10 +487,9 @@ void attaquePrudente (Combattant* attaquant, Combattant* defenseur, int degat,ch
 
     verifierDerniereAction(defenseur,&bonusDef,&bonusEsc);
 
-    deg=attaquer (attaquant->perso,defenseur->perso,degat,0,bonusDef,0,bonusEsc,17,type);
+    deg=attaquer (attaquant,defenseur,degat,0,bonusDef,0,bonusEsc,17,type);
 
     ajouterCompetenceAttaque(attaquant,defenseur,(int)deg/degat,type);
-
     attaquant->derniereAction=3;
 }
 
@@ -491,12 +500,11 @@ void feinte (Combattant* attaquant, Combattant* defenseur, int degat,char type)
     verifierDerniereAction(defenseur,&bonusDef,&bonusEsc);
 
     i=chercherCompetence(getPersoCapacite2(attaquant->perso),18); /*Cherche si l'attaquant a de l'expérience dans l'attaque feintée*/
-    if (i<0) deg=attaquer (attaquant->perso,defenseur->perso,degat,0,bonusDef,0,bonusEsc,18,type);
-    else deg=attaquer (attaquant->perso,defenseur->perso,degat,getBonusint(getCompetence(getPersoCapacite2(attaquant->perso),i)),bonusDef,0,bonusEsc,18,type);
+    if (i<0) deg=attaquer (attaquant,defenseur,degat,0,bonusDef,0,bonusEsc,18,type);
+    else deg=attaquer (attaquant,defenseur,degat,getBonusint(getCompetence(getPersoCapacite2(attaquant->perso),i)),bonusDef,0,bonusEsc,18,type);
     /*L'attaquant bénificie d'un bonus d'attaque en fonction de son expérience dans l'attaque feintée*/
 
     ajouterCompetenceAttaque(attaquant,defenseur,(int)deg/degat,type);
-
     attaquant->derniereAction=4;
 }
 
@@ -507,12 +515,11 @@ void viserPourAttaque (Combattant* attaquant, Combattant* defenseur, int degat,c
     verifierDerniereAction(defenseur,&bonusDef,&bonusEsc);
 
     i=chercherCompetence(getPersoCapacite2(attaquant->perso),19); /*Cherche si l'attaquant a de l'expérience dans l'attaque visée*/
-    if (i<0) deg=attaquer (attaquant->perso,defenseur->perso,degat,0,bonusDef,0,bonusEsc,19,type);
-    else deg=attaquer (attaquant->perso,defenseur->perso,degat,0,bonusDef,getBonusagi(getCompetence(getPersoCapacite2(attaquant->perso),i)),bonusEsc,19,type);
+    if (i<0) deg=attaquer (attaquant,defenseur,degat,0,bonusDef,0,bonusEsc,19,type);
+    else deg=attaquer (attaquant,defenseur,degat,0,bonusDef,getBonusagi(getCompetence(getPersoCapacite2(attaquant->perso),i)),bonusEsc,19,type);
     /*L'attaquant bénificie d'un bonus d'attaque en fonction de son expérience dans l'attaque brutale*/
 
     ajouterCompetenceAttaque(attaquant,defenseur,(int)deg/degat,type);
-
     attaquant->derniereAction=5;
 }
 
@@ -734,17 +741,18 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_
             {
                         if (rayon>1)
                         {
-                            attaquer(groupe[j].perso,groupe[cible].perso,degats,0,0,0,0,14,0);
+                            attaquer(&groupe[j],&groupe[cible],degats,0,0,0,0,14,0);
                             /*L'IA attaque le joueur à distance*/
                         }
                         else
                         {
-                            attaquer(groupe[j].perso,groupe[cible].perso,degats,0,0,0,0,15,1);
+                            attaquer(&groupe[j], &groupe[cible],degats,0,0,0,0,15,1);
                             /*L'IA attaque le joueur au corps à corps*/
                         }
 
                         if (getPersoPtDeVie(groupe[cible].perso)<=0) copieTab2D(arene,groupe[j].arene);
                         /*Réinitialise l'arene de l'IA lorsque sa cible meure*/
+                        testMort(&groupe[cible], arene);
             }
       /*  }*/
         else
