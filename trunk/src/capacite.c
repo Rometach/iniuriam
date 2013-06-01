@@ -5,7 +5,7 @@
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
 
-void CapaciteInit (Capacite* capacite)
+void capaciteInit (Capacite* capacite)
 {
     capacite->comp=(Competence*)malloc(sizeof(Competence));
     capacite->nbCompetence=0;
@@ -13,7 +13,7 @@ void CapaciteInit (Capacite* capacite)
 }
 
 
-void CapaciteLibere (Capacite* capacite)
+void capaciteLibere (Capacite* capacite)
 {
     free(capacite->comp);
     capacite->nbCompetence=0;
@@ -59,7 +59,7 @@ void copieCapacite(const Capacite* capacite1, Capacite* capacite2)
 {
     int i;
 
-    CapaciteLibere(capacite2);
+    capaciteLibere(capacite2);
 
     capacite2->comp=malloc((capacite1->quantite)*sizeof(Competence));
     capacite2->nbCompetence=capacite1->nbCompetence;
@@ -115,8 +115,8 @@ int mainCapacite()
 
     for(i=0;i<100;i++)
     {
-        CapaciteInit (&capacite);
-        CapaciteInit (&capacite2);
+        capaciteInit (&capacite);
+        capaciteInit (&capacite2);
 
         for(j=0;j<9;j++)
         {
@@ -136,8 +136,8 @@ int mainCapacite()
 
         printf("Il y a %d competences sur %d\n", getCapaciteNbCompetence(&capacite2), getCapaciteQuantite(&capacite2));
 
-        CapaciteLibere (&capacite);
-        CapaciteLibere (&capacite2);
+        capaciteLibere (&capacite);
+        capaciteLibere (&capacite2);
     }
 
     return EXIT_SUCCESS;

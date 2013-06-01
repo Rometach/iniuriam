@@ -223,9 +223,9 @@ void libererTousLesObjets(Objet** tabObj)
 {
     int i,max;
     max=getNbObjet();
-    for (i=0;i<max-3;i++)
+    for (i=1;i<max-3;i++)
     {
-        /*SDL_FreeSurface(((*tabObj)[i]).icon);*/
+        objLibere(&((*tabObj)[i]));
     }
     free(*tabObj);
 }

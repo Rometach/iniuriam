@@ -24,14 +24,14 @@ typedef struct
 * \brief Preconditions : capacite n'est pas initialisée
 * <br /> Postconditions : capacite est initialisée
 */
-void CapaciteInit (Capacite* capacite);
+void capaciteInit (Capacite* capacite);
 
 
 /**
 * \brief Preconditions : capacite est initialisé
 * <br /> Postconditions : capacite est libéré
 */
-void CapaciteLibere (Capacite* capacite);
+void capaciteLibere (Capacite* capacite);
 
 
 /**

@@ -138,6 +138,12 @@ void getPersoFactionNom(char* chaine, const Personnage *perso);
 
 /**
 * \brief Preconditions : perso est initialisé
+* <br /> Postconditions : fixe la faction du perso
+*/
+void setPersoFaction(Personnage *perso, const char faction);
+
+/**
+* \brief Preconditions : perso est initialisé
 * <br /> Postconditions : retourne le sexe du perso
 */
 char getPersoSexe(const Personnage *perso);

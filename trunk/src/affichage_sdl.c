@@ -429,7 +429,7 @@ void affDialogue( char* dialoguetab, SDL_Surface* ecran)
     SDL_Surface* texte = NULL;
     SDL_Rect position;
     char* tampon;
-    //char * phrase;
+    /*char * phrase;*/
     TTF_Init();
     TTF_Font *police = NULL;
     int i=1;
@@ -437,7 +437,7 @@ void affDialogue( char* dialoguetab, SDL_Surface* ecran)
 
     SDL_Color color = { 0, 225, 0};
     tampon=malloc(400*sizeof(char));
-    //phrase = malloc(400*sizeof(char));
+    /*phrase = malloc(400*sizeof(char));*/
     cadreDialogue = SDL_CreateRGBSurface(SDL_HWSURFACE, (CARTE_LARGEUR-4)*TILE_LARGEUR, 4*TILE_HAUTEUR, 32, 0, 0, 0, 0);
     position.x = 2*TILE_LARGEUR;
     position.y = (CARTE_HAUTEUR-5)*TILE_HAUTEUR;
@@ -459,8 +459,8 @@ void affDialogue( char* dialoguetab, SDL_Surface* ecran)
                 printf("%s \n", tampon);
                 i+=2;
             }
-//             phrase=(tampon - strrchr(tampon, (int)" "));
-//             printf("%s \n", phrase);
+/*             phrase=(tampon - strrchr(tampon, (int)" "));
+            printf("%s \n", phrase);*/
     }
     SDL_BlitSurface(texte, NULL, ecran, &position);
     SDL_Flip(ecran);
