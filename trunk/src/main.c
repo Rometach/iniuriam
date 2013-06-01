@@ -37,6 +37,7 @@ int main (int argc, char **argv)
 
     initialiserTousLesObjets(&tabObjets);
 
+/*   mainMenu();*/
     srand(time(NULL));
     nouveauPerso (&hero, "Toromis", 1, 1, 1, 1, 0, 100, tabObjets);
 
@@ -44,7 +45,7 @@ int main (int argc, char **argv)
 
     nouveauPerso (&pnj, "Babar", 1, 1, 1, 1, 0, 100, tabObjets);
 
-    ecran = SDL_SetVideoMode(TAILLE_FENETRE, TAILLE_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
+    ecran = SDL_SetVideoMode(TAILLE_FENETRE_L, TAILLE_FENETRE_H, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
     SDL_WM_SetCaption("Iniuriam", NULL);
 
     terCharger(&terrain, "data/Cartes/save.map");
@@ -63,6 +64,8 @@ int main (int argc, char **argv)
     libererTousLesObjets(&tabObjets);
     terLibere(&terrain);
     SDL_Quit();
+
+    return 0;
     /*FMOD_SYSTEM *system;
     FMOD_SOUND *musique;
 
@@ -78,7 +81,7 @@ int main (int argc, char **argv)
     /*FMOD_Sound_Release(musique);
     FMOD_System_Close(system);
     FMOD_System_Release(system);*/
-    return 0;
+
 
   /*  Personnage *liste;
     Objet *tab=NULL;

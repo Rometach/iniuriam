@@ -146,7 +146,9 @@ void eventCombatSDL(Personnage* hero, Personnage* ennemi, Terrain* ter, SDL_Surf
 * \brief Preconditions :groupe, j, l et arene sont initialisés
 * <br /> Postconditions : gère les évenements lors du tour de combat du joueur
 */
-void eventTourJoueurSDL(Combattant* groupe, int j, int l, char arene [TAILLE_MAX][TAILLE_MAX], Terrain* ter, SDL_Surface* ecran);
+void eventTourJoueurSDL(Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L], Terrain* ter, SDL_Surface* ecran);
+
+void eventTourIASDL(Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L]);
 
 /**
 * \brief Preconditions :

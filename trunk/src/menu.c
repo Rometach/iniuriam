@@ -373,15 +373,15 @@ int afficherPage (SDL_Surface *ecran,TTF_Font *police, char texte_SDL[10][150],i
         {
             cadre = SDL_CreateRGBSurface(SDL_HWSURFACE, 310, 60, 32, 0, 0, 0, 0);
             SDL_FillRect(cadre, NULL, SDL_MapRGB(ecran->format, 255, 0, 0));
-            position_rect.x=TAILLE_FENETRE/position-155;
-            position_rect.y=TAILLE_FENETRE/3-5+(50+(100/nb))*i+50*(decalage);
+            position_rect.x=TAILLE_FENETRE_L/position-155;
+            position_rect.y=TAILLE_FENETRE_H/3-5+(50+(100/nb))*i+50*(decalage);
             SDL_BlitSurface(cadre, NULL, ecran, &position_rect);
             SDL_FreeSurface(cadre);
         }
 
         taille=0;
-        position_rect.x=TAILLE_FENETRE/position-150;
-        position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*i+50*(decalage);
+        position_rect.x=TAILLE_FENETRE_L/position-150;
+        position_rect.y=TAILLE_FENETRE_H/3+(50+(100/nb))*i+50*(decalage);
         if (strlen(texte_SDL[i])>18)
         {
             strcpy(chaine1,texte_SDL[i]);
@@ -407,8 +407,8 @@ int afficherPage (SDL_Surface *ecran,TTF_Font *police, char texte_SDL[10][150],i
                 {
                     cadre = SDL_CreateRGBSurface(SDL_HWSURFACE, 310, 60, 32, 0, 0, 0, 0);
                     SDL_FillRect(cadre, NULL, SDL_MapRGB(ecran->format, 255, 0, 0));
-                    position_rect.x=TAILLE_FENETRE/position-155;
-                    position_rect.y=TAILLE_FENETRE/3-5+(50+(100/nb))*i+50*(decalage+taille);
+                    position_rect.x=TAILLE_FENETRE_L/position-155;
+                    position_rect.y=TAILLE_FENETRE_H/3-5+(50+(100/nb))*i+50*(decalage+taille);
                     SDL_BlitSurface(cadre, NULL, ecran, &position_rect);
                     SDL_FreeSurface(cadre);
                     position_rect.x+=5;
@@ -437,12 +437,12 @@ int afficherPage (SDL_Surface *ecran,TTF_Font *police, char texte_SDL[10][150],i
         rectangle[i]= SDL_CreateRGBSurface(SDL_HWSURFACE, 300, 50, 32, 0, 0, 0, 0);
         SDL_FillRect(rectangle[i], NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
 
-        position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*i+50*(decalage);
+        position_rect.y=TAILLE_FENETRE_H/3+(50+(100/nb))*i+50*(decalage);
         SDL_BlitSurface(rectangle[i], NULL, ecran, &position_rect);
         SDL_FreeSurface(rectangle[i]);
 
         position_rect.x+= 25;
-        position_rect.y=TAILLE_FENETRE/3+(50+(100/nb))*i+50*(decalage);
+        position_rect.y=TAILLE_FENETRE_H/3+(50+(100/nb))*i+50*(decalage);
         texte=TTF_RenderText_Shaded(police, texte_SDL[i], couleur_texte,couleur_rect);
         SDL_BlitSurface(texte, NULL, ecran, &position_rect);
         SDL_FreeSurface(texte);
@@ -477,8 +477,8 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu)
 
         rectangle = SDL_CreateRGBSurface(SDL_HWSURFACE, 400, 100, 32, 0, 0, 0, 0);
         SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
-        position.x=TAILLE_FENETRE/2-200;
-        position.y=TAILLE_FENETRE/20;
+        position.x=TAILLE_FENETRE_L/2-200;
+        position.y=TAILLE_FENETRE_H/20;
         SDL_BlitSurface(rectangle, NULL, ecran, &position);
         SDL_FreeSurface(rectangle);
 
@@ -691,7 +691,7 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu)
                     case 3: images=IMG_Load("data/Media/medarsin man.jpg");break;
                     default:break;
                 }
-                position.x=TAILLE_FENETRE/1.5;
+                position.x=TAILLE_FENETRE_L/1.5;
                 position.y=0;
                 SDL_BlitSurface(images, NULL, ecran, &position);
                 SDL_FreeSurface(images);
@@ -715,7 +715,7 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu)
                 if (choix==0) strcat(tampon,"man.jpg");
                 else if(choix==1) strcat(tampon,"woman.jpg");
                 images=IMG_Load(tampon);
-                position.x=TAILLE_FENETRE/1.5;
+                position.x=TAILLE_FENETRE_L/1.5;
                 position.y=0;
                 SDL_BlitSurface(images, NULL, ecran, &position);
                 SDL_FreeSurface(images);
@@ -734,8 +734,8 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu)
         }
 
         texte = TTF_RenderText_Shaded(police, chaine1, couleur_texte,couleur_rect);
-        position.x=TAILLE_FENETRE/2-100;
-        position.y=TAILLE_FENETRE/20+25;
+        position.x=TAILLE_FENETRE_L/2-100;
+        position.y=TAILLE_FENETRE_H/20+25;
         SDL_BlitSurface(texte, NULL, ecran, &position);
         SDL_FreeSurface(texte);
 
@@ -785,8 +785,8 @@ char afficherOptions(SDL_Surface *ecran,TTF_Font *police,FMOD_SYSTEM *system,FMO
         rectangle=(SDL_Surface**)malloc(sizeof(SDL_Surface*));
         rectangle[0] = SDL_CreateRGBSurface(SDL_HWSURFACE, 400, 100, 32, 0, 0, 0, 0);
         SDL_FillRect(rectangle[0], NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
-        position.x=TAILLE_FENETRE/2-200;
-        position.y=TAILLE_FENETRE/20;
+        position.x=TAILLE_FENETRE_L/2-200;
+        position.y=TAILLE_FENETRE_H/20;
         SDL_BlitSurface(rectangle[0], NULL, ecran, &position);
         SDL_FreeSurface(rectangle[0]);
         free(rectangle);
@@ -896,8 +896,8 @@ char afficherOptions(SDL_Surface *ecran,TTF_Font *police,FMOD_SYSTEM *system,FMO
         }
 
         texte = TTF_RenderText_Shaded(police, chaine1, couleur_texte,couleur_rect);
-        position.x=TAILLE_FENETRE/2-100;
-        position.y=TAILLE_FENETRE/20+25;
+        position.x=TAILLE_FENETRE_L/2-100;
+        position.y=TAILLE_FENETRE_H/20+25;
         SDL_BlitSurface(texte, NULL, ecran, &position);
         SDL_FreeSurface(texte);
 
@@ -932,8 +932,8 @@ char afficherOptions(SDL_Surface *ecran,TTF_Font *police,FMOD_SYSTEM *system,FMO
         {
             curseur = SDL_CreateRGBSurface(SDL_HWSURFACE, 30, 50, 32, 0, 0, 0, 0);
             SDL_FillRect(curseur, NULL, SDL_MapRGB(ecran->format, 255, 255, 255));
-            position_curs.x=TAILLE_FENETRE/2-150+choix_son*30/1.1;
-            position_curs.y=TAILLE_FENETRE/3+(50+(100/nb)+50*decalage);
+            position_curs.x=TAILLE_FENETRE_L/2-150+choix_son*30/1.1;
+            position_curs.y=TAILLE_FENETRE_H/3+(50+(100/nb)+50*decalage);
             SDL_BlitSurface(curseur, NULL, ecran, &position_curs);
             SDL_FreeSurface(curseur);
         }
@@ -974,8 +974,8 @@ char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
 
         rectangle = SDL_CreateRGBSurface(SDL_HWSURFACE, 400, 100, 32, 0, 0, 0, 0);
         SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
-        position.x=TAILLE_FENETRE/2-200;
-        position.y=TAILLE_FENETRE/20;
+        position.x=TAILLE_FENETRE_L/2-200;
+        position.y=TAILLE_FENETRE_H/20;
         SDL_BlitSurface(rectangle, NULL, ecran, &position);
         SDL_FreeSurface(rectangle);
 
@@ -1300,16 +1300,16 @@ char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                     strcpy(chaine1,"Iniuriam");
                 }
                 nom = TTF_RenderText_Shaded(police, chaine1, couleur_texte,couleur_rect);
-                position.x=TAILLE_FENETRE/2-100;
-                position.y=TAILLE_FENETRE/20+25;
+                position.x=TAILLE_FENETRE_L/2-100;
+                position.y=TAILLE_FENETRE_H/20+25;
                 SDL_BlitSurface(nom, NULL, ecran, &position);
                 SDL_FreeSurface(nom);
             break;
             case 2:/*Menu parties*/
                 nb=4;
                 nom = TTF_RenderText_Shaded(police, chaine1, couleur_texte,couleur_rect);
-                position.x=TAILLE_FENETRE/2-100;
-                position.y=TAILLE_FENETRE/20+25;
+                position.x=TAILLE_FENETRE_L/2-100;
+                position.y=TAILLE_FENETRE_H/20+25;
                 SDL_BlitSurface(nom, NULL, ecran, &position);
                 SDL_FreeSurface(nom);
 
@@ -1335,8 +1335,8 @@ char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                 } while(strcmp(chaine2,ligne)!=0);
 
                 nom = TTF_RenderText_Shaded(police, chaine2, couleur_texte,couleur_rect);
-                position.x=TAILLE_FENETRE/2-100;
-                position.y=TAILLE_FENETRE/20+25;
+                position.x=TAILLE_FENETRE_L/2-100;
+                position.y=TAILLE_FENETRE_H/20+25;
                 SDL_BlitSurface(nom, NULL, ecran, &position);
                 SDL_FreeSurface(nom);
                 /*SDL_Flip(ecran);
@@ -1386,14 +1386,14 @@ char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                         strcpy(tampon,chaine1);
                     }
                 }
-                position.x=TAILLE_FENETRE/2-200;
+                position.x=TAILLE_FENETRE_L/2-200;
                 position.y+=145;
                 SDL_BlitSurface(sauvegarde, NULL, ecran, &position);
 
                 SDL_FreeSurface(sauvegarde);
                 /*Nom de la sauvegarde*/
                 nom = TTF_RenderText_Shaded(police, chaine1, couleur_texte,couleur_rect);
-                position.x=TAILLE_FENETRE/2-80;
+                position.x=TAILLE_FENETRE_L/2-80;
                 position.y+=10;
                 SDL_BlitSurface(nom, NULL, ecran, &position);
                 SDL_FreeSurface(nom);
@@ -1407,7 +1407,7 @@ char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                         strncpy(chaine1,ligne,strlen(ligne-1));
                         chaine1[strlen(ligne)-1]='\0';
                         nom = TTF_RenderText_Shaded(police, chaine1, couleur_texte,couleur_rect);
-                        position.x=TAILLE_FENETRE/2-200;
+                        position.x=TAILLE_FENETRE_L/2-200;
                         position.y+=35;
                         SDL_BlitSurface(nom, NULL, ecran, &position);
                         SDL_FreeSurface(nom);
@@ -1432,16 +1432,16 @@ char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                     {
                         cadre = SDL_CreateRGBSurface(SDL_HWSURFACE, 160, 60, 32, 0, 0, 0, 0);
                         SDL_FillRect(cadre, NULL, SDL_MapRGB(ecran->format, 255, 0, 0));
-                        position.x=TAILLE_FENETRE/(nb+6)+(180)*i;
-                        position.y=TAILLE_FENETRE/2+195;
+                        position.x=TAILLE_FENETRE_L/(nb+6)+(180)*i;
+                        position.y=TAILLE_FENETRE_H/2+195;
                         SDL_BlitSurface(cadre, NULL, ecran, &position);
                         SDL_FreeSurface(cadre);
                     }
                     rectangle= SDL_CreateRGBSurface(SDL_HWSURFACE, 150, 50, 32, 0, 0, 0, 0);
                     SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
 
-                    position.x=TAILLE_FENETRE/(nb+6)+(180)*i+5;
-                    position.y=TAILLE_FENETRE/2+200;
+                    position.x=TAILLE_FENETRE_L/(nb+6)+(180)*i+5;
+                    position.y=TAILLE_FENETRE_H/2+200;
                     SDL_BlitSurface(rectangle, NULL, ecran, &position);
                     SDL_FreeSurface(rectangle);
 
@@ -1455,8 +1455,8 @@ char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                 nb=2;
                 sprintf(ligne,"%s %s ?",chaine2,chaine1);
                 nom = TTF_RenderText_Shaded(police,ligne, couleur_texte,couleur_rect);
-                position.x=TAILLE_FENETRE/2-100;
-                position.y=TAILLE_FENETRE/20+25;
+                position.x=TAILLE_FENETRE_L/2-100;
+                position.y=TAILLE_FENETRE_H/20+25;
                 SDL_BlitSurface(nom, NULL, ecran, &position);
                 SDL_FreeSurface(nom);
 
@@ -1522,7 +1522,7 @@ int mainMenu ()
     }
 
     police = TTF_OpenFont("data/Jester.ttf", 30);
-    ecran=SDL_SetVideoMode(TAILLE_FENETRE, TAILLE_FENETRE_OBJET, 32, SDL_HWSURFACE);
+    ecran=SDL_SetVideoMode(TAILLE_FENETRE_L, TAILLE_FENETRE_H, 32, SDL_HWSURFACE);
     SDL_WM_SetCaption("Iniuriam",NULL);
 
     c=afficherMenu(ecran,0,police,&jeu);/*Affichage de l'écran principal*/
