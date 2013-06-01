@@ -38,7 +38,6 @@ typedef struct
                             5 visée
                             6 préparation de parade*/
     char arene [TAILLE_MAX_H][TAILLE_MAX_L];    /**L'arene du combat*/
-    SDL_Surface* avatar;
 } Combattant;
 
 
@@ -174,6 +173,12 @@ int testNbCombattant (Combattant* groupe, int l, char arene [TAILLE_MAX_H][TAILL
 
 
 /**
+* \brief Preconditions : groupe et arene sont initialisés
+* <br /> Postconditions : vérifie si le défenseur a été tué et change son icône et la collision
+*/
+void testMort(Combattant* defenseur, char arene[TAILLE_MAX_H][TAILLE_MAX_L]);
+
+/**
 * \brief Preconditions : attaquant, defenseur sont initialisés
 * <br /> Postconditions : l'attaquant tente une attaque sur le defenseur, qui tente lui de se défendre, avec une arme infligeant en moyenne degats.
 *                         type correspond au type d'attaque à effectuer: brutale,prudente,feinte,ou avec visée.
@@ -181,7 +186,7 @@ int testNbCombattant (Combattant* groupe, int l, char arene [TAILLE_MAX_H][TAILL
 *                         les bonus influent directement sur les tentatives d'attaque et de défense.
 *                         retourne les dégats infligés au defenseur.
 */
-int attaquer (Personnage* attaquant, Personnage* defenseur, int degats, int bonusA, int bonusD, int bonusAg, int bonusEsc, int type,char distance);
+int attaquer (Combattant* attaquant, Combattant* defenseur, int degats, int bonusA, int bonusD, int bonusAg, int bonusEsc, int type,char distance);
 
 /**
 * \brief Preconditions : defenseur est initialisé

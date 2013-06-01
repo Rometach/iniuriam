@@ -35,7 +35,6 @@ typedef struct
 */
 void missionInit (Mission* mission);
 
-
 /**
 * \brief Preconditions : mission est initialisée et non définie
                          l correspond à la ligne où est écrite la mission dans le fichier Missions.txt

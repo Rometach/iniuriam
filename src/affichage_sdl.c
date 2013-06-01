@@ -151,7 +151,7 @@ void affCombat(Terrain* ter, Combattant* groupe, int l, char arene[TAILLE_MAX_H]
     {
     position.x = groupe[i].posX*TILE_LARGEUR;
     position.y = groupe[i].posY*TILE_HAUTEUR;
-    SDL_BlitSurface(groupe[i].avatar, NULL, ecran, &position);
+    SDL_BlitSurface(groupe[i].perso->avatar, NULL, ecran, &position);
     }
 
     sprintf(texte, "Vie: %d", groupe[0].perso->ptDeVie );
@@ -992,6 +992,11 @@ void eventAttaqueSDL(Combattant* combattant, Combattant* defenseur, Objet* arme,
             default:
             break;
         }
+        if(defenseur->perso->ptDeVie<=0)
+        {
+            defenseur->perso->avatar=SDL_LoadBMP("data/Media/rip.bmp");
+            arene[defenseur->posY][defenseur->posX]=1;
+        }
     }
 
     rayon=(int)sqrt(pow((defenseur->posX-combattant->posX),2)+pow((defenseur->posY-combattant->posY),2));
@@ -1018,6 +1023,7 @@ void eventAttaqueSDL(Combattant* combattant, Combattant* defenseur, Objet* arme,
         default:
         break;
     }
+    testMort(defenseur, arene);
 }
 
 int eventArmesEquiSDL(Combattant* combattant,int choix, SDL_Surface* ecran)
@@ -1153,11 +1159,11 @@ void eventEditeurSDL(Terrain* ter, SDL_Surface* ecran )
     }
 }
 
-void eventCombatSDL(Personnage* hero, Personnage* ennemi, Terrain* ter, SDL_Surface* ecran)
+int eventCombatSDL(Personnage* hero, Personnage* ennemi, Terrain* ter, SDL_Surface* ecran)
 {
     Personnage* liste;
     char arene [TAILLE_MAX_H][TAILLE_MAX_L];
-    int continuer =1;
+    int continuer =1, campJoueur, gagnant;
     SDL_Event event;
 
     Objet *tabObjets=NULL;
@@ -1177,18 +1183,18 @@ void eventCombatSDL(Personnage* hero, Personnage* ennemi, Terrain* ter, SDL_Surf
     groupe=(Combattant*)malloc(4*sizeof(Combattant));
 
     initCombat(liste,4,groupe,arene);
-    groupe[0].avatar=SDL_LoadBMP("data/Media/humain.bmp");
-    groupe[1].avatar=SDL_LoadBMP("data/Media/cyborg.bmp");
-    groupe[2].avatar=SDL_LoadBMP("data/Media/humain.bmp");
-    groupe[3].avatar=SDL_LoadBMP("data/Media/cyborg.bmp");
+    groupe[0].perso->avatar=SDL_LoadBMP("data/Media/humain.bmp");
+    groupe[1].perso->avatar=SDL_LoadBMP("data/Media/cyborg.bmp");
+    groupe[2].perso->avatar=SDL_LoadBMP("data/Media/humain.bmp");
+    groupe[3].perso->avatar=SDL_LoadBMP("data/Media/cyborg.bmp");
 
     affCombat(ter, groupe,4, arene, ecran);
-
+    campJoueur=groupe[0].camp;
     while (estLaFin(groupe, nb)==0)
     {
         for (i=0;i<nb;i++)
         {
-            if(groupe[i].camp==groupe[0].camp)
+            if(groupe[i].camp==campJoueur)
             {
                 eventTourJoueurSDL( groupe, i, nb, arene, ter, ecran );
                 nb=testNbCombattant(groupe,nb,arene);
@@ -1206,21 +1212,53 @@ void eventCombatSDL(Personnage* hero, Personnage* ennemi, Terrain* ter, SDL_Surf
     }
     /*Ajouter expérience fin de combat*/
  /* free (groupe);*/
-
-  while (continuer)
+    for(i=0;i<4;i++)
     {
+        if(getPersoPtDeVie(groupe[i].perso)>0)
+        {
+            gagnant = groupe[i].camp;
+        }
+    }
+    if(gagnant == campJoueur)
+    {
+        affDialogue("Bravo! Vous avez gagné!", ecran);
+         while (continuer)
+        {
         SDL_WaitEvent(&event);
         switch(event.type)
         {
             case SDL_KEYDOWN:
             { if(event.key.state==SDL_PRESSED)
                 {
-                 if(event.key.keysym.sym==SDLK_PAGEUP)
+                 if(event.key.keysym.sym==SDLK_RETURN)
                     {
                        continuer =0;
+                       return 1;
                     }
                 }
             }
+        }
+        }
+    }
+    else
+    {
+        affDialogue("Game Over!", ecran);
+         while (continuer)
+        {
+        SDL_WaitEvent(&event);
+        switch(event.type)
+        {
+            case SDL_KEYDOWN:
+            { if(event.key.state==SDL_PRESSED)
+                {
+                 if(event.key.keysym.sym==SDLK_RETURN)
+                    {
+                       continuer =0;
+                       return 0;
+                    }
+                }
+            }
+        }
         }
     }
 }
@@ -1245,19 +1283,19 @@ void eventTourJoueurSDL(Combattant* groupe, int i, int nbCombattant, char arene 
                         {
                             if(event.key.keysym.sym==SDLK_RIGHT)    /** Deplacement vers la droite*/
                             {
-                                nbDeplacement = deplaceCombDroite(groupe, nbDeplacement, arene);
+                                nbDeplacement = deplaceCombDroite(&groupe[i], nbDeplacement, arene);
                             }
                             else if(event.key.keysym.sym==SDLK_LEFT)    /** Deplacement vers la gauche*/
                             {
-                                nbDeplacement = deplaceCombGauche(groupe, nbDeplacement, arene);
+                                nbDeplacement = deplaceCombGauche(&groupe[i], nbDeplacement, arene);
                             }
                             else if(event.key.keysym.sym==SDLK_DOWN)    /** Deplacement vers le bas*/
                             {
-                                nbDeplacement = deplaceCombBas(groupe, nbDeplacement, arene);
+                                nbDeplacement = deplaceCombBas(&groupe[i], nbDeplacement, arene);
                             }
                             else if(event.key.keysym.sym==SDLK_UP)  /** Déplacement vers le haut */
                             {
-                                nbDeplacement = deplaceCombHaut( groupe, nbDeplacement, arene);
+                                nbDeplacement = deplaceCombHaut(&groupe[i], nbDeplacement, arene);
                             }
                             else if(event.key.keysym.sym==SDLK_a)  /** choisir son arme */
                             {
@@ -1271,16 +1309,18 @@ void eventTourJoueurSDL(Combattant* groupe, int i, int nbCombattant, char arene 
                                     if(groupe[i].camp != groupe[j].camp)
                                     {
                                         printf("%s! \n", groupe[j].perso->nom);
-                                        if(estAPortee(arene ,&groupe[i], &groupe[j], armeChoisie->portee))
+                                        if(estAPortee(arene ,&groupe[i], &groupe[j], armeChoisie->portee) && groupe[j].perso->ptDeVie>0)
                                         {
                                             printf("Attaque! \n");
                                             eventAttaqueSDL(&groupe[i], &groupe[j], armeChoisie, arene, ecran);
                                             continuer=0;
                                         }
-                                        else if(nbDeplacement==0 && estAPortee(arene ,&groupe[i], &groupe[j], armeChoisie->portee)==0)
+                                        else if(nbDeplacement==0 && estAPortee(arene ,&groupe[i], &groupe[j], armeChoisie->portee)==1 && groupe[j].perso->ptDeVie>0)
                                         {
+                                            eventAttaqueSDL(&groupe[i], &groupe[j], armeChoisie, arene, ecran);
                                             continuer=0;
                                         }
+                                        else continuer=0;
                                     }
                                 }
                             }
@@ -1408,12 +1448,12 @@ void eventTourIASDL(Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][
             {
                         if (rayon>1)
                         {
-                            attaquer(groupe[j].perso,groupe[cible].perso,degats,0,0,0,0,14,0);
+                            attaquer(&groupe[j], &groupe[cible],degats,0,0,0,0,14,0);
                             /*L'IA attaque le joueur à distance*/
                         }
                         else
                         {
-                            attaquer(groupe[j].perso,groupe[cible].perso,degats,0,0,0,0,15,1);
+                            attaquer(&groupe[j], &groupe[cible],degats,0,0,0,0,15,1);
                             /*L'IA attaque le joueur au corps à corps*/
                         }
 
@@ -1492,7 +1532,7 @@ void eventJeuSDL(Personnage* hero, Personnage* pnjs, Personnage* ennemis, Missio
                            || ((hero->posY+TILE_HAUTEUR)==ennemis->posY && hero->posX==ennemis->posX)
                            || ((hero->posY-TILE_HAUTEUR)==ennemis->posY && hero->posX==ennemis->posX))
                         {
-                            eventCombatSDL(hero, ennemis, ter, ecran);
+                            continuer=eventCombatSDL(hero, ennemis, ter, ecran);
                         }
                     }
                     else if(event.key.keysym.sym==SDLK_i) /** Touche d'inventaire*/
