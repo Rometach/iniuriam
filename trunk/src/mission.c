@@ -40,8 +40,6 @@ void missionDefinir (Mission* mission, const int l, Objet* tabObjets)
     strcpy(mission->nomPerso,nomPerso);
 }
 
-
-
 void missionAccomplir (Mission* mission, Objet* tabObjets)
 {
     if ((mission->suite)!=0)
@@ -55,7 +53,16 @@ void missionAccomplir (Mission* mission, Objet* tabObjets)
     }
 }
 
-
+void missionCopie (Mission* mission1,const Mission* mission2)
+{
+    strcpy(mission1->nom,mission2->nom);
+    mission1->type=mission2->type;
+    mission1->posXCible=mission2->posXCible;
+    mission1->posYCible=mission2->posYCible;
+    strcpy(mission1->nomPerso,mission2->nomPerso);
+    mission1->objCible=mission2->objCible;
+    mission1->suite=mission2->suite;
+}
 
 void getMissionNom(char* nom, const Mission* mission)
 {

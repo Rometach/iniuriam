@@ -335,7 +335,7 @@ char eventScanf (SDL_Surface* ecran,char chiffre)
 void scanfSDL (char* chaine,SDL_Surface* ecran, int longueur, char * action,TTF_Font *police,char chiffre)
 {
     char continuer=1;
-    char caractere[2],chaine1[150],chaine2[18];
+    char caractere[2],chaine1[150],chaine2[25];
     int i=0,j,valeur;
     SDL_Surface *texte=NULL,*rectangle;
     SDL_Rect position;
@@ -372,9 +372,9 @@ void scanfSDL (char* chaine,SDL_Surface* ecran, int longueur, char * action,TTF_
                 {
                     i--;
                     chaine[i]='\0';
-                    if (strlen(chaine)%32==0)
+                    if (strlen(chaine)%20==0)
                     {
-                        position.y+=(strlen(chaine)/32)*50;
+                        position.y+=(strlen(chaine)/20)*50;
                         rectangle= SDL_CreateRGBSurface(SDL_HWSURFACE, 500, 50, 32, 0, 0, 0, 0);
                         SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
                         SDL_BlitSurface(rectangle, NULL, ecran, &position);
@@ -401,11 +401,11 @@ void scanfSDL (char* chaine,SDL_Surface* ecran, int longueur, char * action,TTF_
 
         strcpy(chaine1,chaine);
 
-        if (i>=33)
+        if (i>=21)
         {
-            while (strlen(chaine1)>=33)
+            while (strlen(chaine1)>=21)
             {
-                j=32;
+                j=20;
                 while (j>=1&&chaine1[j]!=' ') j--;
                 if (j!=0)
                 {
@@ -415,10 +415,10 @@ void scanfSDL (char* chaine,SDL_Surface* ecran, int longueur, char * action,TTF_
                 }
                 else
                 {
-                    strncpy(chaine2,chaine1,35);
-                    chaine2[32]='-';
-                    chaine2[33]='\0';
-                    valeur=32;
+                    strncpy(chaine2,chaine1,22);
+                    chaine2[20]='-';
+                    chaine2[21]='\0';
+                    valeur=20;
                 }
                 rectangle= SDL_CreateRGBSurface(SDL_HWSURFACE, 500, 50, 32, 0, 0, 0, 0);
                 SDL_FillRect(rectangle, NULL, SDL_MapRGB(ecran->format, 10, 10, 10));
@@ -430,11 +430,12 @@ void scanfSDL (char* chaine,SDL_Surface* ecran, int longueur, char * action,TTF_
                 SDL_FreeSurface(texte);
                 position.y+=50;
                 j=0;
-                while(chaine1[j]!='\0')
+                while(chaine1[valeur+j]!='\0')
                 {
                     chaine1[j]=chaine1[valeur+j];
                     j++;
                 }
+                chaine1[j]='\0';
             }
         }
         rectangle= SDL_CreateRGBSurface(SDL_HWSURFACE, 500, 50, 32, 0, 0, 0, 0);

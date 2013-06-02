@@ -48,6 +48,11 @@ void missionDefinir (Mission* mission, const int l, Objet* tabObjets);
 */
 void missionAccomplir (Mission* mission, Objet* tabObjets);
 
+/**
+* \brief Preconditions : mission1 est initialisée et définie, pas mission2
+* <br /> Postconditions : le contenu de mission1 est copié dans mission2
+*/
+void missionCopie (Mission* mission1,const Mission* mission2);
 
 /**
 * \brief Preconditions : mission est initialisée et définie ; nom est une chaine de longueur >=50

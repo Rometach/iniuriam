@@ -130,8 +130,8 @@ void nouveauPerso (Personnage *perso, const char nom[], const char race, const c
     }
     else printf ("Impossible d'ouvrir le fichier Carrieres.txt\n");
 
-    perso->posX=1*TILE_LARGEUR;
-    perso->posY=1*TILE_HAUTEUR;
+    perso->posX=TILE_HAUTEUR;
+    perso->posY=TILE_LARGEUR;
 
     /*Initialiser SDL_Surface*/
 }
@@ -554,7 +554,6 @@ void copiePerso (Personnage* perso1, Personnage* perso2)
     perso2->posX=perso1->posX;
     perso2->posY=perso1->posY;
 
-    inventaireInit(&perso2->inventaire);
     copieInventaire(&perso2->inventaire,&perso1->inventaire);
     copieEquipement(&perso1->equipement,&perso2->equipement);
     /*Initialiser SDL_Surface*/

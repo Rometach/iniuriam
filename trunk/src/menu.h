@@ -20,9 +20,10 @@ typedef struct
     char nom [50];
     Personnage* joueur;
     int nbJoueur;
-    char missionsAccomplies [30][50];
+    int* missionsAccomplies;
     int nbMission;
-    char missionActuelle[50];
+    int missionActuelle;
+    char numCarte;
 } Partie;
 
 
@@ -30,7 +31,7 @@ typedef struct
 * \brief Preconditions : jeu n'est pas initialisé, 0<nbJoueur<5, nbMission<nombre de missions dans Missions.txt, missionActuelle est une mission de Missions.txt.
 * <br /> Postconditions : initialise jeu avec les paramètres nom, liste, nbJoueur, missionsAccomplies, nbMission, missionActuelle.
 */
-void partieInit (Partie* jeu,char nom [50], Personnage* liste, int nbJoueur,char missionsAccomplies[30][50],int nbMission,char missionActuelle[50]);
+void partieInit (Partie* jeu,char nom [50], Personnage* liste, int nbJoueur,int* missionsAccomplies,int nbMission,int missionActuelle,int numCarte);
 
 /**
 * \brief Preconditions : jeu est initialisé.
@@ -64,9 +65,9 @@ int getPartieNbJoueur (Partie* jeu);
 
 /**
 * \brief Preconditions : jeu est initialisé,0<=i<nombre max de mission dans Missions.txt.
-* <br /> Postconditions : copie la ieme mission accomplie de jeu dans tampon.
+* <br /> Postconditions : retourne la ieme mission accomplie de jeu.
 */
-void getPartieMissionAccomplie (Partie* jeu,int i,char tampon [50]);
+int getPartieMissionAccomplie (Partie* jeu,int i);
 
 /**
 * \brief Preconditions : jeu est initialisé.
@@ -75,10 +76,16 @@ void getPartieMissionAccomplie (Partie* jeu,int i,char tampon [50]);
 int getPartieNbMission (Partie* jeu);
 
 /**
-* \brief Preconditions : jeu est initialisé.
-* <br /> Postconditions : copie la mission actuelle de jeu dans tampon.
+* \brief Preconditions : jeu est initialisé, mission ne l'est pas, et tabObj contient tous les objet de Iniuriam.
+* <br /> Postconditions : copie la mission actuelle de jeu dans mission.
 */
-void getPartieMissionActuelle (Partie* jeu,char tampon [50]);
+void getPartieMissionActuelle (Partie* jeu,Mission* mission, Objet* tabObj);
+
+/**
+* \brief Preconditions : jeu est initialisé.
+* <br /> Postconditions : copie la mission actuelle de jeu dans mission.
+*/
+int getPartieMissionActuelleType (Partie* jeu);
 
 /**
 * \brief Preconditions : SDL est initialisé
@@ -88,7 +95,30 @@ char eventMenu();
 
 /**
 * \brief Preconditions : police et ecran sont initalisés.
-* <br /> Postconditions : affiche les différentes pages du menu principal et du menu pause d'Iniuriam, selon le type.
+*                        nb<10, 0<=choix<nb, position>0
+* <br /> Postconditions : affiche les différentes pages du menu de création de partie d'Iniuriam.
+*                         retourne 0 si l'utilisateur quitte SDL, 7 sinon.
+*/
+int afficherPage (SDL_Surface *ecran,TTF_Font *police, char texte_SDL[10][150],int nb,int choix,int position,int* haut,int* bas,int* page);
+
+/**
+* \brief Preconditions : police, jeu et ecran sont initalisés.
+*                        sauvegarde correspond à la chaine "Sauvegarde X" ou X=A, B ou C
+* <br /> Postconditions : affiche les différentes pages du menu de création de partie d'Iniuriam.
+*                         retourne 0 si l'utilisateur quitte SDL, 7 sinon.
+*/
+char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu,char* sauvegarde,FMOD_SYSTEM *system);
+
+/**
+* \brief Preconditions : police, ecran, systeme et musique sont initalisés.
+* <br /> Postconditions : affiche les différentes pages du menu options d'Iniuriam.
+*                         retourne 0 si l'utilisateur quitte SDL, 7 sinon.
+*/
+char afficherOptions(SDL_Surface *ecran,TTF_Font *police,FMOD_SYSTEM *system,FMOD_SOUND **musique);
+
+/**
+* \brief Preconditions : police, partie et ecran sont initalisés.
+* <br /> Postconditions : affiche les différentes pages du menu principal si jeu=0 ou du menu pause d'Iniuriam sinon.
 *                         retourne 0 si l'utilisateur quitte le jeu ou SDL, 9 sinon.
 */
 char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie);
