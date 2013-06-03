@@ -123,5 +123,7 @@ char afficherOptions(SDL_Surface *ecran,TTF_Font *police,FMOD_SYSTEM *system,FMO
 */
 char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie);
 
+void testMemoire();
+
 int mainMenu();
 #endif
