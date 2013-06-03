@@ -89,7 +89,7 @@ void marchander (Dialogue* dialogue, int* valeur);
 *                          copie dans rep la reponse retournée ;
 *                          retourne la valeur courante de l'humeur
 */
-char acheter(Dialogue* dialogue, Objet* objet, char* rep);
+char acheter(Dialogue* dialogue, Objet* objet, char* rep, Mission* mission, Objet* tabObjets);
 
 /**
 * \brief Preconditions : dialogue est initialisé, objet est dans l'inventaire du joueur, rep a une longueur d'au moins TAILLE_MAX_DIAL

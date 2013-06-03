@@ -130,10 +130,27 @@ void nouveauPerso (Personnage *perso, const char nom[], const char race, const c
     }
     else printf ("Impossible d'ouvrir le fichier Carrieres.txt\n");
 
+
     perso->posX=TILE_HAUTEUR;
     perso->posY=TILE_LARGEUR;
 
-    /*Initialiser SDL_Surface*/
+    switch(perso->race)
+    {
+        case 1: perso->avatar=IMG_Load("data/Media/humain.gif");
+        break;
+
+        case 2: perso->avatar=IMG_Load("data/Media/cyborg.gif");
+        break;
+
+        case 3: perso->avatar=IMG_Load("data/Media/cyborg.gif");
+        break;
+
+         case 4: perso->avatar=IMG_Load("data/Media/cyborg.gif");
+        break;
+
+        default:
+        break;
+    }
 }
 
 void chargerPerso (Personnage* perso, const char nom[50], const char race, const char sexe, const char faction, const char carriere, const int experience, const int argent, const char attaque, const char defense, const char intelligence,
@@ -329,12 +346,16 @@ void getPersoFactionNom(char* chaine, const Personnage *perso)
     {
         case 1 :
             strcpy(chaine,"Sistéen");
+        break;
         case 2 :
             strcpy(chaine,"Heredian");
+        break;
         case 3 :
             strcpy(chaine,"Marchand");
+        break;
         default :
             strcpy(chaine,"Non défini");
+        break;
     }
 }
 

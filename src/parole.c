@@ -230,7 +230,7 @@ void marchander (Dialogue* dialogue, int* valeur)
     *valeur+=(int)((*valeur)*(bonusIn-bonusCh)/10);
 }
 
-char acheter(Dialogue* dialogue, Objet* objet, char* rep)
+char acheter(Dialogue* dialogue, Objet* objet, char* rep,  Mission* mission, Objet* tabObjets)
 {
 /*    char c;*/
     int bonus=0,valeur=getObjetValeur(objet);
@@ -263,6 +263,10 @@ char acheter(Dialogue* dialogue, Objet* objet, char* rep)
                 strcpy(rep,"Vendu !\n");
 
                 ajouterCompetencePerso (dialogue->perso1,3,2);
+                if (testMissionObtenir( mission, objet))
+                {
+                    missionAccomplir(mission, tabObjets);
+                }
             }
 
         else

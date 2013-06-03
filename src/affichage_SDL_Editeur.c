@@ -132,12 +132,12 @@ void eventEditeurSDL(Terrain* ter, SDL_Surface* ecran )
                     }
                     else if(event.key.keysym.sym==SDLK_s) /** Sauvegarde de la carte */
                     {
-                        terSauvegarde(ter, "data/Cartes/save.map", "data/Chipsets/desertChipset.bmp");
+                        terSauvegarde(ter, "data/Chipsets/desertChipset.bmp");
                     }
                     else if(event.key.keysym.sym==SDLK_l) /** Chargement de la carte */
                     {   terLibere(ter);
                         terInit(ter);
-                        terCharger(ter, "data/Cartes/save.map");
+                        terCharger(ter, "data/Cartes/carte.map");
                     }
                 }
             }

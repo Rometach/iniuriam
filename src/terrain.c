@@ -9,7 +9,7 @@ void terInit(Terrain* ter)
     ter->tabChipset=NULL;
     ter->carte=NULL;
     ter->chipset=NULL;
-
+    ter->numCarte=0;
     ter->defilY=0;
     ter->nbrTileChipset=0;
     ter->largeurChipset=0;
@@ -29,7 +29,7 @@ void terRemplirStruct(Terrain* ter)
     setLargeur(ter, ter->chipset->w/TILE_LARGEUR);
     setNbrTile(ter, ter->hauteurChipset*ter->largeurChipset);
     setDecalageX(ter,4);
-
+    setNumCarte(ter, 1);
 /** On remplit tabChipset avec les différentes tiles du chipset*/
     ter->tabChipset=(Tile*)malloc(ter->nbrTileChipset*sizeof(Tile));
     for(i=0/TILE_LARGEUR;i<getNbrTile(ter); i++ )
@@ -94,6 +94,16 @@ void setTabChipset(Terrain* ter, int i, Tile* tile)
     ter->tabChipset[i]=*tile;
 }
 
+void setNumCarte(Terrain* ter, char i)
+{
+    ter->numCarte=i;
+}
+
+char getNumCarte(Terrain* ter)
+{
+    return ter->numCarte;
+}
+
 void setCarte(Terrain *ter, int i, unsigned int numTile)
 {
     ter->carte[i]=numTile;
@@ -139,11 +149,17 @@ int getCarte(Terrain *ter, int i)
     return ter->carte[i];
 }
 
-void terSauvegarde(Terrain* ter, char* nomFichier, char* nomChipset)
+void terSauvegarde(Terrain* ter, char* nomChipset)
 {
+    char* nomFichier;
+    nomFichier= (char*)malloc(30*sizeof(char));
      FILE *fichier;
      int i,x;
      char buffer[256];
+
+     strcpy(nomFichier, "data/Cartes/carte");
+     strcat(nomFichier, &ter->numCarte);
+     strcat(nomFichier, ".map");
 
      if(!ter) return;
      fichier=fopen(nomFichier,"w");
@@ -158,6 +174,7 @@ void terSauvegarde(Terrain* ter, char* nomFichier, char* nomChipset)
      fwrite(&ter->hauteurChipset,1,sizeof(unsigned int),fichier);
      fwrite(&ter->decalageX,1,sizeof(int),fichier);
      fwrite(&ter->defilY,1,sizeof(int),fichier);
+     fwrite(&ter->numCarte, 1,sizeof(char),fichier);
 
      for(i=0;i<ter->nbrTileChipset;i++)
      {
@@ -170,7 +187,6 @@ void terSauvegarde(Terrain* ter, char* nomFichier, char* nomChipset)
         fwrite(&ter->carte[x], 1, sizeof(unsigned int),fichier);}
      fclose(fichier);
 }
-
 
 void terCharger(Terrain* ter, char* nomFichier)
 {
@@ -185,14 +201,13 @@ void terCharger(Terrain* ter, char* nomFichier)
     memset(&buffer,0,sizeof(buffer));
     fread(&buffer,255,sizeof(char),fichier);
     ter->chipset=SDL_LoadBMP(buffer);
-/*    SDL_SetColorKey(ter->chipset, SDL_SRCCOLORKEY, SDL_MapRGB(ter->chipset->format,2,117,118));*/
-
 
      fread(&ter->nbrTileChipset,1,sizeof(unsigned int),fichier);
      fread(&ter->largeurChipset,1,sizeof(unsigned int),fichier);
      fread(&ter->hauteurChipset,1,sizeof(unsigned int),fichier);
      fread(&ter->decalageX,1,sizeof(int),fichier);
      fread(&ter->defilY,1,sizeof(int),fichier);
+     fread(&ter->numCarte, 1,sizeof(char),fichier);
 
     ter->tabChipset=(Tile*)malloc((ter->nbrTileChipset)*sizeof(Tile));
 
