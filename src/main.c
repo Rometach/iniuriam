@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include <assert.h>
 #include "SDL/SDL.h"
 #include "parole.h"
@@ -7,9 +8,8 @@
 #include "deplacement.h"
 #include "combat.h"
 #include "constante.h"
-#include "time.h"
 #include "menu.h"
-#include "liste_perso.h"
+
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
@@ -70,7 +70,7 @@ int main (int argc, char **argv)
     setPersoPosY(pnj[3].perso, TILE_HAUTEUR*5);
 
 
-//    partieInit (partieTest , "Partie pour tester", hero, 4, char missionsAccomplies[30][50], 1, tutoriel->nom);
+/*    partieInit (partieTest , "Partie pour tester", hero, 4, char missionsAccomplies[30][50], 1, tutoriel->nom);*/
     eventJeuSDL(heros, nbrHero, pnj, nbrPnj, &tutoriel, tabObjets, &terrain, ecran);
 
     for(i=0; i<nbrHero; i++)
@@ -87,9 +87,7 @@ int main (int argc, char **argv)
     tabListePersoLibere(pnj);
     libererTousLesObjets(&tabObjets);
     terLibere(&terrain);
-    free(heros);
-
-//    partieLibere(partieTest);SDL_Quit();
+    SDL_Quit();
 
     return 0;
 }

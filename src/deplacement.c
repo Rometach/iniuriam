@@ -611,6 +611,8 @@ int sEloigner(char tab[TAILLE_MAX_H][TAILLE_MAX_L], int* a, int* b, int nb, char
         tab[x][y]=2;
         i--;
     }
+    *a=x;
+    *b=y;
     return 1;
 }
 
