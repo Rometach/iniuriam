@@ -48,14 +48,14 @@ Heiiin ?
 
 
 Babar Info
-Ce que vous cherchez se trouve chez Dumbo.
-Il n'y a plus de glace a la pistache.
-Vous feriez mieux de fuir.
+Première loi de la Robotique : Un robot ne peut porter atteinte à un être humain, ni, restant passif, permettre qu'un être humain soit exposé au danger.
+Deuxième loi de la Robotique : Un robot doit obéir aux ordres que lui donne un être humain, sauf si de tels ordres entrent en conflit avec la Première loi.
+Troisième loi de la Robotique : Un robot doit protéger son existence tant que cette protection n'entre pas en conflit avec la Première ou la Deuxième loi.
 
 Babar Mission
-Ce que vous cherchez se trouve chez Dumbo.
-Il n'y a plus de glace a la pistache.
-Vous feriez mieux de fuir.
+Votre mission : trouvez une arme et servez-vous en pour terrasser le super vilain.
+Votre mission : trouvez une arme et servez-vous en pour terrasser le super vilain.
+Votre mission : trouvez une arme et servez-vous en pour terrasser le super vilain.
 
 Willy Mays Info
 Ce que vous cherchez se trouve chez Dumbo.
@@ -70,7 +70,7 @@ Vous feriez mieux de fuir.
 Le super vilain Info
 Je suis le mechant et je vais tuer la gentille !
 Après vous avoir massacré, j'éradiquerai cette maudite planète.
-Vous feriez mieux de fuir.
+Ma spécialité ? Hmmm, j'hésite entre la torture et... En fait non, c'est clairement la torture.
 
 Le super vilain Mission
 Je suis le mechant et je vais tuer la gentille !
