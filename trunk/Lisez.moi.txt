@@ -1,0 +1,103 @@
+
+  ////////////////////////////////////////////////////////////
+  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+  ============================================================
+			INIURIAM
+			RPG futuriste
+  ============================================================
+			Version 1.0
+  ============================================================
+			Un jeu développé par
+				Isabelle FLORES
+				Dimitri RODARIE
+				Romain VERSAEVEL
+  ============================================================
+  ////////////////////////////////////////////////////////////
+  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+  
+  
+  ************************************************************
+
+	- Installation -
+	
+	Aucune installation n'est nécessaire pour utiliser
+	INIURIAM. Il vous suffit de lancer l'exécutable
+	(Iniuriam C'est quoi l'extension sous Linux ?$$$) pour commencer à jouer !
+	
+	De même, il vous suffit de lancer l'exécutable de
+	l'Editeur (Editeur) pour l'utiliser.
+  
+  
+  ************************************************************
+
+    - Configuration -
+
+	Pour que votre jeu fonctionne, assurez-vous que :
+	 Vous possédez Linux ;
+	 $$$Y a-t-il des choses à ajouter concernant SDL, FMOD, etc. ?$$$
+        
+  **********************************************************
+
+    - Utilisation d'Iniuriam -
+	
+	 Lorsque vous lancez le fichier Iniuriam.$$$?$$$, vous
+	accédez au MENU PRINCIPAL. $$$ options y sont proposées :
+		-> Jouer : vous permet de charger une partie ou d'en
+				créer une nouvelle.
+				Il vous faudra dans ce second cas choisir une
+				compagnie parmi celles existantes, ou bien en
+				créer une nouvelle.
+				A ce stade, vous avez la possibilité de créer
+				votre compagnie ainsi que les personnages qui
+				la composent, en choisissant notamment leur
+				race, leur sexe et leur carrière de départ $$$.
+		-> Crédit : affiche les crédits du jeu
+		-> Options : permet de choisir la musique, de régler son
+				volume, $$$
+		-> 
+
+	• Une fois la partie engagée, vous accédez à l'interface
+	du jeu. Dans la version actuelle, vous ne pouvez accéder
+	qu'au tutoriel. Les commandes à votre disposition sont
+	les suivantes :
+		-> $$$ : Vous permet d'accéder au menu Pause. Celui-ci
+				offre la possibilité de $$$
+		-> Touches directionnelles : utilisez-les pour déplacer
+				vos personnages.
+		-> $$$ : Affiche le journal des quêtes ($$$ pour quitter)
+		-> $$$ : Affiche votre inventaire ($$$ pour quitter)
+		-> $$$ : Lorsque vous êtes proche d'un personnage du
+				jeu, vous permet d'engager la conversation avec
+				lui. Ouvre un menu avec les différentes actions
+				possibles. Attention : il vous faudra parfois
+				être très persuasif avant de pouvoir obtenir des
+				informations... ($$$ pour quitter)
+		-> $$$ : Lorsque vous êtes proche d'un personnage ennemi,
+				vous permet d'engager le combat avec lui. En cours
+				de combat, utilisez les touches $$$ pour $$$.
+		-> $$$
+
+  **********************************************************
+
+    - Utilisation de l'Editeur -
+	
+	L'Editeur vous permet d'éditer les données de jeu. Les
+	fonctionnalités proposées sont les suivantes :
+	
+	• Editeur d'Objet (permet de modifier les objets existants
+	et d'en créer de nouveaux, avec possibilité d'action
+	sur toutes leurs composantes).
+	• $$$
+
+  **********************************************************
+
+  Cette version d'Iniuriam n'est pas encore complète.
+  
+  Si malgré le soin accordé à ce produit vous rencontrez des
+  problèmes lors de son utilisation, merci de nous en faire
+  part à
+  
+  $$$@$$$.$$$
+  
+  L'équipe de développement d'Iniuriam
