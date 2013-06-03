@@ -19,21 +19,9 @@ void listePersoInit(Liste_Perso* liste, int nbr)
 
 }
 
-void tabListePerso(Liste_Perso* liste, int nbr)
+void tabListePersoInit(Liste_Perso* liste, int nbr)
 {
     liste=(Liste_Perso*)malloc(nbr*sizeof(Liste_Perso));
-}
-
-void tabListePersoInitPNJ(Liste_Perso* liste, Objet* tabObjets)
-{
-    int i;
-    int max = getNbPNJ();
-
-    for(i=1;i<=max;i++)
-        {
-            listePersoInit(&liste[i-1], 1);
-            persoInitPNJ(liste[i-1].perso,i,tabObjets);
-        }
 }
 
 int getNbrPerso(Liste_Perso* liste)
@@ -44,6 +32,27 @@ int getNbrPerso(Liste_Perso* liste)
 void setNbrPerso(Liste_Perso* liste, int i)
 {
     liste->nbrPerso=i;
+}
+
+Personnage* getPerso(Liste_Perso liste, int i)
+{
+    return &liste.perso[i];
+}
+
+int testColPerso(Personnage* hero, Liste_Perso* pnj, int nbPnj)
+{
+//    int i;
+//    for(i=0; i<nbPnj; i++)
+//    {
+//    if(((getPersoPosX(hero)+TILE_LARGEUR)==getPersoPosX(getPerso(pnj[i], 0) && getPersoPosY(hero)==getPersoPosY(getPerso(pnj[i], 0)))
+//        || ((getPersoPosX(hero)-TILE_LARGEUR)==getPersoPosX(getPerso(pnj[i], 0) && getPersoPosY(hero)==getPersoPosY(getPerso(pnj[i], 0)))
+//        || ((getPersoPosY(hero)+TILE_HAUTEUR)==getPersoPosY(getPerso(pnj[i], 0) && getPersoPosX(hero)==getPersoPosX(getPerso(pnj[i], 0)))
+//        || ((getPersoPosY(hero)-TILE_HAUTEUR)==getPersoPosY(getPerso(pnj[i], 0) && getPersoPosX(hero)==getPersoPosX(getPerso(pnj[i], 0)))
+//        {
+//            return i;
+//        }
+//    }
+//    else return -1;
 }
 
 void listePersoLibere(Liste_Perso* liste)
@@ -60,17 +69,6 @@ void tabListePersoLibere(Liste_Perso* liste)
 {
     free(liste->perso);
 }
-
-
-
-
-
-
-
-
-
-
-
 
 int getNbGroupesPNJ()
 {
@@ -93,9 +91,6 @@ int getNbGroupesPNJ()
 
     return ((max-3)/3);
 }
-
-
-
 
 void initialiserTousLesPNJ2(Liste_Perso** tabPNJ, Objet* tabObjets)
 {
@@ -131,10 +126,6 @@ void initialiserTousLesPNJ2(Liste_Perso** tabPNJ, Objet* tabObjets)
         }
 }
 
-
-
-
-
 void libererTousLesPNJ2(Liste_Perso** tabPNJ)
 {
     int i, max;
@@ -149,22 +140,4 @@ void libererTousLesPNJ2(Liste_Perso** tabPNJ)
     free(*tabPNJ);
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

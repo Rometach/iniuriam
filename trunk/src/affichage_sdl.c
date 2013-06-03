@@ -917,33 +917,25 @@ void eventJeuSDL(Personnage* hero, int nbrHero, Liste_Perso* pnjs, int nbrPnj, M
                     if(event.key.keysym.sym==SDLK_RIGHT)    /** Deplacement vers la droite*/
                     {   if(getCollision(ter->tabChipset[ter->carte[(getPersoPosX(&hero[0])+TILE_LARGEUR)/TILE_LARGEUR+CARTE_LARGEUR*(getPersoPosY(&hero[0])/TILE_HAUTEUR)]])==1)
                         {
-//                          setCollisionCase(ter, getPersoPosY(hero)*CARTE_LARGEUR+getPersoPosX(hero), 1);
                             setPersoPosX(&hero[0], getPersoPosX(&hero[0])+TILE_LARGEUR);
-//                          setCollisionCase(ter->carte[getPersoPosY(hero)*CARTE_LARGEUR+getPersoPosX(hero)], 0);
                         }
                     }
                     else if(event.key.keysym.sym==SDLK_LEFT)    /** Deplacement vers la gauche*/
                     {   if(getCollision(ter->tabChipset[ter->carte[(getPersoPosX(&hero[0])-TILE_LARGEUR)/TILE_LARGEUR+CARTE_LARGEUR*(getPersoPosY(&hero[0])/TILE_HAUTEUR)]])==1)
                         {
-//                            setCollisionCase(ter->carte[getPersoPosY(hero)*CARTE_LARGEUR+getPersoPosX(hero)], 1);
                              setPersoPosX(&hero[0], getPersoPosX(&hero[0])-TILE_LARGEUR);
-//                            setCollisionCase(ter->carte[getPersoPosY(hero)*CARTE_LARGEUR+getPersoPosX(hero)], 0);
                         }
                     }
                     else if(event.key.keysym.sym==SDLK_DOWN)    /** Deplacement vers le bas*/
                     {   if(getCollision(ter->tabChipset[ter->carte[getPersoPosX(&hero[0])/TILE_LARGEUR+CARTE_LARGEUR*((getPersoPosY(&hero[0])+TILE_HAUTEUR)/TILE_HAUTEUR)]])==1)
                         {
-//                            setCollisionCase(ter->carte[getPersoPosY(hero)*CARTE_LARGEUR+getPersoPosX(hero)], 1);
                             setPersoPosY(&hero[0],getPersoPosY(&hero[0])+TILE_HAUTEUR);
-//                            setCollisionCase(ter->carte[getPersoPosY(hero)*CARTE_LARGEUR+getPersoPosX(hero)], 0);
                         }
                     }
                     else if(event.key.keysym.sym==SDLK_UP)  /** Déplacement vers le haut */
                     {   if(getCollision(ter->tabChipset[ter->carte[getPersoPosX(&hero[0])/TILE_LARGEUR+CARTE_LARGEUR*((getPersoPosY(&hero[0])-TILE_HAUTEUR)/TILE_HAUTEUR)]])==1)
                         {
-//                            setCollisionCase(ter->carte[getPersoPosY(hero)*CARTE_LARGEUR+getPersoPosX(hero)], 1);
                             setPersoPosY(&hero[0],getPersoPosY(&hero[0])-TILE_HAUTEUR);
-//                            setCollisionCase(ter->carte[getPersoPosY(hero)*CARTE_LARGEUR+getPersoPosX(hero)], 0);
                         }
                     }
                       else if(event.key.keysym.sym==SDLK_RETURN) /** Touche d'action*/
@@ -984,7 +976,7 @@ void eventJeuSDL(Personnage* hero, int nbrHero, Liste_Perso* pnjs, int nbrPnj, M
                             }
                         }
                         }
-                        else if((getPersoPosX(&hero[0])==getPersoPosX(pnjs[i].perso) && getPersoPosY(&hero[0])==getPersoPosY(pnjs[i].perso)))
+                        else if(getPersoPosX(&hero[0])==getPersoPosX(pnjs[i].perso) && getPersoPosY(&hero[0])==getPersoPosY(pnjs[i].perso) && getPersoPtDeVie(pnjs[i].perso)<=0)
                         {
                             eventRecupInvSDL(hero, pnjs[i].perso, mission, tabObjets, ecran);
                         }

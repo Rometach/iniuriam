@@ -26,6 +26,7 @@ void persoInit (Personnage* perso)
     inventaireInit(&(perso->inventaire));
     equiInit(&perso->equipement);
     capaciteInit(&(perso->capacite));
+    perso->avatar=IMG_Load("data/Media/rip.gif");
 }
 
 void nouveauPerso (Personnage *perso, const char nom[], const char race, const char sexe, const char faction, const char carriere, const int experience, const int argent, Objet* tab)
@@ -148,7 +149,7 @@ void nouveauPerso (Personnage *perso, const char nom[], const char race, const c
          case 4: perso->avatar=IMG_Load("data/Media/cyborg.gif");
         break;
 
-        default:
+        default:    perso->avatar=IMG_Load("data/Media/rip.gif");
         break;
     }
 }
@@ -203,6 +204,23 @@ void chargerPerso (Personnage* perso, const char nom[50], const char race, const
             objInit(&tampon,arme[i]);
             equiper(perso,&tampon,i);
         }
+    }
+     switch(perso->race)
+    {
+        case 1: perso->avatar=IMG_Load("data/Media/humain.gif");
+        break;
+
+        case 2: perso->avatar=IMG_Load("data/Media/cyborg.gif");
+        break;
+
+        case 3: perso->avatar=IMG_Load("data/Media/cyborg.gif");
+        break;
+
+         case 4: perso->avatar=IMG_Load("data/Media/cyborg.gif");
+        break;
+
+        default:
+        break;
     }
 }
 
@@ -272,15 +290,13 @@ void persoLibere (Personnage *perso)
 {
     inventaireLibere(&perso->inventaire);
     capaciteLibere(&perso->capacite);
-    /*SDL_FreeSurface(perso->avatar);*/
+    SDL_FreeSurface(perso->avatar);
 }
-
 
 void getPersoNom(char* maChaine, const Personnage *perso)
 {
     strcpy(maChaine,perso->nom);  /* Courageux, rajoutez un assert */
 }
-
 
 char getPersoRace(const Personnage *perso)
 {
@@ -577,7 +593,7 @@ void copiePerso (Personnage* perso1, Personnage* perso2)
 
     copieInventaire(&perso2->inventaire,&perso1->inventaire);
     copieEquipement(&perso1->equipement,&perso2->equipement);
-    /*Initialiser SDL_Surface*/
+    perso2->avatar=perso1->avatar;
 }
 
 void equiper (Personnage* perso, Objet* obj, const int i)
@@ -622,8 +638,6 @@ void equiper (Personnage* perso, Objet* obj, const int i)
     }
 }
 
-
-
 void initialiserTousLesPNJ(Personnage** tabPNJ, Objet* tabObjets)
 {
     int i;
@@ -649,8 +663,6 @@ int calculNiveau (const int experience)
     assert (experience>=0);
     return (int)log(experience+1);
 }
-
-
 
 int mainPerso()
 {
