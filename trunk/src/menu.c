@@ -905,7 +905,7 @@ char afficherOptions(SDL_Surface *ecran,TTF_Font *police,FMOD_SYSTEM *system,FMO
     int choix=0,nb, choix_son=10,choix_musique=0,decalage,haut=0,page=0;
 
     FMOD_CHANNELGROUP *canal;
-    float  volume=0.0;
+    float  volume=1.0;
     FMOD_System_GetMasterChannelGroup(system, &canal);
 
     char texte_SDL [5][150],chaine1[50]="Options",chaine2[50];
@@ -1085,11 +1085,12 @@ char afficherOptions(SDL_Surface *ecran,TTF_Font *police,FMOD_SYSTEM *system,FMO
             SDL_FreeSurface(curseur);
 
             /*Affichage du volume*/
-            if (volume==0)son = IMG_Load("data/Media/volume-mute.jpg");
-            else if (volume>0&&volume<0.34)son = IMG_Load("data/Media/volume-mute.jpg");
-            else if (volume>=0.34&&volume<0.8)son = IMG_Load("data/Media/volume-mute.jpg");
-            else son = IMG_Load("data/Media/volume-high.jpg");
-            position.x=TAILLE_FENETRE_L/2-170;
+            if (volume<=0.01)son = IMG_Load("data/Media/volume-mute.png");
+            else if (volume>0 && volume<0.34)son = IMG_Load("data/Media/volume-low.png");
+            else if (volume>=0.34 && volume<0.8)son = IMG_Load("data/Media/volume-medium.png");
+            else son = IMG_Load("data/Media/volume-high.png");
+            position.x=TAILLE_FENETRE_L/2-200;
+            position.y=position_curs.y;
             SDL_BlitSurface(son, NULL, ecran, &position);
             SDL_FreeSurface(son);
         }

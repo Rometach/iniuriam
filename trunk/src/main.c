@@ -44,7 +44,7 @@ int main (int argc, char **argv)
 
    partieVide(&partieTest);
 
-    afficherMenu (ecran, 0, police,  &partieTest);
+   afficherMenu (ecran, 0, police,  &partieTest);
 
     srand(time(NULL));
 
@@ -59,7 +59,7 @@ int main (int argc, char **argv)
 
     initialiserTousLesObjets(&tabObjets);
 
-    tabListePersoInit(pnj,nbrPnj);
+//    tabListePersoInit(pnj,nbrPnj);
     for(i=0; i<nbrPnj; i++)
     {
         listePersoInit(&pnj[i], 1);
@@ -69,9 +69,9 @@ int main (int argc, char **argv)
     missionInit(&tutoriel);
     missionDefinir(&tutoriel, 1, tabObjets);
 
-/*    nouveauPerso (&heros[0], "Toromis", 2, 1, 2, 1, 0, 100, tabObjets);
+    nouveauPerso (&heros[0], "Toromis", 2, 1, 2, 1, 0, 100, tabObjets);
     nouveauPerso (&heros[1], "Plop", 2, 1, 2, 1, 0, 100, tabObjets);
-    nouveauPerso (&heros[2], "Oh!", 2, 1, 2, 1, 0, 100, tabObjets); */
+    nouveauPerso (&heros[2], "Oh!", 2, 1, 2, 1, 0, 100, tabObjets);
     nouveauPerso (pnj[0].perso, "Babar", 2, 1, 2, 1, 0, 100, tabObjets);
     nouveauPerso (&pnj[1].perso[0], "Mechant", 1, 1, 1, 1, 0, 100, tabObjets);
     nouveauPerso (pnj[2].perso, "Babar", 2, 1, 2, 1, 0, 100, tabObjets);
@@ -87,8 +87,8 @@ int main (int argc, char **argv)
     setPersoPosX(pnj[3].perso, TILE_LARGEUR*5);
     setPersoPosY(pnj[3].perso, TILE_HAUTEUR*5);
 
-    eventJeuSDL(getPartieJoueurs(&partieTest), getPartieNbJoueur(&partieTest), pnj, nbrPnj, &tutoriel, tabObjets, &terrain, ecran);
-/*    eventJeuSDL(heros, nbrHero, pnj, nbrPnj, &tutoriel, tabObjets, &terrain, ecran); */
+  /*  eventJeuSDL(getPartieJoueurs(&partieTest), getPartieNbJoueur(&partieTest), pnj, nbrPnj, &tutoriel, tabObjets, &terrain, ecran);*/
+    eventJeuSDL(heros, nbrHero, pnj, nbrPnj, &tutoriel, tabObjets, &terrain, ecran);
     for(i=0; i<nbrHero; i++)
     {
         persoLibere(&heros[i]);

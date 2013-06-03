@@ -1135,6 +1135,7 @@ int eventCombatSDL(Personnage* hero, const int nbrHero, Liste_Perso* ennemi, Ter
     char arene [TAILLE_MAX_H][TAILLE_MAX_L];
     int continuer =1, campJoueur, gagnant, i, nb=nbrHero+getNbrPerso(ennemi);
     Combattant* groupe;
+    int choixArme=1;
     SDL_Event event;
 
     liste=(Personnage*)malloc(nb*sizeof(Personnage));
@@ -1162,7 +1163,7 @@ int eventCombatSDL(Personnage* hero, const int nbrHero, Liste_Perso* ennemi, Ter
         {
             if(groupe[i].camp==campJoueur)
             {
-                eventTourJoueurSDL( groupe, i, nbrHero+getNbrPerso(ennemi), arene, ter, ecran );
+                eventTourJoueurSDL( groupe, i, nbrHero+getNbrPerso(ennemi), &choixArme, arene, ter, ecran );
                 nb=testNbCombattant(groupe, nb,arene);
             }
             else
@@ -1243,15 +1244,14 @@ int eventCombatSDL(Personnage* hero, const int nbrHero, Liste_Perso* ennemi, Ter
     return 1;
 }
 
-void eventTourJoueurSDL(Combattant* groupe, int i, int nbCombattant, char arene [TAILLE_MAX_H][TAILLE_MAX_L], Terrain* ter, SDL_Surface* ecran)
+void eventTourJoueurSDL(Combattant* groupe, int i, int nbCombattant, int* choixArme, char arene [TAILLE_MAX_H][TAILLE_MAX_L], Terrain* ter, SDL_Surface* ecran)
 {
     int choix = 0;
     int continuer =1;
     int j;
     SDL_Event event;
-    Objet* armeChoisie=NULL;
-    armeChoisie=getEquiMainDroite(&groupe[i].perso->equipement,1);
     int nbDeplacement = 5;
+    Objet* armeChoisie=NULL;
 
      while (continuer)
                 {
@@ -1277,18 +1277,20 @@ void eventTourJoueurSDL(Combattant* groupe, int i, int nbCombattant, char arene 
                             {
                                 nbDeplacement = deplaceCombHaut(&groupe[i], nbDeplacement, arene);
                             }
+                            else if(event.key.keysym.sym==SDLK_a)
+                            {
+                                choix=eventArmesEquiSDL(&groupe[i], choix, ecran);
+                                armeChoisie = getEquiMainDroite(&groupe[i].perso->equipement, choix);
+                            }
                             else if(event.key.keysym.sym==SDLK_RETURN)   /** attaquer */
                             {
                                 for(j=0; j<nbCombattant; j++)
                                 {
                                     if(groupe[i].camp != groupe[j].camp)
                                     {
-                                        printf("%s! \n", groupe[j].perso->nom);
                                         if(estAPortee(arene ,&groupe[i], &groupe[j], armeChoisie->portee) && groupe[j].perso->ptDeVie>0)
                                         {
-                                            choix=eventArmesEquiSDL(&groupe[i], choix, ecran);
-                                            armeChoisie = getEquiMainDroite(&groupe[i].perso->equipement, choix);
-                                            printf("Attaque! \n");
+
                                             eventAttaqueSDL(&groupe[i], &groupe[j], armeChoisie, arene, ecran);
                                             continuer=0;
                                         }
