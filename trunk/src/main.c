@@ -17,6 +17,18 @@
 
 int main (int argc, char **argv)
 {
+    Objet *tabO;
+    Liste_Perso* tabPNJ;
+
+    initialiserTousLesObjets(&tabO);
+    initialiserTousLesPNJ2(&tabPNJ, tabO);
+
+    libererTousLesObjets(&tabO);
+    libererTousLesPNJ2(&tabPNJ);
+
+    return 0;
+
+
     Partie* partieTest;
     int i, nbrHero = 3, nbrPnj = 4;
 

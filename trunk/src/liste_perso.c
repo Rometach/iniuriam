@@ -58,5 +58,113 @@ void listePersoLibere(Liste_Perso* liste)
 
 void tabListePersoLibere(Liste_Perso* liste)
 {
-    free(liste);
+    free(liste->perso);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+int getNbGroupesPNJ()
+{
+    int max=0;
+    FILE* fPNJ;
+    char ligne[TAILLE_MAX_FICHIER];
+
+    assert(fPNJ=fopen("data/PNJ.txt","r"));
+    if (fPNJ!=NULL)
+    {
+        do
+        {
+            fgets(ligne,TAILLE_MAX_FICHIER,fPNJ);
+            max++;
+        }while (ligne[0]!='/'&&ligne[1]!='/');
+    }
+    fclose(fPNJ);
+
+    assert(max%3==0);
+
+    return ((max-3)/3);
+}
+
+
+
+
+void initialiserTousLesPNJ2(Liste_Perso** tabPNJ, Objet* tabObjets)
+{
+    int i, j, max, nbDansGroupe, numeroPerso;
+    char ligne[TAILLE_MAX_FICHIER];
+    FILE* fGroupes;
+
+    max = getNbGroupesPNJ();
+    (*tabPNJ)=(Liste_Perso*)malloc(max*sizeof(Liste_Perso));
+
+    assert(fGroupes=fopen("data/GroupesPNJ.txt", "r"));
+
+    /*On saute les 3 premières lignes du fichier*/
+    for(i=0;i<3;i++)
+    {
+        fgets(ligne, TAILLE_MAX_FICHIER, fGroupes);
+    }
+
+
+    for(i=0;i<max;i++)
+        {
+            fscanf(fGroupes, "%d\n", &nbDansGroupe);
+            (((*tabPNJ)[i]).perso) = (Personnage*) malloc(nbDansGroupe*sizeof(Personnage));
+            (((*tabPNJ)[i]).nbrPerso) = nbDansGroupe;
+
+            for(j=0;j<nbDansGroupe;j++)
+            {
+                fscanf(fGroupes, "%d ", &numeroPerso);
+                persoInitPNJ( &((((*tabPNJ)[i]).perso)[j]) , numeroPerso, tabObjets) ;
+            }
+            fscanf(fGroupes, "\n");
+            fgets(ligne, TAILLE_MAX_FICHIER, fGroupes);
+        }
+}
+
+
+
+
+
+void libererTousLesPNJ2(Liste_Perso** tabPNJ)
+{
+    int i, max;
+
+    max = getNbGroupesPNJ();
+
+    for(i=0;i<max;i++)
+    {
+        free(((*tabPNJ)[i]).perso);
+    }
+
+    free(*tabPNJ);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

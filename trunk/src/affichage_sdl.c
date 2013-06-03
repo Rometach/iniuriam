@@ -1145,9 +1145,6 @@ int eventCombatSDL(Personnage* hero, const int nbrHero, Liste_Perso* ennemi, Ter
     Combattant* groupe;
     SDL_Event event;
 
-    Objet *tabObjets=NULL;
-
-    initialiserTousLesObjets(&tabObjets);
     liste=(Personnage*)malloc(nb*sizeof(Personnage));
 
     for(i=0; i<nbrHero;i++)

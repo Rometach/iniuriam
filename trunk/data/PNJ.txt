@@ -7,6 +7,12 @@ Babar
 Willy Mays
 1 1 3 1 1 5000
 
-Le super vilain
+Le super vilainI
+2 1 2 1 1 400
+
+Le super vilainII
+2 1 2 1 1 400
+
+Le super vilainIII
 2 1 2 1 1 400
 //
