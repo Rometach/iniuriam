@@ -101,7 +101,7 @@ void supprimerPartie (char nom [50])
     } while(strcmp(nom,ligne)!=0&&i);
     assert(i);
 
-    for (i=0;i<25;i++)
+    for (i=0;i<28;i++)
     {
         fgets(ligne,TAILLE_MAX_FICHIER,fPartie);
     }
@@ -187,7 +187,7 @@ void sauverPartie (char nom [50],Partie* jeu)
 
     for (i=jeu->nbJoueur;i<4;i++)
     {
-        fprintf(fTampon,"/\n/\n/\n/\n\n");
+        fprintf(fTampon,"/\n/\n/\n/\n/\n\n");
     }
 
     for (i=0;i<jeu->nbMission;i++)
@@ -687,15 +687,25 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu,char* sauve
                         choix=0;
                     break;
                     case 7:/*Choix Faction*/
-                        action=9;
-                        type=0;
-                        for (i=0;i<nbJoueur;i++)
+                        if (choix==2)
                         {
-                            setPersoFaction(&groupe[i],choix+1);
+                            choix=0;
+                            action=8;
+                            type=1;
                         }
-                        partieLibere(jeu);
-                        partieInit(jeu,nom,groupe,nbJoueur,NULL,0,1,1);
-                        sauverPartie(sauvegarde,jeu);
+                        else
+                        {
+                            action=9;
+                            type=0;
+                            for (i=0;i<nbJoueur;i++)
+                            {
+                                setPersoFaction(&groupe[i],choix+1);
+                            }
+                            partieLibere(jeu);
+                            partieInit(jeu,nom,groupe,nbJoueur,NULL,0,1,1);
+                            sauverPartie(sauvegarde,jeu);
+                        }
+
                     break;
                     default:
                     break;
@@ -724,7 +734,11 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu,char* sauve
                     nb++;
                 }
                 while (strlen(nom_perso)&&nb<=7);
-                if (nb==8)nb--;
+                if (nb==8)
+                {
+                    nb--;
+                    nbJoueur--;
+                }
                 else if (nb<8)strcpy(texte_SDL[nb-3],"Ajouter Joueur");
                 strcpy(texte_SDL[nb-2],"Valider");
                 strcpy(texte_SDL[nb-1],"Annuler");
