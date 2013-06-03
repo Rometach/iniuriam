@@ -1,6 +1,6 @@
 Ce fichier contient l'ensemble des missions jouables dans Iniuriam.
 
-Nom		Ensemble des sous-missions+coordonnées
+Nom		\n	Type PosX PosY Obj Suite NomPerso
 Test1
 1 0 0 0 4 Babar
 
@@ -17,23 +17,15 @@ Test5
 5 10 21 0 0 . 
 
 Tutoriel1
-2 14 14 0 19 Babar
+1 0 0 0 19 Babar
 
 Tutoriel2
-1 15 15 0 22 .
+4 0 0 0 1 .
 
 Tutoriel3
-6 0 0 0 25 Willy Mays
+3 0 0 0 0 Le super vilain
 
-Tutoriel4
-1 18 18 0 28 Le super vilain
+Le Mystère du poisson rouge1
 
-Tutoriel5
-1 0 0 0 0 Babar
-
-Le Mystère du poisson rouge
-1 12 12	
-2 15 15	
-3 18 18
-
+//
 
