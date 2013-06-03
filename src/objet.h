@@ -150,6 +150,12 @@ void setObjetValeur(Objet* obj, const int valeur);
 void setObjetDescription(Objet* obj, const char* description);
 
 /**
+* \brief Preconditions : obj est initialisé
+* <br /> Postconditions : fixe l'icon d'obj en fonction de sa race.
+*/
+void setObjetIcon(Objet* obj);
+
+/**
 * \brief Preconditions : /
 * <br /> Postconditions : retourne le nombre d'objet dans Objets.txt +3
 */
