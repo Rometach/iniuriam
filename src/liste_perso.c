@@ -36,23 +36,36 @@ void setNbrPerso(Liste_Perso* liste, int i)
 
 Personnage* getPerso(Liste_Perso liste, int i)
 {
-    return &liste.perso[i];
+    return (Personnage*)&liste.perso[i];
 }
 
-int testColPerso(Personnage* hero, Liste_Perso* pnj, int nbPnj)
+int testCollisionPerso(Personnage* hero, Liste_Perso* pnj, int nbPnj, int direction)
 {
-//    int i;
-//    for(i=0; i<nbPnj; i++)
-//    {
-//    if(((getPersoPosX(hero)+TILE_LARGEUR)==getPersoPosX(getPerso(pnj[i], 0) && getPersoPosY(hero)==getPersoPosY(getPerso(pnj[i], 0)))
-//        || ((getPersoPosX(hero)-TILE_LARGEUR)==getPersoPosX(getPerso(pnj[i], 0) && getPersoPosY(hero)==getPersoPosY(getPerso(pnj[i], 0)))
-//        || ((getPersoPosY(hero)+TILE_HAUTEUR)==getPersoPosY(getPerso(pnj[i], 0) && getPersoPosX(hero)==getPersoPosX(getPerso(pnj[i], 0)))
-//        || ((getPersoPosY(hero)-TILE_HAUTEUR)==getPersoPosY(getPerso(pnj[i], 0) && getPersoPosX(hero)==getPersoPosX(getPerso(pnj[i], 0)))
-//        {
-//            return i;
-//        }
-//    }
-//    else return -1;
+   int i;
+   for(i=0; i<nbPnj; i++)
+    {
+    if(((getPersoPosX(hero)+TILE_LARGEUR)==getPersoPosX(pnj[i].perso) && getPersoPosY(hero)==getPersoPosY(pnj[i].perso))
+        || ((getPersoPosX(hero)-TILE_LARGEUR)==getPersoPosX(pnj[i].perso) && getPersoPosY(hero)==getPersoPosY(pnj[i].perso))
+        || ((getPersoPosY(hero)+TILE_HAUTEUR)==getPersoPosY(pnj[i].perso) && getPersoPosX(hero)==getPersoPosX(pnj[i].perso))
+        || ((getPersoPosY(hero)-TILE_HAUTEUR)==getPersoPosY(pnj[i].perso) && getPersoPosX(hero)==getPersoPosX(pnj[i].perso)))
+        {
+           switch(direction)
+            {
+                case 1: if((getPersoPosX(hero)+TILE_LARGEUR)==getPersoPosX(pnj[i].perso) && getPersoPtDeVie(pnj[i].perso)>0) return i;
+                break;
+
+                case 2: if((getPersoPosX(hero)-TILE_LARGEUR)==getPersoPosX(pnj[i].perso) && getPersoPtDeVie(pnj[i].perso)>0) return i;
+                break;
+
+                case 3: if((getPersoPosY(hero)+TILE_HAUTEUR)==getPersoPosY(pnj[i].perso) && getPersoPtDeVie(pnj[i].perso)>0) return i;
+                break;
+
+                case 4: if((getPersoPosY(hero)-TILE_HAUTEUR)==getPersoPosY(pnj[i].perso) && getPersoPtDeVie(pnj[i].perso)>0) return i;
+                break;
+            }
+        }
+    }
+   return -1;
 }
 
 void listePersoLibere(Liste_Perso* liste)

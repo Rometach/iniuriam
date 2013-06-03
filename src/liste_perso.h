@@ -72,6 +72,12 @@ void listePersoLibere(Liste_Perso* liste);
 void tabListePersoLibere(Liste_Perso* liste);
 
 
+/**
+* \brief Preconditions : hero, pnj initialisés, nbPnj>=0, 1<=direction<=4
+* <br /> Postconditions : teste si il y a un pnj dans la diretion où l'on veut aller
+*                         retourne -1 s'il n'y a pas de pnj, retourne l'indice du pnj qui bloque le passage
+*/
+int testCollisionPerso(Personnage* hero, Liste_Perso* pnj, int nbPnj, int direction);
 
 /**
 * \brief Preconditions : /

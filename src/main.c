@@ -59,7 +59,6 @@ int main (int argc, char **argv)
 
     initialiserTousLesObjets(&tabObjets);
 
-//    tabListePersoInit(pnj,nbrPnj);
     for(i=0; i<nbrPnj; i++)
     {
         listePersoInit(&pnj[i], 1);
@@ -87,7 +86,7 @@ int main (int argc, char **argv)
     setPersoPosX(pnj[3].perso, TILE_LARGEUR*5);
     setPersoPosY(pnj[3].perso, TILE_HAUTEUR*5);
 
-  /*  eventJeuSDL(getPartieJoueurs(&partieTest), getPartieNbJoueur(&partieTest), pnj, nbrPnj, &tutoriel, tabObjets, &terrain, ecran);*/
+//    eventJeuSDL(getPartieJoueurs(&partieTest), getPartieNbJoueur(&partieTest), pnj, nbrPnj, &tutoriel, tabObjets, &terrain, ecran);
     eventJeuSDL(heros, nbrHero, pnj, nbrPnj, &tutoriel, tabObjets, &terrain, ecran);
     for(i=0; i<nbrHero; i++)
     {
