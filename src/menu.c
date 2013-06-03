@@ -1650,8 +1650,10 @@ char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
 
 void testMemoire()
 {
+    SDL_Surface* ecran = NULL;
     SDL_Init(SDL_INIT_VIDEO);
     SDL_WM_SetCaption("Iniuriam",NULL);
+    ecran=SDL_SetVideoMode(TAILLE_FENETRE_L, TAILLE_FENETRE_H, 32, SDL_HWSURFACE);
     FMOD_SYSTEM *system;
     FMOD_SOUND *musique;
     FMOD_System_Create(&system);
@@ -1662,6 +1664,7 @@ void testMemoire()
 
     getchar();
 
+    SDL_FreeSurface(ecran);
     SDL_Quit();
     FMOD_Sound_Release(musique);
     FMOD_System_Close(system);

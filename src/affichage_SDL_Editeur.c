@@ -223,7 +223,7 @@ char eventEditeurObjet()
 
 void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
 {
-    char action,selection,type=1;
+    char action=4,selection,type=1;
     int i,j,nb,choix=0,objet=1,valeur,max,decalage=0,taille, haut=0,bas=9,page;
     char ligne[TAILLE_MAX_FICHIER],tampon[TAILLE_MAX_FICHIER], chaine1 [150], chaine2[150];
     char* fin;
@@ -1094,39 +1094,22 @@ void afficherEditeurObjet (SDL_Surface *ecran,TTF_Font *police)
     }
 }
 
-void editerObjet ()
+void editerObjet (SDL_Surface *ecran,TTF_Font *police)
 {
-    SDL_Surface* ecran = NULL;
-    TTF_Font *police = NULL;
-
-    SDL_Init(SDL_INIT_VIDEO);
-    TTF_Init();
-
-    police = TTF_OpenFont("data/Jester.ttf", 30);
     ecran=SDL_SetVideoMode(TAILLE_FENETRE_L, TAILLE_FENETRE_H, 32, SDL_HWSURFACE);
     SDL_WM_SetCaption("Editeur d'Objet", NULL);
     afficherEditeurObjet(ecran,police);/*Affichage de l'écran principal*/
-    SDL_FreeSurface(ecran);
-    TTF_CloseFont(police);
-    TTF_Quit();
-    SDL_Quit();
 }
 
-void editerCarte ()
+void editerCarte (SDL_Surface *ecran,Terrain* terrain)
 {
-    Terrain terrain;
-    SDL_Surface* ecran = NULL;
-    SDL_Init(SDL_INIT_VIDEO);
+    terInit(terrain);
+    terRemplirStruct(terrain);
 
-    terInit(&terrain);
-    terRemplirStruct(&terrain);
+    ecran = SDL_SetVideoMode(TAILLE_FENETRE_L+TILE_LARGEUR*terrain->decalageX, TAILLE_FENETRE_H, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
+    SDL_WM_SetCaption("Editeur de Carte", NULL);
 
-    ecran = SDL_SetVideoMode(TAILLE_FENETRE_L+TILE_LARGEUR*terrain.decalageX, TAILLE_FENETRE_H, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
-    SDL_WM_SetCaption("Iniuriam", NULL);
+    eventEditeurSDL(terrain, ecran);
 
-
-    eventEditeurSDL(&terrain, ecran);
-
-    terLibere(&terrain);
-    SDL_Quit();
+    terLibere(terrain);
 }
