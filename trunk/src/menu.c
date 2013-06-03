@@ -811,10 +811,10 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu,char* sauve
 
                 switch(race)
                 {
-                    case 0: strcpy(tampon,"data/Media/human ");break;
-                    case 1: strcpy(tampon,"data/Media/cyborg ");break;
-                    case 2: strcpy(tampon,"data/Media/sicari ");break;
-                    case 3: strcpy(tampon,"data/Media/medarsin ");break;
+                    case 1: strcpy(tampon,"data/Media/human ");break;
+                    case 2: strcpy(tampon,"data/Media/cyborg ");break;
+                    case 3: strcpy(tampon,"data/Media/sicari ");break;
+                    case 4: strcpy(tampon,"data/Media/medarsin ");break;
                     default:break;
                 }
                 if (choix==0) strcat(tampon,"man.jpg");
@@ -1388,6 +1388,7 @@ char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                             {
                                 action=nouvellePartie (ecran, police, partie,chaine2,system);
                                 choix=0;
+                                type=7;
                             }
                             else if(choix==0)/*Charger partie*/
                             {
@@ -1405,6 +1406,7 @@ char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                             {
                                 action=nouvellePartie (ecran, police, partie,chaine2,system);
                                 choix=0;
+                                type=7;
                             }
                             else if (choix==2)/*Supprimer*/
                             {

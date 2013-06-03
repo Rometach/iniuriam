@@ -593,7 +593,23 @@ void copiePerso (Personnage* perso1, Personnage* perso2)
 
     copieInventaire(&perso2->inventaire,&perso1->inventaire);
     copieEquipement(&perso1->equipement,&perso2->equipement);
-    perso2->avatar=perso1->avatar;
+    switch(perso2->race)
+    {
+        case 1: perso2->avatar=IMG_Load("data/Media/humain.gif");
+        break;
+
+        case 2: perso2->avatar=IMG_Load("data/Media/cyborg.gif");
+        break;
+
+        case 3: perso2->avatar=IMG_Load("data/Media/cyborg.gif");
+        break;
+
+         case 4: perso2->avatar=IMG_Load("data/Media/cyborg.gif");
+        break;
+
+        default:
+        break;
+    }
 }
 
 void equiper (Personnage* perso, Objet* obj, const int i)

@@ -185,6 +185,26 @@ void setObjetDescription(Objet* obj, const char* description)
     strcpy(obj->description,description);
 }
 
+void setObjetIcon(Objet* obj)
+{
+    switch(obj->utilite)
+    {
+        case 1: obj->icon=IMG_Load("data/Media/objetArme.gif");
+        break;
+
+        case 2: obj->icon=IMG_Load("data/Media/objetArmure.gif");
+        break;
+
+        case 3: obj->icon=IMG_Load("data/Media/objetSoin.gif");
+        break;
+
+        case 4: obj->icon=IMG_Load("data/Media/objetQuete.gif");
+        break;
+
+        default: obj->icon=IMG_Load("data/Media/objetAutre.gif");
+        break;
+    }
+}
 
 int getNbObjet()
 {
