@@ -49,19 +49,19 @@ void objInit (Objet *obj, const char type)
 
         switch(obj->utilite)
         {
-            case 1: obj->icon=SDL_LoadBMP("data/Media/objetArme.bmp");
+            case 1: obj->icon=IMG_Load("data/Media/objetArme.gif");
             break;
 
-            case 2: obj->icon=SDL_LoadBMP("data/Media/objetArmure.bmp");
+            case 2: obj->icon=IMG_Load("data/Media/objetArmure.gif");
             break;
 
-            case 3: obj->icon=SDL_LoadBMP("data/Media/objetSoin.bmp");
+            case 3: obj->icon=IMG_Load("data/Media/objetSoin.gif");
             break;
 
-            case 4: obj->icon=SDL_LoadBMP("data/Media/objetQuete.bmp");
+            case 4: obj->icon=IMG_Load("data/Media/objetQuete.gif");
             break;
 
-            default: obj->icon=SDL_LoadBMP("data/Media/objetAutre.bmp");
+            default: obj->icon=IMG_Load("data/Media/objetAutre.gif");
             break;
         }
     }

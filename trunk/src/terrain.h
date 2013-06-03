@@ -23,12 +23,11 @@ typedef struct
 
     unsigned int hauteurChipset;   /** hauteur en case */
     unsigned int largeurChipset;   /** largeur en case*/
-
+    char numCarte;   /** numero de la carte pour charger */
     Tile* tabChipset;       /** le tableau des cases du chipset*/
     SDL_Surface* chipset;       /** le chipset*/
 
     unsigned int *carte;       /** le pointeur sur la carte*/
-
 } Terrain;
 
 /**
@@ -92,6 +91,18 @@ void setTabChipset(Terrain* ter, int i, Tile* tile);
 void setCarte(Terrain *ter, int i, unsigned int numTile);
 
 /**
+* \brief Preconditions : ter est initialisé, 0<= i < ter->hauteur*ter->largeur
+* <br /> Postconditions : on change le numero de la carte
+*/
+void setNumCarte(Terrain* ter, char i);
+
+/**
+* \brief Preconditions : ter est initialisé, 0<= i < ter->hauteur*ter->largeur
+* <br /> Postconditions : on recupere le numero de la carte
+*/
+char getNumCarte(Terrain* ter);
+
+/**
 * \brief Preconditions : ter est initialisé
 * <br /> Postconditions : on récupère nbrTile
 */
@@ -143,7 +154,7 @@ int getCarte(Terrain *ter, int i);
 * \brief Preconditions : ter est initialisé, nomChipset est le même que celui chargé dans remplirStructTerrain, nomFIchier non null
 * <br /> Postconditions : on sauvegarde la structure ter dans un fichier binaire nomFichier
 */
-void terSauvegarde(Terrain* ter, char* nomFichier, char* nomChipset);
+void terSauvegarde(Terrain* ter, char* nomChipset);
 
 /**
 * \brief Preconditions : ter est initialisé, nomFichier non null et existe

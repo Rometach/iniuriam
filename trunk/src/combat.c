@@ -268,7 +268,7 @@ void initCombat (Personnage* liste, int l, Combattant* groupe, char arene[TAILLE
     return 0;
 }*/
 
-char estLaFin (Combattant* groupe,int l)
+char estLaFin (Combattant* groupe,int l, int campJoueur)
 {
     int i;
     if (l==1) return 1;
@@ -276,7 +276,7 @@ char estLaFin (Combattant* groupe,int l)
     {
         for (i=1;i<l;i++)
         {
-            if (groupe[i].camp!=groupe[0].camp) return 0;
+            if (groupe[i].camp!=campJoueur) return 0;
         }
     }
     return 1;
@@ -301,6 +301,9 @@ int testNbCombattant (Combattant* groupe, int l, char arene [TAILLE_MAX_H][TAILL
     {
         if (getPersoPtDeVie(groupe[i].perso)<=0)
         {
+            groupe[i].perso->avatar=IMG_Load("data/Media/rip.gif");
+            groupe[i].arene[groupe[i].posY][groupe[i].posX]=1;
+            arene[groupe[i].posY][groupe[i].posX]=1;
             n--;
             if (n==1) printf("And the winner is %s !\nT'es fier(e) de toi ?\n\n",groupe[0].perso->nom);
             /*Cas où il ne reste plus qu'un survivant*/
@@ -384,16 +387,6 @@ int attaquer (Combattant* attaquant, Combattant* defenseur, int degats, int bonu
     printf("%d\n",getPersoPtDeVie(defenseur->perso));
 
     return deg;
-}
-
-void testMort(Combattant* defenseur, char arene[TAILLE_MAX_H][TAILLE_MAX_L])
-{
-     if(getPersoPtDeVie(defenseur->perso)<=0)
-        {
-            defenseur->perso->avatar=SDL_LoadBMP("data/Media/rip.bmp");
-            defenseur->arene[defenseur->posY][defenseur->posX]=1;
-            arene[defenseur->posY][defenseur->posX]=1;
-        }
 }
 
 void verifierDerniereAction (Combattant* defenseur,int* bonusDef,int* bonusEsc)
@@ -654,7 +647,6 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_
 
                         if (getPersoPtDeVie(groupe[cible].perso)<=0) copieTab2D(arene,groupe[j].arene);
                         /*Réinitialise l'arene de l'IA lorsque sa cible meure*/
-                        testMort(&groupe[cible], arene);
             }
         }
         else
@@ -698,16 +690,17 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_
 
 void combat (Personnage* liste, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L])
 {
-    int i,nb=l;
+    int i, campJoueur, nb=l;
     Combattant* groupe;
     groupe=(Combattant*)malloc(l*sizeof(Combattant));
 
     initCombat(liste,l,groupe,arene);
-    while (estLaFin(groupe, nb)==0)
+    campJoueur=groupe[0].camp;
+    while (estLaFin(groupe, nb, campJoueur )==0)
     {
         for (i=0;i<nb;i++)
         {
-            if(groupe[i].camp==groupe[0].camp)
+            if(groupe[i].camp==campJoueur)
             {
                 nb=testNbCombattant(groupe,nb,arene);
             }

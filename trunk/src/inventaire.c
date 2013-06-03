@@ -68,7 +68,7 @@ void enleverObjetInventaire (Inventaire* inventaire, const Objet* obj)
 
     while ((i<inventaire->nbObjet)&&(inventaire->st[i].objet->type!=obj->type)) i++;
     assert(i!=inventaire->nbObjet);
-    if(getStockQuantite((inventaire->st)+1)>0)
+    if(getStockQuantite((inventaire->st)+i)>0)
     {
         incrementerStock((inventaire->st)+i,-1);
         if(getStockQuantite((inventaire->st)+i)==0)

@@ -155,7 +155,7 @@ char estDansChampDeVision (char arene[TAILLE_MAX_H][TAILLE_MAX_L], int x, int y,
 * \brief Preconditions : groupe est initialisé
 * <br /> Postconditions : renvoie 1 si les l membres du groupe sont dans le même camp, 0 sinon
 */
-char estLaFin (Combattant* groupe,int l);
+char estLaFin (Combattant* groupe, int l, int campJoueur);
 
 /**
 * \brief Preconditions : comb1 est initialisé, pas comb2
@@ -170,13 +170,6 @@ void copieCombattant (Combattant* comb1, Combattant* comb2);
 *                         retourne le nombre de combattant restant
 */
 int testNbCombattant (Combattant* groupe, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L]);
-
-
-/**
-* \brief Preconditions : groupe et arene sont initialisés
-* <br /> Postconditions : vérifie si le défenseur a été tué et change son icône et la collision
-*/
-void testMort(Combattant* defenseur, char arene[TAILLE_MAX_H][TAILLE_MAX_L]);
 
 /**
 * \brief Preconditions : attaquant, defenseur sont initialisés
@@ -240,13 +233,11 @@ void preparerParade (Combattant* attaquant);
 */
 void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L]);
 
-
 /**
 * \brief Preconditions : les l combattants de groupe sont initialisés,0<=j<l.
 * <br /> Postconditions : correspond au tour du joueur dans le combat.
 */
 void tourJoueur (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L]);
-
 
 /**
 * \brief Preconditions : les l personnages de liste sont initialisés
