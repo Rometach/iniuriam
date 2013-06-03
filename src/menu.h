@@ -26,6 +26,11 @@ typedef struct
     char numCarte;
 } Partie;
 
+/**
+* \brief Preconditions : jeu n'est pas initialisé.
+* <br /> Postconditions : initialise jeu.
+*/
+void partieVide (Partie* jeu);
 
 /**
 * \brief Preconditions : jeu n'est pas initialisé, 0<nbJoueur<5, nbMission<nombre de missions dans Missions.txt, missionActuelle est une mission de Missions.txt.

@@ -307,6 +307,12 @@ void ajouterCompetencePerso (Personnage *perso, const int type, const int exp);
 void persoUtiliseObjet (Personnage *perso, Objet *obj, Personnage* cible);
 
 /**
+* \brief Preconditions: perso1 est initialisé, mais pas perso2
+*   <br /> Postconditions : le contenu de avatar1 est copié dans avatar2
+*/
+void copieAvatar(SDL_Surface* avatar1, SDL_Surface* avatar2);
+
+/**
 * \brief Preconditions : perso1 est initialisé, mais pas perso2
 * <br /> Postconditions : le contenu de perso1 est copié dans perso2
 */

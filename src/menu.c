@@ -5,6 +5,17 @@
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */
 
+void partieVide (Partie* jeu)
+{
+    strcpy(jeu->nom,"");
+    jeu->joueur=(Personnage*)malloc(sizeof(Personnage));
+    jeu->nbJoueur=0;
+    jeu->missionsAccomplies=(int*)malloc(sizeof(int));
+    jeu->nbMission=0;
+    jeu->missionActuelle=0;
+    jeu->numCarte=0;
+}
+
 void partieInit (Partie* jeu,char nom[50], Personnage* liste, int nbJoueur,int* missionsAccomplies,int nbMission,int missionActuelle,int numCarte)
 {
     int i;
