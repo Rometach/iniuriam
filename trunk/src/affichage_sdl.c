@@ -840,18 +840,21 @@ void affCombat(Terrain* ter, Combattant* groupe, int l, char arene[TAILLE_MAX_H]
     position.x = groupe[i].posX*TILE_LARGEUR;
     position.y = groupe[i].posY*TILE_HAUTEUR;
     SDL_BlitSurface(groupe[i].perso->avatar, NULL, ecran, &position);
+    position.y += TILE_HAUTEUR;
+    sprintf(texte, "%s", groupe[i].perso->nom );
+    texteCadre = TTF_RenderText_Solid(police, texte, color);
+    SDL_BlitSurface(texteCadre, NULL, ecran, &position);
     }
 
     position.x = TILE_LARGEUR;
     position.y = TILE_HAUTEUR;
     for(i=0; i<l; i++)
     {
-        sprintf(texte, "Vie: %d", groupe[i].perso->ptDeVie );
+        sprintf(texte, "%s: %d", groupe[i].perso->nom, groupe[i].perso->ptDeVie );
         texteCadre = TTF_RenderText_Solid(police, texte, color);
         SDL_BlitSurface(texteCadre, NULL, ecran, &position);
         position.y+=25;
     }
-
 
     SDL_Flip(ecran);
 }
@@ -1031,11 +1034,11 @@ void eventJeuSDL(Personnage* hero, int nbrHero, Liste_Perso* pnjs, int nbrPnj, M
                     }
                     else if(event.key.keysym.sym==SDLK_i) /** Touche d'inventaire*/
                     {
-                            eventInventaireSDL(hero, ecran);
+                            eventInventaireSDL(hero, nbrHero, ecran);
                     }
                      else if(event.key.keysym.sym==SDLK_p) /** Touche de profil*/
                     {
-                            eventProfilSDL(hero, ecran);
+                            eventProfilSDL(hero, nbrHero, ecran);
                     }
                     else if(event.key.keysym.sym==SDLK_j) /** Touche du journal de quete*/
                     {
@@ -1085,12 +1088,12 @@ void eventJournalSDL(Personnage* hero, Mission* mission, SDL_Surface* ecran)
     }
 }
 
-void eventProfilSDL(Personnage* hero, SDL_Surface* ecran)
+void eventProfilSDL(Personnage* hero, int nbHero, SDL_Surface* ecran)
 {
-    int continuer = 1;
+    int continuer = 1, i=0;
     SDL_Event event;
 
-    affProfil(hero, ecran);
+    affProfil(&hero[i], ecran);
 
     while (continuer)
     {
@@ -1100,9 +1103,23 @@ void eventProfilSDL(Personnage* hero, SDL_Surface* ecran)
             case SDL_KEYDOWN:
             { if(event.key.state==SDL_PRESSED)
                 {
-                       if(event.key.keysym.sym==SDLK_p)
+                    if(event.key.keysym.sym==SDLK_p)
                     {
                             continuer = 0;
+                    }
+                    else if(event.key.keysym.sym==SDLK_RETURN)
+                    {
+                            continuer = 0;
+                    }
+                    else if(event.key.keysym.sym==SDLK_LEFT)
+                    {
+                            if(i>0) { i--; }
+                            affProfil(&hero[i], ecran);
+                    }
+                    else if(event.key.keysym.sym==SDLK_RIGHT)
+                    {
+                           if(i<nbHero-1) { i++; }
+                           affProfil(&hero[i], ecran);
                     }
                 }
             }
@@ -1115,16 +1132,14 @@ void eventProfilSDL(Personnage* hero, SDL_Surface* ecran)
     }
 }
 
-void eventInventaireSDL(Personnage* hero, SDL_Surface* ecran)
+void eventInventaireSDL(Personnage* hero, int nbHero, SDL_Surface* ecran)
 {
-    int continuer = 1;
+    int continuer = 1, i=0;
     SDL_Event event;
     Objet* objet;
     SDL_Rect position;
 
-    affInventaire(hero, ecran);
-
-
+    affInventaire(&hero[i], ecran);
     while (continuer)
     {
         SDL_WaitEvent(&event);
@@ -1133,12 +1148,12 @@ void eventInventaireSDL(Personnage* hero, SDL_Surface* ecran)
               case SDL_MOUSEMOTION:
             {
                  if(event.button.x>2*TILE_LARGEUR && event.button.x<(CARTE_LARGEUR-5)*TILE_LARGEUR && event.button.y>3*TILE_HAUTEUR && event.button.y<(CARTE_HAUTEUR-1)*TILE_HAUTEUR
-                       && (event.button.y/TILE_HAUTEUR-3+event.button.x/TILE_LARGEUR-2)<hero->inventaire.nbObjet)
+                       && (event.button.y/TILE_HAUTEUR-3+event.button.x/TILE_LARGEUR-2)<hero[i].inventaire.nbObjet)
                    {
                     position.x = event.motion.x+10;
                     position.y = event.motion.y;
-                    objet=hero->inventaire.st[event.button.y/TILE_HAUTEUR-3+event.button.x/TILE_LARGEUR-2].objet;
-                    affInventaire(hero, ecran);
+                    objet=hero[i].inventaire.st[event.button.y/TILE_HAUTEUR-3+event.button.x/TILE_LARGEUR-2].objet;
+                    affInventaire(&hero[i], ecran);
                     affInfOb(&position, objet, ecran);
                     }
             }
@@ -1149,19 +1164,19 @@ void eventInventaireSDL(Personnage* hero, SDL_Surface* ecran)
              if(event.button.button==SDL_BUTTON_RIGHT)
                {
                     if(event.button.x>2*TILE_LARGEUR && event.button.x<(TAILLE_FENETRE_L-5*TILE_LARGEUR) && event.button.y>3*TILE_HAUTEUR && event.button.y<(TAILLE_FENETRE_H-TILE_HAUTEUR)
-                       && (event.button.y/TILE_HAUTEUR-3+event.button.x/TILE_LARGEUR-2)<hero->inventaire.nbObjet)
+                       && (event.button.y/TILE_HAUTEUR-3+event.button.x/TILE_LARGEUR-2)<hero[i].inventaire.nbObjet)
                     {
-                        objet=hero->inventaire.st[event.button.y/TILE_HAUTEUR-3+event.button.x/TILE_LARGEUR-2].objet;
+                        objet=hero[i].inventaire.st[event.button.y/TILE_HAUTEUR-3+event.button.x/TILE_LARGEUR-2].objet;
                         if(getObjetType(objet)==3 || getObjetType(objet)==4 || getObjetType(objet)==5) /** utiliser objet */
-                        { persoUtiliseObjet (hero, objet, hero); }
+                        { persoUtiliseObjet (&hero[i], objet, &hero[i]); }
                         else if(getObjetType(objet)==2) /** equiper armure */
-                        {   equiper(hero, objet, 0);}
+                        {   equiper(&hero[i], objet, 0);}
                         else if(getObjetType(objet)==1) /** equiper arme */
-                        {   setMainDroite(getPersoEquipement(hero), getEquiMainDroite(getPersoEquipement(hero), 1), 2 );
-                            setMainDroite(getPersoEquipement(hero), getEquiMainDroite(getPersoEquipement(hero), 0), 1 );
-                            equiper(hero, objet, 0);
+                        {   setMainDroite(getPersoEquipement(&hero[i]), getEquiMainDroite(getPersoEquipement(&hero[i]), 1), 2 );
+                            setMainDroite(getPersoEquipement(&hero[i]), getEquiMainDroite(getPersoEquipement(&hero[i]), 0), 1 );
+                            equiper(&hero[i], objet, 0);
                         }
-                        affInventaire(hero, ecran);
+                        affInventaire(&hero[i], ecran);
                     }
                 }
             }
@@ -1170,9 +1185,23 @@ void eventInventaireSDL(Personnage* hero, SDL_Surface* ecran)
             case SDL_KEYDOWN:
             { if(event.key.state==SDL_PRESSED)
                 {
-                       if(event.key.keysym.sym==SDLK_i)
+                    if(event.key.keysym.sym==SDLK_i)
                     {
                             continuer = 0;
+                    }
+                    else if(event.key.keysym.sym==SDLK_RETURN)
+                    {
+                            continuer = 0;
+                    }
+                    else if(event.key.keysym.sym==SDLK_LEFT)
+                    {
+                            if(i>0) { i--; }
+                            affInventaire(&hero[i], ecran);
+                    }
+                    else if(event.key.keysym.sym==SDLK_RIGHT)
+                    {
+                           if(i<nbHero) { i++; }
+                           affInventaire(&hero[i], ecran);
                     }
                 }
             }
@@ -1192,6 +1221,7 @@ int eventCombatSDL(Personnage* hero, const int nbrHero, Liste_Perso* ennemi, Ter
     int continuer =1, campJoueur, gagnant, i, nb=nbrHero+getNbrPerso(ennemi);
     Combattant* groupe;
     SDL_Event event;
+    char info[400];
 
     liste=(Personnage*)malloc(nb*sizeof(Personnage));
 
@@ -1218,14 +1248,13 @@ int eventCombatSDL(Personnage* hero, const int nbrHero, Liste_Perso* ennemi, Ter
         {
             if(groupe[i].camp==campJoueur)
             {
-                eventTourJoueurSDL( groupe, i, nbrHero+getNbrPerso(ennemi), arene, ter, ecran );
-                nb=testNbCombattant(groupe, nb,arene);
+                eventTourJoueurSDL( groupe, i, nbrHero+getNbrPerso(ennemi), arene, info, ter, ecran );
+                nb=testNbCombattant(groupe, nb,arene, info);
             }
             else
             {
-                tourIA(groupe,i,nb,arene);
-                afficherTab2D(arene);
-                nb=testNbCombattant(groupe,nb,arene);
+                tourIA(groupe,i,nb,arene, info);
+                nb=testNbCombattant(groupe,nb,arene, info);
             }
             affCombat(ter, groupe,nbrHero+getNbrPerso(ennemi), arene, ecran);
         }
@@ -1299,9 +1328,9 @@ int eventCombatSDL(Personnage* hero, const int nbrHero, Liste_Perso* ennemi, Ter
     return 1;
 }
 
-void eventTourJoueurSDL(Combattant* groupe, int i, int nbCombattant, char arene [TAILLE_MAX_H][TAILLE_MAX_L], Terrain* ter, SDL_Surface* ecran)
+void eventTourJoueurSDL(Combattant* groupe, int i, int nbCombattant, char arene [TAILLE_MAX_H][TAILLE_MAX_L], char* info, Terrain* ter, SDL_Surface* ecran)
 {
-    int continuer =1;
+    int continuer =1, continuerAttaque=1;
     int j;
     SDL_Event event;
     int nbDeplacement = 5;
@@ -1310,64 +1339,86 @@ void eventTourJoueurSDL(Combattant* groupe, int i, int nbCombattant, char arene 
     armeChoisie =getEquiMainDroite(&groupe[i].perso->equipement, choixArme);
 
      while (continuer)
+    {
+        SDL_WaitEvent(&event);
+        switch(event.type)
+        {
+            case SDL_KEYDOWN:
+            { if(event.key.state==SDL_PRESSED)
                 {
-                    SDL_WaitEvent(&event);
-                    switch(event.type)
+                    if(event.key.keysym.sym==SDLK_RIGHT)    /** Deplacement vers la droite*/
                     {
-                        case SDL_KEYDOWN:
-                    { if(event.key.state==SDL_PRESSED)
+                        nbDeplacement = deplaceCombDroite(&groupe[i], nbDeplacement, arene);
+                    }
+                    else if(event.key.keysym.sym==SDLK_LEFT)    /** Deplacement vers la gauche*/
+                    {
+                        nbDeplacement = deplaceCombGauche(&groupe[i], nbDeplacement, arene);
+                    }
+                    else if(event.key.keysym.sym==SDLK_DOWN)    /** Deplacement vers le bas*/
+                    {
+                        nbDeplacement = deplaceCombBas(&groupe[i], nbDeplacement, arene);
+                    }
+                    else if(event.key.keysym.sym==SDLK_UP)  /** Déplacement vers le haut */
+                    {
+                        nbDeplacement = deplaceCombHaut(&groupe[i], nbDeplacement, arene);
+                    }
+                    else if(event.key.keysym.sym==SDLK_a)
+                    {
+                        choixArme=eventArmesEquiSDL(&groupe[i], (int) choixArme, ecran);
+                        armeChoisie = getEquiMainDroite(&groupe[i].perso->equipement, choixArme);
+                    }
+                    else if(event.key.keysym.sym==SDLK_RETURN)   /** attaquer */
+                    {
+                        for(j=0; j<nbCombattant; j++)
                         {
-                            if(event.key.keysym.sym==SDLK_RIGHT)    /** Deplacement vers la droite*/
+                            if(groupe[i].camp != groupe[j].camp)
                             {
-                                nbDeplacement = deplaceCombDroite(&groupe[i], nbDeplacement, arene);
-                            }
-                            else if(event.key.keysym.sym==SDLK_LEFT)    /** Deplacement vers la gauche*/
-                            {
-                                nbDeplacement = deplaceCombGauche(&groupe[i], nbDeplacement, arene);
-                            }
-                            else if(event.key.keysym.sym==SDLK_DOWN)    /** Deplacement vers le bas*/
-                            {
-                                nbDeplacement = deplaceCombBas(&groupe[i], nbDeplacement, arene);
-                            }
-                            else if(event.key.keysym.sym==SDLK_UP)  /** Déplacement vers le haut */
-                            {
-                                nbDeplacement = deplaceCombHaut(&groupe[i], nbDeplacement, arene);
-                            }
-                            else if(event.key.keysym.sym==SDLK_a)
-                            {
-                                choixArme=eventArmesEquiSDL(&groupe[i], (int) choixArme, ecran);
-                                armeChoisie = getEquiMainDroite(&groupe[i].perso->equipement, choixArme);
-                            }
-                            else if(event.key.keysym.sym==SDLK_RETURN)   /** attaquer */
-                            {
-                                for(j=0; j<nbCombattant; j++)
+                                if(estAPortee(arene ,&groupe[i], &groupe[j], armeChoisie->portee) && groupe[j].perso->ptDeVie>0)
                                 {
-                                    if(groupe[i].camp != groupe[j].camp)
+                                    eventAttaqueSDL(&groupe[i], &groupe[j], armeChoisie, arene, info, ecran);
+                                    affDialogue(groupe[i].perso, info, ecran );
+                                    while (continuerAttaque)
                                     {
-                                        if(estAPortee(arene ,&groupe[i], &groupe[j], armeChoisie->portee) && groupe[j].perso->ptDeVie>0)
-                                        {
-                                            eventAttaqueSDL(&groupe[i], &groupe[j], armeChoisie, arene, ecran);
-                                            continuer=0;
-                                        }
-                                        else if(nbDeplacement==0 && estAPortee(arene ,&groupe[i], &groupe[j], armeChoisie->portee)==1 && groupe[j].perso->ptDeVie>0)
-                                        {
-                                            eventAttaqueSDL(&groupe[i], &groupe[j], armeChoisie, arene, ecran);
-                                            continuer=0;
-                                        }
-                                        else continuer=0;
+                                        SDL_WaitEvent(&event);
+                                        switch(event.type)
+                                        {case SDL_KEYDOWN:
+                                            { if(event.key.state==SDL_PRESSED)
+                                                {if(event.key.keysym.sym==SDLK_RETURN)
+                                                    {continuerAttaque=0;
+                                                    }}}}
                                     }
+                                    continuer=0;
                                 }
+                                else if(nbDeplacement==0 && estAPortee(arene ,&groupe[i], &groupe[j], armeChoisie->portee)==1 && groupe[j].perso->ptDeVie>0)
+                                {
+                                    eventAttaqueSDL(&groupe[i], &groupe[j], armeChoisie, arene, info, ecran);
+                                    affDialogue(groupe[i].perso, info, ecran );
+                                    while (continuerAttaque)
+                                    {
+                                        SDL_WaitEvent(&event);
+                                        switch(event.type)
+                                        {case SDL_KEYDOWN:
+                                            { if(event.key.state==SDL_PRESSED)
+                                                {if(event.key.keysym.sym==SDLK_RETURN)
+                                                    {continuerAttaque=0;
+                                                    }}}}
+                                    }
+                                continuer=0;
+                                }
+                            else continuer=0;
                             }
-                            affCombat(ter, groupe, nbCombattant, arene, ecran);
                         }
                     }
-                        default:
-                        break;
-                    }
+                    affCombat(ter, groupe, nbCombattant, arene, ecran);
                 }
+            }
+            default:
+            break;
+        }
+    }
 }
 
-void eventAttaqueSDL(Combattant* combattant, Combattant* defenseur, Objet* arme, char arene[TAILLE_MAX_H][TAILLE_MAX_L], SDL_Surface* ecran)
+void eventAttaqueSDL(Combattant* combattant, Combattant* defenseur, Objet* arme, char arene[TAILLE_MAX_H][TAILLE_MAX_L], char* info, SDL_Surface* ecran)
 {
     int continuer= 1;
     int rayon;
@@ -1417,16 +1468,16 @@ void eventAttaqueSDL(Combattant* combattant, Combattant* defenseur, Objet* arme,
 
     switch(choixAttaque)
     {
-        case 0: attaqueBrutale (combattant, defenseur, arme->degats, type);
+        case 0: attaqueBrutale (combattant, defenseur, arme->degats, type, info);
         break;
 
-        case 1: attaquePrudente(combattant, defenseur, arme->degats, type);
+        case 1: attaquePrudente(combattant, defenseur, arme->degats, type, info);
         break;
 
-        case 2: viserPourAttaque(combattant, defenseur, arme->degats, type);
+        case 2: viserPourAttaque(combattant, defenseur, arme->degats, type, info);
         break;
 
-        case 3: feinte(combattant, defenseur, arme->degats, type);
+        case 3: feinte(combattant, defenseur, arme->degats, type, info);
         break;
 
         case 4: preparerParade(combattant);

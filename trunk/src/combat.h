@@ -169,7 +169,7 @@ void copieCombattant (Combattant* comb1, Combattant* comb2);
 *                         l correspond au nombre de combattant
 *                         retourne le nombre de combattant restant
 */
-int testNbCombattant (Combattant* groupe, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L]);
+int testNbCombattant (Combattant* groupe, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L], char* info);
 
 /**
 * \brief Preconditions : attaquant, defenseur sont initialisés
@@ -179,7 +179,7 @@ int testNbCombattant (Combattant* groupe, int l, char arene [TAILLE_MAX_H][TAILL
 *                         les bonus influent directement sur les tentatives d'attaque et de défense.
 *                         retourne les dégats infligés au defenseur.
 */
-int attaquer (Combattant* attaquant, Combattant* defenseur, int degats, int bonusA, int bonusD, int bonusAg, int bonusEsc, int type,char distance);
+int attaquer (Combattant* attaquant, Combattant* defenseur, int degats, int bonusA, int bonusD, int bonusAg, int bonusEsc, int type,char distance, char* info);
 
 /**
 * \brief Preconditions : defenseur est initialisé
@@ -198,28 +198,28 @@ void ajouterCompetenceAttaque (Combattant* attaquant,Combattant* defenseur, int 
 * <br /> Postconditions : l'attaquant attaque brutalemment le défenseur, avec une arme infligeant en moyenne degat.
 *                         type permet de déterminer si l'attaque est à distance ou au corps à corps.
 */
-void attaqueBrutale (Combattant* attaquant, Combattant* defenseur, int degat, char type);
+void attaqueBrutale (Combattant* attaquant, Combattant* defenseur, int degat, char type, char* info);
 
 /**
 * \brief Preconditions : attaquant et defenseur sont initialisés
 * <br /> Postconditions : l'attaquant attaque prudemment le défenseur, avec une arme infligeant en moyenne degat.
 *                         type permet de déterminer si l'attaque est à distance ou au corps à corps.
 */
-void attaquePrudente (Combattant* attaquant, Combattant* defenseur, int degat,char type);
+void attaquePrudente (Combattant* attaquant, Combattant* defenseur, int degat, char type, char* info);
 
 /**
 * \brief Preconditions : attaquant et defenseur sont initialisés
 * <br /> Postconditions : l'attaquant feint et attaque le défenseur, avec une arme infligeant en moyenne degat.
 *                         type permet de déterminer si l'attaque est à distance ou au corps à corps.
 */
-void feinte (Combattant* attaquant, Combattant* defenseur, int degat,char type);
+void feinte (Combattant* attaquant, Combattant* defenseur, int degat,char type, char* info);
 
 /**
 * \brief Preconditions : attaquant et defenseur sont initialisés
 * <br /> Postconditions : l'attaquant vise et attaque le défenseur, avec une arme infligeant en moyenne degat.
 *                         type permet de déterminer si l'attaque est à distance ou au corps à corps.
 */
-void viserPourAttaque (Combattant* attaquant, Combattant* defenseur, int degat,char type);
+void viserPourAttaque (Combattant* attaquant, Combattant* defenseur, int degat,char type, char* info);
 
 /**
 * \brief Preconditions : attaquant est initialisé
@@ -231,7 +231,7 @@ void preparerParade (Combattant* attaquant);
 * \brief Preconditions : les l combattants de groupe sont initialisés,0<=j<l.
 * <br /> Postconditions : l'ordinateur execute le tour de l'IA dans le combat.
 */
-void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L]);
+void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L], char* info);
 
 /**
 * \brief Preconditions : les l combattants de groupe sont initialisés,0<=j<l.

@@ -43,12 +43,6 @@ void affInventaire(Personnage* hero, SDL_Surface* ecran);
 void affProfil(Personnage* hero, SDL_Surface* ecran);
 
 /**
-* \brief Preconditions : hero, ecran initalisé et remplis
-* <br /> Postconditions : gère les évements de l'inventaire
-*/
-void eventInventaireSDL(Personnage* hero, SDL_Surface* ecran);
-
-/**
 * \brief Preconditions : info, ter initalisé et remplis
 * <br /> Postconditions : affiche le menu du dialogue
 */
@@ -119,13 +113,13 @@ void eventJournalSDL(Personnage* hero, Mission* mission, SDL_Surface* ecran);
 * \brief Preconditions : hero, ecran initalisé et remplis
 * <br /> Postconditions : gère les évements du profil
 */
-void eventProfilSDL(Personnage* hero, SDL_Surface* ecran);
+void eventProfilSDL(Personnage* hero, int nbHero, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : hero, ecran initalisé et remplis
 * <br /> Postconditions : gère les évements de l'inventaire
 */
-void eventInventaireSDL(Personnage* hero, SDL_Surface* ecran);
+void eventInventaireSDL(Personnage* hero, int nbHero, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : hero, ennemi, ter et ecran initialisés
@@ -137,13 +131,13 @@ int eventCombatSDL(Personnage* hero, const int nbrHero, Liste_Perso* ennemi, Ter
 * \brief Preconditions :groupe, j, l et arene sont initialisés
 * <br /> Postconditions : gère les évenements lors du tour de combat du joueur
 */
-void eventTourJoueurSDL(Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L], Terrain* ter, SDL_Surface* ecran);
+void eventTourJoueurSDL(Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L], char* info, Terrain* ter, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : combattant, defenseur, arme, arene et ecran initalisé et remplis
 * <br /> Postconditions : gère les évenements lors de l'attaque
 */
-void eventAttaqueSDL(Combattant* combattant, Combattant* defenseur, Objet* arme, char arene[TAILLE_MAX_H][TAILLE_MAX_L], SDL_Surface* ecran);
+void eventAttaqueSDL(Combattant* combattant, Combattant* defenseur, Objet* arme, char arene[TAILLE_MAX_H][TAILLE_MAX_L], char* info, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : combattant et ecran initalisé et remplis

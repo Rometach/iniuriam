@@ -1,9 +1,5 @@
 #include "parole.h"
 
-
-
-#define TAILLE_MAX_DIAL 200
-
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
 */

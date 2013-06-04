@@ -293,7 +293,7 @@ void copieCombattant (Combattant* comb1, Combattant* comb2)
     copieTab2D(comb1->arene,comb2->arene);
 }
 
-int testNbCombattant (Combattant* groupe, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L])
+int testNbCombattant (Combattant* groupe, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L], char* info)
 {
     Combattant* tampon;
     int i,j,n=l;
@@ -305,13 +305,14 @@ int testNbCombattant (Combattant* groupe, int l, char arene [TAILLE_MAX_H][TAILL
             groupe[i].arene[groupe[i].posY][groupe[i].posX]=1;
             arene[groupe[i].posY][groupe[i].posX]=1;
             n--;
-            if (n==1) printf("And the winner is %s !\nT'es fier(e) de toi ?\n\n",groupe[0].perso->nom);
+            if (n==1) sprintf( info,"And the winner is %s ! T'es fier(e) de toi ?",groupe[0].perso->nom);
             /*Cas où il ne reste plus qu'un survivant*/
 
-            else if (groupe[i].camp==groupe[0].camp) printf("C'était un(e) de vos potes ?\nEn tout cas c'est la fin pour %s\n\n",groupe[i].perso->nom);
+            else if (groupe[i].camp==groupe[0].camp)
+            {   sprintf(info, "C'était un(e) de vos potes ? En tout cas c'est la fin pour %s",groupe[i].perso->nom);}
             /*Cas où le mort est un des joueurs*/
 
-            else printf ("Il avait peut-être une femme et des gosses !!\n... mais ça évidemment tu t'en soucies pas !\n\n");
+            else strcpy( info,"Il avait peut-être une femme et des gosses !! ... mais ça évidemment tu t'en soucies pas !");
             /*Cas où le mort est une IA*/
 
             tampon=(Combattant*)malloc(sizeof(Combattant));
@@ -329,7 +330,7 @@ int testNbCombattant (Combattant* groupe, int l, char arene [TAILLE_MAX_H][TAILL
     return n;
 }
 
-int attaquer (Combattant* attaquant, Combattant* defenseur, int degats, int bonusA, int bonusD, int bonusAg, int bonusEsc, int type, char distance)
+int attaquer (Combattant* attaquant, Combattant* defenseur, int degats, int bonusA, int bonusD, int bonusAg, int bonusEsc, int type, char distance, char* info)
 {
     int testA, testD=0;
     int deg=0;
@@ -352,39 +353,38 @@ int attaquer (Combattant* attaquant, Combattant* defenseur, int degats, int bonu
         testA=testA-max(testD,0)+bonusA;
         if(testA>=30)
         {
-            printf("Coup critique\n");
+            strcpy(info, "Coup critique");
             ajouterCompetencePerso (attaquant->perso,type,4);
             deg=4*degats;
         }
         else if(testA>=20)
         {
-            printf("Coup qui fait mal\n");
+            strcpy(info, "Coup qui fait mal");
             ajouterCompetencePerso (attaquant->perso,type,3);
             deg=3*degats;
         }
         else if(testA>=10)
         {
-            printf("Beigne\n");
+            strcpy(info,"Beigne");
             ajouterCompetencePerso (attaquant->perso,type,2);
             deg=2*degats;
         }
         else if(testA>=0)
         {
-            printf("Touche, mais de justesse\n");
+            strcpy(info,"Touche, mais de justesse");
             ajouterCompetencePerso (attaquant->perso,type,1);
             deg=degats;
         }
         else
         {
-            printf("Epic parade.\n");
+            strcpy(info,"Epic parade.");
         }
     }
     else
     {
-        printf("Rate.\n");
+       strcpy(info,"Rate.");
     }
     addPersoPtDeVie(defenseur->perso, -deg);
-    printf("%d\n",getPersoPtDeVie(defenseur->perso));
 
     return deg;
 }
@@ -459,57 +459,57 @@ void ajouterCompetenceAttaque (Combattant* attaquant,Combattant* defenseur, int 
     }
 }
 
-void attaqueBrutale(Combattant* attaquant, Combattant* defenseur, int degat,char type)
+void attaqueBrutale(Combattant* attaquant, Combattant* defenseur, int degat,char type, char* info)
 {
     int deg, i,bonusDef=0,bonusEsc=0;
 
     verifierDerniereAction(defenseur,&bonusDef,&bonusEsc);
 
     i=chercherCompetence(getPersoCapacite2(attaquant->perso),16); /*Cherche si l'attaquant a de l'expérience dans l'attaque brutale*/
-    if (i<0) deg=attaquer (attaquant,defenseur,degat,0,bonusDef,0,bonusEsc,16,type);
-    else deg=attaquer (attaquant,defenseur,degat,getBonusatt(getCompetence(getPersoCapacite2(attaquant->perso),i)),bonusDef,0,bonusEsc,16,type);
+    if (i<0) deg=attaquer (attaquant,defenseur,degat,0,bonusDef,0,bonusEsc,16,type, info);
+    else deg=attaquer (attaquant,defenseur,degat,getBonusatt(getCompetence(getPersoCapacite2(attaquant->perso),i)),bonusDef,0,bonusEsc,16,type, info);
     /*L'attaquant bénificie d'un bonus d'attaque en fonction de son expérience dans l'attaque brutale*/
 
     ajouterCompetenceAttaque(attaquant,defenseur,(int)deg/degat,type);
     attaquant->derniereAction=2;
 }
 
-void attaquePrudente (Combattant* attaquant, Combattant* defenseur, int degat,char type)
+void attaquePrudente (Combattant* attaquant, Combattant* defenseur, int degat,char type, char* info)
 {
     int deg,bonusDef=0, bonusEsc=0;
 
     verifierDerniereAction(defenseur,&bonusDef,&bonusEsc);
 
-    deg=attaquer (attaquant,defenseur,degat,0,bonusDef,0,bonusEsc,17,type);
+    deg=attaquer (attaquant,defenseur,degat,0,bonusDef,0,bonusEsc,17,type, info);
 
     ajouterCompetenceAttaque(attaquant,defenseur,(int)deg/degat,type);
     attaquant->derniereAction=3;
 }
 
-void feinte (Combattant* attaquant, Combattant* defenseur, int degat,char type)
+void feinte (Combattant* attaquant, Combattant* defenseur, int degat,char type, char* info)
 {
     int deg, i,bonusDef=0,bonusEsc=0;
 
     verifierDerniereAction(defenseur,&bonusDef,&bonusEsc);
 
     i=chercherCompetence(getPersoCapacite2(attaquant->perso),18); /*Cherche si l'attaquant a de l'expérience dans l'attaque feintée*/
-    if (i<0) deg=attaquer (attaquant,defenseur,degat,0,bonusDef,0,bonusEsc,18,type);
-    else deg=attaquer (attaquant,defenseur,degat,getBonusint(getCompetence(getPersoCapacite2(attaquant->perso),i)),bonusDef,0,bonusEsc,18,type);
+    if (i<0) deg=attaquer (attaquant,defenseur,degat,0,bonusDef,0,bonusEsc,18,type, info);
+    else deg=attaquer (attaquant,defenseur,degat,getBonusint(getCompetence(getPersoCapacite2(attaquant->perso),i)),bonusDef,0,bonusEsc,18,type, info);
     /*L'attaquant bénificie d'un bonus d'attaque en fonction de son expérience dans l'attaque feintée*/
 
     ajouterCompetenceAttaque(attaquant,defenseur,(int)deg/degat,type);
     attaquant->derniereAction=4;
 }
 
-void viserPourAttaque (Combattant* attaquant, Combattant* defenseur, int degat,char type)
+void viserPourAttaque (Combattant* attaquant, Combattant* defenseur, int degat,char type, char* info)
 {
     int deg, i,bonusDef=0,bonusEsc=0;
 
     verifierDerniereAction(defenseur,&bonusDef,&bonusEsc);
 
     i=chercherCompetence(getPersoCapacite2(attaquant->perso),19); /*Cherche si l'attaquant a de l'expérience dans l'attaque visée*/
-    if (i<0) deg=attaquer (attaquant,defenseur,degat,0,bonusDef,0,bonusEsc,19,type);
-    else deg=attaquer (attaquant,defenseur,degat,0,bonusDef,getBonusagi(getCompetence(getPersoCapacite2(attaquant->perso),i)),bonusEsc,19,type);
+    if (i<0) deg=attaquer (attaquant,defenseur,degat,0,bonusDef,0,bonusEsc,19,type, info);
+    else deg=attaquer (attaquant,defenseur,degat,0,bonusDef,getBonusagi(getCompetence(getPersoCapacite2(attaquant->perso),i)),bonusEsc,19,type, info);
     /*L'attaquant bénificie d'un bonus d'attaque en fonction de son expérience dans l'attaque brutale*/
 
     ajouterCompetenceAttaque(attaquant,defenseur,(int)deg/degat,type);
@@ -521,7 +521,7 @@ void preparerParade (Combattant* attaquant)
     attaquant->derniereAction=6;
 }
 
-void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L])
+void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L], char* info)
 {
     int i, cible=j, arme=0, coord, rayon;
     char distance=100, degats=0, tampon, arene2[TAILLE_MAX_H][TAILLE_MAX_L], deplacementsRestants=NB_DEPLACEMENTS, portee;
@@ -636,12 +636,12 @@ void tourIA (Combattant* groupe, int j, int l, char arene [TAILLE_MAX_H][TAILLE_
             {
                         if (rayon>1)
                         {
-                            attaquer(&groupe[j],&groupe[cible],degats,0,0,0,0,14,0);
+                            attaquer(&groupe[j],&groupe[cible],degats,0,0,0,0,14,0, info);
                             /*L'IA attaque le joueur à distance*/
                         }
                         else
                         {
-                            attaquer(&groupe[j], &groupe[cible],degats,0,0,0,0,15,1);
+                            attaquer(&groupe[j], &groupe[cible],degats,0,0,0,0,15,1, info);
                             /*L'IA attaque le joueur au corps à corps*/
                         }
 
@@ -693,7 +693,7 @@ void combat (Personnage* liste, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L])
     int i, campJoueur, nb=l;
     Combattant* groupe;
     groupe=(Combattant*)malloc(l*sizeof(Combattant));
-
+    char info[400];
     initCombat(liste,l,groupe,arene);
     campJoueur=groupe[0].camp;
     while (estLaFin(groupe, nb, campJoueur )==0)
@@ -702,12 +702,12 @@ void combat (Personnage* liste, int l, char arene [TAILLE_MAX_H][TAILLE_MAX_L])
         {
             if(groupe[i].camp==campJoueur)
             {
-                nb=testNbCombattant(groupe,nb,arene);
+                nb=testNbCombattant(groupe,nb,arene, info);
             }
             else
             {
-                tourIA(groupe,i,nb,arene);
-                nb=testNbCombattant(groupe,nb,arene);
+                tourIA(groupe,i,nb,arene, info);
+                nb=testNbCombattant(groupe,nb,arene, info);
                 afficherTab2D(arene);
                 /*getchar();*/
             }
