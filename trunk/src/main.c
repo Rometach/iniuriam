@@ -77,7 +77,7 @@ int main (int argc, char **argv)
     nouveauPerso (&heros[2], "Oh!", 4, 1, 2, 1, 0, 100, tabObjets);
     nouveauPerso (pnj[0].perso, "Babar", 1, 1, 2, 1, 0, 100, tabObjets);
     nouveauPerso (&pnj[1].perso[0], "Lesupervilain", 1, 1, 1, 1, 0, 100, tabObjets);
-    nouveauPerso (pnj[2].perso, "Babar", 2, 1, 2, 1, 0, 100, tabObjets);
+    nouveauPerso (pnj[2].perso, "Yoda", 2, 1, 2, 1, 0, 100, tabObjets);
     nouveauPerso (&pnj[3].perso[0], "VillainI", 2, 1, 1, 1, 0, 100, tabObjets);
 
     setPersoPosX(pnj[1].perso, TILE_LARGEUR*5);
