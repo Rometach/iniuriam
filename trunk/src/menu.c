@@ -718,7 +718,7 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu,char* sauve
                                 setPersoFaction(&groupe[i],choix+1);
                             }
                             partieLibere(jeu);
-                            partieInit(jeu,nom,groupe,nbJoueur,NULL,0,1,1);
+                            partieInit(jeu,nom,groupe,nbJoueur,NULL,0,16,1);
                             sauverPartie(sauvegarde,jeu);
                         }
 
