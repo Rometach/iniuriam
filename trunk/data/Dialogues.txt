@@ -48,14 +48,14 @@ Heiiin ?
 
 
 Babar Info
-Première loi de la Robotique : Un robot ne peut porter atteinte à un être humain, ni, restant passif, permettre qu'un être humain soit exposé au danger.
-Deuxième loi de la Robotique : Un robot doit obéir aux ordres que lui donne un être humain, sauf si de tels ordres entrent en conflit avec la Première loi.
-Troisième loi de la Robotique : Un robot doit protéger son existence tant que cette protection n'entre pas en conflit avec la Première ou la Deuxième loi.
+Un robot ne peut porter atteinte a un etre humain, ni, restant passif, permettre qu'un etre humain soit expose au danger.
+Un robot doit obeir aux ordres que lui donne un etre humain, sauf si de tels ordres entrent en conflit avec la Premiere loi.
+Un robot doit proteger son existence tant que cette protection n'entre pas en conflit avec la Premiere ou la Deuxieme loi.
 
 Babar Mission
-Votre mission : trouvez une arme et servez-vous en pour terrasser le super vilain.
-Votre mission : trouvez une arme et servez-vous en pour terrasser le super vilain.
-Votre mission : trouvez une arme et servez-vous en pour terrasser le super vilain.
+Votre mission : trouvez une arme et servez-vous en pour terrasser Lesupervilain.
+Votre mission : trouvez une arme et servez-vous en pour terrasser Lesupervilain.
+Votre mission : trouvez une arme et servez-vous en pour terrasser Lesupervilain.
 
 Willy Mays Info
 Ce que vous cherchez se trouve chez Dumbo.
@@ -70,7 +70,7 @@ Vous feriez mieux de fuir.
 Le super vilain Info
 Je suis le mechant et je vais tuer la gentille !
 Apres vous avoir massacre, j'eradiquerai cette maudite planete.
-Ma spécialité ? Hmmm, j'hésite entre la torture et... En fait non, c'est clairement la torture.
+Ma specialite ? Hmmm, j'hesite entre la torture et... En fait non, c'est clairement la torture.
 
 Le super vilain Mission
 Je suis le mechant et je vais tuer la gentille !
