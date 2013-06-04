@@ -17,8 +17,7 @@
 
 int main (int argc, char **argv)
 {
-    mainMission();
-    return 0;
+
 
 //    Objet *tabO;
 //    Liste_Perso* tabPNJ;
@@ -56,7 +55,7 @@ int main (int argc, char **argv)
 
 
     Liste_Perso* pnj=NULL;
-    Liste_Perso* liste=NULL;
+    /*Liste_Perso* liste=NULL;*/
     Personnage* heros;
 
     heros=(Personnage*)malloc(nbrHero*sizeof(Personnage));

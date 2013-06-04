@@ -14,7 +14,7 @@
 */
 
 
-/**\struct Sont contenus dans cette structure les différents Objets qu'on peut rencontrer dans le jeu*/
+
 typedef struct
 {
     char nom [30];          /**Nom de l'objet*/
