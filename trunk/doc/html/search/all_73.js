@@ -44,7 +44,6 @@ var searchData=
   ['settabchipset',['setTabChipset',['../terrain_8c.html#a4eb64002ece4632d08080102eb59251c',1,'setTabChipset(Terrain *ter, int i, Tile *tile):&#160;terrain.c'],['../terrain_8h.html#a4eb64002ece4632d08080102eb59251c',1,'setTabChipset(Terrain *ter, int i, Tile *tile):&#160;terrain.c']]],
   ['settilesel',['setTileSel',['../terrain_8c.html#abf6c41160daf296b8adcf853f2de98ae',1,'setTileSel(Terrain *ter, unsigned int selec):&#160;terrain.c'],['../terrain_8h.html#abf6c41160daf296b8adcf853f2de98ae',1,'setTileSel(Terrain *ter, unsigned int selec):&#160;terrain.c']]],
   ['sexe',['sexe',['../structPersonnage.html#a86e38c8a151a40da66b01e07cc8c0917',1,'Personnage']]],
-  ['sont',['Sont',['../structSont.html',1,'']]],
   ['soudoyer',['soudoyer',['../parole_8c.html#ab1a8b6919657af2f8c276c5357415620',1,'soudoyer(Dialogue *dialogue, int argent, char *rep):&#160;parole.c'],['../parole_8h.html#ab1a8b6919657af2f8c276c5357415620',1,'soudoyer(Dialogue *dialogue, int argent, char *rep):&#160;parole.c']]],
   ['soustraireinventaire',['soustraireInventaire',['../personnage_8c.html#a515a6c05477ab1146eee50b419b7d656',1,'soustraireInventaire(Personnage *perso, const Objet *obj):&#160;personnage.c'],['../personnage_8h.html#a515a6c05477ab1146eee50b419b7d656',1,'soustraireInventaire(Personnage *perso, const Objet *obj):&#160;personnage.c']]],
   ['st',['st',['../structInventaire.html#a8972cc77402a720af94782ececdbcd2a',1,'Inventaire']]],

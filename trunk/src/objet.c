@@ -187,6 +187,11 @@ void setObjetDescription(Objet* obj, const char* description)
 
 void setObjetIcon(Objet* obj)
 {
+    if(obj->icon!=NULL)
+    {
+        SDL_FreeSurface(obj->icon);
+    }
+
     switch(obj->utilite)
     {
         case 1: obj->icon=IMG_Load("data/Media/objetArme.gif");

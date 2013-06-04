@@ -35,7 +35,6 @@ int getStockQuantite(const Stock* stock)
 void setStockObjet (Stock *st, Objet* obj)
 {
     st->objet=obj;
-    setObjetIcon(st->objet);
 }
 
 void copieStock (Stock *st1, const Stock *st2)
