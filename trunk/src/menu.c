@@ -800,17 +800,8 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu,char* sauve
                     case 3: images=IMG_Load("data/Media/medarsin man.jpg");break;
                     default:break;
                 }
-                /*
-                Ci dessous emplacement pour modifier les coordonnées des images.
-
-                |
-                |
-                |
-                V
-
-                */
                 position.x=TAILLE_FENETRE_L/1.5;
-                position.y=0;
+                position.y=100;
                 SDL_BlitSurface(images, NULL, ecran, &position);
                 SDL_FreeSurface(images);
             break;
@@ -1689,27 +1680,86 @@ char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie,
     return action;
 }
 
-void testMemoire()
+char eventDebut(SDL_Surface *ecran)
 {
-    SDL_Surface* ecran = NULL;
-    SDL_Init(SDL_INIT_VIDEO);
-    SDL_WM_SetCaption("Iniuriam",NULL);
-    ecran=SDL_SetVideoMode(TAILLE_FENETRE_L, TAILLE_FENETRE_H, 32, SDL_HWSURFACE);
+    char continuer=1,action;
+    SDL_Event event;
+    while(continuer)
+    {
+        SDL_WaitEvent(&event);
+        switch(event.type)
+        {
+            case SDL_KEYDOWN:
+                action=1;
+                continuer=0;
+            break;
+            case SDL_QUIT:
+                action=0;
+                continuer=0;
+            break;
+            default:
+            break;
+        }
+    }
+    return action;
+}
+
+char afficherDebut (SDL_Surface *ecran,TTF_Font *police)
+{
+    SDL_Surface *texte=NULL;
+    SDL_Rect position;
+    SDL_Color couleur_texte= {255, 255, 255};
+    TTF_Font *police2 = NULL;
+
     FMOD_SYSTEM *system;
     FMOD_SOUND *musique;
+    char c;
+    int tempsActuel = 0;
+
     FMOD_System_Create(&system);
-    FMOD_System_Init(system, 2, FMOD_INIT_NORMAL, NULL);
-    FMOD_System_CreateStream(system, "data/Media/GRAMATIK-Muy tranquilo.mp3", FMOD_SOFTWARE | FMOD_2D | FMOD_CREATESTREAM, 0, &musique);
+    FMOD_System_Init(system, 1, FMOD_INIT_NORMAL, NULL);
+    FMOD_System_CreateStream(system, "data/Media/Two Steps From Hell-Blackheart.mp3", FMOD_SOFTWARE | FMOD_2D | FMOD_CREATESTREAM, 0, &musique);
     FMOD_Sound_SetLoopCount(musique, -1);
+
+    police2 = TTF_OpenFont("data/TechnoHideo.ttf", 60);
+    TTF_SetFontStyle(police2, TTF_STYLE_BOLD | TTF_STYLE_UNDERLINE);
+
+    SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
+    texte = TTF_RenderText_Blended(police, "Dans fort longtemps ...", couleur_texte);
+    position.x=TAILLE_FENETRE_L/2-100;
+    position.y=TAILLE_FENETRE_H/2+200;
+    SDL_BlitSurface(texte, NULL, ecran, &position);
+    texte = TTF_RenderText_Blended(police, "... dans une galaxie beaucoup trop proche", couleur_texte);
+    position.y+=50;
+    SDL_BlitSurface(texte, NULL, ecran, &position);
+    SDL_FreeSurface(texte);
+    SDL_Flip(ecran);
+    do
+    {
+        tempsActuel = SDL_GetTicks();
+    } while (tempsActuel<=5000);
+
     FMOD_System_PlaySound(system, FMOD_CHANNEL_FREE, musique, 0, NULL);
 
-    getchar();
+    SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
+    texte = IMG_Load("data/Media/espace.jpg");
+    position.x=0;
+    position.y=0;
+    SDL_BlitSurface(texte, NULL, ecran, &position);
+    SDL_FreeSurface(texte);
+    texte = TTF_RenderText_Blended(police2, "Iniuriam", couleur_texte);
+    position.x=TAILLE_FENETRE_L/2-150;
+    position.y=TAILLE_FENETRE_H/2-50;
+    SDL_BlitSurface(texte, NULL, ecran, &position);
+    SDL_FreeSurface(texte);
+    SDL_Flip(ecran);
 
-    SDL_FreeSurface(ecran);
-    SDL_Quit();
+    c=eventDebut(ecran);
+    TTF_CloseFont(police2);
     FMOD_Sound_Release(musique);
-    FMOD_System_Close(system);
     FMOD_System_Release(system);
+    FMOD_System_Close(system);
+    return c;
 }
 
 int mainMenu ()
