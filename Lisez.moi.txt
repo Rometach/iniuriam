@@ -66,8 +66,9 @@
 				partie en cours.
 		-> Touches directionnelles : utilisez-les pour déplacer
 				vos personnages.
-		-> J : Affiche le journal des quêtes (J pour quitter)
-		-> I : Affiche votre inventaire (I pour quitter)
+		-> J : Affiche le journal des quêtes (J pour quitter).
+		-> I : Affiche votre inventaire (I pour quitter).
+		-> P : Affiche le profil de votre équipe.
 		-> Entrée : Lorsque vous êtes proche d'un personnage du
 				jeu, vous permet d'engager la conversation avec
 				lui. Ouvre un menu avec les différentes actions
@@ -96,7 +97,7 @@
 	# Editeur d'Objet (permet de modifier les objets existants
 	et d'en créer de nouveaux, avec possibilité d'action
 	sur toutes leurs composantes).
-	# $$$
+	# Editeur de carte (permet de créer des fichiers de carte)
 
   **********************************************************
 
@@ -106,6 +107,6 @@
   problèmes lors de son utilisation, merci de nous en faire
   part à
   
-  $$$@$$$.$$$
+  romainversavel@gmail.com
   
   L'équipe de développement d'Iniuriam
