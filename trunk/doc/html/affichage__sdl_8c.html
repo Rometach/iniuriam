@@ -132,21 +132,21 @@ Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage__sdl_8c.html#aaa76898977ab99494b0fc2dd9c0cde7c">eventJournalSDL</a> (<a class="el" href="structPersonnage.html">Personnage</a> *hero, <a class="el" href="structMission.html">Mission</a> *mission, SDL_Surface *ecran)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : hero, ecran initalisé et remplis <br/>
  Postconditions : gère les évements du journa de qetes.  <a href="#aaa76898977ab99494b0fc2dd9c0cde7c"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage__sdl_8c.html#aefa2f7f7e75c0149e7e26d34ba14c78b">eventProfilSDL</a> (<a class="el" href="structPersonnage.html">Personnage</a> *hero, SDL_Surface *ecran)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage__sdl_8c.html#aa4bc5e788eba82a2d467dd5b609a4800">eventProfilSDL</a> (<a class="el" href="structPersonnage.html">Personnage</a> *hero, int nbHero, SDL_Surface *ecran)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : hero, ecran initalisé et remplis <br/>
- Postconditions : gère les évements du profil.  <a href="#aefa2f7f7e75c0149e7e26d34ba14c78b"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage__sdl_8c.html#a5c421f324cecc06777a70e6b829ad3ca">eventInventaireSDL</a> (<a class="el" href="structPersonnage.html">Personnage</a> *hero, SDL_Surface *ecran)</td></tr>
+ Postconditions : gère les évements du profil.  <a href="#aa4bc5e788eba82a2d467dd5b609a4800"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage__sdl_8c.html#a8398bd1ed5850b83e7a90f65319a6ce1">eventInventaireSDL</a> (<a class="el" href="structPersonnage.html">Personnage</a> *hero, int nbHero, SDL_Surface *ecran)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : hero, ecran initalisé et remplis <br/>
- Postconditions : gère les évements de l'inventaire.  <a href="#a5c421f324cecc06777a70e6b829ad3ca"></a><br/></td></tr>
+ Postconditions : gère les évements de l'inventaire.  <a href="#a8398bd1ed5850b83e7a90f65319a6ce1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage__sdl_8c.html#a80d16fc19a62a7ba33e97151a02abe9a">eventCombatSDL</a> (<a class="el" href="structPersonnage.html">Personnage</a> *hero, const int nbrHero, <a class="el" href="structListe__Perso.html">Liste_Perso</a> *ennemi, <a class="el" href="structTerrain.html">Terrain</a> *ter, SDL_Surface *ecran)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : hero, ennemi, ter et ecran initialisés <br/>
  Postconditions : gère les évenements lors du combat.  <a href="#a80d16fc19a62a7ba33e97151a02abe9a"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage__sdl_8c.html#a8103b416ab30652498b3474ffc8f3008">eventTourJoueurSDL</a> (<a class="el" href="structCombattant.html">Combattant</a> *groupe, int i, int nbCombattant, char arene[<a class="el" href="constante_8h.html#ac1049bafa9c744bc36db5e3a0a6cf8ed">TAILLE_MAX_H</a>][<a class="el" href="constante_8h.html#aebaf3b6f2e7f670f39b91564011c9d20">TAILLE_MAX_L</a>], <a class="el" href="structTerrain.html">Terrain</a> *ter, SDL_Surface *ecran)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage__sdl_8c.html#ae2a3181d97e5cac4e0b6c284a153a6fd">eventTourJoueurSDL</a> (<a class="el" href="structCombattant.html">Combattant</a> *groupe, int i, int nbCombattant, char arene[<a class="el" href="constante_8h.html#ac1049bafa9c744bc36db5e3a0a6cf8ed">TAILLE_MAX_H</a>][<a class="el" href="constante_8h.html#aebaf3b6f2e7f670f39b91564011c9d20">TAILLE_MAX_L</a>], char *info, <a class="el" href="structTerrain.html">Terrain</a> *ter, SDL_Surface *ecran)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions :groupe, j, l et arene sont initialisés <br/>
- Postconditions : gère les évenements lors du tour de combat du joueur.  <a href="#a8103b416ab30652498b3474ffc8f3008"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage__sdl_8c.html#ac591028af67f82c3e2f24a2a0b799f5f">eventAttaqueSDL</a> (<a class="el" href="structCombattant.html">Combattant</a> *combattant, <a class="el" href="structCombattant.html">Combattant</a> *defenseur, <a class="el" href="structObjet.html">Objet</a> *arme, char arene[<a class="el" href="constante_8h.html#ac1049bafa9c744bc36db5e3a0a6cf8ed">TAILLE_MAX_H</a>][<a class="el" href="constante_8h.html#aebaf3b6f2e7f670f39b91564011c9d20">TAILLE_MAX_L</a>], SDL_Surface *ecran)</td></tr>
+ Postconditions : gère les évenements lors du tour de combat du joueur.  <a href="#ae2a3181d97e5cac4e0b6c284a153a6fd"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage__sdl_8c.html#a7cb03f6e1445b2223a32f64b1c9bdc24">eventAttaqueSDL</a> (<a class="el" href="structCombattant.html">Combattant</a> *combattant, <a class="el" href="structCombattant.html">Combattant</a> *defenseur, <a class="el" href="structObjet.html">Objet</a> *arme, char arene[<a class="el" href="constante_8h.html#ac1049bafa9c744bc36db5e3a0a6cf8ed">TAILLE_MAX_H</a>][<a class="el" href="constante_8h.html#aebaf3b6f2e7f670f39b91564011c9d20">TAILLE_MAX_L</a>], char *info, SDL_Surface *ecran)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : combattant, defenseur, arme, arene et ecran initalisé et remplis <br/>
- Postconditions : gère les évenements lors de l'attaque.  <a href="#ac591028af67f82c3e2f24a2a0b799f5f"></a><br/></td></tr>
+ Postconditions : gère les évenements lors de l'attaque.  <a href="#a7cb03f6e1445b2223a32f64b1c9bdc24"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage__sdl_8c.html#a953c22c709afc989d2ec9ede4302ffc4">eventArmesEquiSDL</a> (<a class="el" href="structCombattant.html">Combattant</a> *combattant, int choix, SDL_Surface *ecran)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : combattant et ecran initalisé et remplis <br/>
  Postconditions : gère la selection de l'arme en combat et retourne le choix qu'on a fait.  <a href="#a953c22c709afc989d2ec9ede4302ffc4"></a><br/></td></tr>
@@ -774,12 +774,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ac591028af67f82c3e2f24a2a0b799f5f"></a><!-- doxytag: member="affichage_sdl.c::eventAttaqueSDL" ref="ac591028af67f82c3e2f24a2a0b799f5f" args="(Combattant *combattant, Combattant *defenseur, Objet *arme, char arene[TAILLE_MAX_H][TAILLE_MAX_L], SDL_Surface *ecran)" -->
+<a class="anchor" id="a7cb03f6e1445b2223a32f64b1c9bdc24"></a><!-- doxytag: member="affichage_sdl.c::eventAttaqueSDL" ref="a7cb03f6e1445b2223a32f64b1c9bdc24" args="(Combattant *combattant, Combattant *defenseur, Objet *arme, char arene[TAILLE_MAX_H][TAILLE_MAX_L], char *info, SDL_Surface *ecran)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="affichage__sdl_8h.html#ac591028af67f82c3e2f24a2a0b799f5f">eventAttaqueSDL</a> </td>
+          <td class="memname">void <a class="el" href="affichage__sdl_8h.html#a7cb03f6e1445b2223a32f64b1c9bdc24">eventAttaqueSDL</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structCombattant.html">Combattant</a> *&#160;</td>
           <td class="paramname"><em>combattant</em>, </td>
@@ -801,6 +801,12 @@ Functions</h2></td></tr>
           <td></td>
           <td class="paramtype">char&#160;</td>
           <td class="paramname"><em>arene</em>[TAILLE_MAX_H][TAILLE_MAX_L], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>info</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -930,15 +936,21 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a5c421f324cecc06777a70e6b829ad3ca"></a><!-- doxytag: member="affichage_sdl.c::eventInventaireSDL" ref="a5c421f324cecc06777a70e6b829ad3ca" args="(Personnage *hero, SDL_Surface *ecran)" -->
+<a class="anchor" id="a8398bd1ed5850b83e7a90f65319a6ce1"></a><!-- doxytag: member="affichage_sdl.c::eventInventaireSDL" ref="a8398bd1ed5850b83e7a90f65319a6ce1" args="(Personnage *hero, int nbHero, SDL_Surface *ecran)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="affichage__sdl_8h.html#a5c421f324cecc06777a70e6b829ad3ca">eventInventaireSDL</a> </td>
+          <td class="memname">void <a class="el" href="affichage__sdl_8h.html#a8398bd1ed5850b83e7a90f65319a6ce1">eventInventaireSDL</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structPersonnage.html">Personnage</a> *&#160;</td>
           <td class="paramname"><em>hero</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nbHero</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -957,6 +969,9 @@ Functions</h2></td></tr>
 
 <p>Preconditions : hero, ecran initalisé et remplis <br/>
  Postconditions : gère les évements de l'inventaire. </p>
+<p>utiliser objet</p>
+<p>equiper armure</p>
+<p>equiper arme </p>
 
 </div>
 </div>
@@ -1070,15 +1085,21 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aefa2f7f7e75c0149e7e26d34ba14c78b"></a><!-- doxytag: member="affichage_sdl.c::eventProfilSDL" ref="aefa2f7f7e75c0149e7e26d34ba14c78b" args="(Personnage *hero, SDL_Surface *ecran)" -->
+<a class="anchor" id="aa4bc5e788eba82a2d467dd5b609a4800"></a><!-- doxytag: member="affichage_sdl.c::eventProfilSDL" ref="aa4bc5e788eba82a2d467dd5b609a4800" args="(Personnage *hero, int nbHero, SDL_Surface *ecran)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="affichage__sdl_8h.html#aefa2f7f7e75c0149e7e26d34ba14c78b">eventProfilSDL</a> </td>
+          <td class="memname">void <a class="el" href="affichage__sdl_8h.html#aa4bc5e788eba82a2d467dd5b609a4800">eventProfilSDL</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structPersonnage.html">Personnage</a> *&#160;</td>
           <td class="paramname"><em>hero</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nbHero</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1184,12 +1205,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a8103b416ab30652498b3474ffc8f3008"></a><!-- doxytag: member="affichage_sdl.c::eventTourJoueurSDL" ref="a8103b416ab30652498b3474ffc8f3008" args="(Combattant *groupe, int i, int nbCombattant, char arene[TAILLE_MAX_H][TAILLE_MAX_L], Terrain *ter, SDL_Surface *ecran)" -->
+<a class="anchor" id="ae2a3181d97e5cac4e0b6c284a153a6fd"></a><!-- doxytag: member="affichage_sdl.c::eventTourJoueurSDL" ref="ae2a3181d97e5cac4e0b6c284a153a6fd" args="(Combattant *groupe, int i, int nbCombattant, char arene[TAILLE_MAX_H][TAILLE_MAX_L], char *info, Terrain *ter, SDL_Surface *ecran)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="affichage__sdl_8h.html#aef641b14a214f1b6351bb884fd9341f9">eventTourJoueurSDL</a> </td>
+          <td class="memname">void <a class="el" href="affichage__sdl_8h.html#ab2eb729cddb5a67d4daefbf9bea11744">eventTourJoueurSDL</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structCombattant.html">Combattant</a> *&#160;</td>
           <td class="paramname"><em>groupe</em>, </td>
@@ -1211,6 +1232,12 @@ Functions</h2></td></tr>
           <td></td>
           <td class="paramtype">char&#160;</td>
           <td class="paramname"><em>arene</em>[TAILLE_MAX_H][TAILLE_MAX_L], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>info</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1297,7 +1324,7 @@ Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 3 2013 12:25:10 for Iniuriam by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jun 4 2013 08:18:24 for Iniuriam by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

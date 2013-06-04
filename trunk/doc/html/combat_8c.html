@@ -139,36 +139,36 @@ Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="combat_8c.html#a38429b7fdde880e86628199d8f72fb81">copieCombattant</a> (<a class="el" href="structCombattant.html">Combattant</a> *comb1, <a class="el" href="structCombattant.html">Combattant</a> *comb2)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : comb1 est initialisé, pas comb2 <br/>
  Postconditions : copie le contenu de comb1 dans comb2.  <a href="#a38429b7fdde880e86628199d8f72fb81"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="combat_8c.html#a2ccb6e471b5cab95a33a503d1c6ffcc9">testNbCombattant</a> (<a class="el" href="structCombattant.html">Combattant</a> *groupe, int l, char arene[<a class="el" href="constante_8h.html#ac1049bafa9c744bc36db5e3a0a6cf8ed">TAILLE_MAX_H</a>][<a class="el" href="constante_8h.html#aebaf3b6f2e7f670f39b91564011c9d20">TAILLE_MAX_L</a>])</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="combat_8c.html#a6b71b894d021f959d7758a655293b972">testNbCombattant</a> (<a class="el" href="structCombattant.html">Combattant</a> *groupe, int l, char arene[<a class="el" href="constante_8h.html#ac1049bafa9c744bc36db5e3a0a6cf8ed">TAILLE_MAX_H</a>][<a class="el" href="constante_8h.html#aebaf3b6f2e7f670f39b91564011c9d20">TAILLE_MAX_L</a>], char *info)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : groupe est initialisé <br/>
- Postconditions : vérifie si des membres du groupe ont été tué et les retire de l'arene l correspond au nombre de combattant retourne le nombre de combattant restant.  <a href="#a2ccb6e471b5cab95a33a503d1c6ffcc9"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="combat_8c.html#a4b924bcc226b9511c05efaa9a4ae54ff">attaquer</a> (<a class="el" href="structCombattant.html">Combattant</a> *attaquant, <a class="el" href="structCombattant.html">Combattant</a> *defenseur, int degats, int bonusA, int bonusD, int bonusAg, int bonusEsc, int type, char distance)</td></tr>
+ Postconditions : vérifie si des membres du groupe ont été tué et les retire de l'arene l correspond au nombre de combattant retourne le nombre de combattant restant.  <a href="#a6b71b894d021f959d7758a655293b972"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="combat_8c.html#ab4a4c26bb0507c54369801666ee925dc">attaquer</a> (<a class="el" href="structCombattant.html">Combattant</a> *attaquant, <a class="el" href="structCombattant.html">Combattant</a> *defenseur, int degats, int bonusA, int bonusD, int bonusAg, int bonusEsc, int type, char distance, char *info)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : attaquant, defenseur sont initialisés <br/>
- Postconditions : l'attaquant tente une attaque sur le defenseur, qui tente lui de se défendre, avec une arme infligeant en moyenne degats. type correspond au type d'attaque à effectuer: brutale,prudente,feinte,ou avec visée. distance permet de déterminer si l'attaque est à distance ou au corps à corps. les bonus influent directement sur les tentatives d'attaque et de défense. retourne les dégats infligés au defenseur.  <a href="#a4b924bcc226b9511c05efaa9a4ae54ff"></a><br/></td></tr>
+ Postconditions : l'attaquant tente une attaque sur le defenseur, qui tente lui de se défendre, avec une arme infligeant en moyenne degats. type correspond au type d'attaque à effectuer: brutale,prudente,feinte,ou avec visée. distance permet de déterminer si l'attaque est à distance ou au corps à corps. les bonus influent directement sur les tentatives d'attaque et de défense. retourne les dégats infligés au defenseur.  <a href="#ab4a4c26bb0507c54369801666ee925dc"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="combat_8c.html#a44d4dd9696460d0daeafcc5fdfcb4c03">verifierDerniereAction</a> (<a class="el" href="structCombattant.html">Combattant</a> *defenseur, int *bonusDef, int *bonusEsc)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : defenseur est initialisé <br/>
  Postconditions : vérifie si le defenseur a effectué une attaque prudente ou une parade au tour précedent.  <a href="#a44d4dd9696460d0daeafcc5fdfcb4c03"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="combat_8c.html#acd14c3daefed1bb9bd768c1e3171b964">ajouterCompetenceAttaque</a> (<a class="el" href="structCombattant.html">Combattant</a> *attaquant, <a class="el" href="structCombattant.html">Combattant</a> *defenseur, int rapport, char type)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : attaquant et defenseur sont initialisés <br/>
  Postconditions : ajoute de l'expérience à la compétence type de l'attaquant ou à la compétence esquive du defenseur en fonction de rapport.  <a href="#acd14c3daefed1bb9bd768c1e3171b964"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="combat_8c.html#a1715f48af868c366a2d55e62436e9de5">attaqueBrutale</a> (<a class="el" href="structCombattant.html">Combattant</a> *attaquant, <a class="el" href="structCombattant.html">Combattant</a> *defenseur, int degat, char type)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="combat_8c.html#afaed8dc3c92b1145050130672852d372">attaqueBrutale</a> (<a class="el" href="structCombattant.html">Combattant</a> *attaquant, <a class="el" href="structCombattant.html">Combattant</a> *defenseur, int degat, char type, char *info)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : attaquant et defenseur sont initialisés <br/>
- Postconditions : l'attaquant attaque brutalemment le défenseur, avec une arme infligeant en moyenne degat. type permet de déterminer si l'attaque est à distance ou au corps à corps.  <a href="#a1715f48af868c366a2d55e62436e9de5"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="combat_8c.html#a7d8f280a22e33215a5c1d6114e6a046a">attaquePrudente</a> (<a class="el" href="structCombattant.html">Combattant</a> *attaquant, <a class="el" href="structCombattant.html">Combattant</a> *defenseur, int degat, char type)</td></tr>
+ Postconditions : l'attaquant attaque brutalemment le défenseur, avec une arme infligeant en moyenne degat. type permet de déterminer si l'attaque est à distance ou au corps à corps.  <a href="#afaed8dc3c92b1145050130672852d372"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="combat_8c.html#acf26a7a375ec5c51a44e8e97c5a80207">attaquePrudente</a> (<a class="el" href="structCombattant.html">Combattant</a> *attaquant, <a class="el" href="structCombattant.html">Combattant</a> *defenseur, int degat, char type, char *info)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : attaquant et defenseur sont initialisés <br/>
- Postconditions : l'attaquant attaque prudemment le défenseur, avec une arme infligeant en moyenne degat. type permet de déterminer si l'attaque est à distance ou au corps à corps.  <a href="#a7d8f280a22e33215a5c1d6114e6a046a"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="combat_8c.html#a53cfd7c9df7c4ddc5bf353023f6d93aa">feinte</a> (<a class="el" href="structCombattant.html">Combattant</a> *attaquant, <a class="el" href="structCombattant.html">Combattant</a> *defenseur, int degat, char type)</td></tr>
+ Postconditions : l'attaquant attaque prudemment le défenseur, avec une arme infligeant en moyenne degat. type permet de déterminer si l'attaque est à distance ou au corps à corps.  <a href="#acf26a7a375ec5c51a44e8e97c5a80207"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="combat_8c.html#a5fc2806b383b02cbc054291dc02da235">feinte</a> (<a class="el" href="structCombattant.html">Combattant</a> *attaquant, <a class="el" href="structCombattant.html">Combattant</a> *defenseur, int degat, char type, char *info)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : attaquant et defenseur sont initialisés <br/>
- Postconditions : l'attaquant feint et attaque le défenseur, avec une arme infligeant en moyenne degat. type permet de déterminer si l'attaque est à distance ou au corps à corps.  <a href="#a53cfd7c9df7c4ddc5bf353023f6d93aa"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="combat_8c.html#a523a8f376c98f6b13102a39f7c775439">viserPourAttaque</a> (<a class="el" href="structCombattant.html">Combattant</a> *attaquant, <a class="el" href="structCombattant.html">Combattant</a> *defenseur, int degat, char type)</td></tr>
+ Postconditions : l'attaquant feint et attaque le défenseur, avec une arme infligeant en moyenne degat. type permet de déterminer si l'attaque est à distance ou au corps à corps.  <a href="#a5fc2806b383b02cbc054291dc02da235"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="combat_8c.html#a44529aeaaea3a00ee678e10fef6e5906">viserPourAttaque</a> (<a class="el" href="structCombattant.html">Combattant</a> *attaquant, <a class="el" href="structCombattant.html">Combattant</a> *defenseur, int degat, char type, char *info)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : attaquant et defenseur sont initialisés <br/>
- Postconditions : l'attaquant vise et attaque le défenseur, avec une arme infligeant en moyenne degat. type permet de déterminer si l'attaque est à distance ou au corps à corps.  <a href="#a523a8f376c98f6b13102a39f7c775439"></a><br/></td></tr>
+ Postconditions : l'attaquant vise et attaque le défenseur, avec une arme infligeant en moyenne degat. type permet de déterminer si l'attaque est à distance ou au corps à corps.  <a href="#a44529aeaaea3a00ee678e10fef6e5906"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="combat_8c.html#a72bed1c6cac79a2b2d99bf770926dc70">preparerParade</a> (<a class="el" href="structCombattant.html">Combattant</a> *attaquant)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : attaquant est initialisé <br/>
  Postconditions : l'attaquant prépare une parade pour une éventuelle prochaine attaque.  <a href="#a72bed1c6cac79a2b2d99bf770926dc70"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="combat_8c.html#a3e1d9fe8b46816879c84138c9b141729">tourIA</a> (<a class="el" href="structCombattant.html">Combattant</a> *groupe, int j, int l, char arene[<a class="el" href="constante_8h.html#ac1049bafa9c744bc36db5e3a0a6cf8ed">TAILLE_MAX_H</a>][<a class="el" href="constante_8h.html#aebaf3b6f2e7f670f39b91564011c9d20">TAILLE_MAX_L</a>])</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="combat_8c.html#af7129c8e04a82720044bde36e6384cbd">tourIA</a> (<a class="el" href="structCombattant.html">Combattant</a> *groupe, int j, int l, char arene[<a class="el" href="constante_8h.html#ac1049bafa9c744bc36db5e3a0a6cf8ed">TAILLE_MAX_H</a>][<a class="el" href="constante_8h.html#aebaf3b6f2e7f670f39b91564011c9d20">TAILLE_MAX_L</a>], char *info)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : les l combattants de groupe sont initialisés,0&lt;=j&lt;l. <br/>
- Postconditions : l'ordinateur execute le tour de l'IA dans le combat.  <a href="#a3e1d9fe8b46816879c84138c9b141729"></a><br/></td></tr>
+ Postconditions : l'ordinateur execute le tour de l'IA dans le combat.  <a href="#af7129c8e04a82720044bde36e6384cbd"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="combat_8c.html#afce35bb9d340a17ef2ad283106a31bd8">combat</a> (<a class="el" href="structPersonnage.html">Personnage</a> *liste, int l, char arene[<a class="el" href="constante_8h.html#ac1049bafa9c744bc36db5e3a0a6cf8ed">TAILLE_MAX_H</a>][<a class="el" href="constante_8h.html#aebaf3b6f2e7f670f39b91564011c9d20">TAILLE_MAX_L</a>])</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : les l personnages de liste sont initialisés <br/>
  Postconditions : un combat s'engage entre les personnage jusqu'à ce que l'un des camp l'emporte.  <a href="#afce35bb9d340a17ef2ad283106a31bd8"></a><br/></td></tr>
@@ -303,12 +303,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a1715f48af868c366a2d55e62436e9de5"></a><!-- doxytag: member="combat.c::attaqueBrutale" ref="a1715f48af868c366a2d55e62436e9de5" args="(Combattant *attaquant, Combattant *defenseur, int degat, char type)" -->
+<a class="anchor" id="afaed8dc3c92b1145050130672852d372"></a><!-- doxytag: member="combat.c::attaqueBrutale" ref="afaed8dc3c92b1145050130672852d372" args="(Combattant *attaquant, Combattant *defenseur, int degat, char type, char *info)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="combat_8h.html#a1715f48af868c366a2d55e62436e9de5">attaqueBrutale</a> </td>
+          <td class="memname">void <a class="el" href="combat_8h.html#afaed8dc3c92b1145050130672852d372">attaqueBrutale</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structCombattant.html">Combattant</a> *&#160;</td>
           <td class="paramname"><em>attaquant</em>, </td>
@@ -329,7 +329,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">char&#160;</td>
-          <td class="paramname"><em>type</em>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>info</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -345,12 +351,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a7d8f280a22e33215a5c1d6114e6a046a"></a><!-- doxytag: member="combat.c::attaquePrudente" ref="a7d8f280a22e33215a5c1d6114e6a046a" args="(Combattant *attaquant, Combattant *defenseur, int degat, char type)" -->
+<a class="anchor" id="acf26a7a375ec5c51a44e8e97c5a80207"></a><!-- doxytag: member="combat.c::attaquePrudente" ref="acf26a7a375ec5c51a44e8e97c5a80207" args="(Combattant *attaquant, Combattant *defenseur, int degat, char type, char *info)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="combat_8h.html#a7d8f280a22e33215a5c1d6114e6a046a">attaquePrudente</a> </td>
+          <td class="memname">void <a class="el" href="combat_8h.html#acf26a7a375ec5c51a44e8e97c5a80207">attaquePrudente</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structCombattant.html">Combattant</a> *&#160;</td>
           <td class="paramname"><em>attaquant</em>, </td>
@@ -371,7 +377,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">char&#160;</td>
-          <td class="paramname"><em>type</em>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>info</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -387,12 +399,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a4b924bcc226b9511c05efaa9a4ae54ff"></a><!-- doxytag: member="combat.c::attaquer" ref="a4b924bcc226b9511c05efaa9a4ae54ff" args="(Combattant *attaquant, Combattant *defenseur, int degats, int bonusA, int bonusD, int bonusAg, int bonusEsc, int type, char distance)" -->
+<a class="anchor" id="ab4a4c26bb0507c54369801666ee925dc"></a><!-- doxytag: member="combat.c::attaquer" ref="ab4a4c26bb0507c54369801666ee925dc" args="(Combattant *attaquant, Combattant *defenseur, int degats, int bonusA, int bonusD, int bonusAg, int bonusEsc, int type, char distance, char *info)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="combat_8h.html#a4b924bcc226b9511c05efaa9a4ae54ff">attaquer</a> </td>
+          <td class="memname">int <a class="el" href="combat_8h.html#ab4a4c26bb0507c54369801666ee925dc">attaquer</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structCombattant.html">Combattant</a> *&#160;</td>
           <td class="paramname"><em>attaquant</em>, </td>
@@ -443,7 +455,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">char&#160;</td>
-          <td class="paramname"><em>distance</em>&#160;</td>
+          <td class="paramname"><em>distance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>info</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -780,12 +798,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a53cfd7c9df7c4ddc5bf353023f6d93aa"></a><!-- doxytag: member="combat.c::feinte" ref="a53cfd7c9df7c4ddc5bf353023f6d93aa" args="(Combattant *attaquant, Combattant *defenseur, int degat, char type)" -->
+<a class="anchor" id="a5fc2806b383b02cbc054291dc02da235"></a><!-- doxytag: member="combat.c::feinte" ref="a5fc2806b383b02cbc054291dc02da235" args="(Combattant *attaquant, Combattant *defenseur, int degat, char type, char *info)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="combat_8h.html#a53cfd7c9df7c4ddc5bf353023f6d93aa">feinte</a> </td>
+          <td class="memname">void <a class="el" href="combat_8h.html#a5fc2806b383b02cbc054291dc02da235">feinte</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structCombattant.html">Combattant</a> *&#160;</td>
           <td class="paramname"><em>attaquant</em>, </td>
@@ -806,7 +824,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">char&#160;</td>
-          <td class="paramname"><em>type</em>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>info</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1232,12 +1256,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a2ccb6e471b5cab95a33a503d1c6ffcc9"></a><!-- doxytag: member="combat.c::testNbCombattant" ref="a2ccb6e471b5cab95a33a503d1c6ffcc9" args="(Combattant *groupe, int l, char arene[TAILLE_MAX_H][TAILLE_MAX_L])" -->
+<a class="anchor" id="a6b71b894d021f959d7758a655293b972"></a><!-- doxytag: member="combat.c::testNbCombattant" ref="a6b71b894d021f959d7758a655293b972" args="(Combattant *groupe, int l, char arene[TAILLE_MAX_H][TAILLE_MAX_L], char *info)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="combat_8h.html#a2ccb6e471b5cab95a33a503d1c6ffcc9">testNbCombattant</a> </td>
+          <td class="memname">int <a class="el" href="combat_8h.html#a6b71b894d021f959d7758a655293b972">testNbCombattant</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structCombattant.html">Combattant</a> *&#160;</td>
           <td class="paramname"><em>groupe</em>, </td>
@@ -1252,7 +1276,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">char&#160;</td>
-          <td class="paramname"><em>arene</em>[TAILLE_MAX_H][TAILLE_MAX_L]&#160;</td>
+          <td class="paramname"><em>arene</em>[TAILLE_MAX_H][TAILLE_MAX_L], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>info</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1268,12 +1298,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a3e1d9fe8b46816879c84138c9b141729"></a><!-- doxytag: member="combat.c::tourIA" ref="a3e1d9fe8b46816879c84138c9b141729" args="(Combattant *groupe, int j, int l, char arene[TAILLE_MAX_H][TAILLE_MAX_L])" -->
+<a class="anchor" id="af7129c8e04a82720044bde36e6384cbd"></a><!-- doxytag: member="combat.c::tourIA" ref="af7129c8e04a82720044bde36e6384cbd" args="(Combattant *groupe, int j, int l, char arene[TAILLE_MAX_H][TAILLE_MAX_L], char *info)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="combat_8h.html#a3e1d9fe8b46816879c84138c9b141729">tourIA</a> </td>
+          <td class="memname">void <a class="el" href="combat_8h.html#af7129c8e04a82720044bde36e6384cbd">tourIA</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structCombattant.html">Combattant</a> *&#160;</td>
           <td class="paramname"><em>groupe</em>, </td>
@@ -1294,7 +1324,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">char&#160;</td>
-          <td class="paramname"><em>arene</em>[TAILLE_MAX_H][TAILLE_MAX_L]&#160;</td>
+          <td class="paramname"><em>arene</em>[TAILLE_MAX_H][TAILLE_MAX_L], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>info</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1382,12 +1418,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a523a8f376c98f6b13102a39f7c775439"></a><!-- doxytag: member="combat.c::viserPourAttaque" ref="a523a8f376c98f6b13102a39f7c775439" args="(Combattant *attaquant, Combattant *defenseur, int degat, char type)" -->
+<a class="anchor" id="a44529aeaaea3a00ee678e10fef6e5906"></a><!-- doxytag: member="combat.c::viserPourAttaque" ref="a44529aeaaea3a00ee678e10fef6e5906" args="(Combattant *attaquant, Combattant *defenseur, int degat, char type, char *info)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="combat_8h.html#a523a8f376c98f6b13102a39f7c775439">viserPourAttaque</a> </td>
+          <td class="memname">void <a class="el" href="combat_8h.html#a44529aeaaea3a00ee678e10fef6e5906">viserPourAttaque</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structCombattant.html">Combattant</a> *&#160;</td>
           <td class="paramname"><em>attaquant</em>, </td>
@@ -1408,7 +1444,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">char&#160;</td>
-          <td class="paramname"><em>type</em>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>info</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1442,7 +1484,7 @@ Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 3 2013 12:25:10 for Iniuriam by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jun 4 2013 08:18:25 for Iniuriam by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -151,6 +151,9 @@ Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="objet_8h.html#ae29cc0e2b0191644bedf79a3709e3b42">setObjetDescription</a> (<a class="el" href="structObjet.html">Objet</a> *obj, const char *description)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : nom est une chaine de longueur &lt;150 <br/>
  Postconditions : change la description d'obj pour description.  <a href="#ae29cc0e2b0191644bedf79a3709e3b42"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="objet_8h.html#a1827254703732afacfbddf84fc8c2855">setObjetIcon</a> (<a class="el" href="structObjet.html">Objet</a> *obj)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : obj est initialisé <br/>
+ Postconditions : fixe l'icon d'obj en fonction de sa race.  <a href="#a1827254703732afacfbddf84fc8c2855"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="objet_8h.html#a7704431bd30c56b00f2f568d9d163fca">getNbObjet</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : / <br/>
  Postconditions : retourne le nombre d'objet dans Objets.txt +3.  <a href="#a7704431bd30c56b00f2f568d9d163fca"></a><br/></td></tr>
@@ -598,6 +601,26 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a1827254703732afacfbddf84fc8c2855"></a><!-- doxytag: member="objet.h::setObjetIcon" ref="a1827254703732afacfbddf84fc8c2855" args="(Objet *obj)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="objet_8h.html#a1827254703732afacfbddf84fc8c2855">setObjetIcon</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structObjet.html">Objet</a> *&#160;</td>
+          <td class="paramname"><em>obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Preconditions : obj est initialisé <br/>
+ Postconditions : fixe l'icon d'obj en fonction de sa race. </p>
+
+</div>
+</div>
 <a class="anchor" id="a9aa1ee3462c1622cda0b23ee32d08c17"></a><!-- doxytag: member="objet.h::setObjetNom" ref="a9aa1ee3462c1622cda0b23ee32d08c17" args="(Objet *obj, const char *nom)" -->
 <div class="memitem">
 <div class="memproto">
@@ -766,7 +789,7 @@ Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 3 2013 12:25:11 for Iniuriam by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jun 4 2013 08:18:25 for Iniuriam by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

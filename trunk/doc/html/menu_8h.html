@@ -102,6 +102,9 @@ Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPartie.html">Partie</a></td></tr>
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#a54ce2976a210c5c4cde23080274c9067">partieVide</a> (<a class="el" href="structPartie.html">Partie</a> *jeu)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : jeu n'est pas initialisé. <br/>
+ Postconditions : initialise jeu.  <a href="#a54ce2976a210c5c4cde23080274c9067"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#a114606ca4d4349b341cc6fa893ac9e95">partieInit</a> (<a class="el" href="structPartie.html">Partie</a> *jeu, char nom[50], <a class="el" href="structPersonnage.html">Personnage</a> *liste, int nbJoueur, int *missionsAccomplies, int nbMission, int missionActuelle, int numCarte)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : jeu n'est pas initialisé, 0&lt;nbJoueur&lt;5, nbMission&lt;nombre de missions dans Missions.txt, missionActuelle est une mission de Missions.txt. <br/>
  Postconditions : initialise jeu avec les paramètres nom, liste, nbJoueur, missionsAccomplies, nbMission, missionActuelle.  <a href="#a114606ca4d4349b341cc6fa893ac9e95"></a><br/></td></tr>
@@ -132,31 +135,34 @@ Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#a56ce0aac1ffaeb39e8c37440e0397096">getPartieMissionActuelleType</a> (<a class="el" href="structPartie.html">Partie</a> *jeu)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : jeu est initialisé. <br/>
  Postconditions : copie la mission actuelle de jeu dans mission.  <a href="#a56ce0aac1ffaeb39e8c37440e0397096"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#a27670a9a3195bec04403006d328009ff">getPartieNumCarte</a> (<a class="el" href="structPartie.html">Partie</a> *jeu)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : jeu est initialisé. <br/>
+ Postconditions : retourne le numéro de la carte actuelle de jeu.  <a href="#a27670a9a3195bec04403006d328009ff"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#a5c634b6e4f4d5f2fa52c4b69b9974b3f">eventMenu</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : SDL est initialisé <br/>
  Postconditions : gère les évenements du menu principal du jeu. Retourne le type d'event réalisé.  <a href="#a5c634b6e4f4d5f2fa52c4b69b9974b3f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#a810f94be5c7c7b1268cad030721c9041">afficherPage</a> (SDL_Surface *ecran, TTF_Font *police, char texte_SDL[10][150], int nb, int choix, int position, int *haut, int *bas, int *page)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : police et ecran sont initalisés. nb&lt;10, 0&lt;=choix&lt;nb, position&gt;0 <br/>
  Postconditions : affiche les différentes pages du menu de création de partie d'Iniuriam. retourne 0 si l'utilisateur quitte SDL, 7 sinon.  <a href="#a810f94be5c7c7b1268cad030721c9041"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#ad7efb1a8915b0df3ff7ad8909f316466">nouvellePartie</a> (SDL_Surface *ecran, TTF_Font *police, <a class="el" href="structPartie.html">Partie</a> *jeu, char *sauvegarde, FMOD_SYSTEM *system)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#abecef8d09f82eb3fcd26dcf15333fbcd">nouvellePartie</a> (SDL_Surface *ecran, TTF_Font *police, <a class="el" href="structPartie.html">Partie</a> *jeu, char *sauvegarde, FMOD_SYSTEM *system, <a class="el" href="structObjet.html">Objet</a> *tab)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : police, jeu et ecran sont initalisés. sauvegarde correspond à la chaine "Sauvegarde X" ou X=A, B ou C <br/>
- Postconditions : affiche les différentes pages du menu de création de partie d'Iniuriam. retourne 0 si l'utilisateur quitte SDL, 7 sinon.  <a href="#ad7efb1a8915b0df3ff7ad8909f316466"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#acbc40b703adc98cce4d7996250a0147b">afficherOptions</a> (SDL_Surface *ecran, TTF_Font *police, FMOD_SYSTEM *system, FMOD_SOUND **musique)</td></tr>
+ Postconditions : affiche les différentes pages du menu de création de partie d'Iniuriam. retourne 0 si l'utilisateur quitte SDL, 7 sinon.  <a href="#abecef8d09f82eb3fcd26dcf15333fbcd"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#a63c7494a25b6a37193da347eef16382f">afficherOptions</a> (SDL_Surface *ecran, TTF_Font *police, FMOD_SYSTEM *system, FMOD_SOUND **musique, <a class="el" href="structObjet.html">Objet</a> *tabObjet)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : police, ecran, systeme et musique sont initalisés. <br/>
- Postconditions : affiche les différentes pages du menu options d'Iniuriam. retourne 0 si l'utilisateur quitte SDL, 7 sinon.  <a href="#acbc40b703adc98cce4d7996250a0147b"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#a2e3a783465cfbaf7c35011df85b83db4">afficherMenu</a> (SDL_Surface *ecran, char jeu, TTF_Font *police, <a class="el" href="structPartie.html">Partie</a> *partie)</td></tr>
+ Postconditions : affiche les différentes pages du menu options d'Iniuriam. retourne 0 si l'utilisateur quitte SDL, 7 sinon.  <a href="#a63c7494a25b6a37193da347eef16382f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#af41c03a3898db6b95297e1c5d27b7247">afficherMenu</a> (SDL_Surface *ecran, char jeu, TTF_Font *police, <a class="el" href="structPartie.html">Partie</a> *partie, <a class="el" href="structObjet.html">Objet</a> *tabObjet)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : police, partie et ecran sont initalisés. <br/>
- Postconditions : affiche les différentes pages du menu principal si jeu=0 ou du menu pause d'Iniuriam sinon. retourne 0 si l'utilisateur quitte le jeu ou SDL, 9 sinon.  <a href="#a2e3a783465cfbaf7c35011df85b83db4"></a><br/></td></tr>
+ Postconditions : affiche les différentes pages du menu principal si jeu=0 ou du menu pause d'Iniuriam sinon. retourne 0 si l'utilisateur quitte le jeu ou SDL, 9 sinon.  <a href="#af41c03a3898db6b95297e1c5d27b7247"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#ac8f4ce3abd30532850bebbac46a079f2">testMemoire</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#a8396c50bf544009fb2fc4907b00cbad3">mainMenu</a> ()</td></tr>
 </table>
 <hr/><h2>Function Documentation</h2>
-<a class="anchor" id="a2e3a783465cfbaf7c35011df85b83db4"></a><!-- doxytag: member="menu.h::afficherMenu" ref="a2e3a783465cfbaf7c35011df85b83db4" args="(SDL_Surface *ecran, char jeu, TTF_Font *police, Partie *partie)" -->
+<a class="anchor" id="af41c03a3898db6b95297e1c5d27b7247"></a><!-- doxytag: member="menu.h::afficherMenu" ref="af41c03a3898db6b95297e1c5d27b7247" args="(SDL_Surface *ecran, char jeu, TTF_Font *police, Partie *partie, Objet *tabObjet)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char <a class="el" href="menu_8h.html#a2e3a783465cfbaf7c35011df85b83db4">afficherMenu</a> </td>
+          <td class="memname">char <a class="el" href="menu_8h.html#af41c03a3898db6b95297e1c5d27b7247">afficherMenu</a> </td>
           <td>(</td>
           <td class="paramtype">SDL_Surface *&#160;</td>
           <td class="paramname"><em>ecran</em>, </td>
@@ -177,7 +183,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="structPartie.html">Partie</a> *&#160;</td>
-          <td class="paramname"><em>partie</em>&#160;</td>
+          <td class="paramname"><em>partie</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structObjet.html">Objet</a> *&#160;</td>
+          <td class="paramname"><em>tabObjet</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -193,12 +205,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="acbc40b703adc98cce4d7996250a0147b"></a><!-- doxytag: member="menu.h::afficherOptions" ref="acbc40b703adc98cce4d7996250a0147b" args="(SDL_Surface *ecran, TTF_Font *police, FMOD_SYSTEM *system, FMOD_SOUND **musique)" -->
+<a class="anchor" id="a63c7494a25b6a37193da347eef16382f"></a><!-- doxytag: member="menu.h::afficherOptions" ref="a63c7494a25b6a37193da347eef16382f" args="(SDL_Surface *ecran, TTF_Font *police, FMOD_SYSTEM *system, FMOD_SOUND **musique, Objet *tabObjet)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char <a class="el" href="menu_8h.html#acbc40b703adc98cce4d7996250a0147b">afficherOptions</a> </td>
+          <td class="memname">char <a class="el" href="menu_8h.html#a63c7494a25b6a37193da347eef16382f">afficherOptions</a> </td>
           <td>(</td>
           <td class="paramtype">SDL_Surface *&#160;</td>
           <td class="paramname"><em>ecran</em>, </td>
@@ -219,7 +231,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">FMOD_SOUND **&#160;</td>
-          <td class="paramname"><em>musique</em>&#160;</td>
+          <td class="paramname"><em>musique</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structObjet.html">Objet</a> *&#160;</td>
+          <td class="paramname"><em>tabObjet</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -532,6 +550,26 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a27670a9a3195bec04403006d328009ff"></a><!-- doxytag: member="menu.h::getPartieNumCarte" ref="a27670a9a3195bec04403006d328009ff" args="(Partie *jeu)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char <a class="el" href="menu_8h.html#a27670a9a3195bec04403006d328009ff">getPartieNumCarte</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structPartie.html">Partie</a> *&#160;</td>
+          <td class="paramname"><em>jeu</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Preconditions : jeu est initialisé. <br/>
+ Postconditions : retourne le numéro de la carte actuelle de jeu. </p>
+
+</div>
+</div>
 <a class="anchor" id="a8396c50bf544009fb2fc4907b00cbad3"></a><!-- doxytag: member="menu.h::mainMenu" ref="a8396c50bf544009fb2fc4907b00cbad3" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -548,12 +586,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ad7efb1a8915b0df3ff7ad8909f316466"></a><!-- doxytag: member="menu.h::nouvellePartie" ref="ad7efb1a8915b0df3ff7ad8909f316466" args="(SDL_Surface *ecran, TTF_Font *police, Partie *jeu, char *sauvegarde, FMOD_SYSTEM *system)" -->
+<a class="anchor" id="abecef8d09f82eb3fcd26dcf15333fbcd"></a><!-- doxytag: member="menu.h::nouvellePartie" ref="abecef8d09f82eb3fcd26dcf15333fbcd" args="(SDL_Surface *ecran, TTF_Font *police, Partie *jeu, char *sauvegarde, FMOD_SYSTEM *system, Objet *tab)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char <a class="el" href="menu_8h.html#ad7efb1a8915b0df3ff7ad8909f316466">nouvellePartie</a> </td>
+          <td class="memname">char <a class="el" href="menu_8h.html#abecef8d09f82eb3fcd26dcf15333fbcd">nouvellePartie</a> </td>
           <td>(</td>
           <td class="paramtype">SDL_Surface *&#160;</td>
           <td class="paramname"><em>ecran</em>, </td>
@@ -580,7 +618,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">FMOD_SYSTEM *&#160;</td>
-          <td class="paramname"><em>system</em>&#160;</td>
+          <td class="paramname"><em>system</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structObjet.html">Objet</a> *&#160;</td>
+          <td class="paramname"><em>tab</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -659,7 +703,6 @@ Functions</h2></td></tr>
 
 <p>Preconditions : jeu n'est pas initialisé, 0&lt;nbJoueur&lt;5, nbMission&lt;nombre de missions dans Missions.txt, missionActuelle est une mission de Missions.txt. <br/>
  Postconditions : initialise jeu avec les paramètres nom, liste, nbJoueur, missionsAccomplies, nbMission, missionActuelle. </p>
-<dl class="author"><dt><b>Author:</b></dt><dd>RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle </dd></dl>
 
 </div>
 </div>
@@ -680,6 +723,27 @@ Functions</h2></td></tr>
 
 <p>Preconditions : jeu est initialisé. <br/>
  Postconditions : jeu est libéré. </p>
+
+</div>
+</div>
+<a class="anchor" id="a54ce2976a210c5c4cde23080274c9067"></a><!-- doxytag: member="menu.h::partieVide" ref="a54ce2976a210c5c4cde23080274c9067" args="(Partie *jeu)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="menu_8h.html#a54ce2976a210c5c4cde23080274c9067">partieVide</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structPartie.html">Partie</a> *&#160;</td>
+          <td class="paramname"><em>jeu</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Preconditions : jeu n'est pas initialisé. <br/>
+ Postconditions : initialise jeu. </p>
+<dl class="author"><dt><b>Author:</b></dt><dd>RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle </dd></dl>
 
 </div>
 </div>
@@ -717,7 +781,7 @@ Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 3 2013 12:25:11 for Iniuriam by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jun 4 2013 08:18:25 for Iniuriam by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

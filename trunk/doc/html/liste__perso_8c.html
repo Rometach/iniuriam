@@ -85,15 +85,108 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__perso_8c.html#a51d182af50d2724f1dc6661a96e51ac6">listePersoInit</a> (<a class="el" href="structListe__Perso.html">Liste_Perso</a> *liste, int nbr)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__perso_8c.html#a1a19d5388e1851b198e6bc6b0deba6cc">tabListePerso</a> (<a class="el" href="structListe__Perso.html">Liste_Perso</a> *liste, int nbr)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__perso_8c.html#af3fb9693ab0ea5f79304d1fdf38920cd">tabListePersoInitPNJ</a> (<a class="el" href="structListe__Perso.html">Liste_Perso</a> *liste, <a class="el" href="structObjet.html">Objet</a> *tabObjets)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__perso_8c.html#a2d7febe50c7bd588849a7a6c3ce5e039">listePersoInit</a> (<a class="el" href="structListe__Perso.html">Liste_Perso</a> *liste, int nbr, char numCarte)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : liste n'est pas initialisée <br/>
+ Postconditions : initialise liste qui est prête à contenir nbr Personnages.  <a href="#a2d7febe50c7bd588849a7a6c3ce5e039"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__perso_8c.html#ab5f518ca7f7a883cbe01c4fa805749fd">tabListePersoInit</a> (<a class="el" href="structListe__Perso.html">Liste_Perso</a> *liste, int nbr)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__perso_8c.html#a446d4f94cb841c4249fda3df9853da0e">getNbrPerso</a> (<a class="el" href="structListe__Perso.html">Liste_Perso</a> *liste)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : liste est initialisée <br/>
+ Postconditions : retourne le nombre de Personnages que liste peut contenir.  <a href="#a446d4f94cb841c4249fda3df9853da0e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__perso_8c.html#a967419117a9f93bd4c65050295065350">setNbrPerso</a> (<a class="el" href="structListe__Perso.html">Liste_Perso</a> *liste, int i)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : liste est initialisée <br/>
+ Postconditions : change le nombre de Personnages que liste peut contenir pour i.  <a href="#a967419117a9f93bd4c65050295065350"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPersonnage.html">Personnage</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__perso_8c.html#ae2ccd71449c8e144d094c94122987834">getPerso</a> (<a class="el" href="structListe__Perso.html">Liste_Perso</a> liste, int i)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__perso_8c.html#acd37e63d491118d94fe573a800c7ad83">getListeNumCarte</a> (<a class="el" href="structListe__Perso.html">Liste_Perso</a> *liste)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : liste est initialisée <br/>
+ Postconditions : retourne le numéro de carte sur lequel se situe la liste de perso.  <a href="#acd37e63d491118d94fe573a800c7ad83"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__perso_8c.html#a7ee13e5e4b0569a7b8c0dfcb437a2cfe">testCollisionPerso</a> (<a class="el" href="structPersonnage.html">Personnage</a> *hero, <a class="el" href="structListe__Perso.html">Liste_Perso</a> *pnj, int nbPnj, int direction)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : hero, pnj initialisés, nbPnj&gt;=0, 1&lt;=direction&lt;=4 <br/>
+ Postconditions : teste si il y a un pnj dans la diretion où l'on veut aller retourne -1 s'il n'y a pas de pnj, retourne l'indice du pnj qui bloque le passage.  <a href="#a7ee13e5e4b0569a7b8c0dfcb437a2cfe"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__perso_8c.html#ac3a0476a5ba8a22a8050ee890b396d5f">listePersoLibere</a> (<a class="el" href="structListe__Perso.html">Liste_Perso</a> *liste)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : liste est initialisée <br/>
+ Postconditions : liste est libérée.  <a href="#ac3a0476a5ba8a22a8050ee890b396d5f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__perso_8c.html#abe21f803f3c7d6f4d0bedfb41f52920f">tabListePersoLibere</a> (<a class="el" href="structListe__Perso.html">Liste_Perso</a> *liste)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : ? <br/>
+ Postconditions : ?  <a href="#abe21f803f3c7d6f4d0bedfb41f52920f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__perso_8c.html#aad4bcdd37fe3a1e467a48699139d75bf">getNbGroupesPNJ</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : / <br/>
+ Postconditions : retourne le nombre de Groupes définis dans GroupesPNJ.txt.  <a href="#aad4bcdd37fe3a1e467a48699139d75bf"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__perso_8c.html#acf0cae952efba23364a4e26e00ee4761">initialiserTousLesPNJ2</a> (<a class="el" href="structListe__Perso.html">Liste_Perso</a> **tabPNJ, <a class="el" href="structObjet.html">Objet</a> *tabObjets)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : tabPNJ est l'adresse d'un tableau de <a class="el" href="structListe__Perso.html">Liste_Perso</a>, non initialisé tabObjets est le tableau de tous les Objets, bien initialisé <br/>
+ Postconditions : tabPNJ est initialisé en un tableau de <a class="el" href="structListe__Perso.html">Liste_Perso</a> chacune d'entre elles contient un groupe de personnages.  <a href="#acf0cae952efba23364a4e26e00ee4761"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__perso_8c.html#a1f89a5077623e2fe4fa31c91c4096ca9">libererTousLesPNJ2</a> (<a class="el" href="structListe__Perso.html">Liste_Perso</a> **tabPNJ)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : tabPNJ est initialisé <br/>
+ Postconditions : tabPNJ est libéré  <a href="#a1f89a5077623e2fe4fa31c91c4096ca9"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__perso_8c.html#af46df24ec7d2796d3b6ed2764b121c06">copieListe_Perso</a> (<a class="el" href="structListe__Perso.html">Liste_Perso</a> *liste1, <a class="el" href="structListe__Perso.html">Liste_Perso</a> *liste2)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__perso_8c.html#a851764fa4c95aa10fdc64a80b405980f">getPNJCarte</a> (<a class="el" href="structListe__Perso.html">Liste_Perso</a> **tabPNJ, char numCarte)</td></tr>
 </table>
 <hr/><h2>Function Documentation</h2>
+<a class="anchor" id="af46df24ec7d2796d3b6ed2764b121c06"></a><!-- doxytag: member="liste_perso.c::copieListe_Perso" ref="af46df24ec7d2796d3b6ed2764b121c06" args="(Liste_Perso *liste1, Liste_Perso *liste2)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="liste__perso_8c.html#af46df24ec7d2796d3b6ed2764b121c06">copieListe_Perso</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structListe__Perso.html">Liste_Perso</a> *&#160;</td>
+          <td class="paramname"><em>liste1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structListe__Perso.html">Liste_Perso</a> *&#160;</td>
+          <td class="paramname"><em>liste2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="acd37e63d491118d94fe573a800c7ad83"></a><!-- doxytag: member="liste_perso.c::getListeNumCarte" ref="acd37e63d491118d94fe573a800c7ad83" args="(Liste_Perso *liste)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char <a class="el" href="liste__perso_8h.html#acd37e63d491118d94fe573a800c7ad83">getListeNumCarte</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structListe__Perso.html">Liste_Perso</a> *&#160;</td>
+          <td class="paramname"><em>liste</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Preconditions : liste est initialisée <br/>
+ Postconditions : retourne le numéro de carte sur lequel se situe la liste de perso. </p>
+
+</div>
+</div>
+<a class="anchor" id="aad4bcdd37fe3a1e467a48699139d75bf"></a><!-- doxytag: member="liste_perso.c::getNbGroupesPNJ" ref="aad4bcdd37fe3a1e467a48699139d75bf" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="liste__perso_8h.html#aad4bcdd37fe3a1e467a48699139d75bf">getNbGroupesPNJ</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Preconditions : / <br/>
+ Postconditions : retourne le nombre de Groupes définis dans GroupesPNJ.txt. </p>
+
+</div>
+</div>
 <a class="anchor" id="a446d4f94cb841c4249fda3df9853da0e"></a><!-- doxytag: member="liste_perso.c::getNbrPerso" ref="a446d4f94cb841c4249fda3df9853da0e" args="(Liste_Perso *liste)" -->
 <div class="memitem">
 <div class="memproto">
@@ -109,23 +202,26 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Preconditions : liste est initialisée <br/>
+ Postconditions : retourne le nombre de Personnages que liste peut contenir. </p>
+
 </div>
 </div>
-<a class="anchor" id="a51d182af50d2724f1dc6661a96e51ac6"></a><!-- doxytag: member="liste_perso.c::listePersoInit" ref="a51d182af50d2724f1dc6661a96e51ac6" args="(Liste_Perso *liste, int nbr)" -->
+<a class="anchor" id="ae2ccd71449c8e144d094c94122987834"></a><!-- doxytag: member="liste_perso.c::getPerso" ref="ae2ccd71449c8e144d094c94122987834" args="(Liste_Perso liste, int i)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="liste__perso_8h.html#a51d182af50d2724f1dc6661a96e51ac6">listePersoInit</a> </td>
+          <td class="memname"><a class="el" href="structPersonnage.html">Personnage</a>* <a class="el" href="liste__perso_8c.html#ae2ccd71449c8e144d094c94122987834">getPerso</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structListe__Perso.html">Liste_Perso</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structListe__Perso.html">Liste_Perso</a>&#160;</td>
           <td class="paramname"><em>liste</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nbr</em>&#160;</td>
+          <td class="paramname"><em>i</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -135,6 +231,119 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a851764fa4c95aa10fdc64a80b405980f"></a><!-- doxytag: member="liste_perso.c::getPNJCarte" ref="a851764fa4c95aa10fdc64a80b405980f" args="(Liste_Perso **tabPNJ, char numCarte)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="liste__perso_8c.html#a851764fa4c95aa10fdc64a80b405980f">getPNJCarte</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structListe__Perso.html">Liste_Perso</a> **&#160;</td>
+          <td class="paramname"><em>tabPNJ</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>numCarte</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="acf0cae952efba23364a4e26e00ee4761"></a><!-- doxytag: member="liste_perso.c::initialiserTousLesPNJ2" ref="acf0cae952efba23364a4e26e00ee4761" args="(Liste_Perso **tabPNJ, Objet *tabObjets)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="liste__perso_8h.html#acf0cae952efba23364a4e26e00ee4761">initialiserTousLesPNJ2</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structListe__Perso.html">Liste_Perso</a> **&#160;</td>
+          <td class="paramname"><em>tabPNJ</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structObjet.html">Objet</a> *&#160;</td>
+          <td class="paramname"><em>tabObjets</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Preconditions : tabPNJ est l'adresse d'un tableau de <a class="el" href="structListe__Perso.html">Liste_Perso</a>, non initialisé tabObjets est le tableau de tous les Objets, bien initialisé <br/>
+ Postconditions : tabPNJ est initialisé en un tableau de <a class="el" href="structListe__Perso.html">Liste_Perso</a> chacune d'entre elles contient un groupe de personnages. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1f89a5077623e2fe4fa31c91c4096ca9"></a><!-- doxytag: member="liste_perso.c::libererTousLesPNJ2" ref="a1f89a5077623e2fe4fa31c91c4096ca9" args="(Liste_Perso **tabPNJ)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="liste__perso_8h.html#a1f89a5077623e2fe4fa31c91c4096ca9">libererTousLesPNJ2</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structListe__Perso.html">Liste_Perso</a> **&#160;</td>
+          <td class="paramname"><em>tabPNJ</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Preconditions : tabPNJ est initialisé <br/>
+ Postconditions : tabPNJ est libéré </p>
+
+</div>
+</div>
+<a class="anchor" id="a2d7febe50c7bd588849a7a6c3ce5e039"></a><!-- doxytag: member="liste_perso.c::listePersoInit" ref="a2d7febe50c7bd588849a7a6c3ce5e039" args="(Liste_Perso *liste, int nbr, char numCarte)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="liste__perso_8h.html#a2d7febe50c7bd588849a7a6c3ce5e039">listePersoInit</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structListe__Perso.html">Liste_Perso</a> *&#160;</td>
+          <td class="paramname"><em>liste</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nbr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>numCarte</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Preconditions : liste n'est pas initialisée <br/>
+ Postconditions : initialise liste qui est prête à contenir nbr Personnages. </p>
 <dl class="author"><dt><b>Author:</b></dt><dd>RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle </dd></dl>
 
 </div>
@@ -153,6 +362,9 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Preconditions : liste est initialisée <br/>
+ Postconditions : liste est libérée. </p>
 
 </div>
 </div>
@@ -181,14 +393,17 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Preconditions : liste est initialisée <br/>
+ Postconditions : change le nombre de Personnages que liste peut contenir pour i. </p>
+
 </div>
 </div>
-<a class="anchor" id="a1a19d5388e1851b198e6bc6b0deba6cc"></a><!-- doxytag: member="liste_perso.c::tabListePerso" ref="a1a19d5388e1851b198e6bc6b0deba6cc" args="(Liste_Perso *liste, int nbr)" -->
+<a class="anchor" id="ab5f518ca7f7a883cbe01c4fa805749fd"></a><!-- doxytag: member="liste_perso.c::tabListePersoInit" ref="ab5f518ca7f7a883cbe01c4fa805749fd" args="(Liste_Perso *liste, int nbr)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="liste__perso_8h.html#a1a19d5388e1851b198e6bc6b0deba6cc">tabListePerso</a> </td>
+          <td class="memname">void <a class="el" href="liste__perso_8c.html#ab5f518ca7f7a883cbe01c4fa805749fd">tabListePersoInit</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structListe__Perso.html">Liste_Perso</a> *&#160;</td>
           <td class="paramname"><em>liste</em>, </td>
@@ -198,33 +413,6 @@ Functions</h2></td></tr>
           <td></td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>nbr</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="af3fb9693ab0ea5f79304d1fdf38920cd"></a><!-- doxytag: member="liste_perso.c::tabListePersoInitPNJ" ref="af3fb9693ab0ea5f79304d1fdf38920cd" args="(Liste_Perso *liste, Objet *tabObjets)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="liste__perso_8h.html#af3fb9693ab0ea5f79304d1fdf38920cd">tabListePersoInitPNJ</a> </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structListe__Perso.html">Liste_Perso</a> *&#160;</td>
-          <td class="paramname"><em>liste</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structObjet.html">Objet</a> *&#160;</td>
-          <td class="paramname"><em>tabObjets</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -252,6 +440,51 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Preconditions : ? <br/>
+ Postconditions : ? </p>
+
+</div>
+</div>
+<a class="anchor" id="a7ee13e5e4b0569a7b8c0dfcb437a2cfe"></a><!-- doxytag: member="liste_perso.c::testCollisionPerso" ref="a7ee13e5e4b0569a7b8c0dfcb437a2cfe" args="(Personnage *hero, Liste_Perso *pnj, int nbPnj, int direction)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="liste__perso_8h.html#a7ee13e5e4b0569a7b8c0dfcb437a2cfe">testCollisionPerso</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structPersonnage.html">Personnage</a> *&#160;</td>
+          <td class="paramname"><em>hero</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structListe__Perso.html">Liste_Perso</a> *&#160;</td>
+          <td class="paramname"><em>pnj</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nbPnj</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>direction</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Preconditions : hero, pnj initialisés, nbPnj&gt;=0, 1&lt;=direction&lt;=4 <br/>
+ Postconditions : teste si il y a un pnj dans la diretion où l'on veut aller retourne -1 s'il n'y a pas de pnj, retourne l'indice du pnj qui bloque le passage. </p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -272,7 +505,7 @@ Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 3 2013 12:25:11 for Iniuriam by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jun 4 2013 08:18:25 for Iniuriam by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>
