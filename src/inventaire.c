@@ -36,7 +36,7 @@ void ajouterObjetInventaire (Inventaire* inventaire, Objet* obj)
 
     for(i=0;i<inventaire->nbObjet;i++)
     {
-        if(inventaire->st[i].objet->type==obj->type)
+        if(getObjetType(getStockObjet(&inventaire->st[i]))==getObjetType(obj))
         {
             incrementerStock(&inventaire->st[i],1);  /*L'objet est déjà dans l'inventaire*/
             ajoute=1;

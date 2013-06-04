@@ -442,7 +442,7 @@ void affDialogue( Personnage* perso, char* info, SDL_Surface* ecran)
     char * phrase;
     TTF_Init();
     TTF_Font *police = NULL;
-    int i=1, j;
+    int  j;
     police = TTF_OpenFont("data/Jester.ttf", 15);
 
     SDL_Color couleur = { 0, 225, 0};

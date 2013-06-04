@@ -16,7 +16,7 @@
 					<Add directory="libs/include" />
 				</Compiler>
 				<Linker>
-					<Add option="-lSDL -lSDL_ttf -lSDL_image -lfmodex64" />
+					<Add option="-lSDL -lSDL_ttf -lSDL_image -lfmodex" />
 					<Add directory="libs/lib" />
 				</Linker>
 			</Target>
@@ -38,7 +38,7 @@
 			<Add directory="libs/include" />
 		</Compiler>
 		<Linker>
-			<Add option="-lSDLmain -lSDL_image -lSDL -lSDL_ttf -lfmodex64" />
+			<Add option="-lSDLmain -lSDL_image -lSDL -lSDL_ttf -lfmodex" />
 			<Add directory="libs/lib" />
 		</Linker>
 		<Unit filename="src/affichage_sdl.c">

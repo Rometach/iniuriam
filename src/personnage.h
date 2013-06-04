@@ -80,7 +80,7 @@ void nouveauPerso(Personnage *perso, const char nom[], const char race, const ch
 * <br /> Postconditions : perso est initialisé avec tous les paramètres de sa structure.
 */
 void chargerPerso (Personnage* perso, const char nom[50], const char race, const char sexe, const char faction, const char carriere, const int experience, const int argent, const char attaque, const char defense, const char intelligence,
-                   const char agilite, const char charisme, const int ptDeVie, const int posX, const int posY, const Competence* liste, const int nbCompetence, const int* inventaire, const int nbObjet, const int armure[5], const int arme[3]);
+                   const char agilite, const char charisme, const int ptDeVie, const int posX, const int posY, const Competence* liste, const int nbCompetence, const int* inventaire, const int nbObjet, const int armure[5], const int arme[3],Objet* tabObjet);
 
 /**
 * \brief Preconditions : /
@@ -343,6 +343,11 @@ void libererTousLesPNJ(Personnage** tabPNJ);
 */
 int calculNiveau(const int experience);
 
+/**
+* \brief Preconditions : perso est initialise
+* <br /> Postconditions : retourne l'experience totale du perso.
+*/
+int calculPersoExperience (Personnage* perso);
 
 /**
 * \brief Preconditions : /

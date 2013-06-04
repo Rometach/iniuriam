@@ -6,7 +6,7 @@
 */
 
 
-void listePersoInit(Liste_Perso* liste, int nbr)
+void listePersoInit(Liste_Perso* liste, int nbr,char numCarte)
 {
     int i;
     liste->nbrPerso=nbr;
@@ -16,7 +16,7 @@ void listePersoInit(Liste_Perso* liste, int nbr)
     {
         persoInit(&liste->perso[i]);
     }
-
+    liste->numCarte=numCarte;
 }
 
 void tabListePersoInit(Liste_Perso* liste, int nbr)
@@ -37,6 +37,11 @@ void setNbrPerso(Liste_Perso* liste, int i)
 Personnage* getPerso(Liste_Perso liste, int i)
 {
     return (Personnage*)&liste.perso[i];
+}
+
+char getListeNumCarte(Liste_Perso* liste)
+{
+    return liste->nbrPerso;
 }
 
 int testCollisionPerso(Personnage* hero, Liste_Perso* pnj, int nbPnj, int direction)
@@ -66,6 +71,7 @@ int testCollisionPerso(Personnage* hero, Liste_Perso* pnj, int nbPnj, int direct
         }
     }
    return -1;
+return 0;
 }
 
 void listePersoLibere(Liste_Perso* liste)
@@ -76,6 +82,7 @@ void listePersoLibere(Liste_Perso* liste)
         persoLibere(&liste->perso[i]);
     }
     liste->nbrPerso=0;
+    liste->numCarte=0;
 }
 
 void tabListePersoLibere(Liste_Perso* liste)
@@ -107,7 +114,7 @@ int getNbGroupesPNJ()
 
 void initialiserTousLesPNJ2(Liste_Perso** tabPNJ, Objet* tabObjets)
 {
-    int i, j, max, nbDansGroupe, numeroPerso;
+    int i, j, max, nbDansGroupe, numeroPerso,numCarte;
     char ligne[TAILLE_MAX_FICHIER];
     FILE* fGroupes;
 
@@ -124,19 +131,19 @@ void initialiserTousLesPNJ2(Liste_Perso** tabPNJ, Objet* tabObjets)
 
 
     for(i=0;i<max;i++)
+    {
+        fscanf(fGroupes, "%d/%d\n", &nbDansGroupe,&numCarte);
+        (((*tabPNJ)[i]).perso) = (Personnage*) malloc(nbDansGroupe*sizeof(Personnage));
+        (((*tabPNJ)[i]).nbrPerso) = nbDansGroupe;
+        (((*tabPNJ)[i]).numCarte) = (char)numCarte;
+        for(j=0;j<nbDansGroupe;j++)
         {
-            fscanf(fGroupes, "%d\n", &nbDansGroupe);
-            (((*tabPNJ)[i]).perso) = (Personnage*) malloc(nbDansGroupe*sizeof(Personnage));
-            (((*tabPNJ)[i]).nbrPerso) = nbDansGroupe;
-
-            for(j=0;j<nbDansGroupe;j++)
-            {
-                fscanf(fGroupes, "%d ", &numeroPerso);
-                persoInitPNJ( &((((*tabPNJ)[i]).perso)[j]) , numeroPerso, tabObjets) ;
-            }
-            fscanf(fGroupes, "\n");
-            fgets(ligne, TAILLE_MAX_FICHIER, fGroupes);
+            fscanf(fGroupes, "%d ", &numeroPerso);
+            persoInitPNJ( &((((*tabPNJ)[i]).perso)[j]) , numeroPerso, tabObjets) ;
         }
+        fscanf(fGroupes, "\n");
+        fgets(ligne, TAILLE_MAX_FICHIER, fGroupes);
+    }
 }
 
 void libererTousLesPNJ2(Liste_Perso** tabPNJ)
@@ -152,5 +159,32 @@ void libererTousLesPNJ2(Liste_Perso** tabPNJ)
 
     free(*tabPNJ);
 
+}
+
+void copieListe_Perso(Liste_Perso* liste1, Liste_Perso* liste2)
+{
+    copiePerso(liste1->perso,liste2->perso);
+    liste1->nbrPerso=liste2->nbrPerso;
+    liste1->numCarte=liste2->numCarte;
+}
+
+int getPNJCarte(Liste_Perso** tabPNJ,char numCarte)
+{
+    int i,j=0,max;
+    max = getNbGroupesPNJ();
+
+    for (i=0;i<max;i++)
+    {
+        if (((*tabPNJ)[i]).numCarte==numCarte)
+        {
+            copieListe_Perso(&((*tabPNJ)[j]),&((*tabPNJ)[i]));
+            j++;
+        }
+    }
+    for(i=j;i<max;i++)
+    {
+        free(((*tabPNJ)[i]).perso);
+    }
+    return j;
 }
 

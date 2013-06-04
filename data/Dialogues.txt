@@ -2,37 +2,37 @@ Ce Fichier contient les possibles paroles des differents personnages
 Il y a d'abord les reponses aux actions standards, puis les infos specifiques a chaque personnage
 
 
-Soudoyer réussi
+Soudoyer reussi
 Hmmm, je crois que je commence a comprendre votre probleme.
 Chers amis, y a-t-il quelque chose que je puisse pour votre bon plaisir ?
 Je -comment dire ? Je vous suis redevable, on dirait.
 
 
-Soudoyer échoué
+Soudoyer echoue
 Cet argent est a vous ? Non ? Ah bon. Chouette.
 Merci.
-Tres drôle... Il en faut plus que ça pour m'amadouer.
+Tres drole... Il en faut plus que ca pour m'amadouer.
 
 
-Séduire réussi
+Seduire reussi
 Je... Enfin... Vous disiez ?
 Si je peux vous etre utile...
-Et, a part ça, vous etes libres demain soir ?
+Et, a part ca, vous etes libres demain soir ?
 
 
-Séduire échoué
+Seduire echoue
 Ote tes sales pattes de la, microbe de l'espace !
 Vous croyez sincerement que je vais ceder a vos petits sourires niais ?...
-Ah, non non non, ça va pas etre possible la...
+Ah, non non non, ca va pas etre possible la...
 
 
-Menacer réussi
+Menacer reussi
 Ok, ok, on se calme, il n'est nul besoin d'etre belliqueux.
 Vous avez raison, le dialogue est la base d'une negociation solide.
 Gloups ! Pardonnez-moi si je vous ai offense ! C'etait involontaire !
 
 
-Menacer échoué
+Menacer echoue
 Tu crois qu'il me fait peur, ton pistolet a eau ?
 C'est mignon, il grogne... Bon, on revient aux affaires ?
 Tu veux te battre ? Tu veux te faire derouiller ? Suffit de demander...
@@ -69,10 +69,10 @@ Vous feriez mieux de fuir.
 
 Le super vilain Info
 Je suis le mechant et je vais tuer la gentille !
-Après vous avoir massacré, j'éradiquerai cette maudite planète.
+Apres vous avoir massacre, j'eradiquerai cette maudite planete.
 Ma spécialité ? Hmmm, j'hésite entre la torture et... En fait non, c'est clairement la torture.
 
 Le super vilain Mission
 Je suis le mechant et je vais tuer la gentille !
-Après vous avoir massacré, j'éradiquerai cette maudite planète.
+Apres vous avoir massacre, j'eradiquerai cette maudite planete.
 Vous feriez mieux de fuir.
