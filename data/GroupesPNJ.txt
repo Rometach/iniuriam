@@ -1,6 +1,6 @@
+Ce fichier contient l'ensemble des Groupes de PNJ qui apparaîtront dans Iniuriam
 
-
- 
+Nombre de membres \n Liste de ses membres 
 2/1
 1 2
 

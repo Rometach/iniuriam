@@ -14,18 +14,15 @@ Test4
 4 0 0 1 13 .
 
 Test5
-5 10 21 0 0 . 
+5 21 10 0 0 . 
 
 Tutoriel1
 1 0 0 0 19 Babar
 
 Tutoriel2
-4 0 0 0 1 .
+4 0 0 1 22 .
 
 Tutoriel3
 3 0 0 0 0 Le super vilain
-
-Le Mystère du poisson rouge1
-
 //
 
