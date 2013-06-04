@@ -93,6 +93,12 @@ void getPartieMissionActuelle (Partie* jeu,Mission* mission, Objet* tabObj);
 int getPartieMissionActuelleType (Partie* jeu);
 
 /**
+* \brief Preconditions : jeu est initialisé.
+* <br /> Postconditions : retourne le numéro de la carte actuelle de jeu.
+*/
+char getPartieNumCarte (Partie* jeu);
+
+/**
 * \brief Preconditions : SDL est initialisé
 * <br /> Postconditions : gère les évenements du menu principal du jeu. Retourne le type d'event réalisé.
 */
@@ -112,21 +118,21 @@ int afficherPage (SDL_Surface *ecran,TTF_Font *police, char texte_SDL[10][150],i
 * <br /> Postconditions : affiche les différentes pages du menu de création de partie d'Iniuriam.
 *                         retourne 0 si l'utilisateur quitte SDL, 7 sinon.
 */
-char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu,char* sauvegarde,FMOD_SYSTEM *system);
+char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu,char* sauvegarde,FMOD_SYSTEM *system,Objet* tab);
 
 /**
 * \brief Preconditions : police, ecran, systeme et musique sont initalisés.
 * <br /> Postconditions : affiche les différentes pages du menu options d'Iniuriam.
 *                         retourne 0 si l'utilisateur quitte SDL, 7 sinon.
 */
-char afficherOptions(SDL_Surface *ecran,TTF_Font *police,FMOD_SYSTEM *system,FMOD_SOUND **musique);
+char afficherOptions(SDL_Surface *ecran,TTF_Font *police,FMOD_SYSTEM *system,FMOD_SOUND **musique,Objet* tabObjet);
 
 /**
 * \brief Preconditions : police, partie et ecran sont initalisés.
 * <br /> Postconditions : affiche les différentes pages du menu principal si jeu=0 ou du menu pause d'Iniuriam sinon.
 *                         retourne 0 si l'utilisateur quitte le jeu ou SDL, 9 sinon.
 */
-char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie);
+char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie,Objet* tabObjet);
 
 void testMemoire();
 

@@ -94,6 +94,11 @@ int getPartieMissionActuelleType (Partie* jeu)
     return jeu->missionActuelle;
 }
 
+char getPartieNumCarte (Partie* jeu)
+{
+    return jeu->numCarte;
+}
+
 void supprimerPartie (char nom [50])
 {
     int i=1;
@@ -219,9 +224,9 @@ void sauverPartie (char nom [50],Partie* jeu)
     remove("data/Tampon.txt");
 }
 
-void chargerPartie (char nom [50],Partie* jeu)
+void chargerPartie (char nom [50],Partie* jeu,Objet* tabObjet)
 {
-    int i=1,j,k,nb,max1,max2,exp;
+    int i=1,j,k,l,nb,max1,max2,exp;
     FILE* fPartie;
     char ligne1[TAILLE_MAX_FICHIER],tampon[50],entier[9],type;
     char race,sexe,faction,carriere;
@@ -272,7 +277,8 @@ void chargerPartie (char nom [50],Partie* jeu)
         liste=(Competence*)malloc(max1*sizeof(Competence));
         j=0;
         k=0;
-        while (max1!=0)
+        l=max1;
+        while (l!=0)
         {
             if (ligne1[j]==' ')
             {
@@ -281,7 +287,7 @@ void chargerPartie (char nom [50],Partie* jeu)
                 exp=atoi(entier);
                 compInit(&liste[k],type,exp);
                 k++;
-                max1--;
+                l--;
             }
             j++;
         }
@@ -297,19 +303,20 @@ void chargerPartie (char nom [50],Partie* jeu)
         inventaire=(int*)malloc(max2*sizeof(int));
         j=0;
         k=0;
-        while (max2!=0)
+        l=max2;
+        while (l!=0)
         {
             if (ligne1[j]==' ')
             {
                 strncpy(entier,ligne1+j,strchr(ligne1+j,'/')-ligne1-j);
                 inventaire[k]=atoi(entier);
                 k++;
-                max2--;
+                l--;
             }
             j++;
         }
         fscanf(fPartie,"%d %d %d %d %d %d %d %d\n",&armure[0],&armure[1],&armure[2],&armure[3],&armure[4],&arme[0],&arme[1],&arme[2]);
-        chargerPerso(&jeu->joueur[i],tampon,race,sexe,faction,carriere,experience,argent,attaque,defense,intelligence,agilite,charisme,ptDeVie,posX,posY,liste,max1,inventaire,max2,armure,arme);
+        chargerPerso(&jeu->joueur[i],tampon,race,sexe,faction,carriere,experience,argent,attaque,defense,intelligence,agilite,charisme,ptDeVie,posX,posY,liste,max1,inventaire,max2,armure,arme,tabObjet);
         free (inventaire);
         free (liste);
     }
@@ -487,7 +494,7 @@ int afficherPage (SDL_Surface *ecran,TTF_Font *police, char texte_SDL[10][150],i
     return decalage;
 }
 
-char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu,char* sauvegarde,FMOD_SYSTEM *system)
+char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu,char* sauvegarde,FMOD_SYSTEM *system,Objet *tab)
 {
     FMOD_SOUND *error = NULL;
     char action=8,type=1,j;
@@ -495,12 +502,10 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu,char* sauve
     SDL_Surface *rectangle,*texte,*images,*fond;
     SDL_Rect position;
     SDL_Color couleur_texte= {255, 255, 255},couleur_rect= {10, 10, 10};
-    Objet *tab=NULL;
 
     nb=getNbCarriere();
     char texte_SDL [nb][150],chaine1[50],tampon[150],caractere[2];
 
-    initialiserTousLesObjets(&tab);
     caractere[1]='\0';
     FMOD_System_CreateSound(system, "data/Media/error.wav", FMOD_CREATESAMPLE, 0, &error);
 
@@ -795,6 +800,15 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu,char* sauve
                     case 3: images=IMG_Load("data/Media/medarsin man.jpg");break;
                     default:break;
                 }
+                /*
+                Ci dessous emplacement pour modifier les coordonnées des images.
+
+                |
+                |
+                |
+                V
+
+                */
                 position.x=TAILLE_FENETRE_L/1.5;
                 position.y=0;
                 SDL_BlitSurface(images, NULL, ecran, &position);
@@ -894,12 +908,11 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu,char* sauve
     {
         persoLibere(&groupe[i]);
     }
-    libererTousLesObjets(&tab);
     FMOD_Sound_Release(error);
     return action;
 }
 
-char afficherOptions(SDL_Surface *ecran,TTF_Font *police,FMOD_SYSTEM *system,FMOD_SOUND **musique)
+char afficherOptions(SDL_Surface *ecran,TTF_Font *police,FMOD_SYSTEM *system,FMOD_SOUND **musique,Objet* tabObjet)
 {
     char action=8,type=1;
     int choix=0,nb, choix_son=10,choix_musique=0,decalage,haut=0,page=0;
@@ -1101,7 +1114,7 @@ char afficherOptions(SDL_Surface *ecran,TTF_Font *police,FMOD_SYSTEM *system,FMO
     return action;
 }
 
-char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
+char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie,Objet* tabObjet)
 {
     char action=8,selection=0,type=1,lettre;
     int nb=0,choix=0,i,j,valeur,page=0,haut=0;
@@ -1302,7 +1315,7 @@ char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                             {
                                 if (selection)
                                 {
-                                    chargerPartie(chaine2,partie);
+                                    chargerPartie(chaine2,partie,tabObjet);
                                     choix=0;
                                     action=9;
                                     type=0;
@@ -1386,13 +1399,12 @@ char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                         case 5:/*Actions partie*/
                             if (choix==0&&(strcmp(chaine1,"(Vide)")==0))/*Nouvelle partie*/
                             {
-                                action=nouvellePartie (ecran, police, partie,chaine2,system);
+                                action=nouvellePartie (ecran, police, partie,chaine2,system,tabObjet);
                                 choix=0;
-                                type=7;
                             }
                             else if(choix==0)/*Charger partie*/
                             {
-                                chargerPartie(chaine2,partie);
+                                chargerPartie(chaine2,partie,tabObjet);
                                 action=9;
                                 type=0;
                             }
@@ -1404,9 +1416,8 @@ char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                             }
                             else if (choix==1)/*Recommencer*/
                             {
-                                action=nouvellePartie (ecran, police, partie,chaine2,system);
+                                action=nouvellePartie (ecran, police, partie,chaine2,system,tabObjet);
                                 choix=0;
-                                type=7;
                             }
                             else if (choix==2)/*Supprimer*/
                             {
@@ -1491,7 +1502,7 @@ char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
             break;
             case 4:/*Options*/
                 nb=0;
-                action=afficherOptions(ecran,police,system,&musique);
+                action=afficherOptions(ecran,police,system,&musique,tabObjet);
                 type=1;
             break;
             case 5:/*Actions partie*/
@@ -1578,7 +1589,7 @@ char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
                     {
                         fgets (ligne,TAILLE_MAX_FICHIER,fPartie);
                         fgets(ligne,TAILLE_MAX_FICHIER,fPartie);
-                        strncpy(chaine1,ligne,strlen(ligne-1));
+                        strncpy(chaine1,ligne,strlen(ligne)-1);
                         chaine1[strlen(ligne)-1]='\0';
                         nom = TTF_RenderText_Shaded(police, chaine1, couleur_texte,couleur_rect);
                         position.x=TAILLE_FENETRE_L/2-200;
@@ -1670,6 +1681,8 @@ char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie)
             action=eventMenu();
         }
     }
+
+
     FMOD_Sound_Release(musique);
     FMOD_System_Close(system);
     FMOD_System_Release(system);
@@ -1726,7 +1739,7 @@ int mainMenu ()
     ecran=SDL_SetVideoMode(TAILLE_FENETRE_L, TAILLE_FENETRE_H, 32, SDL_HWSURFACE);
     SDL_WM_SetCaption("Iniuriam",NULL);
 
-    c=afficherMenu(ecran,0,police,&jeu);/*Affichage de l'écran principal*/
+    c=afficherMenu(ecran,0,police,&jeu,tab);/*Affichage de l'écran principal*/
 
     if (c)
     {

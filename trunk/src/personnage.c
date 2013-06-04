@@ -155,10 +155,9 @@ void nouveauPerso (Personnage *perso, const char nom[], const char race, const c
 }
 
 void chargerPerso (Personnage* perso, const char nom[50], const char race, const char sexe, const char faction, const char carriere, const int experience, const int argent, const char attaque, const char defense, const char intelligence,
-                   const char agilite, const char charisme, const int ptDeVie, const int posX, const int posY, const Competence* liste, const int nbCompetence, const int* inventaire, const int nbObjet, const int armure[5], const int arme[3])
+                   const char agilite, const char charisme, const int ptDeVie, const int posX, const int posY, const Competence* liste, const int nbCompetence, const int* inventaire, const int nbObjet, const int armure[5], const int arme[3],Objet* tabObjet)
 {
     int i;
-    Objet tampon;
 
     strcpy(perso->nom,nom);
     perso->race=race;
@@ -184,16 +183,14 @@ void chargerPerso (Personnage* perso, const char nom[50], const char race, const
     inventaireInit(&(perso->inventaire));
     for (i=0;i<nbObjet;i++)
     {
-        objInit(&tampon,inventaire[i]);
-        ajouterObjetInventaire(&(perso->inventaire), &tampon);
+        ajouterObjetInventaire(&(perso->inventaire), &tabObjet[inventaire[i]]);
     }
     equiInit(&perso->equipement);
     for (i=0;i<5;i++)
     {
         if (armure[i]!=0)
         {
-            objInit(&tampon,armure[i]);
-            equiper(perso,&tampon,0);
+            equiper(perso,&tabObjet[armure[i]],0);
         }
 
     }
@@ -201,8 +198,7 @@ void chargerPerso (Personnage* perso, const char nom[50], const char race, const
     {
         if (arme[i]!=0)
         {
-            objInit(&tampon,arme[i]);
-            equiper(perso,&tampon,i);
+            equiper(perso,&tabObjet[arme[i]],i);
         }
     }
      switch(perso->race)
@@ -678,6 +674,17 @@ int calculNiveau (const int experience)
 {
     assert (experience>=0);
     return (int)log(experience+1);
+}
+
+int calculPersoExperience (Personnage* perso)
+{
+    int i,experience;
+    for (i=0;i<getCapaciteNbCompetence(getPersoCapacite2(perso));i++)
+    {
+        experience+=(int)log(getExperience(getCompetence(&perso->capacite,i)+1));
+    }
+    perso->experience=(int)log(experience+1);
+    return perso->experience;
 }
 
 int mainPerso()

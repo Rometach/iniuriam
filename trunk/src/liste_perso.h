@@ -20,6 +20,7 @@ typedef struct
 {
     Personnage* perso;
     int nbrPerso;
+    char numCarte;
 }Liste_Perso;
 
 
@@ -27,7 +28,7 @@ typedef struct
 * \brief Preconditions : liste n'est pas initialisée
 * <br /> Postconditions : initialise liste qui est prête à contenir nbr Personnages
 */
-void listePersoInit(Liste_Perso* liste, int nbr);
+void listePersoInit(Liste_Perso* liste, int nbr,char numCarte);
 
 /**
 * \brief Preconditions : ?
@@ -71,6 +72,11 @@ void listePersoLibere(Liste_Perso* liste);
 */
 void tabListePersoLibere(Liste_Perso* liste);
 
+/**
+* \brief Preconditions : liste est initialisée
+* <br /> Postconditions : retourne le numéro de carte sur lequel se situe la liste de perso.
+*/
+char getListeNumCarte(Liste_Perso* liste);
 
 /**
 * \brief Preconditions : hero, pnj initialisés, nbPnj>=0, 1<=direction<=4
