@@ -103,7 +103,6 @@ char estPersoMission(const Mission* mission, const Personnage* perso)
     }
 }
 
-
 char estLieuMission(const Mission* mission, const int posX, const int posY)
 {
     return (((mission->posXCible)==(posX))&&((mission->posYCible)==(posY)));

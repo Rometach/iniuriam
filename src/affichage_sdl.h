@@ -34,13 +34,13 @@ void affPerso(const Personnage* heros, const Liste_Perso* pnjs, const int nbrPnj
 * \brief Preconditions : hero, ecran initalisé et remplis
 * <br /> Postconditions :affiche l'inventaire
 */
-void affInventaire(Personnage* hero, SDL_Surface* ecran);
+void affInventaire(const Personnage* hero, SDL_Surface* ecran);
 
 /**
-* \brief Preconditions : hero, ecran initalisé et remplis
+* \brief Preconditions : perso, ecran initalisé et remplis
 * <br /> Postconditions :affiche le profil
 */
-void affProfil(Personnage* hero, SDL_Surface* ecran);
+void affProfil( const Personnage* perso, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : info, ter initalisé et remplis
@@ -53,49 +53,49 @@ void affMenuDialogue( char* info, int curseur, SDL_Surface* ecran);
 * <br /> Postconditions : affiche du texte quand un personnage parle,
                         affiche le nom du personnage principal pour un texte informatif
 */
-void affDialogue(  Personnage* perso, char* info, SDL_Surface* ecran);
+void affDialogue( const Personnage* perso, char* info, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : perso, curseur et ecran initalisé et remplis
 * <br /> Postconditions : affiche les choix que l'on peut faire lorsque l'on soudoie
 */
-void affSoudoyer( Personnage* perso, int curseur, SDL_Surface* ecran);
+void affSoudoyer( const Personnage* perso, const int curseur, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : dialogue, objet et ecran initialisés et remplis
 * <br /> Postconditions : affiche l'interface d'achat
 */
-void affInvPnj(Personnage* pnj, SDL_Surface* ecran);
+void affInvPnj( const Personnage* pnj, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : dialogue, objet et ecran initialisés et remplis
 * <br /> Postconditions : affiche l'interface de vente
 */
-void affVendre(Dialogue* dialogue, Objet* objet, SDL_Surface* ecran);
+void affVendre( const Dialogue* dialogue, const Objet* objet, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : position, objet et ecran initalisé et remplis
 * <br /> Postconditions :affiche les informations d'un objet
 */
-void affInfOb(SDL_Rect* position, Objet* objet, SDL_Surface* ecran);
+void affInfOb( SDL_Rect* position, const Objet* objet, TTF_Font* police, SDL_Surface* info, SDL_Surface* cadre, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : ter, groupe, l, arene et ecran initialisés et remplis
 * <br /> Postconditions : affiche du texte
 */
-void affCombat(Terrain* ter, Combattant* groupe, int l, char arene[TAILLE_MAX_H][TAILLE_MAX_L], SDL_Surface* ecran);
+void affCombat(const Terrain* ter, const Combattant* groupe, const int l, char arene[TAILLE_MAX_H][TAILLE_MAX_L], SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : combattant, choix et ecran initalisé et remplis
 * <br /> Postconditions : affiche la selection de l'arme en combat
 */
-void affArmesEqui(Combattant* hero, int choix, SDL_Surface* ecran);
+void affArmesEqui( const Combattant* combattant, const int choix, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : choix et ecran initialisés et remplis
 * <br /> Postconditions : affiche le choix des attaques
 */
-void affAttaque(int choix, SDL_Surface* ecran);
+void affAttaque(const int choix, SDL_Surface* ecran);
 
 /**
 * \brief Preconditions : hero, pnj, ter et ecran initalisé et remplis

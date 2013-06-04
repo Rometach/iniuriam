@@ -499,7 +499,7 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu,char* sauve
     FMOD_SOUND *error = NULL;
     char action=8,type=1,j;
     int choix=0,nb,i,selection,decalage=2, haut=0,bas=9,page,valeur;
-    SDL_Surface *rectangle,*texte,*images,*fond;
+    SDL_Surface *rectangle,*texte,*images = NULL,*fond;
     SDL_Rect position;
     SDL_Color couleur_texte= {255, 255, 255},couleur_rect= {10, 10, 10};
 
