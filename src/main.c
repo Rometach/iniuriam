@@ -34,6 +34,9 @@ int main (int argc, char **argv)
     Objet *tabObjets=NULL;
     SDL_Surface* ecran = NULL;
     TTF_Font *police = NULL;
+    Terrain terrain;
+    terInit(&terrain);
+    terCharger(&terrain, "data/Cartes/carte.map");
 
     SDL_Init(SDL_INIT_VIDEO);
     TTF_Init();
@@ -44,12 +47,11 @@ int main (int argc, char **argv)
 
    partieVide(&partieTest);
 
-   afficherMenu (ecran, 0, police,  &partieTest);
+   afficherMenu (ecran, 0, police,  &partieTest, tabObjets);
 
     srand(time(NULL));
 
-    Terrain terrain;
-    terInit(&terrain);
+
     Liste_Perso* pnj=NULL;
     Liste_Perso* liste=NULL;
     Personnage* heros;
@@ -61,7 +63,7 @@ int main (int argc, char **argv)
 
     for(i=0; i<nbrPnj; i++)
     {
-        listePersoInit(&pnj[i], 1);
+        listePersoInit(&pnj[i], 1, terrain.numCarte);
     }
 
     Mission tutoriel;
@@ -69,13 +71,12 @@ int main (int argc, char **argv)
     missionDefinir(&tutoriel, 1, tabObjets);
 
     nouveauPerso (&heros[0], "Toromis", 2, 1, 2, 1, 0, 100, tabObjets);
-    nouveauPerso (&heros[1], "Plop", 2, 1, 2, 1, 0, 100, tabObjets);
-    nouveauPerso (&heros[2], "Oh!", 2, 1, 2, 1, 0, 100, tabObjets);
+    nouveauPerso (&heros[1], "Plop", 3, 1, 2, 1, 0, 100, tabObjets);
+    nouveauPerso (&heros[2], "Oh!", 4, 1, 2, 1, 0, 100, tabObjets);
     nouveauPerso (pnj[0].perso, "Babar", 2, 1, 2, 1, 0, 100, tabObjets);
     nouveauPerso (&pnj[1].perso[0], "Mechant", 1, 1, 1, 1, 0, 100, tabObjets);
     nouveauPerso (pnj[2].perso, "Babar", 2, 1, 2, 1, 0, 100, tabObjets);
     nouveauPerso (&pnj[3].perso[0], "VillainI", 2, 1, 1, 1, 0, 100, tabObjets);
-    terCharger(&terrain, "data/Cartes/carte.map");
 
     setPersoPosX(pnj[1].perso, TILE_LARGEUR*5);
     setPersoPosY(pnj[1].perso, TILE_HAUTEUR*1);
@@ -86,7 +87,7 @@ int main (int argc, char **argv)
     setPersoPosX(pnj[3].perso, TILE_LARGEUR*5);
     setPersoPosY(pnj[3].perso, TILE_HAUTEUR*5);
 
-//    eventJeuSDL(getPartieJoueurs(&partieTest), getPartieNbJoueur(&partieTest), pnj, nbrPnj, &tutoriel, tabObjets, &terrain, ecran);
+ //   eventJeuSDL(getPartieJoueurs(&partieTest), getPartieNbJoueur(&partieTest), pnj, nbrPnj, &tutoriel, tabObjets, &terrain, ecran);
     eventJeuSDL(heros, nbrHero, pnj, nbrPnj, &tutoriel, tabObjets, &terrain, ecran);
     for(i=0; i<nbrHero; i++)
     {

@@ -143,10 +143,10 @@ void nouveauPerso (Personnage *perso, const char nom[], const char race, const c
         case 2: perso->avatar=IMG_Load("data/Media/cyborg.gif");
         break;
 
-        case 3: perso->avatar=IMG_Load("data/Media/cyborg.gif");
+        case 3: perso->avatar=IMG_Load("data/Media/sicari.gif");
         break;
 
-         case 4: perso->avatar=IMG_Load("data/Media/cyborg.gif");
+         case 4: perso->avatar=IMG_Load("data/Media/medarsin.gif");
         break;
 
         default:    perso->avatar=IMG_Load("data/Media/rip.gif");
@@ -209,10 +209,10 @@ void chargerPerso (Personnage* perso, const char nom[50], const char race, const
         case 2: perso->avatar=IMG_Load("data/Media/cyborg.gif");
         break;
 
-        case 3: perso->avatar=IMG_Load("data/Media/cyborg.gif");
+        case 3: perso->avatar=IMG_Load("data/Media/sicari.gif");
         break;
 
-         case 4: perso->avatar=IMG_Load("data/Media/cyborg.gif");
+         case 4: perso->avatar=IMG_Load("data/Media/medarsin.gif");
         break;
 
         default:

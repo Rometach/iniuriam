@@ -28,7 +28,7 @@ void terRemplirStruct(Terrain* ter)
     setHauteur(ter, ter->chipset->h/TILE_HAUTEUR);
     setLargeur(ter, ter->chipset->w/TILE_LARGEUR);
     setNbrTile(ter, ter->hauteurChipset*ter->largeurChipset);
-    setDecalageX(ter,4);
+    setDecalageX(ter,3);
     setNumCarte(ter, 1);
 /** On remplit tabChipset avec les différentes tiles du chipset*/
     ter->tabChipset=(Tile*)malloc(ter->nbrTileChipset*sizeof(Tile));
@@ -157,9 +157,7 @@ void terSauvegarde(Terrain* ter, char* nomChipset)
      int i,x;
      char buffer[256];
 
-     strcpy(nomFichier, "data/Cartes/carte");
-     strcat(nomFichier, &ter->numCarte);
-     strcat(nomFichier, ".map");
+     strcpy(nomFichier, "data/Cartes/carte.map");
 
      if(!ter) return;
      fichier=fopen(nomFichier,"w");

@@ -9,6 +9,7 @@
 #include <math.h>
 #include "personnage.h"
 #include "mission.h"
+#include "constante.h"
 
 /**
 * \author RODARIE Dimitri, VERSAEVEL Romain, FLORES Isabelle
