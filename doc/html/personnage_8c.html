@@ -91,9 +91,9 @@ Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8c.html#a21c887d8b0b22116d983534f81886f65">nouveauPerso</a> (<a class="el" href="structPersonnage.html">Personnage</a> *perso, const char nom[], const char race, const char sexe, const char faction, const char carriere, const int experience, const int argent, <a class="el" href="structObjet.html">Objet</a> *tab)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : perso n'est pas initialisé ou initialisé à vide tab contient tous les objets du jeu les autres paramètres respectent les critères imposés par la structure <br/>
  Postconditions : perso est initialisé et ses paramètres nom, race, sexe, carriere, et expérience sont fournis.  <a href="#a21c887d8b0b22116d983534f81886f65"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8c.html#a00e0ac963cbbf52a26c753f738b8c082">chargerPerso</a> (<a class="el" href="structPersonnage.html">Personnage</a> *perso, const char nom[50], const char race, const char sexe, const char faction, const char carriere, const int experience, const int argent, const char attaque, const char defense, const char intelligence, const char agilite, const char charisme, const int ptDeVie, const int posX, const int posY, const <a class="el" href="structCompetence.html">Competence</a> *liste, const int nbCompetence, const int *inventaire, const int nbObjet, const int armure[5], const int arme[3])</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8c.html#aafc75061db756f5c40cd1ed96de18ed0">chargerPerso</a> (<a class="el" href="structPersonnage.html">Personnage</a> *perso, const char nom[50], const char race, const char sexe, const char faction, const char carriere, const int experience, const int argent, const char attaque, const char defense, const char intelligence, const char agilite, const char charisme, const int ptDeVie, const int posX, const int posY, const <a class="el" href="structCompetence.html">Competence</a> *liste, const int nbCompetence, const int *inventaire, const int nbObjet, const int armure[5], const int arme[3], <a class="el" href="structObjet.html">Objet</a> *tabObjet)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : perso n'est pas initialisé ou initialisé à vide tous les paramètres respectent les critères imposés par la structure <br/>
- Postconditions : perso est initialisé avec tous les paramètres de sa structure.  <a href="#a00e0ac963cbbf52a26c753f738b8c082"></a><br/></td></tr>
+ Postconditions : perso est initialisé avec tous les paramètres de sa structure.  <a href="#aafc75061db756f5c40cd1ed96de18ed0"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8c.html#a3c5c40bbdcb31fc766740446f6066339">getNbPNJ</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : perso est initialisé <br/>
  Postconditions : 1 obj est ajouté à l'inventaire de perso.  <a href="#a3c5c40bbdcb31fc766740446f6066339"></a><br/></td></tr>
@@ -220,6 +220,9 @@ Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8c.html#af47f203d4b554291c54bc9adee5f399d">calculNiveau</a> (const int experience)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : experience&gt;=0 <br/>
  Postconditions : retourne le niveau lié à experience.  <a href="#af47f203d4b554291c54bc9adee5f399d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8c.html#a8e4704894768ef954f22d74aee1155bd">calculPersoExperience</a> (<a class="el" href="structPersonnage.html">Personnage</a> *perso)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : perso est initialise <br/>
+ Postconditions : retourne l'experience totale du perso.  <a href="#a8e4704894768ef954f22d74aee1155bd"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8c.html#a3de51249966fc615536b0fb800f3aef2">mainPerso</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : / <br/>
  Postconditions : Fonction de test de non-regression du module <a class="el" href="structPersonnage.html">Personnage</a> ; retourne 0 si tout s'est bien passé  <a href="#a3de51249966fc615536b0fb800f3aef2"></a><br/></td></tr>
@@ -368,12 +371,32 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a00e0ac963cbbf52a26c753f738b8c082"></a><!-- doxytag: member="personnage.c::chargerPerso" ref="a00e0ac963cbbf52a26c753f738b8c082" args="(Personnage *perso, const char nom[50], const char race, const char sexe, const char faction, const char carriere, const int experience, const int argent, const char attaque, const char defense, const char intelligence, const char agilite, const char charisme, const int ptDeVie, const int posX, const int posY, const Competence *liste, const int nbCompetence, const int *inventaire, const int nbObjet, const int armure[5], const int arme[3])" -->
+<a class="anchor" id="a8e4704894768ef954f22d74aee1155bd"></a><!-- doxytag: member="personnage.c::calculPersoExperience" ref="a8e4704894768ef954f22d74aee1155bd" args="(Personnage *perso)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="personnage_8h.html#a00e0ac963cbbf52a26c753f738b8c082">chargerPerso</a> </td>
+          <td class="memname">int <a class="el" href="personnage_8h.html#a8e4704894768ef954f22d74aee1155bd">calculPersoExperience</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structPersonnage.html">Personnage</a> *&#160;</td>
+          <td class="paramname"><em>perso</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Preconditions : perso est initialise <br/>
+ Postconditions : retourne l'experience totale du perso. </p>
+
+</div>
+</div>
+<a class="anchor" id="aafc75061db756f5c40cd1ed96de18ed0"></a><!-- doxytag: member="personnage.c::chargerPerso" ref="aafc75061db756f5c40cd1ed96de18ed0" args="(Personnage *perso, const char nom[50], const char race, const char sexe, const char faction, const char carriere, const int experience, const int argent, const char attaque, const char defense, const char intelligence, const char agilite, const char charisme, const int ptDeVie, const int posX, const int posY, const Competence *liste, const int nbCompetence, const int *inventaire, const int nbObjet, const int armure[5], const int arme[3], Objet *tabObjet)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="personnage_8h.html#aafc75061db756f5c40cd1ed96de18ed0">chargerPerso</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structPersonnage.html">Personnage</a> *&#160;</td>
           <td class="paramname"><em>perso</em>, </td>
@@ -502,7 +525,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const int&#160;</td>
-          <td class="paramname"><em>arme</em>[3]&#160;</td>
+          <td class="paramname"><em>arme</em>[3], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structObjet.html">Objet</a> *&#160;</td>
+          <td class="paramname"><em>tabObjet</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1612,7 +1641,7 @@ Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 3 2013 12:25:11 for Iniuriam by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jun 4 2013 08:18:25 for Iniuriam by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

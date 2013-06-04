@@ -139,17 +139,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00145"></a>00145 
 <a name="l00150"></a>00150 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#ae29cc0e2b0191644bedf79a3709e3b42" title="Preconditions : nom est une chaine de longueur &lt;150   Postconditions : change la description d&#39;obj pou...">setObjetDescription</a>(<a class="code" href="structObjet.html">Objet</a>* obj, <span class="keyword">const</span> <span class="keywordtype">char</span>* description);
 <a name="l00151"></a>00151 
-<a name="l00156"></a>00156 <span class="keywordtype">int</span> <a class="code" href="objet_8c.html#a7704431bd30c56b00f2f568d9d163fca" title="Preconditions : /   Postconditions : retourne le nombre d&#39;objet dans Objets.txt +3.">getNbObjet</a>();
+<a name="l00156"></a>00156 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a1827254703732afacfbddf84fc8c2855" title="Preconditions : obj est initialisé   Postconditions : fixe l&#39;icon d&#39;obj en fonction de sa race...">setObjetIcon</a>(<a class="code" href="structObjet.html">Objet</a>* obj);
 <a name="l00157"></a>00157 
-<a name="l00162"></a>00162 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a95ed72b96f3462e65f2ef27a1000e6c9" title="Preconditions : tabObj n&#39;est pas initialisé   Postconditions : initialise tous les objets dans tabObj...">initialiserTousLesObjets</a>(<a class="code" href="structObjet.html">Objet</a>** tabObj);
+<a name="l00162"></a>00162 <span class="keywordtype">int</span> <a class="code" href="objet_8c.html#a7704431bd30c56b00f2f568d9d163fca" title="Preconditions : /   Postconditions : retourne le nombre d&#39;objet dans Objets.txt +3.">getNbObjet</a>();
 <a name="l00163"></a>00163 
-<a name="l00168"></a>00168 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a05f25f90c3279f022d265b6dfb01ef6f" title="Preconditions : tabObj est initialisé   Postconditions : libère tabObj.">libererTousLesObjets</a>(<a class="code" href="structObjet.html">Objet</a>** tabObj);
+<a name="l00168"></a>00168 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a95ed72b96f3462e65f2ef27a1000e6c9" title="Preconditions : tabObj n&#39;est pas initialisé   Postconditions : initialise tous les objets dans tabObj...">initialiserTousLesObjets</a>(<a class="code" href="structObjet.html">Objet</a>** tabObj);
 <a name="l00169"></a>00169 
-<a name="l00174"></a>00174 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a07dcebb0f2b8013acffbe8a53c5b7463" title="Preconditions : obj est initialisé   Postconditions : affiche les caractéristiques d&#39;obj dans la cons...">afficherObjet</a>(<span class="keyword">const</span> <a class="code" href="structObjet.html">Objet</a>* obj);
+<a name="l00174"></a>00174 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a05f25f90c3279f022d265b6dfb01ef6f" title="Preconditions : tabObj est initialisé   Postconditions : libère tabObj.">libererTousLesObjets</a>(<a class="code" href="structObjet.html">Objet</a>** tabObj);
 <a name="l00175"></a>00175 
-<a name="l00180"></a>00180 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#abd09e1a0fc90d163c3efadfaf37fb16b" title="Preconditions : fichier1 et fichier2 sont des noms de fichiers accessibles au programme   Postconditi...">copierFichier</a> (<span class="keywordtype">char</span>* fichier1, <span class="keyword">const</span> <span class="keywordtype">char</span>* fichier2);
+<a name="l00180"></a>00180 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a07dcebb0f2b8013acffbe8a53c5b7463" title="Preconditions : obj est initialisé   Postconditions : affiche les caractéristiques d&#39;obj dans la cons...">afficherObjet</a>(<span class="keyword">const</span> <a class="code" href="structObjet.html">Objet</a>* obj);
 <a name="l00181"></a>00181 
-<a name="l00182"></a>00182 <span class="preprocessor">#endif</span>
+<a name="l00186"></a>00186 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#abd09e1a0fc90d163c3efadfaf37fb16b" title="Preconditions : fichier1 et fichier2 sont des noms de fichiers accessibles au programme   Postconditi...">copierFichier</a> (<span class="keywordtype">char</span>* fichier1, <span class="keyword">const</span> <span class="keywordtype">char</span>* fichier2);
+<a name="l00187"></a>00187 
+<a name="l00188"></a>00188 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -168,7 +170,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 3 2013 12:25:10 for Iniuriam by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jun 4 2013 08:18:24 for Iniuriam by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

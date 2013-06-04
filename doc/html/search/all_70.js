@@ -6,6 +6,7 @@ var searchData=
   ['partie',['Partie',['../structPartie.html',1,'']]],
   ['partieinit',['partieInit',['../menu_8c.html#a114606ca4d4349b341cc6fa893ac9e95',1,'partieInit(Partie *jeu, char nom[50], Personnage *liste, int nbJoueur, int *missionsAccomplies, int nbMission, int missionActuelle, int numCarte):&#160;menu.c'],['../menu_8h.html#a114606ca4d4349b341cc6fa893ac9e95',1,'partieInit(Partie *jeu, char nom[50], Personnage *liste, int nbJoueur, int *missionsAccomplies, int nbMission, int missionActuelle, int numCarte):&#160;menu.c']]],
   ['partielibere',['partieLibere',['../menu_8c.html#a746fb9c809d30d9f24400864632d58d0',1,'partieLibere(Partie *jeu):&#160;menu.c'],['../menu_8h.html#a746fb9c809d30d9f24400864632d58d0',1,'partieLibere(Partie *jeu):&#160;menu.c']]],
+  ['partievide',['partieVide',['../menu_8c.html#a54ce2976a210c5c4cde23080274c9067',1,'partieVide(Partie *jeu):&#160;menu.c'],['../menu_8h.html#a54ce2976a210c5c4cde23080274c9067',1,'partieVide(Partie *jeu):&#160;menu.c']]],
   ['perso',['perso',['../structCombattant.html#aa64f22e558a3daf6241a22c84ba9670a',1,'Combattant::perso()'],['../structListe__Perso.html#abed21f99c6a8150d8bf6c1e116633aef',1,'Liste_Perso::perso()']]],
   ['perso1',['perso1',['../structDialogue.html#ab45d01caed255d34dc35876b59bb3d1f',1,'Dialogue']]],
   ['perso2',['perso2',['../structDialogue.html#ab59a0f0b7ce482823a0804435b0d7862',1,'Dialogue']]],
