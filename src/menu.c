@@ -917,7 +917,7 @@ char afficherOptions(SDL_Surface *ecran,TTF_Font *police,FMOD_SYSTEM *system,FMO
     SDL_Rect position,position_curs;
     SDL_Color couleur_texte= {255, 255, 255},couleur_rect= {10, 10, 10};
 
-    char chanson[3][100]={"GRAMATIK-Muy tranquilo.mp3","GRAMATIK-Just Jammin'.mp3","GRAMATIK-The swing of justice.mp3"};
+    char chanson[4][100]={"Terminator 2 Theme Song.mp3","GRAMATIK-Muy tranquilo.mp3","GRAMATIK-Just Jammin'.mp3","GRAMATIK-The swing of justice.mp3"};
 
     while (action!=0&&action!=7)
     {
@@ -986,7 +986,7 @@ char afficherOptions(SDL_Surface *ecran,TTF_Font *police,FMOD_SYSTEM *system,FMO
                     if (choix==0)
                     {
                         choix_musique++;
-                        if (choix_musique>2)choix_musique=2;
+                        if (choix_musique>3)choix_musique=3;
                         strcpy(chaine2,"data/Media/");
                         strcat(chaine2,chanson[choix_musique]);
                         FMOD_Sound_Release(*musique);
@@ -1117,7 +1117,7 @@ char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie,
 
     FMOD_System_Create(&system);
     FMOD_System_Init(system, 2, FMOD_INIT_NORMAL, NULL);
-    FMOD_System_CreateStream(system, "data/Media/GRAMATIK-Muy tranquilo.mp3", FMOD_SOFTWARE | FMOD_2D | FMOD_CREATESTREAM, 0, &musique);
+    FMOD_System_CreateStream(system, "data/Media/Terminator 2 Theme Song.mp3", FMOD_SOFTWARE | FMOD_2D | FMOD_CREATESTREAM, 0, &musique);
     FMOD_Sound_SetLoopCount(musique, -1);
     FMOD_System_PlaySound(system, FMOD_CHANNEL_FREE, musique, 0, NULL);
 
