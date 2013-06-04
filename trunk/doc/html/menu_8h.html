@@ -153,10 +153,45 @@ Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#af41c03a3898db6b95297e1c5d27b7247">afficherMenu</a> (SDL_Surface *ecran, char jeu, TTF_Font *police, <a class="el" href="structPartie.html">Partie</a> *partie, <a class="el" href="structObjet.html">Objet</a> *tabObjet)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : police, partie et ecran sont initalisés. <br/>
  Postconditions : affiche les différentes pages du menu principal si jeu=0 ou du menu pause d'Iniuriam sinon. retourne 0 si l'utilisateur quitte le jeu ou SDL, 9 sinon.  <a href="#af41c03a3898db6b95297e1c5d27b7247"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#ac8f4ce3abd30532850bebbac46a079f2">testMemoire</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#ad6c980d55747ffed25753e73626ca23d">eventDebut</a> (SDL_Surface *ecran)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : SDL est initialisé <br/>
+ Postconditions : gère les évenements du lancement du jeu. Retourne le type d'event réalisé.  <a href="#ad6c980d55747ffed25753e73626ca23d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#a4b19a1ffdbf883803beb19055113cabc">afficherDebut</a> (SDL_Surface *ecran, TTF_Font *police)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Preconditions : police et ecran sont initalisés. <br/>
+ Postconditions : affiche les pages du lancement du jeu retourne 0 si l'utilisateur quitte SDL, 1 sinon.  <a href="#a4b19a1ffdbf883803beb19055113cabc"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#a8396c50bf544009fb2fc4907b00cbad3">mainMenu</a> ()</td></tr>
 </table>
 <hr/><h2>Function Documentation</h2>
+<a class="anchor" id="a4b19a1ffdbf883803beb19055113cabc"></a><!-- doxytag: member="menu.h::afficherDebut" ref="a4b19a1ffdbf883803beb19055113cabc" args="(SDL_Surface *ecran, TTF_Font *police)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char <a class="el" href="menu_8h.html#a4b19a1ffdbf883803beb19055113cabc">afficherDebut</a> </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Surface *&#160;</td>
+          <td class="paramname"><em>ecran</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TTF_Font *&#160;</td>
+          <td class="paramname"><em>police</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Preconditions : police et ecran sont initalisés. <br/>
+ Postconditions : affiche les pages du lancement du jeu retourne 0 si l'utilisateur quitte SDL, 1 sinon. </p>
+
+</div>
+</div>
 <a class="anchor" id="af41c03a3898db6b95297e1c5d27b7247"></a><!-- doxytag: member="menu.h::afficherMenu" ref="af41c03a3898db6b95297e1c5d27b7247" args="(SDL_Surface *ecran, char jeu, TTF_Font *police, Partie *partie, Objet *tabObjet)" -->
 <div class="memitem">
 <div class="memproto">
@@ -322,6 +357,26 @@ Functions</h2></td></tr>
 
 <p>Preconditions : police et ecran sont initalisés. nb&lt;10, 0&lt;=choix&lt;nb, position&gt;0 <br/>
  Postconditions : affiche les différentes pages du menu de création de partie d'Iniuriam. retourne 0 si l'utilisateur quitte SDL, 7 sinon. </p>
+
+</div>
+</div>
+<a class="anchor" id="ad6c980d55747ffed25753e73626ca23d"></a><!-- doxytag: member="menu.h::eventDebut" ref="ad6c980d55747ffed25753e73626ca23d" args="(SDL_Surface *ecran)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char <a class="el" href="menu_8h.html#ad6c980d55747ffed25753e73626ca23d">eventDebut</a> </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Surface *&#160;</td>
+          <td class="paramname"><em>ecran</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Preconditions : SDL est initialisé <br/>
+ Postconditions : gère les évenements du lancement du jeu. Retourne le type d'event réalisé. </p>
 
 </div>
 </div>
@@ -747,22 +802,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ac8f4ce3abd30532850bebbac46a079f2"></a><!-- doxytag: member="menu.h::testMemoire" ref="ac8f4ce3abd30532850bebbac46a079f2" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="menu_8h.html#ac8f4ce3abd30532850bebbac46a079f2">testMemoire</a> </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -781,7 +820,7 @@ Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 4 2013 08:18:25 for Iniuriam by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jun 4 2013 08:30:41 for Iniuriam by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

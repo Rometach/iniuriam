@@ -90,68 +90,68 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00009"></a>00009 <span class="preprocessor">#include &lt;SDL/SDL_image.h&gt;</span>
 <a name="l00010"></a>00010 <span class="preprocessor">#include &quot;<a class="code" href="constante_8h.html">constante.h</a>&quot;</span>
 <a name="l00011"></a>00011 
-<a name="l00016"></a><a class="code" href="structObjet.html">00016</a> <span class="keyword">typedef</span> <span class="keyword">struct</span>
-<a name="l00017"></a>00017 {
-<a name="l00018"></a><a class="code" href="structObjet.html#a98fdd3ee83f21e350c0e766c8f78ec63">00018</a>     <span class="keywordtype">char</span> nom [30];          
-<a name="l00019"></a><a class="code" href="structObjet.html#ae2ee478169ceb832093d10f8b2f41f88">00019</a>     <span class="keywordtype">char</span> <a class="code" href="structObjet.html#ae2ee478169ceb832093d10f8b2f41f88">type</a>;              
-<a name="l00021"></a><a class="code" href="structObjet.html#ab0d7a0455131213db25ea78c0ff7e0cb">00021</a>     <span class="keywordtype">char</span> <a class="code" href="structObjet.html#ab0d7a0455131213db25ea78c0ff7e0cb">utilite</a>;           
-<a name="l00027"></a><a class="code" href="structObjet.html#a6a48f5d6ade947899283e29625bb2e6a">00027</a>     <span class="keywordtype">char</span> <a class="code" href="structObjet.html#a6a48f5d6ade947899283e29625bb2e6a">portee</a>;                
-<a name="l00031"></a><a class="code" href="structObjet.html#a69b6128257b6554d2c80709d8d8ff4d2">00031</a>     <span class="keywordtype">char</span> <a class="code" href="structObjet.html#a69b6128257b6554d2c80709d8d8ff4d2">degats</a>;                
-<a name="l00035"></a><a class="code" href="structObjet.html#a2518b9afe458e705ccae79470a6be3b1">00035</a>     <span class="keywordtype">char</span> <a class="code" href="structObjet.html#a2518b9afe458e705ccae79470a6be3b1">protection</a>;            
-<a name="l00038"></a><a class="code" href="structObjet.html#a808ebcb4fbbcc371d49629d8b228b23e">00038</a>     <span class="keywordtype">char</span> description [150];     
-<a name="l00039"></a><a class="code" href="structObjet.html#aedf734e39f704f4ac83a5c758b1926f5">00039</a>     <span class="keywordtype">int</span> <a class="code" href="structObjet.html#aedf734e39f704f4ac83a5c758b1926f5">valeur</a>;                 
-<a name="l00041"></a><a class="code" href="structObjet.html#ac92873d16f67b9b096468d8ca5758f47">00041</a>     SDL_Surface* <a class="code" href="structObjet.html#ac92873d16f67b9b096468d8ca5758f47">icon</a>;          
-<a name="l00042"></a>00042 } <a class="code" href="structObjet.html">Objet</a>;
-<a name="l00043"></a>00043 
-<a name="l00048"></a>00048 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a85e5451866ec5eecce7857bda4d02921" title="Preconditions : obj n&#39;a pas déjà été initialisé, 0 &lt;= type &lt;= au nombre max d&#39;objet de Objets...">objInit</a> (<a class="code" href="structObjet.html">Objet</a> *obj, <span class="keyword">const</span> <span class="keywordtype">char</span> type);
-<a name="l00049"></a>00049 
-<a name="l00054"></a>00054 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a38425564914a28a8f17eb1f5b71ddce0" title="Preconditions : obj est initialisé   Postconditions : obj est libéré">objLibere</a> (<a class="code" href="structObjet.html">Objet</a>* obj);
-<a name="l00055"></a>00055 
-<a name="l00060"></a>00060 <span class="keywordtype">char</span> <a class="code" href="objet_8c.html#a43d66abae299bccabaaf656d8d1c891d" title="Preconditions : obj est initialisé   Postconditions : retourne le type d&#39;obj.">getObjetType</a>(<span class="keyword">const</span> <a class="code" href="structObjet.html">Objet</a> *obj);
-<a name="l00061"></a>00061 
-<a name="l00066"></a>00066 <span class="keywordtype">char</span> <a class="code" href="objet_8c.html#a4164dd939e5f6be03d5bf94885dde573" title="Preconditions : obj est initialisé   Postconditions : retourne l&#39;utilité d&#39;obj.">getObjetUtilite</a>(<span class="keyword">const</span> <a class="code" href="structObjet.html">Objet</a> *obj);
-<a name="l00067"></a>00067 
-<a name="l00072"></a>00072 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#acf4ede1243a20581ac4a98f6b774c9da" title="Preconditions : obj est initialisé   Postconditions : copie dans utilite l&#39;utilité d&#39;obj...">getObjetUtiliteNom</a>(<span class="keywordtype">char</span>* utilite, <span class="keyword">const</span> <a class="code" href="structObjet.html">Objet</a> *obj);
-<a name="l00073"></a>00073 
-<a name="l00078"></a>00078 <span class="keywordtype">char</span> <a class="code" href="objet_8c.html#a094962059cea47c8ab7cd20d69bc7716" title="Preconditions : obj est initialisé   Postconditions : retourne la portée d&#39;obj.">getObjetPortee</a>(<span class="keyword">const</span> <a class="code" href="structObjet.html">Objet</a> *obj);
-<a name="l00079"></a>00079 
-<a name="l00084"></a>00084 <span class="keywordtype">char</span> <a class="code" href="objet_8c.html#abce0256c265edc34c571b8b529d693f2" title="Preconditions : obj est initialisé   Postconditions : retourne la valeur de dégâts d&#39;obj...">getObjetDegats</a>(<span class="keyword">const</span> <a class="code" href="structObjet.html">Objet</a> *obj);
-<a name="l00085"></a>00085 
-<a name="l00090"></a>00090 <span class="keywordtype">char</span> <a class="code" href="objet_8c.html#a4ec6253ae71604ee2fe0f6d8b75fc2b4" title="Preconditions : obj est initialisé   Postconditions : retourne la valeur de protection d&#39;obj...">getObjetProtection</a>(<span class="keyword">const</span> <a class="code" href="structObjet.html">Objet</a> *obj);
-<a name="l00091"></a>00091 
-<a name="l00096"></a>00096 <span class="keywordtype">int</span> <a class="code" href="objet_8c.html#a8af4fd7d579ae20205d6db935fe45d28" title="Preconditions : obj est initialisé   Postconditions : retourne la valeur (prix) d&#39;obj.">getObjetValeur</a>(<span class="keyword">const</span> <a class="code" href="structObjet.html">Objet</a> *obj);
-<a name="l00097"></a>00097 
-<a name="l00102"></a>00102 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a46cf3be45659b0941edf9b691baa1150" title="Preconditions : obj est initialisé ; nom est une chaine de longueur &gt;=30   Postconditions : retourne l...">getObjetNom</a>(<span class="keywordtype">char</span>* nom, <span class="keyword">const</span> <a class="code" href="structObjet.html">Objet</a> *obj);
-<a name="l00103"></a>00103 
-<a name="l00108"></a>00108 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#ab18a94bc117f183747bfeb4efc15e643" title="Preconditions : obj est initialisé, description est une chaine de longueur &gt;=150   Postconditions : co...">getObjetDescription</a>(<span class="keywordtype">char</span>* description, <span class="keyword">const</span> <a class="code" href="structObjet.html">Objet</a> *obj);
-<a name="l00109"></a>00109 
-<a name="l00114"></a>00114 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a9aa1ee3462c1622cda0b23ee32d08c17" title="Preconditions : nom est une chaine de longueur &lt;30   Postconditions : change le nom d&#39;obj pour nom...">setObjetNom</a>(<a class="code" href="structObjet.html">Objet</a>* obj, <span class="keyword">const</span> <span class="keywordtype">char</span>* nom);
-<a name="l00115"></a>00115 
-<a name="l00120"></a>00120 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a1669c4c2e68c3a6421cc316e78e1e28b" title="Preconditions : /   Postconditions : change la portée d&#39;obj pour portee.">setObjetPortee</a>(<a class="code" href="structObjet.html">Objet</a>* obj, <span class="keyword">const</span> <span class="keywordtype">int</span> portee);
-<a name="l00121"></a>00121 
-<a name="l00126"></a>00126 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a0a45b57d1ea9cf31029c534a7cab6d5a" title="Preconditions : /   Postconditions : change les degats d&#39;obj pour degats.">setObjetDegats</a>(<a class="code" href="structObjet.html">Objet</a>* obj, <span class="keyword">const</span> <span class="keywordtype">int</span> degats);
-<a name="l00127"></a>00127 
-<a name="l00132"></a>00132 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a36db39c915b715bd0030b20b825480ae" title="Preconditions : /   Postconditions : change la protection d&#39;obj pour protection.">setObjetProtection</a>(<a class="code" href="structObjet.html">Objet</a>* obj, <span class="keyword">const</span> <span class="keywordtype">int</span> protection);
-<a name="l00133"></a>00133 
-<a name="l00138"></a>00138 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a871ef28d6fe0d02b058ca78000f45c68" title="Preconditions : /   Postconditions : change l&#39;utilité d&#39;obj pour utilite.">setObjetUtilite</a>(<a class="code" href="structObjet.html">Objet</a>* obj, <span class="keyword">const</span> <span class="keywordtype">int</span> utilite);
-<a name="l00139"></a>00139 
-<a name="l00144"></a>00144 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a2479ce411a57767d34464a485ed71595" title="Preconditions : /   Postconditions : change la valeur d&#39;obj pour valeur.">setObjetValeur</a>(<a class="code" href="structObjet.html">Objet</a>* obj, <span class="keyword">const</span> <span class="keywordtype">int</span> valeur);
-<a name="l00145"></a>00145 
-<a name="l00150"></a>00150 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#ae29cc0e2b0191644bedf79a3709e3b42" title="Preconditions : nom est une chaine de longueur &lt;150   Postconditions : change la description d&#39;obj pou...">setObjetDescription</a>(<a class="code" href="structObjet.html">Objet</a>* obj, <span class="keyword">const</span> <span class="keywordtype">char</span>* description);
-<a name="l00151"></a>00151 
-<a name="l00156"></a>00156 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a1827254703732afacfbddf84fc8c2855" title="Preconditions : obj est initialisé   Postconditions : fixe l&#39;icon d&#39;obj en fonction de sa race...">setObjetIcon</a>(<a class="code" href="structObjet.html">Objet</a>* obj);
-<a name="l00157"></a>00157 
-<a name="l00162"></a>00162 <span class="keywordtype">int</span> <a class="code" href="objet_8c.html#a7704431bd30c56b00f2f568d9d163fca" title="Preconditions : /   Postconditions : retourne le nombre d&#39;objet dans Objets.txt +3.">getNbObjet</a>();
-<a name="l00163"></a>00163 
-<a name="l00168"></a>00168 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a95ed72b96f3462e65f2ef27a1000e6c9" title="Preconditions : tabObj n&#39;est pas initialisé   Postconditions : initialise tous les objets dans tabObj...">initialiserTousLesObjets</a>(<a class="code" href="structObjet.html">Objet</a>** tabObj);
-<a name="l00169"></a>00169 
-<a name="l00174"></a>00174 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a05f25f90c3279f022d265b6dfb01ef6f" title="Preconditions : tabObj est initialisé   Postconditions : libère tabObj.">libererTousLesObjets</a>(<a class="code" href="structObjet.html">Objet</a>** tabObj);
-<a name="l00175"></a>00175 
-<a name="l00180"></a>00180 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a07dcebb0f2b8013acffbe8a53c5b7463" title="Preconditions : obj est initialisé   Postconditions : affiche les caractéristiques d&#39;obj dans la cons...">afficherObjet</a>(<span class="keyword">const</span> <a class="code" href="structObjet.html">Objet</a>* obj);
-<a name="l00181"></a>00181 
-<a name="l00186"></a>00186 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#abd09e1a0fc90d163c3efadfaf37fb16b" title="Preconditions : fichier1 et fichier2 sont des noms de fichiers accessibles au programme   Postconditi...">copierFichier</a> (<span class="keywordtype">char</span>* fichier1, <span class="keyword">const</span> <span class="keywordtype">char</span>* fichier2);
-<a name="l00187"></a>00187 
-<a name="l00188"></a>00188 <span class="preprocessor">#endif</span>
+<a name="l00018"></a><a class="code" href="structObjet.html">00018</a> <span class="keyword">typedef</span> <span class="keyword">struct</span>
+<a name="l00019"></a>00019 {
+<a name="l00020"></a><a class="code" href="structObjet.html#a98fdd3ee83f21e350c0e766c8f78ec63">00020</a>     <span class="keywordtype">char</span> nom [30];          
+<a name="l00021"></a><a class="code" href="structObjet.html#ae2ee478169ceb832093d10f8b2f41f88">00021</a>     <span class="keywordtype">char</span> <a class="code" href="structObjet.html#ae2ee478169ceb832093d10f8b2f41f88">type</a>;              
+<a name="l00023"></a><a class="code" href="structObjet.html#ab0d7a0455131213db25ea78c0ff7e0cb">00023</a>     <span class="keywordtype">char</span> <a class="code" href="structObjet.html#ab0d7a0455131213db25ea78c0ff7e0cb">utilite</a>;           
+<a name="l00029"></a><a class="code" href="structObjet.html#a6a48f5d6ade947899283e29625bb2e6a">00029</a>     <span class="keywordtype">char</span> <a class="code" href="structObjet.html#a6a48f5d6ade947899283e29625bb2e6a">portee</a>;                
+<a name="l00033"></a><a class="code" href="structObjet.html#a69b6128257b6554d2c80709d8d8ff4d2">00033</a>     <span class="keywordtype">char</span> <a class="code" href="structObjet.html#a69b6128257b6554d2c80709d8d8ff4d2">degats</a>;                
+<a name="l00037"></a><a class="code" href="structObjet.html#a2518b9afe458e705ccae79470a6be3b1">00037</a>     <span class="keywordtype">char</span> <a class="code" href="structObjet.html#a2518b9afe458e705ccae79470a6be3b1">protection</a>;            
+<a name="l00040"></a><a class="code" href="structObjet.html#a808ebcb4fbbcc371d49629d8b228b23e">00040</a>     <span class="keywordtype">char</span> description [150];     
+<a name="l00041"></a><a class="code" href="structObjet.html#aedf734e39f704f4ac83a5c758b1926f5">00041</a>     <span class="keywordtype">int</span> <a class="code" href="structObjet.html#aedf734e39f704f4ac83a5c758b1926f5">valeur</a>;                 
+<a name="l00043"></a><a class="code" href="structObjet.html#ac92873d16f67b9b096468d8ca5758f47">00043</a>     SDL_Surface* <a class="code" href="structObjet.html#ac92873d16f67b9b096468d8ca5758f47">icon</a>;          
+<a name="l00044"></a>00044 } <a class="code" href="structObjet.html">Objet</a>;
+<a name="l00045"></a>00045 
+<a name="l00050"></a>00050 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a85e5451866ec5eecce7857bda4d02921" title="Preconditions : obj n&#39;a pas déjà été initialisé, 0 &lt;= type &lt;= au nombre max d&#39;objet de Objets...">objInit</a> (<a class="code" href="structObjet.html">Objet</a> *obj, <span class="keyword">const</span> <span class="keywordtype">char</span> type);
+<a name="l00051"></a>00051 
+<a name="l00056"></a>00056 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a38425564914a28a8f17eb1f5b71ddce0" title="Preconditions : obj est initialisé   Postconditions : obj est libéré">objLibere</a> (<a class="code" href="structObjet.html">Objet</a>* obj);
+<a name="l00057"></a>00057 
+<a name="l00062"></a>00062 <span class="keywordtype">char</span> <a class="code" href="objet_8c.html#a43d66abae299bccabaaf656d8d1c891d" title="Preconditions : obj est initialisé   Postconditions : retourne le type d&#39;obj.">getObjetType</a>(<span class="keyword">const</span> <a class="code" href="structObjet.html">Objet</a> *obj);
+<a name="l00063"></a>00063 
+<a name="l00068"></a>00068 <span class="keywordtype">char</span> <a class="code" href="objet_8c.html#a4164dd939e5f6be03d5bf94885dde573" title="Preconditions : obj est initialisé   Postconditions : retourne l&#39;utilité d&#39;obj.">getObjetUtilite</a>(<span class="keyword">const</span> <a class="code" href="structObjet.html">Objet</a> *obj);
+<a name="l00069"></a>00069 
+<a name="l00074"></a>00074 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#acf4ede1243a20581ac4a98f6b774c9da" title="Preconditions : obj est initialisé   Postconditions : copie dans utilite l&#39;utilité d&#39;obj...">getObjetUtiliteNom</a>(<span class="keywordtype">char</span>* utilite, <span class="keyword">const</span> <a class="code" href="structObjet.html">Objet</a> *obj);
+<a name="l00075"></a>00075 
+<a name="l00080"></a>00080 <span class="keywordtype">char</span> <a class="code" href="objet_8c.html#a094962059cea47c8ab7cd20d69bc7716" title="Preconditions : obj est initialisé   Postconditions : retourne la portée d&#39;obj.">getObjetPortee</a>(<span class="keyword">const</span> <a class="code" href="structObjet.html">Objet</a> *obj);
+<a name="l00081"></a>00081 
+<a name="l00086"></a>00086 <span class="keywordtype">char</span> <a class="code" href="objet_8c.html#abce0256c265edc34c571b8b529d693f2" title="Preconditions : obj est initialisé   Postconditions : retourne la valeur de dégâts d&#39;obj...">getObjetDegats</a>(<span class="keyword">const</span> <a class="code" href="structObjet.html">Objet</a> *obj);
+<a name="l00087"></a>00087 
+<a name="l00092"></a>00092 <span class="keywordtype">char</span> <a class="code" href="objet_8c.html#a4ec6253ae71604ee2fe0f6d8b75fc2b4" title="Preconditions : obj est initialisé   Postconditions : retourne la valeur de protection d&#39;obj...">getObjetProtection</a>(<span class="keyword">const</span> <a class="code" href="structObjet.html">Objet</a> *obj);
+<a name="l00093"></a>00093 
+<a name="l00098"></a>00098 <span class="keywordtype">int</span> <a class="code" href="objet_8c.html#a8af4fd7d579ae20205d6db935fe45d28" title="Preconditions : obj est initialisé   Postconditions : retourne la valeur (prix) d&#39;obj.">getObjetValeur</a>(<span class="keyword">const</span> <a class="code" href="structObjet.html">Objet</a> *obj);
+<a name="l00099"></a>00099 
+<a name="l00104"></a>00104 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a46cf3be45659b0941edf9b691baa1150" title="Preconditions : obj est initialisé ; nom est une chaine de longueur &gt;=30   Postconditions : retourne l...">getObjetNom</a>(<span class="keywordtype">char</span>* nom, <span class="keyword">const</span> <a class="code" href="structObjet.html">Objet</a> *obj);
+<a name="l00105"></a>00105 
+<a name="l00110"></a>00110 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#ab18a94bc117f183747bfeb4efc15e643" title="Preconditions : obj est initialisé, description est une chaine de longueur &gt;=150   Postconditions : co...">getObjetDescription</a>(<span class="keywordtype">char</span>* description, <span class="keyword">const</span> <a class="code" href="structObjet.html">Objet</a> *obj);
+<a name="l00111"></a>00111 
+<a name="l00116"></a>00116 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a9aa1ee3462c1622cda0b23ee32d08c17" title="Preconditions : nom est une chaine de longueur &lt;30   Postconditions : change le nom d&#39;obj pour nom...">setObjetNom</a>(<a class="code" href="structObjet.html">Objet</a>* obj, <span class="keyword">const</span> <span class="keywordtype">char</span>* nom);
+<a name="l00117"></a>00117 
+<a name="l00122"></a>00122 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a1669c4c2e68c3a6421cc316e78e1e28b" title="Preconditions : /   Postconditions : change la portée d&#39;obj pour portee.">setObjetPortee</a>(<a class="code" href="structObjet.html">Objet</a>* obj, <span class="keyword">const</span> <span class="keywordtype">int</span> portee);
+<a name="l00123"></a>00123 
+<a name="l00128"></a>00128 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a0a45b57d1ea9cf31029c534a7cab6d5a" title="Preconditions : /   Postconditions : change les degats d&#39;obj pour degats.">setObjetDegats</a>(<a class="code" href="structObjet.html">Objet</a>* obj, <span class="keyword">const</span> <span class="keywordtype">int</span> degats);
+<a name="l00129"></a>00129 
+<a name="l00134"></a>00134 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a36db39c915b715bd0030b20b825480ae" title="Preconditions : /   Postconditions : change la protection d&#39;obj pour protection.">setObjetProtection</a>(<a class="code" href="structObjet.html">Objet</a>* obj, <span class="keyword">const</span> <span class="keywordtype">int</span> protection);
+<a name="l00135"></a>00135 
+<a name="l00140"></a>00140 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a871ef28d6fe0d02b058ca78000f45c68" title="Preconditions : /   Postconditions : change l&#39;utilité d&#39;obj pour utilite.">setObjetUtilite</a>(<a class="code" href="structObjet.html">Objet</a>* obj, <span class="keyword">const</span> <span class="keywordtype">int</span> utilite);
+<a name="l00141"></a>00141 
+<a name="l00146"></a>00146 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a2479ce411a57767d34464a485ed71595" title="Preconditions : /   Postconditions : change la valeur d&#39;obj pour valeur.">setObjetValeur</a>(<a class="code" href="structObjet.html">Objet</a>* obj, <span class="keyword">const</span> <span class="keywordtype">int</span> valeur);
+<a name="l00147"></a>00147 
+<a name="l00152"></a>00152 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#ae29cc0e2b0191644bedf79a3709e3b42" title="Preconditions : nom est une chaine de longueur &lt;150   Postconditions : change la description d&#39;obj pou...">setObjetDescription</a>(<a class="code" href="structObjet.html">Objet</a>* obj, <span class="keyword">const</span> <span class="keywordtype">char</span>* description);
+<a name="l00153"></a>00153 
+<a name="l00158"></a>00158 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a1827254703732afacfbddf84fc8c2855" title="Preconditions : obj est initialisé   Postconditions : fixe l&#39;icon d&#39;obj en fonction de sa race...">setObjetIcon</a>(<a class="code" href="structObjet.html">Objet</a>* obj);
+<a name="l00159"></a>00159 
+<a name="l00164"></a>00164 <span class="keywordtype">int</span> <a class="code" href="objet_8c.html#a7704431bd30c56b00f2f568d9d163fca" title="Preconditions : /   Postconditions : retourne le nombre d&#39;objet dans Objets.txt +3.">getNbObjet</a>();
+<a name="l00165"></a>00165 
+<a name="l00170"></a>00170 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a95ed72b96f3462e65f2ef27a1000e6c9" title="Preconditions : tabObj n&#39;est pas initialisé   Postconditions : initialise tous les objets dans tabObj...">initialiserTousLesObjets</a>(<a class="code" href="structObjet.html">Objet</a>** tabObj);
+<a name="l00171"></a>00171 
+<a name="l00176"></a>00176 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a05f25f90c3279f022d265b6dfb01ef6f" title="Preconditions : tabObj est initialisé   Postconditions : libère tabObj.">libererTousLesObjets</a>(<a class="code" href="structObjet.html">Objet</a>** tabObj);
+<a name="l00177"></a>00177 
+<a name="l00182"></a>00182 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#a07dcebb0f2b8013acffbe8a53c5b7463" title="Preconditions : obj est initialisé   Postconditions : affiche les caractéristiques d&#39;obj dans la cons...">afficherObjet</a>(<span class="keyword">const</span> <a class="code" href="structObjet.html">Objet</a>* obj);
+<a name="l00183"></a>00183 
+<a name="l00188"></a>00188 <span class="keywordtype">void</span> <a class="code" href="objet_8c.html#abd09e1a0fc90d163c3efadfaf37fb16b" title="Preconditions : fichier1 et fichier2 sont des noms de fichiers accessibles au programme   Postconditi...">copierFichier</a> (<span class="keywordtype">char</span>* fichier1, <span class="keyword">const</span> <span class="keywordtype">char</span>* fichier2);
+<a name="l00189"></a>00189 
+<a name="l00190"></a>00190 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -170,7 +170,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 4 2013 08:18:24 for Iniuriam by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jun 4 2013 08:30:41 for Iniuriam by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>
