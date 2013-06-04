@@ -105,5 +105,10 @@ void initialiserTousLesPNJ2(Liste_Perso** tabPNJ, Objet* tabObjets);
 */
 void libererTousLesPNJ2(Liste_Perso** tabPNJ);
 
+/**
+* \brief Preconditions : tabPNJ est initialisé
+* <br /> Postconditions : récupère les listes de PNJ appartenant à la carte numCarte.
+*/
+int getPNJCarte(Liste_Perso** tabPNJ,char numCarte);
 
 #endif

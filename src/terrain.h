@@ -16,6 +16,7 @@
 
 typedef struct
 {
+    unsigned char numCarte;
     unsigned int nbrTileChipset;        /** le nombre de tiles du chipset*/
     int decalageX;      /** Uniquement pour l'éditeur: décalage de la carte par rapport a l'affichage du chipset en case (0 en jeu)*/
     int defilY;         /** Uniquement pour l'éditeur: le défilement du chipset en case*/
@@ -23,7 +24,6 @@ typedef struct
 
     unsigned int hauteurChipset;   /** hauteur en case */
     unsigned int largeurChipset;   /** largeur en case*/
-    char numCarte;   /** numero de la carte pour charger */
     Tile* tabChipset;       /** le tableau des cases du chipset*/
     SDL_Surface* chipset;       /** le chipset*/
 

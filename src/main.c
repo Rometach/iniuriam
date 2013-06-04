@@ -17,94 +17,53 @@
 
 int main (int argc, char **argv)
 {
-//    Objet *tabO;
-//    Liste_Perso* tabPNJ;
-//
-//    initialiserTousLesObjets(&tabO);
-//    initialiserTousLesPNJ2(&tabPNJ, tabO);
-//
-//    libererTousLesObjets(&tabO);
-//    libererTousLesPNJ2(&tabPNJ);
-//
-//    return 0;
-
-
-    Partie partieTest;
-    int i, nbrHero = 3, nbrPnj = 4;
-    Objet *tabObjets=NULL;
     SDL_Surface* ecran = NULL;
     TTF_Font *police = NULL;
-    Terrain terrain;
-    terInit(&terrain);
-    terCharger(&terrain, "data/Cartes/carte.map");
 
-    SDL_Init(SDL_INIT_VIDEO);
-    TTF_Init();
-    ecran = SDL_SetVideoMode(TAILLE_FENETRE_L, TAILLE_FENETRE_H, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
-    SDL_WM_SetCaption("Iniuriam", NULL);
+    Partie jeu;
+    Objet *tabObjet=NULL;
+    Mission missionActuelle;
+    char chemin [30];
+    char c,d;
 
-    police = TTF_OpenFont("data/Jester.ttf", 30);
-
-   partieVide(&partieTest);
-
-   afficherMenu (ecran, 0, police,  &partieTest, tabObjets);
+    int nbPNJ;
+    Liste_Perso *tabPnj=NULL;
 
     srand(time(NULL));
 
+    SDL_Init(SDL_INIT_VIDEO);
+    ecran = SDL_SetVideoMode(TAILLE_FENETRE_L, TAILLE_FENETRE_H, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
+    SDL_WM_SetCaption("Iniuriam", NULL);
+    TTF_Init();
+    police = TTF_OpenFont("data/Jester.ttf", 30);
 
-    Liste_Perso* pnj=NULL;
-    Liste_Perso* liste=NULL;
-    Personnage* heros;
+    partieVide(&jeu);
+    initialiserTousLesObjets(&tabObjet);
+    Terrain terrain;
+    terInit(&terrain);
 
-    heros=(Personnage*)malloc(nbrHero*sizeof(Personnage));
-    pnj=(Liste_Perso*)malloc(nbrPnj*sizeof(Liste_Perso));
-
-    initialiserTousLesObjets(&tabObjets);
-
-    for(i=0; i<nbrPnj; i++)
+    c=afficherDebut(ecran,police);
+    if (c)
     {
-        listePersoInit(&pnj[i], 1, terrain.numCarte);
+        d=afficherMenu (ecran, 0, police,  &jeu,tabObjet);
+
+        if (d)
+        {
+            getPartieMissionActuelle(&jeu,&missionActuelle,tabObjet);
+            sprintf(chemin,"data/Cartes/carte%d.map",getPartieNumCarte(&jeu));
+            terCharger(&terrain, chemin);
+            initialiserTousLesPNJ2(&tabPnj,tabObjet);
+            nbPNJ=getPNJCarte(&tabPnj,getPartieNumCarte(&jeu));
+            eventJeuSDL(getPartieJoueurs(&jeu), getPartieNbJoueur(&jeu), tabPnj, nbPNJ, &missionActuelle, tabObjet, &terrain, ecran);
+            libererTousLesPNJ2(&tabPnj);
+        }
     }
+    libererTousLesObjets(&tabObjet);
+    partieLibere(&jeu);
+    terLibere(&terrain);
 
-    Mission tutoriel;
-    missionInit(&tutoriel);
-    missionDefinir(&tutoriel, 1, tabObjets);
-
-    nouveauPerso (&heros[0], "Toromis", 2, 1, 2, 1, 0, 100, tabObjets);
-    nouveauPerso (&heros[1], "Plop", 3, 1, 2, 1, 0, 100, tabObjets);
-    nouveauPerso (&heros[2], "Oh!", 4, 1, 2, 1, 0, 100, tabObjets);
-    nouveauPerso (pnj[0].perso, "Babar", 2, 1, 2, 1, 0, 100, tabObjets);
-    nouveauPerso (&pnj[1].perso[0], "Mechant", 1, 1, 1, 1, 0, 100, tabObjets);
-    nouveauPerso (pnj[2].perso, "Babar", 2, 1, 2, 1, 0, 100, tabObjets);
-    nouveauPerso (&pnj[3].perso[0], "VillainI", 2, 1, 1, 1, 0, 100, tabObjets);
-
-    setPersoPosX(pnj[1].perso, TILE_LARGEUR*5);
-    setPersoPosY(pnj[1].perso, TILE_HAUTEUR*1);
-
-    setPersoPosX(pnj[2].perso, TILE_LARGEUR*1);
-    setPersoPosY(pnj[2].perso, TILE_HAUTEUR*5);
-
-    setPersoPosX(pnj[3].perso, TILE_LARGEUR*5);
-    setPersoPosY(pnj[3].perso, TILE_HAUTEUR*5);
-
- //   eventJeuSDL(getPartieJoueurs(&partieTest), getPartieNbJoueur(&partieTest), pnj, nbrPnj, &tutoriel, tabObjets, &terrain, ecran);
-    eventJeuSDL(heros, nbrHero, pnj, nbrPnj, &tutoriel, tabObjets, &terrain, ecran);
-    for(i=0; i<nbrHero; i++)
-    {
-        persoLibere(&heros[i]);
-    }
-
-    for(i=0; i<getNbPNJ(); i++)
-    {
-        listePersoLibere(&pnj[i]);
-    }
     TTF_CloseFont(police);
     TTF_Quit();
-    listePersoLibere(pnj);
-    tabListePersoLibere(pnj);
-    libererTousLesObjets(&tabObjets);
-    terLibere(&terrain);
-    free(heros);
     SDL_FreeSurface(ecran);
     SDL_Quit();
 

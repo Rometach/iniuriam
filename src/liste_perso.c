@@ -181,10 +181,6 @@ int getPNJCarte(Liste_Perso** tabPNJ,char numCarte)
             j++;
         }
     }
-    for(i=j;i<max;i++)
-    {
-        free(((*tabPNJ)[i]).perso);
-    }
     return j;
 }
 

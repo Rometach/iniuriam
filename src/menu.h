@@ -134,7 +134,18 @@ char afficherOptions(SDL_Surface *ecran,TTF_Font *police,FMOD_SYSTEM *system,FMO
 */
 char afficherMenu (SDL_Surface *ecran, char jeu,TTF_Font *police,Partie* partie,Objet* tabObjet);
 
-void testMemoire();
+/**
+* \brief Preconditions : SDL est initialisé
+* <br /> Postconditions : gère les évenements du lancement du jeu. Retourne le type d'event réalisé.
+*/
+char eventDebut(SDL_Surface *ecran);
+
+/**
+* \brief Preconditions : police et ecran sont initalisés.
+* <br /> Postconditions : affiche les pages du lancement du jeu
+*                         retourne 0 si l'utilisateur quitte SDL, 1 sinon.
+*/
+char afficherDebut (SDL_Surface *ecran,TTF_Font *police);
 
 int mainMenu();
 #endif
