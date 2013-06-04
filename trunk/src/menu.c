@@ -798,7 +798,7 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu,char* sauve
                     case 1: images=IMG_Load("data/Media/cyborg man.jpg");break;
                     case 2: images=IMG_Load("data/Media/sicari man.jpg");break;
                     case 3: images=IMG_Load("data/Media/medarsin man.jpg");break;
-                    default:break;
+                    default: images=IMG_Load("data/Media/medarsin man.jpg"); break;
                 }
                 position.x=TAILLE_FENETRE_L/1.5;
                 position.y=100;
@@ -826,7 +826,7 @@ char nouvellePartie (SDL_Surface *ecran,TTF_Font *police,Partie* jeu,char* sauve
                 else if(choix==1) strcat(tampon,"woman.jpg");
                 images=IMG_Load(tampon);
                 position.x=TAILLE_FENETRE_L/1.5;
-                position.y=0;
+                position.y=100;
                 SDL_BlitSurface(images, NULL, ecran, &position);
                 SDL_FreeSurface(images);
             break;
