@@ -1722,7 +1722,7 @@ char afficherDebut (SDL_Surface *ecran,TTF_Font *police)
     FMOD_Sound_SetLoopCount(musique, -1);
 
     police2 = TTF_OpenFont("data/TechnoHideo.ttf", 60);
-    TTF_SetFontStyle(police2, TTF_STYLE_BOLD | TTF_STYLE_UNDERLINE);
+    TTF_SetFontStyle(police2, TTF_STYLE_BOLD);
 
     SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
     texte = TTF_RenderText_Blended(police, "Dans fort longtemps ...", couleur_texte);
